@@ -1,0 +1,98 @@
+<?php
+
+namespace organizer\models;
+
+use metalguardian\fileProcessor\behaviors\UploadBehavior;
+use metalguardian\fileProcessor\helpers\FPM;
+use Yii;
+use yii\helpers\ArrayHelper;
+
+/**
+ * This is the model class for table "organizer".
+ *
+ * @property integer $id
+ * @property string $created
+ * @property string $label
+ * @property string $country
+ * @property string $site
+ * @property string $phone
+ * @property string $email
+ * @property integer $image_id
+ * @property string $promo
+ * @property string $content
+ * @property integer $published
+ */
+class Organizer extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'organizer';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['created', 'label', 'country', 'site', /*'image_id',*/ 'promo'], 'required'],
+            [['created'], 'safe'],
+            [['image_id', 'published'], 'integer'],
+            [['promo', 'content'], 'string'],
+            [['label', 'country', 'site', 'phone', 'email'], 'string', 'max' => 255]
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'created' => 'Created',
+            'label' => 'Label',
+            'country' => 'Country',
+            'site' => 'Site',
+            'phone' => 'Phone',
+            'email' => 'Email',
+            'image_id' => 'Image ID',
+            'promo' => 'Promo',
+            'content' => 'Content',
+            'published' => 'Published',
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return ArrayHelper::merge(
+            parent::behaviors(),
+            [
+                'image_id' => [
+                    'class' => UploadBehavior::className(),
+                    'attribute' => 'image_id',
+                    'image' => true,
+                    'required' => true,
+                ],
+            ]
+        );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeDelete()
+    {
+        parent::beforeDelete();
+
+        FPM::deleteFile($this->image_id);
+
+        return true;
+    }
+}
