@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel organizer\models\OrganizerSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Organizers';
+$this->title = 'Организаторы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="organizer-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Organizer', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать организатора', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -26,16 +26,24 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\Column'],
 
             'id',
-            'created',
+
             'label',
             'country',
             'site',
-            // 'phone',
-            // 'email:email',
+            'phone',
+            'email:email',
             // 'image_id',
             // 'promo:ntext',
             // 'content:ntext',
-            // 'published',
+            [
+                'attribute' => 'published',
+                'value' => function ($model) {
+                    /** @var $model \organizer\models\Organizer */
+                    return $model->published ? 'Да' : 'Нет';
+                },
+                'filter' => [0 => 'Нет', 1 => 'Да']
+            ],
+            'created',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

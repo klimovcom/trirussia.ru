@@ -37,7 +37,7 @@ class Sport extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'label' => 'Label',
+            'label' => 'Название',
         ];
     }
 }

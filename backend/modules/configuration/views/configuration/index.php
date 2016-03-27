@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel configuration\models\ConfigurationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Configurations';
+$this->title = 'Конфигурации';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="configuration-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Configuration', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать конфигурацию', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'label',
-            'description:ntext',
+            // 'description:ntext',
             'key',
             'value',
 

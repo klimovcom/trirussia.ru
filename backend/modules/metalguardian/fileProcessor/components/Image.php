@@ -20,7 +20,6 @@ use yii\base\InvalidParamException;
  * Class Image
  * @package metalguardian\fileProcessor\components
  */
-
 class Image
 {
     /**
@@ -76,7 +75,7 @@ class Image
      */
     protected static function createImagine()
     {
-        foreach ((array) static::$driver as $driver) {
+        foreach ((array)static::$driver as $driver) {
             switch ($driver) {
                 case self::DRIVER_GMAGICK:
                     if (class_exists('Gmagick', false)) {
@@ -97,7 +96,7 @@ class Image
                     throw new InvalidConfigException("Unknown driver: $driver");
             }
         }
-        throw new InvalidConfigException("Your system does not support any of these drivers: " . implode(',', (array) static::$driver));
+        throw new InvalidConfigException("Your system does not support any of these drivers: " . implode(',', (array)static::$driver));
     }
 
     /**
@@ -123,6 +122,7 @@ class Image
             ->copy()
             ->crop(new Point($startX, $startY), new Box($width, $height));
     }
+
     /**
      * Creates a thumbnail image. The function differs from `\Imagine\Image\ImageInterface::thumbnail()` function that
      * it keeps the aspect ratio of the image.

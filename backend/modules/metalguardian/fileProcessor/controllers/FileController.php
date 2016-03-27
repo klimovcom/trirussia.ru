@@ -55,8 +55,7 @@ class FileController extends \yii\web\Controller
             FileHelper::createDirectory(FPM::getThumbnailDirectory($id, $module, $size));
 
             if (isset($config['action'])) {
-                switch($config['action'])
-                {
+                switch ($config['action']) {
                     case FPM::ACTION_ADAPTIVE_THUMBNAIL:
                         Image::thumbnail($fileName, $config['width'], $config['height'])
                             ->save($thumbnailFile)

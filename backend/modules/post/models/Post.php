@@ -22,6 +22,13 @@ use yii\helpers\ArrayHelper;
  */
 class Post extends \yii\db\ActiveRecord
 {
+    public function __construct(array $config = [])
+    {
+        $this->created = date("Y-m-d H:i", time());
+        $this->author_id = Yii::$app->user->id;
+        return parent::__construct($config);
+    }
+
     /**
      * @inheritdoc
      */
@@ -38,7 +45,8 @@ class Post extends \yii\db\ActiveRecord
         return [
             [['created', 'author_id', 'label', 'url', 'promo', 'content', 'image_id'], 'required'],
             [['created'], 'safe'],
-            [['author_id', /*'image_id',*/ 'published'], 'integer'],
+            [['author_id', /*'image_id',*/
+                'published'], 'integer'],
             [['promo', 'content'], 'string'],
             [['label', 'url'], 'string', 'max' => 255],
             [['url'], 'unique']
@@ -52,14 +60,14 @@ class Post extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'created' => 'Created',
-            'author_id' => 'Author ID',
-            'label' => 'Label',
-            'url' => 'Url',
-            'promo' => 'Promo',
-            'content' => 'Content',
-            'image_id' => 'Image ID',
-            'published' => 'Published',
+            'created' => 'Создана',
+            'author_id' => 'Автор',
+            'label' => 'Заголовок',
+            'url' => 'URL',
+            'promo' => 'Промо',
+            'content' => 'Содержание',
+            'image_id' => 'Изображение',
+            'published' => 'Опубликовано',
         ];
     }
 

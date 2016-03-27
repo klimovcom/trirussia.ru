@@ -16,6 +16,12 @@ use Yii;
  */
 class Page extends \yii\db\ActiveRecord
 {
+    public function __construct(array $config = [])
+    {
+        $this->created = date("Y-m-d H:i", time());
+        return parent::__construct($config);
+    }
+
     /**
      * @inheritdoc
      */
@@ -46,11 +52,11 @@ class Page extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'created' => 'Created',
-            'label' => 'Label',
-            'content' => 'Content',
-            'url' => 'Url',
-            'published' => 'Published',
+            'created' => 'Создана',
+            'label' => 'Заголовок',
+            'content' => 'Содержание',
+            'url' => 'URL',
+            'published' => 'Опубликовано',
         ];
     }
 }

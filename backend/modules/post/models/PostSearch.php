@@ -12,6 +12,13 @@ use post\models\Post;
  */
 class PostSearch extends Post
 {
+    public function __construct(array $config = [])
+    {
+        parent::__construct($config);
+        $this->created = '';
+        $this->author_id = '';
+    }
+
     /**
      * @inheritdoc
      */

@@ -24,6 +24,12 @@ use yii\helpers\ArrayHelper;
  */
 class Coach extends \yii\db\ActiveRecord
 {
+    public function __construct(array $config = [])
+    {
+        $this->created = date("Y-m-d H:i", time());
+        return parent::__construct($config);
+    }
+
     /**
      * @inheritdoc
      */
@@ -52,16 +58,16 @@ class Coach extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'created' => 'Created',
-            'label' => 'Label',
-            'image_id' => 'Image ID',
-            'country' => 'Country',
-            'site' => 'Site',
-            'phone' => 'Phone',
-            'email' => 'Email',
-            'fb_link' => 'Fb Link',
-            'vk_link' => 'Vk Link',
-            'ig_link' => 'Ig Link',
+            'created' => 'Создан',
+            'label' => 'Имя',
+            'image_id' => 'Изображение',
+            'country' => 'Страна',
+            'site' => 'Сайт',
+            'phone' => 'Телефон',
+            'email' => 'E-mail',
+            'fb_link' => 'Ссылка facebook',
+            'vk_link' => 'Ссылка vkontakte',
+            'ig_link' => 'Ссылка instagram',
         ];
     }
 

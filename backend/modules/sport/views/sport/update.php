@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model sport\models\Sport */
 
-$this->title = 'Update Sport: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Sports', 'url' => ['index']];
+$this->title = 'Редактирование вида спорта: ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Виды спорта', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Редактирование';
 ?>
 <div class="sport-update">
 

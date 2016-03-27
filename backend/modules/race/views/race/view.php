@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model race\models\Race */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Races', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Гонки', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="race-view">
@@ -15,11 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы действительно хотите удалить этот объект?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -38,10 +38,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'region',
             'place',
             'label',
+            [
+                'attribute' => 'sport_id',
+                'value' => \sport\models\Sport::findOne(['id' => $model->sport_id,])->label,
+            ],
             'url:url',
             'price',
             'currency',
-            'organizer_id',
+            [
+                'attribute' => 'organizer_id',
+                'value' => \organizer\models\Organizer::findOne(['id' => $model->organizer_id,])->label,
+            ],
             'site',
             [
                 'attribute' => 'main_image_id',

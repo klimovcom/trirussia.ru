@@ -6865,7 +6865,7 @@ body.print .noprint {
 .pagination{
 	margin-left: 25px;
 }
-tr td:last-child{
+.content-wrapper tr td:last-child{
 	min-width: 65px;
 }
 .content-wrapper > div:first-child{
@@ -6901,4 +6901,57 @@ td img, .form-group img{
 }
 .form-control.w850{
 	width: 850px !important;
+}
+
+#login-form .form-group input[type=checkbox]{
+	width: 17px !important;
+	display: block;
+	height: 23px;
+	margin-left: -20px;
+	margin-bottom: 35px;
+	margin-top: -2px;
+}
+
+input.timepicker{
+	position: relative;
+	display: inline-block;
+	width: 43px !important;
+	margin-right: 3px;
+}
+
+label.timepicker{
+	margin-right: 13px;
+}
+
+div.form-group select{
+	width: 200px;
+}
+
+div.form-group .form-control.w100{
+	width: 100px;
+}
+
+div.form-group .form-control.w130{
+	width: 130px;
+}
+
+label.published-label{
+	margin-top: 5px;
+	position: absolute;
+	display: inline-block;
+}
+
+.field-race-published,
+.field-organizer-published,
+.field-page-published,
+.field-product-published,
+.field-post-published{
+	width: 40px;
+	position: relative;
+	display: inline-block;
+	height: 25px;
+}
+
+.field-race-organizer_id{
+	width: 400px;
 }

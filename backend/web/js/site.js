@@ -98,4 +98,14 @@ $(document).ready(function(){
     $('.move').on('click', function(){
        window.location.href = $(this).attr('href');
     });
+
+    $('input.timepicker').on('change', function(){
+        $("#race-start_time").val($("#race-start_time_hours").val() + ":" + $("#race-start_time_minutes").val());
+    })
+
+    $('#race-currency').on('change', function(){
+        console.log($(this).val());
+
+        $('#race-currency_en').val($(this).val());
+    })
 });

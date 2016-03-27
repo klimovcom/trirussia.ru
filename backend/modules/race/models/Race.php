@@ -33,9 +33,17 @@ use yii\helpers\ArrayHelper;
  * @property string $instagram_tag
  * @property string $facebook_event_id
  * @property integer $published
+ * @property integer $sport_id
  */
 class Race extends \yii\db\ActiveRecord
 {
+    public function __construct(array $config = [])
+    {
+        $this->created = date("Y-m-d H:i", time());
+        $this->author_id = Yii::$app->user->id;
+        return parent::__construct($config);
+    }
+
     /**
      * @inheritdoc
      */
@@ -50,10 +58,11 @@ class Race extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created', 'author_id', 'start_date', 'country', 'region', 'label', 'url', 'promo'], 'required'],
+            [['created', 'author_id', 'start_date', 'country', 'region', 'label', 'url', 'promo', 'organizer', 'sport_id'], 'required'],
             [['created', 'start_date', 'finish_date'], 'safe'],
-            [['author_id', 'organizer_id', /*'main_image_id',*/ 'published'], 'integer'],
-            [['price'], 'number'],
+            [['author_id', 'organizer_id', /*'main_image_id',*/
+                'published', 'sport_id',], 'integer'],
+            [['price',], 'number'],
             [['promo', 'content'], 'string'],
             [['start_time'], 'string', 'max' => 5],
             [['country', 'region'], 'string', 'max' => 100],
@@ -70,26 +79,27 @@ class Race extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'created' => 'Created',
-            'author_id' => 'Author ID',
-            'start_date' => 'Start Date',
-            'finish_date' => 'Finish Date',
-            'start_time' => 'Start Time',
-            'country' => 'Country',
-            'region' => 'Region',
-            'place' => 'Place',
-            'label' => 'Label',
-            'url' => 'Url',
-            'price' => 'Price',
-            'currency' => 'Currency',
-            'organizer_id' => 'Organizer ID',
-            'site' => 'Site',
-            'main_image_id' => 'Main Image ID',
-            'promo' => 'Promo',
-            'content' => 'Content',
-            'instagram_tag' => 'Instagram Tag',
-            'facebook_event_id' => 'Facebook Event ID',
-            'published' => 'Published',
+            'created' => 'Создана',
+            'author_id' => 'Автор',
+            'sport_id' => 'Вид спорта',
+            'start_date' => 'Дата старта',
+            'finish_date' => 'Дата финиша',
+            'start_time' => 'Время старта',
+            'country' => 'Страна',
+            'region' => 'Регион',
+            'place' => 'Место',
+            'label' => 'Название',
+            'url' => 'URL',
+            'price' => 'Цена',
+            'currency' => 'Валюта',
+            'organizer_id' => 'Организатор',
+            'site' => 'Сайт',
+            'main_image_id' => 'Главное изображение',
+            'promo' => 'Промо',
+            'content' => 'Содержание',
+            'instagram_tag' => 'Instagram тег',
+            'facebook_event_id' => 'Facebook event ID',
+            'published' => 'Опубликовано',
         ];
     }
 

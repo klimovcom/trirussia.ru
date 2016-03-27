@@ -6,6 +6,7 @@ use Faker\Factory;
 use Yii;
 use race\models\Race;
 use race\models\RaceSearch;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -34,14 +35,9 @@ class RaceController extends Controller
     public function actionIndex()
     {
         $searchModel = new RaceSearch();
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        /*$faker = Factory::create();
-        for($i = 0; $i < 20; $i++){
-            $model = new Race();
-            $model->created = date('Y-m-d H:i:s', time());
-            $model->
-        }*/
 
         return $this->render('index', [
             'searchModel' => $searchModel,

@@ -39,8 +39,8 @@ class Distance extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'sport_id' => 'Sport ID',
-            'label' => 'Label',
+            'sport_id' => 'Спорт',
+            'label' => 'Название',
         ];
     }
 }

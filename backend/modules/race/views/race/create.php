@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model race\models\Race */
 
-$this->title = 'Create Race';
-$this->params['breadcrumbs'][] = ['label' => 'Races', 'url' => ['index']];
+$this->title = 'Создание гонки';
+$this->params['breadcrumbs'][] = ['label' => 'Гонки', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="race-create">

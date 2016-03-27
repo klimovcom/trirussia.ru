@@ -5,6 +5,7 @@
  */
 
 namespace metalguardian\fileProcessor\helpers;
+
 use metalguardian\fileProcessor\components\ThumbnailCache;
 
 /**

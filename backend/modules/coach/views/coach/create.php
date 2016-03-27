@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model coach\models\Coach */
 
-$this->title = 'Create Coach';
-$this->params['breadcrumbs'][] = ['label' => 'Coaches', 'url' => ['index']];
+$this->title = 'Создание тренера';
+$this->params['breadcrumbs'][] = ['label' => 'Тренеры', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="coach-create">

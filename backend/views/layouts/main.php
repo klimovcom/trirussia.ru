@@ -121,10 +121,14 @@ $this->registerJs('$.widget.bridge(\'uibutton\', $.ui.button);');
                         <i class="fa fa-user"></i> <span>Пользователи</span>
                     </a>
                 </li>
-                <li>
-                    <a href="<?= Url::to('/distance/distance/index'); ?>">
-                        <i class="fa fa-book"></i> <span>Дистанции</span>
+                <li class="treeview">
+                    <a href="<?= Url::to('/gallery/gallery/index'); ?>">
+                        <i class="fa fa-book"></i> <span>Дистанции</span><i class="fa fa-angle-left pull-right"></i>
                     </a>
+                    <ul class="treeview-menu">
+                        <li><a href="<?= Url::to('/distance/distance/index'); ?>"><i class="fa fa-book"></i>Дистанции</a></li>
+                        <li><a href="<?= Url::to('/distance/distance-category/index'); ?>"><i class="fa fa-clone"></i>Категории дистанций</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="<?= Url::to('/organizer/organizer/index'); ?>">
@@ -141,6 +145,7 @@ $this->registerJs('$.widget.bridge(\'uibutton\', $.ui.button);');
                         <i class="fa fa-twitter"></i> <span>Публикации</span>
                     </a>
                 </li>
+
                 <!--<li class="treeview">
                     <a href="<?/*= Url::to('/gallery/gallery/index'); */?>">
                         <i class="fa fa-file-image-o"></i> <span>Галлереи</span><i class="fa fa-angle-left pull-right"></i>

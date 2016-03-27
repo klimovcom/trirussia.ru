@@ -12,6 +12,12 @@ use page\models\Page;
  */
 class PageSearch extends Page
 {
+    public function __construct(array $config = [])
+    {
+        parent::__construct($config);
+        $this->created = '';
+    }
+
     /**
      * @inheritdoc
      */

@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel race\models\RaceSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Races';
+$this->title = 'Гонки';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="race-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Race', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать гонку', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -26,26 +26,57 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\Column'],
 
             'id',
-            'created',
+            'label',
+            'sport_id' => [
+                'attribute' => 'sport_id',
+                'value' => function ($model) {
+                    $sport = \sport\models\Sport::findOne($model->sport_id);
+                    if ($sport)
+                        return $sport->label;
+                    return null;
+                },
+                'filter' => \yii\helpers\ArrayHelper::map(\sport\models\Sport::find()->all(), 'id', 'label'),
+            ],
+
             'author_id',
+            'organizer_id' => [
+                'attribute' => 'organizer_id',
+                'value' => function ($model) {
+                    $organizer = \organizer\models\Organizer::findOne($model->organizer_id);
+                    if ($organizer)
+                        return $organizer->label;
+                    return null;
+                },
+                'filter' => \yii\helpers\ArrayHelper::map(\sport\models\Sport::find()->all(), 'id', 'label'),
+            ],
+            'site',
             'start_date',
-            'finish_date',
+            [
+                'attribute' => 'published',
+                'value' => function ($model) {
+                    /** @var $model \organizer\models\Organizer */
+                    return $model->published ? 'Да' : 'Нет';
+                },
+                'filter' => [0 => 'Нет', 1 => 'Да']
+            ],
+            'created',
+
             // 'start_time',
             // 'country',
             // 'region',
             // 'place',
-            // 'label',
+
             // 'url:url',
             // 'price',
             // 'currency',
-            // 'organizer_id',
-            // 'site',
+
+
             // 'main_image_id',
             // 'promo:ntext',
             // 'content:ntext',
             // 'instagram_tag',
             // 'facebook_event_id',
-            // 'published',
+
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

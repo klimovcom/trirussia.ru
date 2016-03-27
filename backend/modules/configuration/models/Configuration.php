@@ -43,10 +43,10 @@ class Configuration extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'label' => 'Label',
-            'description' => 'Description',
-            'key' => 'Key',
-            'value' => 'Value',
+            'label' => 'Название',
+            'description' => 'Описание',
+            'key' => 'Ключ',
+            'value' => 'Значение',
         ];
     }
 }

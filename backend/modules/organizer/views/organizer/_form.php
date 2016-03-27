@@ -15,12 +15,14 @@ use vova07\imperavi\Widget;
 
     <?= $form->field($model, 'created')->widget(\kartik\datetime\DateTimePicker::className(), [
         'name' => 'datetime_10',
-        'options' => ['placeholder' => 'Select operating time ...'],
+        'options' => ['placeholder' => 'Выберите дату и время'],
         'convertFormat' => true,
         'pluginOptions' => [
             'format' => 'yyyy-MM-dd hh:i',
             'startDate' => '01-Mar-2014 12:00 AM',
-            'todayHighlight' => true
+            'todayHighlight' => true,
+
+            'weekStart' => '1',
         ]
     ]) ?>
 
@@ -75,7 +77,7 @@ use vova07\imperavi\Widget;
         ]
     )->label(); ?>
 
-    <?= $form->field($model, 'content')->widget(
+    <?= $form->field($model, 'promo')->widget(
         Widget::className(),
         [
             'settings' => [
@@ -89,10 +91,12 @@ use vova07\imperavi\Widget;
         ]
     )->label(); ?>
 
-    <?= $form->field($model, 'published')->checkbox() ?>
+    <?= $form->field($model, 'published')->checkbox([], false)->label(false) ?>
+
+    <label for="race-published" class="published-label">Опубликовано</label>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Обновить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

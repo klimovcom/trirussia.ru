@@ -24,6 +24,12 @@ use yii\helpers\ArrayHelper;
  */
 class Organizer extends \yii\db\ActiveRecord
 {
+    public function __construct(array $config = [])
+    {
+        $this->created = date("Y-m-d H:i", time());
+        return parent::__construct($config);
+    }
+
     /**
      * @inheritdoc
      */
@@ -38,9 +44,12 @@ class Organizer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created', 'label', 'country', 'site', /*'image_id',*/ 'promo'], 'required'],
+            [['created', 'label', 'country', 'site', /*'image_id',*/
+                'promo'], 'required'],
             [['created'], 'safe'],
-            [['image_id', 'published'], 'integer'],
+            [['image_id',], 'safe'],
+            [[/*'image_id', */
+                'published'], 'integer'],
             [['promo', 'content'], 'string'],
             [['label', 'country', 'site', 'phone', 'email'], 'string', 'max' => 255]
         ];
@@ -53,16 +62,16 @@ class Organizer extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'created' => 'Created',
-            'label' => 'Label',
-            'country' => 'Country',
-            'site' => 'Site',
-            'phone' => 'Phone',
-            'email' => 'Email',
-            'image_id' => 'Image ID',
-            'promo' => 'Promo',
-            'content' => 'Content',
-            'published' => 'Published',
+            'created' => 'Создан',
+            'label' => 'Название',
+            'country' => 'Страна',
+            'site' => 'Сайт',
+            'phone' => 'Телефон',
+            'email' => 'E-mail',
+            'image_id' => 'Изображение',
+            'promo' => 'Промо',
+            'content' => 'Содержание',
+            'published' => 'Опубликовано',
         ];
     }
 

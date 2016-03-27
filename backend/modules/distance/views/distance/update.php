@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model distance\models\Distance */
 
-$this->title = 'Update Distance: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Distances', 'url' => ['index']];
+$this->title = 'Редактирование дистанции: ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Дистанции', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Редактирование';
 ?>
 <div class="distance-update">
 

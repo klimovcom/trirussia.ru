@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Coach', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать тренера', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -26,13 +26,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\Column'],
 
             'id',
-            'created',
+
             'label',
-            'image_id',
             'country',
-            // 'site',
-            // 'phone',
-            // 'email:email',
+            'site',
+            'phone',
+            'email:email',
+            'created',
+
+
             // 'fb_link',
             // 'vk_link',
             // 'ig_link',

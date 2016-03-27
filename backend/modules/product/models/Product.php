@@ -18,6 +18,12 @@ use Yii;
  */
 class Product extends \yii\db\ActiveRecord
 {
+    public function __construct(array $config = [])
+    {
+        $this->created = date("Y-m-d H:i", time());
+        return parent::__construct($config);
+    }
+
     /**
      * @inheritdoc
      */
@@ -35,7 +41,8 @@ class Product extends \yii\db\ActiveRecord
             [['created', 'label', 'url'], 'required'],
             [['created'], 'safe'],
             [['promo', 'content'], 'string'],
-            [[/*'image_id',*/ 'published'], 'integer'],
+            [[/*'image_id',*/
+                'published'], 'integer'],
             [['label', 'url'], 'string', 'max' => 255],
             [['url'], 'unique']
         ];
@@ -48,13 +55,13 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'created' => 'Created',
-            'label' => 'Label',
-            'url' => 'Url',
-            'promo' => 'Promo',
-            'content' => 'Content',
-            'image_id' => 'Image ID',
-            'published' => 'Published',
+            'created' => 'Создан',
+            'label' => 'Название',
+            'url' => 'URL',
+            'promo' => 'Промо',
+            'content' => 'Содержание',
+            'image_id' => 'Изображение',
+            'published' => 'Опубликовано',
         ];
     }
 }

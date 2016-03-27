@@ -6,20 +6,44 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use race\models\Race;
+use yii\helpers\VarDumper;
 
 /**
  * RaceSearch represents the model behind the search form about `race\models\Race`.
  */
 class RaceSearch extends Race
 {
+    public function __construct(array $config = [])
+    {
+        parent::__construct($config);
+        $this->created = '';
+        $this->author_id = '';
+    }
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'author_id', 'organizer_id', 'main_image_id', 'published'], 'integer'],
-            [['created', 'start_date', 'finish_date', 'start_time', 'country', 'region', 'place', 'label', 'url', 'currency', 'site', 'promo', 'content', 'instagram_tag', 'facebook_event_id'], 'safe'],
+            [['id', 'author_id', 'organizer_id', 'main_image_id', 'published', 'sport_id'], 'integer'],
+            [[
+                'created',
+                'start_date',
+                'finish_date',
+                'start_time',
+                'country',
+                'region',
+                'place',
+                'label',
+                'url',
+                'currency',
+                'site',
+                'promo',
+                'content',
+                'instagram_tag',
+                'facebook_event_id',
+            ], 'safe'],
             [['price'], 'number'],
         ];
     }
@@ -42,6 +66,7 @@ class RaceSearch extends Race
      */
     public function search($params)
     {
+
         $query = Race::find();
 
         $dataProvider = new ActiveDataProvider([
@@ -50,11 +75,13 @@ class RaceSearch extends Race
 
         $this->load($params);
 
+
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
         }
+
 
         $query->andFilterWhere([
             'id' => $this->id,
@@ -66,6 +93,7 @@ class RaceSearch extends Race
             'organizer_id' => $this->organizer_id,
             'main_image_id' => $this->main_image_id,
             'published' => $this->published,
+            'sport_id' => $this->sport_id,
         ]);
 
         $query->andFilterWhere(['like', 'start_time', $this->start_time])
@@ -84,5 +112,10 @@ class RaceSearch extends Race
         $query->orderBy('id DESC');
 
         return $dataProvider;
+    }
+
+    public function behaviors()
+    {
+        return [];
     }
 }

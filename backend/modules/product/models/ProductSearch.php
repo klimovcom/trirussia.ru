@@ -12,6 +12,12 @@ use product\models\Product;
  */
 class ProductSearch extends Product
 {
+    public function __construct(array $config = [])
+    {
+        parent::__construct($config);
+        $this->created = '';
+    }
+
     /**
      * @inheritdoc
      */
