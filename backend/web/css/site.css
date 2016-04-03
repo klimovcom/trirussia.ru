@@ -6955,3 +6955,93 @@ label.published-label{
 .field-race-organizer_id{
 	width: 400px;
 }
+.toggle-seo, #seo-tab,  .seo-model-toggle{
+	margin-bottom: 10px;
+}
+.seo-model-toggle{
+	margin-top: 10px;
+}
+#seo-form-widget{
+	margin-bottom: 20px;
+}
+#seo-tab,.spoiler-en{
+	display: none;
+}
+.btn-translate{
+	margin-bottom: 10px;
+}
+.spoiler-en{
+	margin-left: 5px;
+	border: 2px solid #1c84c6;
+	padding: 5px;
+	border-radius: 3px;
+}
+.tt-menu {
+	width: 100%;
+	max-width: 450px;
+}
+input.tt-hint, input.tt-input{
+	width: 400px !important;
+}
+.form-group.field-race-author_id, .form-group.field-post-author_id{
+	width: 600px;
+}
+#googleMap{
+	position: absolute;
+	display: inline-block;
+	width: 1000px;
+	left: 399px;
+	height: 435px;
+	margin-top: -225px;
+	overflow: hidden;
+	transform: translateZ(0px);
+	background-color: rgb(229, 227, 223);
+}
+.google-input{
+	width: 840px;
+	z-index: 99;
+	position: absolute;
+	left: 535px;
+	margin-top: -217px;
+}
+.controls {
+	margin-top: 10px;
+	border: 1px solid transparent;
+	border-radius: 2px 0 0 2px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	height: 32px;
+	outline: none;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#pac-input {
+	background-color: #fff;
+	font-family: Roboto;
+	font-size: 15px;
+	font-weight: 300;
+	margin-left: 12px;
+	padding: 0 11px 0 13px;
+	text-overflow: ellipsis;
+	width: 300px;
+}
+
+#pac-input:focus {
+	border-color: #4d90fe;
+}
+
+.pac-container {
+	font-family: Roboto;
+}
+
+#type-selector {
+	color: #fff;
+	background-color: #4d90fe;
+	padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+	font-family: Roboto;
+	font-size: 13px;
+	font-weight: 300;
+}

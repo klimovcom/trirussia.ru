@@ -5,6 +5,7 @@ namespace post\controllers;
 use Yii;
 use post\models\Post;
 use post\models\PostSearch;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -65,6 +66,7 @@ class PostController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            if ($model->getErrors()) { VarDumper::dump($model->getErrors(), 3, 1);die();}
             return $this->render('create', [
                 'model' => $model,
             ]);

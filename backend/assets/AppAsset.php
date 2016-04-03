@@ -8,6 +8,7 @@
 namespace backend\assets;
 
 use yii\web\AssetBundle;
+use yii\web\View;
 
 /**
  * @author Qiang Xue <qiang.xue@gmail.com>
@@ -18,12 +19,25 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
+        '/css/bootstrap.min.css',
+        '/css/bootstrap.css.map',
+        '/css/font-awesome.min.css',
+        '/css/AdminLTE.min.css',
+        '/css/_all-skins.min.css',
+        '/css/site.css',
     ];
     public $js = [
+        '/js/bootstrap.min.js',
+        '/js/app.js',
+        '/js/tagit.min.js',
+        '/js/site.js',
+
+    ];
+    public $jsOptions = [
+        'position' => View::POS_END
     ];
     public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+        /*'yii\web\YiiAsset',*/
+        /*'yii\bootstrap\BootstrapAsset',*/
     ];
 }

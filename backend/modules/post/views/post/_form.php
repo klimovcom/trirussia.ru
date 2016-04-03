@@ -10,7 +10,13 @@ use yii\widgets\ActiveForm;
 
 <div class="post-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'options' => [
+            'enctype' => 'multipart/form-data',
+        ],
+    ]); ?>
+
+    <?= \seo\widgets\SeoWidget::widget(['model' => $model, 'tab' => true]) ?>
 
     <?= $form->field($model, 'created')->widget(\kartik\datetime\DateTimePicker::className(), [
         'name' => 'datetime_10',
@@ -25,13 +31,35 @@ use yii\widgets\ActiveForm;
         ]
     ]) ?>
 
-    <?= $form->field($model, 'author_id')->textInput() ?>
+    <?= $form->field($model, 'author_id')->widget(\kartik\select2\Select2::classname(), [
+        'data' => \user\models\User::getAuthorData(),
+        'language' => 'ru',
+        'options' => ['placeholder' => 'Выберите пользователя'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]);
+    ?>
 
     <?= $form->field($model, 'label')->textInput(['maxlength' => true, 'class' => 'form-control w850 ']) ?>
 
     <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'content')->widget(
+        \vova07\imperavi\Widget::className(),
+        [
+            'settings' => [
+                'lang' => 'ru',
+                'minHeight' => 200,
+                'plugins' => [
+                    'clips',
+                    'fullscreen'
+                ]
+            ]
+        ]
+    )->label(); ?>
+
+    <?= $form->field($model, 'promo')->widget(
         \vova07\imperavi\Widget::className(),
         [
             'settings' => [

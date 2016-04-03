@@ -67,6 +67,11 @@ return [
             DIRECTORY_SEPARATOR . 'modules' .
             DIRECTORY_SEPARATOR . 'metalguardian'
         ),
+        'seo' => realpath(
+            __DIR__ . DIRECTORY_SEPARATOR . '..' .
+            DIRECTORY_SEPARATOR . 'modules' .
+            DIRECTORY_SEPARATOR . 'seo'
+        ),
     ],
     'modules' => [
         'race' => [
@@ -111,6 +116,9 @@ return [
                 ],
             ],
         ],
+        'seo' => [
+            'class' => 'seo\SeoModule'
+        ],
     ],
     'components' => [
         'user' => [
@@ -132,7 +140,7 @@ return [
         'assetManager' => [
             'bundles' => [
                 'yii\web\JqueryAsset' => [
-                    'js'=>[]
+                    'js'=>[],
                 ],
             ],
         ],

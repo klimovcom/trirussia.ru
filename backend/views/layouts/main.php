@@ -12,20 +12,11 @@ use \yii\helpers\Url;
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-$this->registerCssFile('/css/bootstrap.min.css');
-$this->registerCssFile('/css/bootstrap.css.map');
-$this->registerCssFile('/css/font-awesome.min.css');
-$this->registerCssFile('/css/AdminLTE.min.css');
-$this->registerCssFile('/css/_all-skins.min.css');
-$this->registerCssFile('/css/site.css');
+\backend\assets\AppAsset::register($this);
 
 $this->registerJsFile('/js/jquery-1.11.3.min.js');
 $this->registerJsFile('/js/jQuery-2.1.4.min.js');
 $this->registerJsFile('/js/jquery-ui.min.js');
-$this->registerJsFile('/js/bootstrap.min.js');
-$this->registerJsFile('/js/app.js');
-$this->registerJsFile('/js/site.js');
-$this->registerJsFile('/js/tagit.min.js');
 $this->registerJs('$(document).ready(function(){
  $(".myTags").tagit();
 });');

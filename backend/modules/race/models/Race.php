@@ -34,9 +34,12 @@ use yii\helpers\ArrayHelper;
  * @property string $facebook_event_id
  * @property integer $published
  * @property integer $sport_id
+ * @property float $coord_lat
+ * @property float $coord_lon
  */
 class Race extends \yii\db\ActiveRecord
 {
+
     public function __construct(array $config = [])
     {
         $this->created = date("Y-m-d H:i", time());
@@ -58,11 +61,11 @@ class Race extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created', 'author_id', 'start_date', 'country', 'region', 'label', 'url', 'promo', 'organizer', 'sport_id'], 'required'],
+            [['created', 'author_id', 'start_date', 'country', 'region', 'label', 'url', 'promo', 'organizer_id', 'sport_id'], 'required'],
             [['created', 'start_date', 'finish_date'], 'safe'],
             [['author_id', 'organizer_id', /*'main_image_id',*/
                 'published', 'sport_id',], 'integer'],
-            [['price',], 'number'],
+            [['price', 'coord_lat', 'coord_lon', ], 'number'],
             [['promo', 'content'], 'string'],
             [['start_time'], 'string', 'max' => 5],
             [['country', 'region'], 'string', 'max' => 100],

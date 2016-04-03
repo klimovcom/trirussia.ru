@@ -113,7 +113,9 @@ CREATE TABLE `distance` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sport_id` int(11) DEFAULT NULL,
   `label` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `distance_to_sport_fk` (`sport_id`),
+  CONSTRAINT `distance_to_sport_fk` FOREIGN KEY (`sport_id`) REFERENCES `sport` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -124,6 +126,57 @@ CREATE TABLE `distance` (
 LOCK TABLES `distance` WRITE;
 /*!40000 ALTER TABLE `distance` DISABLE KEYS */;
 /*!40000 ALTER TABLE `distance` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `distance_category`
+--
+
+DROP TABLE IF EXISTS `distance_category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `distance_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `label` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `distance_category`
+--
+
+LOCK TABLES `distance_category` WRITE;
+/*!40000 ALTER TABLE `distance_category` DISABLE KEYS */;
+/*!40000 ALTER TABLE `distance_category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `distance_distance_category_ref`
+--
+
+DROP TABLE IF EXISTS `distance_distance_category_ref`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `distance_distance_category_ref` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `distance_id` int(11) DEFAULT NULL,
+  `distance_category_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `distance_distance_category_ref_to_distance_fk` (`distance_id`),
+  KEY `distance_distance_category_ref_to_distance_category_fk` (`distance_category_id`),
+  CONSTRAINT `distance_distance_category_ref_to_distance_category_fk` FOREIGN KEY (`distance_category_id`) REFERENCES `distance_category` (`id`),
+  CONSTRAINT `distance_distance_category_ref_to_distance_fk` FOREIGN KEY (`distance_id`) REFERENCES `distance` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `distance_distance_category_ref`
+--
+
+LOCK TABLES `distance_distance_category_ref` WRITE;
+/*!40000 ALTER TABLE `distance_distance_category_ref` DISABLE KEYS */;
+/*!40000 ALTER TABLE `distance_distance_category_ref` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -139,7 +192,7 @@ CREATE TABLE `fpm_file` (
   `base_name` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'File base name',
   `created_at` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -148,6 +201,7 @@ CREATE TABLE `fpm_file` (
 
 LOCK TABLES `fpm_file` WRITE;
 /*!40000 ALTER TABLE `fpm_file` DISABLE KEYS */;
+INSERT INTO `fpm_file` VALUES (1,'jpg','Ben-Affleck-Batman-V-Superman-Power-Armor',1459074725);
 /*!40000 ALTER TABLE `fpm_file` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -171,7 +225,7 @@ CREATE TABLE `migration` (
 
 LOCK TABLES `migration` WRITE;
 /*!40000 ALTER TABLE `migration` DISABLE KEYS */;
-INSERT INTO `migration` VALUES ('m000000_000000_base',1457235270),('m130524_201442_init',1457239773),('m160306_033443_create_race_table',1457239773),('m160306_033452_create_sport_table',1457239773),('m160306_033538_create_distance_table',1457239773),('m160306_033556_create_organizer_table',1457239773),('m160306_033620_create_coach_table',1457239773),('m160306_033631_create_post_table',1457239773),('m160306_033639_create_content_page_table',1457239773),('m160306_033649_create_product_table',1457239773),('m160306_045536_create_configuration_table',1457241215),('m160306_080017_create_fpm_file_table',1457254706),('m160306_084407_create_race_lang_table',1457254751);
+INSERT INTO `migration` VALUES ('m000000_000000_base',1457235270),('m130524_201442_init',1457239773),('m160306_033443_create_race_table',1457239773),('m160306_033452_create_sport_table',1457239773),('m160306_033538_create_distance_table',1457239773),('m160306_033556_create_organizer_table',1457239773),('m160306_033620_create_coach_table',1457239773),('m160306_033631_create_post_table',1457239773),('m160306_033639_create_content_page_table',1457239773),('m160306_033649_create_product_table',1457239773),('m160306_045536_create_configuration_table',1457241215),('m160306_080017_create_fpm_file_table',1457254706),('m160306_084407_create_race_lang_table',1457254751),('m160327_083521_add_race_to_user_fk',1459067750),('m160327_083638_add_distance_to_sport_fk',1459081874),('m160327_083700_add_post_to_user_fk',1459081874),('m160327_084300_alter_race_table',1459081874),('m160327_091024_add_race_to_sport_fk',1459081874),('m160327_091244_create_distance_category_table',1459081874),('m160327_091323_create_distance_distance_category_ref',1459081874),('m160327_091345_add_distance_distance_category_ref_to_distance_fk',1459081874),('m160327_091352_add_distance_distance_category_ref_to_distance_category_fk',1459081874),('m160327_123028_add_race_to_organizer_fk',1459081874);
 /*!40000 ALTER TABLE `migration` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -195,7 +249,7 @@ CREATE TABLE `organizer` (
   `content` text COLLATE utf8_unicode_ci,
   `published` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -204,6 +258,7 @@ CREATE TABLE `organizer` (
 
 LOCK TABLES `organizer` WRITE;
 /*!40000 ALTER TABLE `organizer` DISABLE KEYS */;
+INSERT INTO `organizer` VALUES (1,'2016-03-27 11:28:00','Organizer 1','Russia','www.servr.ri','+42342','fkbr1993@yadnex.ru',0,'<p>asd</p>','<p>asda</p>',1),(2,'2016-03-27 11:29:00','Organizer 2','Russia','www.servr.ri','+42342','fkbr1993@yadnex.ru',489,'<p>sda</p>','',0),(3,'2016-03-27 11:30:00','Organizer 2','Russia','www.servr.ri','+42342','fkbr1993@yadnex.ru',0,'<p>sda</p>','',0);
 /*!40000 ALTER TABLE `organizer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -225,7 +280,9 @@ CREATE TABLE `post` (
   `image_id` int(11) NOT NULL,
   `published` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `url` (`url`)
+  UNIQUE KEY `url` (`url`),
+  KEY `post_to_user_fk` (`author_id`),
+  CONSTRAINT `post_to_user_fk` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -297,9 +354,14 @@ CREATE TABLE `race` (
   `instagram_tag` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `facebook_event_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `published` tinyint(1) DEFAULT NULL,
+  `sport_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `url` (`url`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  UNIQUE KEY `url` (`url`),
+  KEY `race_to_sport_fk` (`sport_id`),
+  KEY `race_to_organizer_fk` (`organizer_id`),
+  CONSTRAINT `race_to_organizer_fk` FOREIGN KEY (`organizer_id`) REFERENCES `organizer` (`id`),
+  CONSTRAINT `race_to_sport_fk` FOREIGN KEY (`sport_id`) REFERENCES `sport` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -308,7 +370,7 @@ CREATE TABLE `race` (
 
 LOCK TABLES `race` WRITE;
 /*!40000 ALTER TABLE `race` DISABLE KEYS */;
-INSERT INTO `race` VALUES (1,'0000-00-00 00:00:00',1,'0000-00-00','0000-00-00','10:50','Russia','Moscow','Hills of glory','Compete 1','compete-1',25,'$',1,'http://www.compete.com',1,'Well well well','well well well','','',1);
+INSERT INTO `race` VALUES (1,'2016-03-27 10:50:00',1,'0000-00-00','0000-00-00','10:50','Russia','Moscow','Hills of glory','Compete 1','compete-1',25,'рубли',1,'http://www.compete.com',1,'<p>Well well well</p>','<p>well well well</p>','','',1,NULL),(2,'2016-03-27 10:31:00',1,'2016-03-17',NULL,'23:22','Russia','Moscow','','Compete 1','compete-3',NULL,'рубли',NULL,'',1,'<p>promo</p>','','','',0,NULL);
 /*!40000 ALTER TABLE `race` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -333,7 +395,7 @@ CREATE TABLE `race_lang` (
   PRIMARY KEY (`id`),
   KEY `race_lang_ibfk_1` (`race_id`),
   CONSTRAINT `race_lang_ibfk_1` FOREIGN KEY (`race_id`) REFERENCES `race` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -342,6 +404,7 @@ CREATE TABLE `race_lang` (
 
 LOCK TABLES `race_lang` WRITE;
 /*!40000 ALTER TABLE `race_lang` DISABLE KEYS */;
+INSERT INTO `race_lang` VALUES (1,2,'ru','Compete 1','','<p>promo</p>','Russia','Moscow','',''),(2,2,'en','','','','','','','');
 /*!40000 ALTER TABLE `race_lang` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -356,7 +419,7 @@ CREATE TABLE `sport` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `label` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -365,6 +428,7 @@ CREATE TABLE `sport` (
 
 LOCK TABLES `sport` WRITE;
 /*!40000 ALTER TABLE `sport` DISABLE KEYS */;
+INSERT INTO `sport` VALUES (1,'Триатлон'),(2,'Бег');
 /*!40000 ALTER TABLE `sport` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -411,4 +475,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-06 10:46:34
+-- Dump completed on 2016-03-27 13:02:03

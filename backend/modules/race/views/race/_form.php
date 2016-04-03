@@ -12,6 +12,74 @@ if ($model->start_time) {
     $hours = explode(":", $model->start_time)[0];
     $minutes = explode(":", $model->start_time)[1];
 }
+
+$zoom = 4;
+$lat = 55.755826;
+$lon = 37.6173;
+$ind = 'false';
+if ($model->coord_lat && $model->coord_lon) {
+    $ind = 'true';
+    $zoom = 13;
+    $lat = $model->coord_lat;
+    $lon = $model->coord_lon;
+}
+
+$this->registerJsFile("http://maps.googleapis.com/maps/api/js");
+$this->registerJs("
+
+function codeAddress(address)
+{
+  geocoder.geocode( {address:address}, function(results, status)
+  {
+    if (status == google.maps.GeocoderStatus.OK)
+    {
+      map.setCenter(results[0].geometry.location);//center the map over the result
+      //place a marker at the location
+      var marker = new google.maps.Marker(
+      {
+          map: map,
+          position: results[0].geometry.location
+      });
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+   }
+  });
+}
+
+function initialize() {
+  var mapProp = {
+    center:new google.maps.LatLng($lat,$lon),
+    zoom:$zoom,
+    mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+  window.map=new google.maps.Map(document.getElementById(\"googleMap\"),mapProp);
+
+  var marker = null;
+  if ($ind){
+    marker = new google.maps.Marker({
+        position: {'lat':$lat, 'lng':$lon},
+        map: map
+    });
+  }
+  google.maps.event.addListener(map, 'click', function(event) {
+    var latitude = event.latLng.lat();
+    $(\"#race-coord_lat\").val(latitude);
+
+    var longitude = event.latLng.lng();
+    $(\"#race-coord_lon\").val(longitude);
+
+    if (marker){
+        marker.setMap(null);
+    }
+    marker = new google.maps.Marker({
+        position: event.latLng,
+        map: map
+    });
+});
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+
+");
 ?>
 
 <div class="race-form">
@@ -21,6 +89,10 @@ if ($model->start_time) {
             'enctype' => 'multipart/form-data',
         ],
     ]); ?>
+
+    <?= $form->field($model, 'coord_lat')->hiddenInput()->label(false); ?>
+
+    <?= $form->field($model, 'coord_lon')->hiddenInput()->label(false); ?>
 
     <?= $form->field($model, 'created')->widget(DateTimePicker::className(), [
         'language' => 'ru-RU',
@@ -37,7 +109,15 @@ if ($model->start_time) {
 
 
 
-    <?= $form->field($model, 'author_id')->textInput() ?>
+    <?= $form->field($model, 'author_id')->widget(\kartik\select2\Select2::classname(), [
+        'data' => \user\models\User::getAuthorData(),
+        'language' => 'ru',
+        'options' => ['placeholder' => 'Выберите пользователя'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]);
+    ?>
 
     <?= $form->field($model, 'start_date')->widget(\kartik\date\DatePicker::className(), [
         'name' => 'check_issue_date',
@@ -72,6 +152,9 @@ if ($model->start_time) {
         <input type="text" id="race-start_time_minutes" class="form-control timepicker" value="<?= $minutes ?>">
         <label for="race-start_time_minutes" class="timepicker">минут</label>
     </div>
+
+    <input class="form-control google-input" placeholder="Начните вводить адрес..">
+    <div id="googleMap" style="width:1000px;height:435px;"></div>
 
     <?= $form->field($model, 'country')->textInput(['maxlength' => true]) ?>
 

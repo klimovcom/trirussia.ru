@@ -60,4 +60,15 @@ class User extends \yii\db\ActiveRecord
             'updated_at' => 'Обновлен',
         ];
     }
+
+    public static function getAuthorData()
+    {
+        $users = User::find()->all();
+        $data = [];
+        /** @var User $user */
+        foreach($users as $user){
+            $data[$user->id] = $user->username . "::" . $user->email . "::" . $user->id;
+        }
+        return $data;
+    }
 }

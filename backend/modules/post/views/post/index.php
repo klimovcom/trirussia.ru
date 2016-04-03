@@ -19,6 +19,14 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Создать публикацию', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
+    <?= \seo\widgets\SeoWidget::widget(
+        [
+            'model' => new \post\models\Post(),
+            'form' => true,
+            'style' => 'btn btn-primary btn-xs',
+            'onlyForm' => true
+        ]
+    ) ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,

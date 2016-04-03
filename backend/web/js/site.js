@@ -1,6 +1,7 @@
 /**
  * Created by alfred on 22.02.16.
  */
+
 $(document).ready(function(){
 
     function cyr2lat(str) {
@@ -107,5 +108,41 @@ $(document).ready(function(){
         console.log($(this).val());
 
         $('#race-currency_en').val($(this).val());
+    })
+
+    $('.toggle-seo').on('click', function(e){
+        e.preventDefault();
+        $('#seo-form-widget').toggle();
+        return false;
+    })
+
+    $('.seo-model-toggle').on('click', function(e){
+        e.preventDefault();
+        $('#seo-tab').toggle();
+        return false;
+    })
+
+    var pageHasMultilang = false;
+    $('.form-group').each(function(){
+        if ($(this).attr('class').indexOf("_en") > -1){
+            if (!pageHasMultilang){
+                pageHasMultilang = true;
+                console.log('spoiler');
+                $(".content-wrapper>div>div").prepend(
+                    '<span class="btn btn-success btn-translate" data-target=".spoiler-en">Перевод EN</span>' +
+                    '<div class="spoiler-en"></div>'
+                );
+            }
+            $(this).prependTo('.spoiler-en');
+        }
+    });
+
+    $(document).on('click', '.btn-translate', function(){
+        var dataTarget = $(this).data('target');
+        $(dataTarget).toggle();
+    });
+
+    $('.google-input').on('change', function(){
+        codeAddress($(this).val());
     })
 });

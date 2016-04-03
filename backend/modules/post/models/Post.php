@@ -43,13 +43,13 @@ class Post extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created', 'author_id', 'label', 'url', 'promo', 'content', 'image_id'], 'required'],
-            [['created'], 'safe'],
+            [['created', 'author_id', 'label', 'url', 'promo', 'content', ], 'required'],
+            [['created', 'image_id',], 'safe'],
             [['author_id', /*'image_id',*/
                 'published'], 'integer'],
             [['promo', 'content'], 'string'],
             [['label', 'url'], 'string', 'max' => 255],
-            [['url'], 'unique']
+            [['url'], 'unique'],
         ];
     }
 
@@ -84,6 +84,9 @@ class Post extends \yii\db\ActiveRecord
                     'attribute' => 'image_id',
                     'image' => true,
                     'required' => true,
+                ],
+                'seo' => [
+                    'class' => 'seo\components\SeoModelBehavior'
                 ],
             ]
         );
