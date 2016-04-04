@@ -14,6 +14,7 @@ if ($model->start_time) {
 }
 
 $zoom = 4;
+//Moscow coordinates
 $lat = 55.755826;
 $lon = 37.6173;
 $ind = 'false';
@@ -24,8 +25,19 @@ if ($model->coord_lat && $model->coord_lon) {
     $lon = $model->coord_lon;
 }
 
-$this->registerJsFile("http://maps.googleapis.com/maps/api/js");
+$this->registerCssFile('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+$this->registerJsFile("https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places");
 $this->registerJs("
+var placeSearch, autocomplete;
+
+window.componentForm = {
+    street_number: 'short_name',
+    route: 'long_name',
+    locality: 'long_name',
+    administrative_area_level_1: 'short_name',
+    country: 'long_name',
+    postal_code: 'short_name'
+};
 
 function codeAddress(address)
 {
@@ -47,36 +59,82 @@ function codeAddress(address)
 }
 
 function initialize() {
-  var mapProp = {
-    center:new google.maps.LatLng($lat,$lon),
-    zoom:$zoom,
-    mapTypeId:google.maps.MapTypeId.ROADMAP
-  };
-  window.map=new google.maps.Map(document.getElementById(\"googleMap\"),mapProp);
+    var mapProp = {
+        center:new google.maps.LatLng($lat,$lon),
+        zoom:$zoom,
+        mapTypeId:google.maps.MapTypeId.ROADMAP
+    };
+    window.map=new google.maps.Map(document.getElementById(\"googleMap\"),mapProp);
 
-  var marker = null;
-  if ($ind){
-    marker = new google.maps.Marker({
-        position: {'lat':$lat, 'lng':$lon},
-        map: map
-    });
-  }
-  google.maps.event.addListener(map, 'click', function(event) {
-    var latitude = event.latLng.lat();
-    $(\"#race-coord_lat\").val(latitude);
-
-    var longitude = event.latLng.lng();
-    $(\"#race-coord_lon\").val(longitude);
-
-    if (marker){
-        marker.setMap(null);
+    var marker = null;
+    if ($ind){
+        marker = new google.maps.Marker({
+            position: {'lat':$lat, 'lng':$lon},
+            map: map
+        });
     }
-    marker = new google.maps.Marker({
-        position: event.latLng,
-        map: map
+    google.maps.event.addListener(map, 'click', function(event) {
+        var latitude = event.latLng.lat();
+        $(\"#race-coord_lat\").val(latitude);
+
+        var longitude = event.latLng.lng();
+        $(\"#race-coord_lon\").val(longitude);
+
+        if (marker){
+            marker.setMap(null);
+        }
+        marker = new google.maps.Marker({
+            position: event.latLng,
+            map: map
+        });
     });
-});
+    // Create the autocomplete object, restricting the search
+    // to geographical location types.
+    autocomplete = new google.maps.places.Autocomplete(
+        /** @type {HTMLInputElement} */(document.getElementById('autocomplete')),
+        { types: ['geocode'] });
+    // When the user selects an address from the dropdown,
+    // populate the address fields in the form.
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+        fillInAddress();
+    });
 }
+
+function fillInAddress() {
+    // Get the place details from the autocomplete object.
+    var place = autocomplete.getPlace();
+    map.setCenter(place.geometry.location);
+    map.setZoom(12);
+    console.log(place.address_components);
+
+    if (1*place.address_components[\"3\"].long_name > 0){
+        $('#race-country').val(place.address_components[\"2\"].long_name);
+        $('#race-region').val(place.address_components[\"1\"].short_name);
+        $('#race-place').val(place.address_components[\"0\"].short_name);
+    } else {
+        $('#race-country').val(place.address_components[\"3\"].long_name);
+        $('#race-region').val(place.address_components[\"2\"].short_name);
+        $('#race-place').val(place.address_components[\"0\"].short_name);
+    }
+
+
+
+}
+
+window.geolocate = function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = new google.maps.LatLng(
+                position.coords.latitude, position.coords.longitude);
+            var circle = new google.maps.Circle({
+                center: geolocation,
+                radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+        });
+    }
+}
+
 google.maps.event.addDomListener(window, 'load', initialize);
 
 ");
@@ -153,7 +211,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
         <label for="race-start_time_minutes" class="timepicker">минут</label>
     </div>
 
-    <input class="form-control google-input" placeholder="Начните вводить адрес..">
+    <input id="autocomplete" class="form-control google-input" onFocus="geolocate()" type="text" placeholder="Начните вводить адрес..">
     <div id="googleMap" style="width:1000px;height:435px;"></div>
 
     <?= $form->field($model, 'country')->textInput(['maxlength' => true]) ?>

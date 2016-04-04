@@ -192,7 +192,7 @@ CREATE TABLE `fpm_file` (
   `base_name` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'File base name',
   `created_at` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -201,7 +201,7 @@ CREATE TABLE `fpm_file` (
 
 LOCK TABLES `fpm_file` WRITE;
 /*!40000 ALTER TABLE `fpm_file` DISABLE KEYS */;
-INSERT INTO `fpm_file` VALUES (1,'jpg','Ben-Affleck-Batman-V-Superman-Power-Armor',1459074725);
+INSERT INTO `fpm_file` VALUES (1,'jpg','Ben-Affleck-Batman-V-Superman-Power-Armor',1459074725),(2,'jpg','HLo7fHmZRPE',1459679876),(3,'jpg','Y8Yv4d_7srg',1459679917),(4,'jpg','Y8Yv4d_7srg',1459679936),(5,'jpg','Y8Yv4d_7srg',1459681108);
 /*!40000 ALTER TABLE `fpm_file` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -225,7 +225,7 @@ CREATE TABLE `migration` (
 
 LOCK TABLES `migration` WRITE;
 /*!40000 ALTER TABLE `migration` DISABLE KEYS */;
-INSERT INTO `migration` VALUES ('m000000_000000_base',1457235270),('m130524_201442_init',1457239773),('m160306_033443_create_race_table',1457239773),('m160306_033452_create_sport_table',1457239773),('m160306_033538_create_distance_table',1457239773),('m160306_033556_create_organizer_table',1457239773),('m160306_033620_create_coach_table',1457239773),('m160306_033631_create_post_table',1457239773),('m160306_033639_create_content_page_table',1457239773),('m160306_033649_create_product_table',1457239773),('m160306_045536_create_configuration_table',1457241215),('m160306_080017_create_fpm_file_table',1457254706),('m160306_084407_create_race_lang_table',1457254751),('m160327_083521_add_race_to_user_fk',1459067750),('m160327_083638_add_distance_to_sport_fk',1459081874),('m160327_083700_add_post_to_user_fk',1459081874),('m160327_084300_alter_race_table',1459081874),('m160327_091024_add_race_to_sport_fk',1459081874),('m160327_091244_create_distance_category_table',1459081874),('m160327_091323_create_distance_distance_category_ref',1459081874),('m160327_091345_add_distance_distance_category_ref_to_distance_fk',1459081874),('m160327_091352_add_distance_distance_category_ref_to_distance_category_fk',1459081874),('m160327_123028_add_race_to_organizer_fk',1459081874);
+INSERT INTO `migration` VALUES ('m000000_000000_base',1457235270),('m130524_201442_init',1457239773),('m160306_033443_create_race_table',1457239773),('m160306_033452_create_sport_table',1457239773),('m160306_033538_create_distance_table',1457239773),('m160306_033556_create_organizer_table',1457239773),('m160306_033620_create_coach_table',1457239773),('m160306_033631_create_post_table',1457239773),('m160306_033639_create_content_page_table',1457239773),('m160306_033649_create_product_table',1457239773),('m160306_045536_create_configuration_table',1457241215),('m160306_080017_create_fpm_file_table',1457254706),('m160306_084407_create_race_lang_table',1457254751),('m160327_083521_add_race_to_user_fk',1459067750),('m160327_083638_add_distance_to_sport_fk',1459081874),('m160327_083700_add_post_to_user_fk',1459081874),('m160327_084300_alter_race_table',1459081874),('m160327_091024_add_race_to_sport_fk',1459081874),('m160327_091244_create_distance_category_table',1459081874),('m160327_091323_create_distance_distance_category_ref',1459081874),('m160327_091345_add_distance_distance_category_ref_to_distance_fk',1459081874),('m160327_091352_add_distance_distance_category_ref_to_distance_category_fk',1459081874),('m160327_123028_add_race_to_organizer_fk',1459081874),('m160403_095238_create_seo_table',1459677232),('m160403_131227_alter_race_table',1459689233);
 /*!40000 ALTER TABLE `migration` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -283,7 +283,7 @@ CREATE TABLE `post` (
   UNIQUE KEY `url` (`url`),
   KEY `post_to_user_fk` (`author_id`),
   CONSTRAINT `post_to_user_fk` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -292,6 +292,7 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
+INSERT INTO `post` VALUES (1,'2016-04-03 10:34:00',1,'Публикация 1','publication-1','<p>promo promo promo <span class=\"redactor-invisible-space\">promo <span class=\"redactor-invisible-space\">promo <span class=\"redactor-invisible-space\">promo <span class=\"redactor-invisible-space\">promo <span class=\"redactor-invisible-space\">promo <span class=\"redactor-invisible-space\">promo <span class=\"redactor-invisible-space\">promo <span class=\"redactor-invisible-space\">promo <span class=\"redactor-invisible-space\">promo <span class=\"redactor-invisible-space\">promo <span class=\"redactor-invisible-space\">promo <span class=\"redactor-invisible-space\">promo <span class=\"redactor-invisible-space\">promo <span class=\"redactor-invisible-space\">promo <span class=\"redactor-invisible-space\"></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></p>','<p>content content content <span class=\"redactor-invisible-space\">content <span class=\"redactor-invisible-space\">content <span class=\"redactor-invisible-space\">content <span class=\"redactor-invisible-space\">content <span class=\"redactor-invisible-space\">content <span class=\"redactor-invisible-space\">content <span class=\"redactor-invisible-space\">content <span class=\"redactor-invisible-space\">content <span class=\"redactor-invisible-space\">content <span class=\"redactor-invisible-space\">content <span class=\"redactor-invisible-space\">content <span class=\"redactor-invisible-space\">content <span class=\"redactor-invisible-space\"></span></span></span></span></span></span></span></span></span></span></span></span></span></p>',5,1);
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -355,6 +356,8 @@ CREATE TABLE `race` (
   `facebook_event_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `published` tinyint(1) DEFAULT NULL,
   `sport_id` int(11) DEFAULT NULL,
+  `coord_lon` float DEFAULT NULL,
+  `coord_lat` float DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `url` (`url`),
   KEY `race_to_sport_fk` (`sport_id`),
@@ -370,7 +373,7 @@ CREATE TABLE `race` (
 
 LOCK TABLES `race` WRITE;
 /*!40000 ALTER TABLE `race` DISABLE KEYS */;
-INSERT INTO `race` VALUES (1,'2016-03-27 10:50:00',1,'0000-00-00','0000-00-00','10:50','Russia','Moscow','Hills of glory','Compete 1','compete-1',25,'рубли',1,'http://www.compete.com',1,'<p>Well well well</p>','<p>well well well</p>','','',1,NULL),(2,'2016-03-27 10:31:00',1,'2016-03-17',NULL,'23:22','Russia','Moscow','','Compete 1','compete-3',NULL,'рубли',NULL,'',1,'<p>promo</p>','','','',0,NULL);
+INSERT INTO `race` VALUES (1,'2016-03-27 10:50:00',1,'0000-00-00','0000-00-00','10:50','Russia','Moscow','Hills of glory','Compete 1','compete-1',25,'рубли',1,'http://www.compete.com',1,'<p>Well well well</p>','<p>well well well</p>','','',1,NULL,NULL,NULL),(2,'2016-03-27 10:31:00',1,'2016-03-17',NULL,'23:22','Russia','Moscow','','Compete 1','compete-3',NULL,'рубли',1,'',1,'<p>promo</p>','','','',1,1,40.4297,56.1547);
 /*!40000 ALTER TABLE `race` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -406,6 +409,34 @@ LOCK TABLES `race_lang` WRITE;
 /*!40000 ALTER TABLE `race_lang` DISABLE KEYS */;
 INSERT INTO `race_lang` VALUES (1,2,'ru','Compete 1','','<p>promo</p>','Russia','Moscow','',''),(2,2,'en','','','','','','','');
 /*!40000 ALTER TABLE `race_lang` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `seo`
+--
+
+DROP TABLE IF EXISTS `seo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `seo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `model_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `model_id` int(11) NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `keywords` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `seo`
+--
+
+LOCK TABLES `seo` WRITE;
+/*!40000 ALTER TABLE `seo` DISABLE KEYS */;
+INSERT INTO `seo` VALUES (1,'Post',1,'Label','key1 key2 key3','description'),(2,'Post',0,'Список сео','слово слово','описание');
+/*!40000 ALTER TABLE `seo` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -475,4 +506,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-27 13:02:03
+-- Dump completed on 2016-04-03 14:42:27

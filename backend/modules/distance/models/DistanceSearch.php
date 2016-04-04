@@ -67,3 +67,4 @@ class DistanceSearch extends Distance
         return $dataProvider;
     }
 }
+

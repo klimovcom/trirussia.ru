@@ -2,6 +2,7 @@
  * Created by alfred on 22.02.16.
  */
 
+
 $(document).ready(function(){
 
     function cyr2lat(str) {
@@ -141,8 +142,4 @@ $(document).ready(function(){
         var dataTarget = $(this).data('target');
         $(dataTarget).toggle();
     });
-
-    $('.google-input').on('change', function(){
-        codeAddress($(this).val());
-    })
 });
