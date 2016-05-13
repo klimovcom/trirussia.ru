@@ -51,6 +51,9 @@ class CoachSearch extends Coach
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder'=> ['id' => SORT_DESC],
+            ],
         ]);
 
         $this->load($params);
@@ -75,8 +78,6 @@ class CoachSearch extends Coach
             ->andFilterWhere(['like', 'fb_link', $this->fb_link])
             ->andFilterWhere(['like', 'vk_link', $this->vk_link])
             ->andFilterWhere(['like', 'ig_link', $this->ig_link]);
-
-        $query->orderBy('id DESC');
 
         return $dataProvider;
     }

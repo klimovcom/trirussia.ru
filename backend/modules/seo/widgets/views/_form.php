@@ -3,7 +3,9 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 ?>
 
-<button class="btn btn-success toggle-seo">Настройки СЕО для списка</button>
+<p>
+	<button class="btn btn-primary toggle-seo">Настройки СЕО для списка</button>
+</p>
 <div id="seo-form-widget" class="seo-form">
 
 	<?php if ($isForm) : ?>

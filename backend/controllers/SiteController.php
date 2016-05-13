@@ -1,6 +1,10 @@
 <?php
 namespace backend\controllers;
 
+use post\models\Post;
+use product\models\Product;
+use race\models\Race;
+use user\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -55,7 +59,17 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $userCount = User::find()->count();
+        $postCount = Post::find()->count();
+        $raceCount = Race::find()->count();
+        $productCount = Product::find()->count();
+        return $this->render('index', [
+            'userCount' => $userCount,
+            'postCount' => $postCount,
+            'raceCount' => $raceCount,
+            'productCount' => $productCount,
+
+        ]);
     }
 
     public function actionLogin()

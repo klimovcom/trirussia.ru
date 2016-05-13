@@ -7,40 +7,44 @@ use yii\grid\GridView;
 /* @var $searchModel coach\models\CoachSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Coaches';
+$this->title = 'Тренеры';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="coach-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Создать тренера', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\Column'],
-
-            'id',
-
-            'label',
-            'country',
-            'site',
-            'phone',
-            'email:email',
-            'created',
-
-
-            // 'fb_link',
-            // 'vk_link',
-            // 'ig_link',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
-</div>
+<section class="content-header coach-index">
+    <?php
+    $breadcrumbs = isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [];
+    if ($breadcrumbs) {?>
+        <?= \yii\widgets\Breadcrumbs::widget(
+            [
+                'links' => $breadcrumbs,
+                'tag' => 'h1',
+                'itemTemplate' => "{link}\n <span>•</span> ",
+                'activeItemTemplate' => "<small>{link}</small>\n",
+                'options' => ['class' => '',]
+            ]
+        ) ?>
+    <?php } ?>
+</section>
+<section class="content  coach-index">
+    <p><a href="<?= \yii\helpers\Url::to('/coach/coach/create'); ?>" class="btn btn-primary">Добавить тренера</a></p>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <?= GridView::widget([
+                        'tableOptions' => ['class' => 'table table-striped table-bordered dataTable no-footer table',],
+                        'layout'=>"{items}\n{summary}\n{pager}",
+                        'dataProvider' => $dataProvider,
+                        'filterModel' => $searchModel,
+                        'columns' => [
+                            'id',
+                            'label',
+                            'site',
+                            ['class' => 'yii\grid\ActionColumn'],
+                        ],
+                    ]); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

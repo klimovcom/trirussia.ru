@@ -30,6 +30,7 @@ class DistanceDistanceCategoryRef extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['distance_id', 'distance_category_id'], 'required'],
             [['distance_id', 'distance_category_id'], 'integer']
         ];
     }

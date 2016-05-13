@@ -5,6 +5,23 @@
 
 $(document).ready(function(){
 
+
+    $(".select2").select2();
+    $(".timepicker").timepicker({
+        showInputs: false,
+        minuteStep: 30,
+        showMeridian: false
+    });
+    $(".textarea").wysihtml5();
+    $('#tbl').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false
+    });
+
     function cyr2lat(str) {
 
         var cyr2latChars = new Array(
@@ -101,10 +118,6 @@ $(document).ready(function(){
        window.location.href = $(this).attr('href');
     });
 
-    $('input.timepicker').on('change', function(){
-        $("#race-start_time").val($("#race-start_time_hours").val() + ":" + $("#race-start_time_minutes").val());
-    })
-
     $('#race-currency').on('change', function(){
         console.log($(this).val());
 
@@ -123,23 +136,77 @@ $(document).ready(function(){
         return false;
     })
 
-    var pageHasMultilang = false;
-    $('.form-group').each(function(){
-        if ($(this).attr('class').indexOf("_en") > -1){
-            if (!pageHasMultilang){
-                pageHasMultilang = true;
-                console.log('spoiler');
-                $(".content-wrapper>div>div").prepend(
-                    '<span class="btn btn-success btn-translate" data-target=".spoiler-en">Перевод EN</span>' +
-                    '<div class="spoiler-en"></div>'
-                );
-            }
-            $(this).prependTo('.spoiler-en');
-        }
-    });
-
     $(document).on('click', '.btn-translate', function(){
         var dataTarget = $(this).data('target');
         $(dataTarget).toggle();
+    });
+
+    $(document).on('click', '.toggle-publication', function(e){
+        e.preventDefault();
+        var val = $('#published-field').val();
+
+        if (val == 1) {
+            $('.toggle-publication').val('Опубликовать');
+            val = 0;
+        } else {
+            $('.toggle-publication').val('Снять с публикации');
+            val = 1;
+        }
+
+        $('#published-field').val(val)
+        return false;
+    });
+
+    $(document).on('change', '#race-sport_id', function(){
+
+        $('.field-race-categoriesarray .select2-search__field')
+            .val(null)
+            .attr('placeholder', 'Выберите категорию')
+            .css('width', '200px');
+        $('.field-race-categoriesarray input[name="Race[categoriesArray]"]').val(null);
+        $('.field-race-categoriesarray .select2-selection__choice').remove();
+
+        $('.field-race-distancesarray .select2-search__field')
+            .val(null)
+            .attr('placeholder', 'Выберите дистанцию')
+            .css('width', '200px');
+        $('.field-race-distancesarray input[name="Race[distancesArray]"]').val(null);
+        $('.field-race-distancesarray .select2-selection__choice').remove();
+
+        $('select#race-categoriesarray').html('');
+        $('select#race-distancesarray').html('');
+        var val = $(this).val();
+        if (val > 0){
+            $.post('/race/race/get-categories-widget', {'sportId': val}, function(response){
+                $('select#race-categoriesarray').removeAttr('disabled').html(response);
+                $('.field-race-categoriesarray .select2-search__field')
+                    .removeAttr('disabled')
+            });
+        }
+    });
+
+    $(document).on('change', '#race-categoriesarray', function(){
+        var val = $(this).val();
+        console.log('changed');
+        $('.field-race-distancesarray .select2-search__field')
+            .val(null)
+            .attr('placeholder', 'Выберите дистанцию')
+            .css('width', '200px');
+        $('.field-race-distancesarray input[name="Race[distancesArray]"]').val(null);
+        $('.field-race-distancesarray .select2-selection__choice').remove();
+
+        $('select#race-distancesarray').html('');
+        console.log('val');
+        console.log(val);
+        if (val.length > 0){
+            console.log("more");
+            $('#race-distancesarray').removeAttr('disabled');
+            $('.field-race-distancesarray .select2-search__field').removeAttr('disabled');
+
+            $.post('/race/race/get-distances-widget', {'distanceCategories': val}, function(response){
+                $('select#race-distancesarray').html(response);
+            });
+
+        }
     });
 });

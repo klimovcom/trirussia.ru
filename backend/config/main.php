@@ -72,6 +72,11 @@ return [
             DIRECTORY_SEPARATOR . 'modules' .
             DIRECTORY_SEPARATOR . 'seo'
         ),
+        'promo' => realpath(
+            __DIR__ . DIRECTORY_SEPARATOR . '..' .
+            DIRECTORY_SEPARATOR . 'modules' .
+            DIRECTORY_SEPARATOR . 'promo'
+        ),
     ],
     'modules' => [
         'race' => [
@@ -119,6 +124,9 @@ return [
         'seo' => [
             'class' => 'seo\SeoModule'
         ],
+        'promo' => [
+            'class' => 'promo\PromoModule'
+        ],
     ],
     'components' => [
         'user' => [
@@ -140,8 +148,15 @@ return [
         'assetManager' => [
             'bundles' => [
                 'yii\web\JqueryAsset' => [
-                    'js'=>[],
+                    'js'=>[]
                 ],
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'js'=>[]
+                ],
+                'yii\bootstrap\BootstrapAsset' => [
+                    'css' => [],
+                ],
+
             ],
         ],
 

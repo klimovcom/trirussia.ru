@@ -18,7 +18,7 @@ class DistanceCategorySearch extends DistanceCategory
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'sport_id'], 'integer'],
             [['label'], 'safe'],
         ];
     }

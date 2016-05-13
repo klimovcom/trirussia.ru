@@ -45,8 +45,7 @@ class Post extends \yii\db\ActiveRecord
         return [
             [['created', 'author_id', 'label', 'url', 'promo', 'content', ], 'required'],
             [['created', 'image_id',], 'safe'],
-            [['author_id', /*'image_id',*/
-                'published'], 'integer'],
+            [['author_id', 'published'], 'integer'],
             [['promo', 'content'], 'string'],
             [['label', 'url'], 'string', 'max' => 255],
             [['url'], 'unique'],
@@ -60,7 +59,7 @@ class Post extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'created' => 'Создана',
+            'created' => 'Дата создания',
             'author_id' => 'Автор',
             'label' => 'Заголовок',
             'url' => 'URL',

@@ -10,15 +10,23 @@ use yii\grid\GridView;
 $this->title = 'Публикации';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="post-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Создать публикацию', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
+<section class="content-header post-index">
+    <?php
+    $breadcrumbs = isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [];
+    if ($breadcrumbs) {?>
+        <?= \yii\widgets\Breadcrumbs::widget(
+            [
+                'links' => $breadcrumbs,
+                'tag' => 'h1',
+                'itemTemplate' => "{link}\n <span>•</span> ",
+                'activeItemTemplate' => "<small>{link}</small>\n",
+                'options' => ['class' => '',]
+            ]
+        ) ?>
+    <?php } ?>
+</section>
+<section class="content post-index">
+    <p><a href="<?= \yii\helpers\Url::to('/post/post/create'); ?>" class="btn btn-primary">Добавить публикацию</a></p>
     <?= \seo\widgets\SeoWidget::widget(
         [
             'model' => new \post\models\Post(),
@@ -27,30 +35,35 @@ $this->params['breadcrumbs'][] = $this->title;
             'onlyForm' => true
         ]
     ) ?>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\Column'],
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <?= GridView::widget([
+                        'tableOptions' => ['class' => 'table table-striped table-bordered dataTable no-footer table',],
+                        'layout'=>"{items}\n{summary}\n{pager}",
+                        'dataProvider' => $dataProvider,
+                        'filterModel' => $searchModel,
+                        'columns' => [
+                            'id',
+                            'author_id',
+                            'label',
+                            'url',
+                            [
+                                'attribute' => 'published',
+                                'value' => function ($model) {
+                                    return $model->published ? 'Да' : 'Нет';
+                                },
+                                'filter' => [0 => 'Нет', 1 => 'Да']
+                            ],
+                            'created',
+                            ['class' => 'yii\grid\ActionColumn'],
+                        ],
+                    ]); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-            'id',
-            'author_id',
-            'label',
-            'url',
-            // 'promo:ntext',
-            // 'content:ntext',
-            // 'image_id',
-            [
-                'attribute' => 'published',
-                'value' => function ($model) {
-                    return $model->published ? 'Да' : 'Нет';
-                },
-                'filter' => [0 => 'Нет', 1 => 'Да']
-            ],
-            'created',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
-</div>

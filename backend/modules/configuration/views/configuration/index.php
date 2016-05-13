@@ -10,29 +10,43 @@ use yii\grid\GridView;
 $this->title = 'Конфигурации';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="configuration-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Создать конфигурацию', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\Column'],
-
-            'id',
-            'label',
-            // 'description:ntext',
-            'key',
-            'value',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
-</div>
+<section class="content-header configuration-index">
+    <?php
+    $breadcrumbs = isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [];
+    if ($breadcrumbs) {?>
+        <?= \yii\widgets\Breadcrumbs::widget(
+            [
+                'links' => $breadcrumbs,
+                'tag' => 'h1',
+                'itemTemplate' => "{link}\n <span>•</span> ",
+                'activeItemTemplate' => "<small>{link}</small>\n",
+                'options' => ['class' => '',]
+            ]
+        ) ?>
+    <?php } ?>
+</section>
+<section class="content configuration-index">
+    <p><a href="<?= \yii\helpers\Url::to('/configuration/configuration/create'); ?>" class="btn btn-primary">Добавить конфиг</a></p>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <?= GridView::widget([
+                        'tableOptions' => ['class' => 'table table-striped table-bordered dataTable no-footer table',],
+                        'layout'=>"{items}\n{summary}\n{pager}",
+                        'dataProvider' => $dataProvider,
+                        'filterModel' => $searchModel,
+                        'columns' => [
+                            'id',
+                            'label',
+                            // 'description:ntext',
+                            'key',
+                            'value',
+                            ['class' => 'yii\grid\ActionColumn'],
+                        ],
+                    ]); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

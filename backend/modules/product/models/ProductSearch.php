@@ -51,6 +51,9 @@ class ProductSearch extends Product
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder'=> ['id' => SORT_DESC],
+            ],
         ]);
 
         $this->load($params);
@@ -72,8 +75,6 @@ class ProductSearch extends Product
             ->andFilterWhere(['like', 'url', $this->url])
             ->andFilterWhere(['like', 'promo', $this->promo])
             ->andFilterWhere(['like', 'content', $this->content]);
-
-        $query->orderBy('id DESC');
 
         return $dataProvider;
     }

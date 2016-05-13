@@ -16,6 +16,15 @@ use Yii;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
+ * @property string $fb_id
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $sex
+ * @property string $locale
+ * @property string $timezone
+ * @property string $age
+ * @property string $birthday
+ * @property string $place
  */
 class User extends \yii\db\ActiveRecord
 {
@@ -34,8 +43,26 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
-            [['status', 'created_at', 'updated_at'], 'integer'],
-            [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
+            [['status', 'created_at', 'updated_at',], 'integer'],
+            [
+                [
+                    'username',
+                    'password_hash',
+                    'password_reset_token',
+                    'email',
+                    'fb_id',
+                    'first_name',
+                    'last_name',
+                    'sex',
+                    'locale',
+                    'timezone',
+                    'age',
+                    'birthday',
+                    'place',
+                ],
+                'string',
+                'max' => 255
+            ],
             [['auth_key'], 'string', 'max' => 32],
             [['username'], 'unique'],
             [['email'], 'unique'],
@@ -56,8 +83,18 @@ class User extends \yii\db\ActiveRecord
             'password_reset_token' => 'Password Reset Token',
             'email' => 'E-mail',
             'status' => 'Статус',
-            'created_at' => 'Создан',
+            'created_at' => 'Дата регистрации',
             'updated_at' => 'Обновлен',
+            'fb_id' => 'Facebook ID',
+            'first_name' => 'Имя',
+            'last_name' => 'Фамилия',
+            'sex' => 'Пол',
+            'locale' => 'Локаль',
+            'timezone' => 'Временная зона',
+            'age' => 'Возраст',
+            'birthday' => 'Дата рождения',
+            'place' => 'Местонахождение',
+
         ];
     }
 
@@ -66,7 +103,7 @@ class User extends \yii\db\ActiveRecord
         $users = User::find()->all();
         $data = [];
         /** @var User $user */
-        foreach($users as $user){
+        foreach ($users as $user) {
             $data[$user->id] = $user->username . "::" . $user->email . "::" . $user->id;
         }
         return $data;

@@ -51,6 +51,9 @@ class OrganizerSearch extends Organizer
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder'=> ['id' => SORT_DESC],
+            ],
         ]);
 
         $this->load($params);
@@ -75,8 +78,6 @@ class OrganizerSearch extends Organizer
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'promo', $this->promo])
             ->andFilterWhere(['like', 'content', $this->content]);
-
-        $query->orderBy('id DESC');
 
         return $dataProvider;
     }

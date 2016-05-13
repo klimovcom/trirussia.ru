@@ -52,7 +52,7 @@ class Page extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'created' => 'Создана',
+            'created' => 'Дата создания',
             'label' => 'Заголовок',
             'content' => 'Содержание',
             'url' => 'URL',

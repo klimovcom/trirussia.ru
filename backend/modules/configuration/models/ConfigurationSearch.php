@@ -45,6 +45,9 @@ class ConfigurationSearch extends Configuration
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder'=> ['id' => SORT_DESC],
+            ],
         ]);
 
         $this->load($params);
@@ -63,8 +66,6 @@ class ConfigurationSearch extends Configuration
             ->andFilterWhere(['like', 'description', $this->description])
             ->andFilterWhere(['like', 'key', $this->key])
             ->andFilterWhere(['like', 'value', $this->value]);
-
-        $query->orderBy('id DESC');
 
         return $dataProvider;
     }

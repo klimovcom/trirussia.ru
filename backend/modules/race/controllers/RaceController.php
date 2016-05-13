@@ -2,10 +2,14 @@
 
 namespace race\controllers;
 
+use distance\models\Distance;
+use distance\models\DistanceCategory;
+use distance\models\DistanceDistanceCategoryRef;
 use Faker\Factory;
 use Yii;
 use race\models\Race;
 use race\models\RaceSearch;
+use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -22,7 +26,7 @@ class RaceController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
+
                 ],
             ],
         ];
@@ -65,10 +69,14 @@ class RaceController extends Controller
     public function actionCreate()
     {
         $model = new Race();
+        $model->published = 1;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $model->sport_id = null;
+            $model->setCategoriesArray(null);
+            $model->setDistancesArray(null);
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -121,5 +129,31 @@ class RaceController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionGetCategoriesWidget()
+    {
+        $this->layout = false;
+        $sportId = $_POST['sportId'];
+        $options = DistanceCategory::find()->where(['sport_id' => $sportId, ])->all();
+        return $this->renderAjax('_categories-widget', ['options' => $options, ]);
+    }
+
+    public function actionGetDistancesWidget()
+    {
+        $this->layout = false;
+        $categoriesIdArray = $_POST['distanceCategories'];
+        $distancesRefs = DistanceDistanceCategoryRef::find()
+            ->where(['in', 'distance_category_id', $categoriesIdArray])
+            ->all();
+        $distances = ArrayHelper::map(Distance::find()->all(), 'id', 'label');
+        $options = [];
+        foreach($distancesRefs as $ref){
+            $model = new Distance();
+            $model->id = $ref->distance_id;
+            $model->label = $distances[$ref->distance_id];
+            $options[] = $model;
+        }
+        return $this->renderAjax('_categories-widget', ['options' => $options, ]);
     }
 }

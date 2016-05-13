@@ -51,6 +51,9 @@ class PageSearch extends Page
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder'=> ['id' => SORT_DESC],
+            ],
         ]);
 
         $this->load($params);
@@ -70,8 +73,6 @@ class PageSearch extends Page
         $query->andFilterWhere(['like', 'label', $this->label])
             ->andFilterWhere(['like', 'content', $this->content])
             ->andFilterWhere(['like', 'url', $this->url]);
-
-        $query->orderBy('id DESC');
 
         return $dataProvider;
     }

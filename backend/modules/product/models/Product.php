@@ -2,7 +2,10 @@
 
 namespace product\models;
 
+use metalguardian\fileProcessor\behaviors\UploadBehavior;
+use metalguardian\fileProcessor\helpers\FPM;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "product".
@@ -43,6 +46,7 @@ class Product extends \yii\db\ActiveRecord
             [['promo', 'content'], 'string'],
             [[/*'image_id',*/
                 'published'], 'integer'],
+            [['image_id', ], 'safe', ],
             [['label', 'url'], 'string', 'max' => 255],
             [['url'], 'unique']
         ];
@@ -55,7 +59,7 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'created' => 'Создан',
+            'created' => 'Дата создания',
             'label' => 'Название',
             'url' => 'URL',
             'promo' => 'Промо',
@@ -63,5 +67,35 @@ class Product extends \yii\db\ActiveRecord
             'image_id' => 'Изображение',
             'published' => 'Опубликовано',
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return ArrayHelper::merge(
+            parent::behaviors(),
+            [
+                'image_id' => [
+                    'class' => UploadBehavior::className(),
+                    'attribute' => 'image_id',
+                    'image' => true,
+                    'required' => true,
+                ],
+            ]
+        );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeDelete()
+    {
+        parent::beforeDelete();
+
+        FPM::deleteFile($this->image_id);
+
+        return true;
     }
 }

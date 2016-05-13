@@ -45,6 +45,9 @@ class SportSearch extends Sport
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder'=> ['id' => SORT_DESC],
+            ],
         ]);
 
         $this->load($params);
@@ -60,8 +63,6 @@ class SportSearch extends Sport
         ]);
 
         $query->andFilterWhere(['like', 'label', $this->label]);
-
-        $query->orderBy('id DESC');
 
         return $dataProvider;
     }

@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property string $label
+ * @property integer $sport_id
  *
  * @property DistanceDistanceCategoryRef[] $distanceDistanceCategoryRefs
  */
@@ -29,6 +30,7 @@ class DistanceCategory extends \yii\db\ActiveRecord
     {
         return [
             [['label'], 'required'],
+            [['sport_id'], 'integer'],
             [['label'], 'string', 'max' => 255]
         ];
     }
@@ -40,6 +42,7 @@ class DistanceCategory extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'sport_id' => 'Вид спорта',
             'label' => 'Название',
         ];
     }

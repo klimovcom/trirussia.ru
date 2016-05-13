@@ -45,6 +45,12 @@ class UserSearch extends User
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder'=> ['id' => SORT_DESC],
+                'attributes' => [
+                    'id', 'username', 'email', 'created_at',
+                ]
+            ],
         ]);
 
         $this->load($params);
@@ -67,8 +73,6 @@ class UserSearch extends User
             ->andFilterWhere(['like', 'password_hash', $this->password_hash])
             ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
             ->andFilterWhere(['like', 'email', $this->email]);
-
-        $query->orderBy('id DESC');
 
         return $dataProvider;
     }

@@ -18,7 +18,7 @@ class DistanceSearch extends Distance
     public function rules()
     {
         return [
-            [['id', 'sport_id'], 'integer'],
+            [['id',], 'integer'],
             [['label'], 'safe'],
         ];
     }
@@ -45,6 +45,9 @@ class DistanceSearch extends Distance
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder'=> ['id' => SORT_DESC],
+            ],
         ]);
 
         $this->load($params);
@@ -57,12 +60,10 @@ class DistanceSearch extends Distance
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'sport_id' => $this->sport_id,
         ]);
 
         $query->andFilterWhere(['like', 'label', $this->label]);
 
-        $query->orderBy('id DESC');
 
         return $dataProvider;
     }

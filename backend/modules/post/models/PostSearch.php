@@ -52,6 +52,9 @@ class PostSearch extends Post
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder'=> ['id' => SORT_DESC],
+            ],
         ]);
 
         $this->load($params);
@@ -74,8 +77,6 @@ class PostSearch extends Post
             ->andFilterWhere(['like', 'url', $this->url])
             ->andFilterWhere(['like', 'promo', $this->promo])
             ->andFilterWhere(['like', 'content', $this->content]);
-
-        $query->orderBy('id DESC');
 
         return $dataProvider;
     }

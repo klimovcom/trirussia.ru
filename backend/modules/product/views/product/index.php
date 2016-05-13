@@ -10,37 +10,49 @@ use yii\grid\GridView;
 $this->title = 'Продукты';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="product-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('создать продукт', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\Column'],
-
-            'id',
-            'label',
-            'url:url',
-            'promo:ntext',
-            // 'content:ntext',
-            // 'image_id',
+<section class="content-header product-index">
+    <?php
+    $breadcrumbs = isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [];
+    if ($breadcrumbs) {?>
+        <?= \yii\widgets\Breadcrumbs::widget(
             [
-                'attribute' => 'published',
-                'value' => function ($model) {
-                    return $model->published ? 'Да' : 'Нет';
-                },
-                'filter' => [0 => 'Нет', 1 => 'Да']],
-            'created',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
-</div>
+                'links' => $breadcrumbs,
+                'tag' => 'h1',
+                'itemTemplate' => "{link}\n <span>•</span> ",
+                'activeItemTemplate' => "<small>{link}</small>\n",
+                'options' => ['class' => '',]
+            ]
+        ) ?>
+    <?php } ?>
+</section>
+<section class="content  product-index">
+    <p><a href="<?= \yii\helpers\Url::to('/product/product/create'); ?>" class="btn btn-primary">Добавить продукт</a></p>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <?= GridView::widget([
+                        'tableOptions' => ['class' => 'table table-striped table-bordered dataTable no-footer table',],
+                        'layout'=>"{items}\n{summary}\n{pager}",
+                        'dataProvider' => $dataProvider,
+                        'filterModel' => $searchModel,
+                        'columns' => [
+                            'id',
+                            'label',
+                            'url',
+                            'promo:ntext',
+                            [
+                                'attribute' => 'published',
+                                'value' => function ($model) {
+                                    return $model->published ? 'Да' : 'Нет';
+                                },
+                                'filter' => [0 => 'Нет', 1 => 'Да']],
+                            'created',
+                            ['class' => 'yii\grid\ActionColumn'],
+                        ],
+                    ]); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

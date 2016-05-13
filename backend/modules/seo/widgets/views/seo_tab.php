@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<button class="btn btn-success seo-model-toggle">Настройки СЕО для объекта</button>
+<button class="btn btn-primary seo-model-toggle">Настройки СЕО для объекта</button>
 <div class="tab-pane" id="seo-tab">
     <div class="panel-body">
         <fieldset class="form-horizontal">

@@ -71,6 +71,9 @@ class RaceSearch extends Race
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder'=> ['id' => SORT_DESC],
+            ],
         ]);
 
         $this->load($params);
@@ -108,8 +111,6 @@ class RaceSearch extends Race
             ->andFilterWhere(['like', 'content', $this->content])
             ->andFilterWhere(['like', 'instagram_tag', $this->instagram_tag])
             ->andFilterWhere(['like', 'facebook_event_id', $this->facebook_event_id]);
-
-        $query->orderBy('id DESC');
 
         return $dataProvider;
     }

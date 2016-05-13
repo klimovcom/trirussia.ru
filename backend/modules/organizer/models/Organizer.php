@@ -62,7 +62,7 @@ class Organizer extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'created' => 'Создан',
+            'created' => 'Дата создания',
             'label' => 'Название',
             'country' => 'Страна',
             'site' => 'Сайт',

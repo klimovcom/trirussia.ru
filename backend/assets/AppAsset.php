@@ -19,17 +19,16 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        '/css/bootstrap.min.css',
-        '/css/bootstrap.css.map',
-        '/css/font-awesome.min.css',
-        '/css/AdminLTE.min.css',
-        '/css/_all-skins.min.css',
-        '/css/site.css',
     ];
     public $js = [
+        /*'/plugins/jQuery/jQuery-2.1.4.min.js',*/
         '/js/bootstrap.min.js',
-        '/js/app.js',
-        '/js/tagit.min.js',
+        '/plugins/datatables/jquery.dataTables.min.js',
+        '/plugins/datatables/dataTables.bootstrap.min.js',
+        '/js/app.min.js',
+        '/plugins/select2/select2.full.min.js',
+        '/plugins/timepicker/bootstrap-timepicker.min.js',
+        '/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js',
         '/js/site.js',
 
     ];
