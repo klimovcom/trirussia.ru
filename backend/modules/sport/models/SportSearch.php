@@ -19,7 +19,7 @@ class SportSearch extends Sport
     {
         return [
             [['id'], 'integer'],
-            [['label'], 'safe'],
+            [['label', 'url', ], 'safe'],
         ];
     }
 
@@ -48,6 +48,9 @@ class SportSearch extends Sport
             'sort' => [
                 'defaultOrder'=> ['id' => SORT_DESC],
             ],
+            'pagination' => [
+                'pageSize' => 50,
+            ],
         ]);
 
         $this->load($params);
@@ -63,6 +66,7 @@ class SportSearch extends Sport
         ]);
 
         $query->andFilterWhere(['like', 'label', $this->label]);
+        $query->andFilterWhere(['like', 'url', $this->url]);
 
         return $dataProvider;
     }

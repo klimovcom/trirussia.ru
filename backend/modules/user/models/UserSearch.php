@@ -51,6 +51,9 @@ class UserSearch extends User
                     'id', 'username', 'email', 'created_at',
                 ]
             ],
+            'pagination' => [
+                'pageSize' => 50,
+            ],
         ]);
 
         $this->load($params);

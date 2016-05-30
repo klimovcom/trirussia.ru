@@ -39,6 +39,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         'columns' => [
                             'id',
                             'label',
+                            'url',
+                            [
+                                'attribute' => 'is_on_main',
+                                'value' => function ($model) {
+                                    return $model->is_on_main ? 'Да' : 'Нет';
+                                },
+                                'filter' => [0 => 'Нет', 1 => 'Да']
+                            ],
                             ['class' => 'yii\grid\ActionColumn'],
                         ],
                     ]); ?>

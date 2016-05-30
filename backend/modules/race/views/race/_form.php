@@ -452,6 +452,10 @@ google.maps.event.addDomListener(window, 'load', initialize);
         <?= $form->field($model, 'instagram_tag')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'facebook_event_id')->textInput(['maxlength' => true]) ?>
+        
+        <?= $form->field($model, 'popularity')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'hide_image')->checkbox(); ?>
 
         <?= $form->field($model, 'published')->hiddenInput(['id' => 'published-field'])->label(false); ?>
 

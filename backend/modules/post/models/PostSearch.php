@@ -55,6 +55,9 @@ class PostSearch extends Post
             'sort' => [
                 'defaultOrder'=> ['id' => SORT_DESC],
             ],
+            'pagination' => [
+                'pageSize' => 50,
+            ],
         ]);
 
         $this->load($params);

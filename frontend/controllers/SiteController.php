@@ -1,23 +1,37 @@
 <?php
 namespace frontend\controllers;
 
+use distance\models\DistanceCategory;
+use race\models\Race;
+use race\models\RaceDistanceCategoryRef;
+use sport\models\Sport;
+use user\models\User;
+use willGo\models\WillGo;
 use Yii;
 use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use yii\authclient\ClientInterface;
 use yii\base\InvalidParamException;
+use yii\helpers\ArrayHelper;
+use yii\helpers\VarDumper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * Site controller
  */
 class SiteController extends Controller
 {
+
+    public $successUrl = 'http://front.dev';
+    
     /**
      * @inheritdoc
      */
@@ -26,26 +40,26 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+                /*'only' => ['logout', 'signup'],*/
                 'rules' => [
                     [
-                        'actions' => ['signup'],
-                        'allow' => true,
-                        'roles' => ['?'],
+                        'actions' => [ 'login', 'error', 'auth', 'index' ],
+                        'allow'   => true,
                     ],
                     [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
+                        'actions' => [ 'logout', 'calendar'],
+                        'allow'   => true,
+                        'roles'   => [ '@' ],
                     ],
                 ],
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    'logout' => ['post', 'get'],
                 ],
             ],
+
         ];
     }
 
@@ -58,21 +72,107 @@ class SiteController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+//            'captcha' => [
+//                'class' => 'yii\captcha\CaptchaAction',
+//                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+//            ],
+            'auth' => [
+                'class' => 'yii\authclient\AuthAction',
+                'successCallback' => [$this, 'oAuthSuccess'],
             ],
         ];
     }
+
+    /**
+     * This function will be triggered when user is successfuly authenticated using some oAuth client.
+     *
+     * @param ClientInterface $client
+     * @return bool Response
+     */
+    public function oAuthSuccess($client) {
+        if (!$this->action instanceof \yii\authclient\AuthAction) {
+            throw new \yii\base\InvalidCallException("successCallback is only meant to be executed by AuthAction!");
+        }
+
+        $attributes = $client->getUserAttributes();
+
+        if (!empty($attributes['email'])){
+            $user = User::find()->where(['email'=>$attributes['email']])->one();
+            if (!$user){
+                $user = new User();
+                $user->email = $attributes['email'];
+                $user->username = $attributes['email'];
+                $user->fb_id = $attributes['id'];
+                $user->first_name = explode(' ', $attributes['name'])[0];
+                $user->last_name = explode(' ', $attributes['name'])[1];
+                $user->save(false);
+            }
+            Yii::$app->user->login($user);
+        }
+    }
+
 
     /**
      * Displays homepage.
      *
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($sport = null)
     {
-        return $this->render('index');
+
+        /*$page = !empty($_POST['page']) ? (int)$_POST['page'] : 0;*/
+        $raceCondition = Race::find();
+
+        if (!empty($_GET['distance'])){
+            $idArray = [];
+            $refs = RaceDistanceCategoryRef::find()->where(['distance_category_id' => $_GET['distance']])->all();
+            foreach ($refs as  $ref)
+                $idArray[] = $ref->race_id;
+            if (!empty($idArray))
+                $raceCondition->andWhere(['in', 'id', $idArray]);
+        }
+
+        if (!empty($_GET['date'])) $raceCondition->andWhere(['between', 'start_date', $_GET['date'], substr($_GET['date'], 0, 8) . '31']);
+
+        /*if (!empty($_GET['country'])) $condition['country'] = $_GET['date'];*/
+
+        if (!empty($_GET['organizer'])) $raceCondition->andWhere(['organizer_id' => $_GET['organizer']]);
+
+
+        if ($sport){
+            if ($sport = Sport::find()->where(['url' => $sport])->one()){
+                $raceCondition->andWhere(['sport_id'  => $sport->id ]);
+            } else {
+                throw new NotFoundHttpException();
+            }
+            $races = Race::find()->where($raceCondition->where)->orderBy('start_date DESC')->limit(12)/*->offset($page*12)*/->all();
+            /*if (!empty($_POST['page'])){
+                $output = '';
+                foreach ($races as $race)
+                    $output = $this->renderAjax('_card', ['race' => $race]);
+                return $output;
+            }*/
+            return $this->render('races', [
+                'races' => $races,
+            ]);
+        } else {
+            $mainRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC')->limit(12)/*->offset($page*12)*/->all();
+            /*if (!empty($_POST['page'])){
+                $output = '';
+                foreach ($mainRaces as $race)
+                    $output = $this->renderAjax('_card', ['race' => $race]);
+                return $output;
+            }*/
+            $secondaryRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC')->limit(12)->offset(12)->all();
+            $pastRaces = Race::find()->where('start_date < ' . date('Y-m-d', time()-24*60*60))->orderBy('start_date DESC')->limit(4)->all();
+            $lastRaces = Race::find()->orderBy('start_date DESC')->limit(12)->offset(24)->all();
+            return $this->render('index', [
+                'pastRaces' => $pastRaces,
+                'mainRaces' => $mainRaces,
+                'secondaryRaces' => $secondaryRaces,
+                'lastRaces' => $lastRaces,
+            ]);
+        }
     }
 
     /**
@@ -209,5 +309,22 @@ class SiteController extends Controller
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
+    }
+
+    public function actionCalendar(){
+        $joins = ArrayHelper::map(WillGo::find()->where(['user_id' => Yii::$app->user->identity->id])->all(), 'race_id', 'race_id');
+        $idArray = array_values($joins);
+        $races = Race::find()->where(['in', 'id', $idArray])->all();
+        $racesArrayImproved = [];
+        /** @var Race $race */
+        foreach ($races as $race){
+            if (!isset($racesArrayImproved[strtotime($race->start_date)])){
+                $racesArrayImproved[strtotime($race->start_date)] = [$race];
+            } else {
+                $racesArrayImproved[strtotime($race->start_date)][] = $race;
+            }
+
+        }
+        return $this->render('calendar', ['races'=>$racesArrayImproved, ]);
     }
 }

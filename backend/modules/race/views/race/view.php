@@ -79,6 +79,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'instagram_tag',
                             'facebook_event_id',
                             'published',
+                            'hide_image',
+                            'popularity',
                         ],
                     ]) ?>
                 </div>

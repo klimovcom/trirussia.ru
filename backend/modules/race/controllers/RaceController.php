@@ -92,7 +92,6 @@ class RaceController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -119,16 +118,22 @@ class RaceController extends Controller
      * Finds the Race model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
+     * @param bool $ml
      * @return Race the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($id, $ml = true)
     {
-        if (($model = Race::findOne($id)) !== null) {
-            return $model;
+        if ($ml){
+            if (($model = Race::find()->multilingual()->where(['id' => $id, ])->one()) !== null) {
+                return $model;
+            }
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            if (($model = Race::findOne($id)) !== null) {
+                return $model;
+            }
         }
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 
     public function actionGetCategoriesWidget()

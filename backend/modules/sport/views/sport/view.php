@@ -45,6 +45,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attributes' => [
                             'id',
                             'label',
+                            'url',
+                            'is_on_main',
                         ],
                     ]) ?>
                 </div>

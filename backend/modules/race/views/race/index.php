@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return $organizer->label;
                                     return null;
                                 },
-                                'filter' => \yii\helpers\ArrayHelper::map(\sport\models\Sport::find()->all(), 'id', 'label'),
+                                'filter' => \yii\helpers\ArrayHelper::map(\organizer\models\Organizer::find()->all(), 'id', 'label'),
                             ],
                             [
                                 'attribute' => 'facebook_event_id',
@@ -76,6 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     return Html::a($fbId, \yii\helpers\Url::to('http://www.facebook.com'));
                                 }
                             ],
+                            'popularity',
                             ['class' => 'yii\grid\ActionColumn'],
                         ],
                     ]); ?>

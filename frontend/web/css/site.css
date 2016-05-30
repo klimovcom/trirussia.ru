@@ -103,3 +103,43 @@ a.desc:after {
 .nav > li > form > button:hover {
     text-decoration: none;
 }
+
+.border-run.tri{
+    border-top: 4px solid #EB586F !important;
+}
+
+.border-run.run {
+    border-top: 4px solid #FF9A00 !important;
+}
+
+.border-run.swim {
+    border-top: 4px solid #3490DE !important;
+}
+
+.border-run.bike {
+    border-top: 4px solid #413D65 !important;
+}
+
+.border-run.news {
+    border-top: 4px solid #B83B5E !important;
+}
+
+.border-run.report {
+    border-top: 4px solid #6A2C70 !important;;
+}
+
+.border-run.review  {
+    border-top: 4px solid #FF6138 !important;;
+}
+
+.border-run.interview {
+    border-top: 4px solid #A9C52F !important;
+}
+
+#searchraceform-distance{
+    width: 210px !important;
+}
+
+.already-joined{
+    cursor: pointer;
+}

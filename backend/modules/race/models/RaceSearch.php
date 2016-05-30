@@ -71,6 +71,9 @@ class RaceSearch extends Race
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 50,
+            ],
             'sort' => [
                 'defaultOrder'=> ['id' => SORT_DESC],
             ],

@@ -9,6 +9,8 @@ use Yii;
  *
  * @property integer $id
  * @property string $label
+ * @property string $url
+ * @property boolean $is_on_main
  */
 class Sport extends \yii\db\ActiveRecord
 {
@@ -26,7 +28,9 @@ class Sport extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['label'], 'string', 'max' => 255]
+            [['label', 'url', ], 'string', 'max' => 255],
+            [['url',], 'unique'],
+            [['is_on_main', ], 'integer'],
         ];
     }
 
@@ -38,6 +42,8 @@ class Sport extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'label' => 'Название',
+            'url' => 'Название в URL',
+            'is_on_main' => 'На главной',
         ];
     }
 }

@@ -14,6 +14,10 @@ use yii\widgets\ActiveForm;
         <?php $form = ActiveForm::begin(); ?>
 
         <?= $form->field($model, 'label')->textInput(['maxlength' => true]) ?>
+        
+        <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'is_on_main')->checkbox() ?>
 
     </div>
     <div class="box-footer">

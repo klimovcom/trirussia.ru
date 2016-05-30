@@ -1,0 +1,866 @@
+body {
+	font-family: "Helvetica";
+	background-color: #f5f5f5;
+}
+
+.hidden {
+	display: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: "ProximaNovaBold";
+}
+
+.ProximaNovaRegular {
+	font-family: "ProximaNovaRegular";
+}
+
+.PTSerif {
+	font-family: "PT Serif";
+}
+
+.Merriweather {
+	font-family: "Merriweather";
+}
+
+.underline {
+	text-decoration: none;
+	border-bottom: 1px solid;
+}
+
+a:link.underline {
+	color: #008ACE;
+	border-color: #b2ccf0;
+}
+
+a:visited.underline {
+	color: #B40EB4;
+	border-color: #e0b2e0;
+	text-decoration: none;
+}
+
+a:hover.underline {
+	color: #CC0000;
+	text-decoration: none;
+	border-color: #f0b2b2 !important;
+    transition-duration: 0.3s;
+}
+
+.no-underline {
+	text-decoration: none;
+	color: #373a3c;
+}
+
+a:link.no-underline {
+	text-decoration: none;
+	color: #373a3c;
+}
+
+a:hover.no-underline {
+	color: #CC0000;
+    transition-duration: 0.3s;
+}
+
+.underline-white {
+	text-decoration: none;
+	border-bottom: 1px solid;
+}
+
+a:link.underline-white {
+	color: #fff;
+	border-color: #999;
+}
+
+a:visited.underline-white {
+	color: #fff;
+	border-color: #f5f5f5;
+}
+
+a:hover.underline-white {
+	color: #b2ccf0;
+	text-decoration: none;
+	border-color: #b2ccf0 !important;
+    transition-duration: 0.3s;
+}
+
+.underline-black {
+	text-decoration: none;
+	border-bottom: 1px solid;
+}
+
+a:link.underline-black {
+	color: #373a3c;
+	border-color: #999;
+}
+
+a:visited.underline-black {
+	color: #373a3c;
+	border-color: #999;
+}
+
+a:hover.underline-black {
+	color: #CC0000;
+	border-color: #f0b2b2 !important;
+	text-decoration: none;
+    transition-duration: 0.3s;
+}
+
+.dotted {
+	text-decoration: none;
+	border-bottom: 1px dotted;
+}
+
+a:link.dotted {
+	color: #008ACE;
+	border-color: #b2ccf0;
+}
+
+a:visited.dotted {
+	color: #B40EB4;
+	border-color: #e0b2e0;
+}
+
+a:hover.dotted {
+	color: #CC0000;
+	text-decoration: none;
+	border-color: #f0b2b2 !important;
+    transition-duration: 0.3s;
+}
+
+.highlight-yellow {
+	text-decoration: none;
+	background-color: yellow;
+	padding: 0.1rem 0.7rem;
+}
+
+a:link.highlight-yellow {
+	color: #373a3c;
+}
+
+a:visited.highlight-yellow {
+	color: #373a3c;
+}
+
+a:hover.highlight-yellow {
+	color: yellow;
+	text-decoration: none;
+	background-color: #373a3c;
+	padding: 0.1rem 0.7rem;
+    transition-duration: 0.3s;
+}
+
+.btn-white-outline {
+    color: #fff;
+    background-color: transparent;
+    background-image: none;
+    border: 1px solid #fff;
+}
+
+.btn-white-outline:hover {
+    color: #fff;
+    background-color: #CC0000;
+    background-image: none;
+    border: 1px solid #cc0000;
+    text-decoration: none;
+    transition-duration: 0.3s;
+}
+
+/* Круглые кнопки */
+
+.btn-pill {
+    display: inline-block;
+    padding: .375rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border-radius: 2rem;
+    color: #fff;
+}
+
+/* Цвета */
+
+.white {
+	color: #fff!important;
+}
+
+.grey {
+	color: #818a91!important;
+}
+
+.black {
+	color: #000!important;
+}
+
+.tri {
+	color: #EB586F!important;
+}
+
+.run {
+	color: #FF9A00!important;
+}
+
+.swim {
+	color: #3490DE!important;
+}
+
+.bike {
+	color: #413D65!important;
+}
+
+.news {
+	color: #B83B5E!important;
+}
+
+.report {
+	color: #6A2C70!important;
+}
+
+.review {
+	color: #FF6138!important;
+}
+
+.interview {
+	color: #A9C52F!important;
+}
+
+.gold {
+	color: gold!important;
+}
+
+.border-gold {
+	border-top: 4px solid gold;
+}
+
+/* Background */
+
+.bg-tri {
+	background-color: rgba(235,88,111,0.9)!important;
+}
+
+.border-tri {
+	border-top: 4px solid #EB586F!important;
+}
+
+.bg-run {
+	background-color: rgba(255,154,0,0.9)!important;
+}
+
+.border-run {
+	border-top: 4px solid #FF9A00!important;
+}
+
+.bg-swim {
+	background-color: rgba(52,144,222,0.9)!important;
+}
+
+.border-swim {
+	border-top: 4px solid #3490DE!important;
+}
+
+.bg-bike {
+	background-color: rgba(65,61,101,0.9)!important;
+}
+
+.border-bike {
+	border-top: 4px solid #413D65!important;
+}
+
+/* Фон для карточек */
+
+.bg-orange {
+	background-color: #FF895D;
+	color: #fff;
+	padding: 2.5rem 1.25rem;
+}
+
+.bg-navy-blue {
+	background-color: #1B435D;
+	color: #fff;
+	padding: 2.5rem 1.25rem;
+}
+
+.bg-pink {
+	background-color: #EB586F;
+	color: #fff;
+	padding: 2.5rem 1.25rem;
+}
+
+/* Цвето фонов */
+
+.bg-black {
+	background-color: #333;
+	color: #fff;
+}
+
+.bg-light-grey {
+	background-color: #f5f5f5;
+	color: #000;
+}
+
+.bg-grey {
+	background-color: #ccc;
+}
+
+.bg-yellow {
+	background-color: yellow!important;
+}
+
+/* Соцсети */
+
+.fa-facebook-square {
+	color: #3b5998;
+}
+
+.bg-facebook {
+	background-color: #3b5998;
+	color: #fff;
+	padding: 2.5rem 1.25rem;
+}
+
+.fa-twitter-square {
+	color: #00aced;
+}
+
+.fa-vk {
+	color: #45668e;
+}
+
+/* Меню */
+
+.navbar-nav .nav-link {
+	color: #fff!important;
+	font-family: "Helvetica";
+	text-transform: uppercase;
+	letter-spacing: 0.1rem;
+	font-weight: 600;
+	font-size: 0.75rem;
+}
+
+.navbar-nav .nav-link:hover {
+	color: #b2ccf0!important;
+}
+
+.navbar-nav .nav-item + .nav-item {
+    margin-left: 1.75rem;
+    margin-top: 0.1rem;
+}
+
+.navbar-nav .nav-link.nav-logo {
+	font-size: larger;
+	margin-top: -0.3rem;
+	margin-right: 2rem;
+}
+
+/* Поиск */
+
+.search-container {
+	background-color: #fff;
+	padding: 1rem 0;
+}
+
+.c-select {
+	border-radius: .25rem;
+	width: 100%;
+}
+
+/* Левое меню */
+
+.race-count {
+	color: #ccc;
+	float: right;
+}
+
+li.leftbar-small {
+	font-size: .90rem;
+}
+
+/* Подписка */
+
+.border-line {
+	margin-top: 1.5rem;
+    border: 1px solid #e5e5e5;
+    border-radius: .25rem;
+}
+
+.subscribe-line {
+    background-color: #FFF;
+    padding: 1.25rem;
+}
+
+.subscribe-line .form-control {
+    height: auto;
+    font-size: 36px;
+    border: 0;
+    padding: 0;
+    font-weight: 300;
+    line-height: 54px;
+    background-color: transparent;
+}
+
+/* Организаторы */
+
+.bg-ironstar {
+	background-color: #852024!important;
+	color: #fff;
+}
+
+/* Дефолтные карточки */
+
+.card-img-caption-container {
+	position: relative;
+}
+
+.card-img-caption {
+	line-height: 2.8rem;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	padding: 0.25rem 1.25rem 0 1.25rem;
+	color: #fff;
+	display: none;
+	z-index: 1;
+}
+
+.rating {
+	height: 16px;
+	margin-top: -0.1rem;
+}
+
+.btn-card-join {
+	display: none;
+}
+
+.sport-caption {
+	font-family: "Helvetica";
+	text-transform: uppercase;
+	letter-spacing: 0.1rem;
+	font-weight: 600;
+	font-size: small;
+}
+
+.date-caption {
+	font-family: "Helvetica";
+	font-weight: 400;
+	font-size: small;
+}
+
+.card-title {
+	line-height: 1.3;
+}
+
+/* Переворачивающиеся карточки */
+
+.card {
+	position: relative;
+}
+
+.card-back {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	background-color: #fff;
+	border-radius: .25rem;
+	display: none;
+}
+
+.card-back p {
+	margin-bottom: 0;
+}
+
+.card-top {
+	border-top-left-radius: .25rem;
+	border-top-right-radius: .25rem;
+	padding: 1.25rem;
+}
+
+.next-page {
+	padding: 1.25rem;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}
+
+.next-page-button {
+	cursor: pointer;
+}
+
+.next-page-button:hover {
+	color: #cc0000;
+    transition-duration: 0.3s;
+}
+
+img.join-race {
+	height: 16px;
+}
+
+img.card-organizer-logo {
+	height: 30px;
+	width: 90px;
+	margin-top: -0.5rem;
+}
+
+img.distance {
+	height: 33.3px;
+}
+
+img.price {
+	height: 33.3px;
+}
+
+img.map {
+	height: 33.3px;
+}
+
+/* Кастомные карточки */
+
+.card-container {
+	border: 1px solid #333;
+	border-radius: .25rem;
+	padding: 1.25rem;
+}
+
+.card-container-white {
+	border: 1px solid #fff;
+	border-radius: .25rem;
+	padding: 1.25rem;
+}
+
+.card-container-no-border {
+	border-radius: .25rem;
+	padding: 1.25rem;
+}
+
+.card-container .divider {
+	width: 33.3%;
+	border-bottom: 4px solid #cc0000;
+	margin-bottom: 1rem;
+}
+
+.card-top-title {
+	margin-top: -2.0rem;
+}
+
+.card-caption {
+	font-family: "Helvetica";
+	text-transform: uppercase;
+	letter-spacing: 0.1rem;
+	font-weight: 600;
+	font-size: small;
+	display: inline-block;
+	background-color: #3b5998;
+	padding: 0 0.5rem;
+}
+
+.place-caption {
+	font-family: "Helvetica";
+	text-transform: uppercase;
+	letter-spacing: 0.1rem;
+	font-weight: 600;
+	font-size: small;
+	margin: 0;
+}
+
+/* Предыдущие гонки */
+
+.race-block-container {
+	background-color: #fff;
+	padding: 1.25rem;
+	margin: 1.5rem 0;
+	border-top: 3px solid gold;
+}
+
+.race-block {
+	height: 14rem;
+}
+
+/* Новости */
+
+.news-block-container {
+	background-color: #fff;
+	padding: 1.25rem;
+	margin: 1.5rem 0;
+	border-top: 3px solid gold;
+}
+
+.news-block {
+	height: 12rem;
+}
+
+.card-img-left {
+	border-top-left-radius: .25rem;
+	border-bottom-left-radius: .25rem;
+}
+
+.magazine-caption {
+	font-family: "Helvetica";
+	text-transform: uppercase;
+	letter-spacing: 0.1rem;
+	font-weight: 600;
+	font-size: small;
+}
+
+/* Страница соревнования */
+
+.i-will-go {
+	margin-top: .35rem;
+}
+
+.partner-caption {
+	font-family: "Helvetica";
+	text-transform: uppercase;
+	letter-spacing: 0.1rem;
+	font-weight: 600;
+	font-size: small;
+	margin: 0;
+}
+
+.register {
+	padding: 1.25rem;
+    border-radius: .25rem;
+    background-color: #f2fbff;
+    margin-top: 2rem;
+}
+
+#register-question {
+	display: none;
+}
+
+#register-link {
+	display: none;
+}
+
+/* Реклама */
+
+.ad-sidebar {
+	width: 100%;
+	background-color: #fff;
+	padding: 1.5rem;
+	margin-bottom: 1rem;
+}
+
+.footer {
+	margin-top: 5rem;
+	background-color: #373a3c;
+	color: #fff;
+	padding: 3rem 0;
+}
+
+.newsletter-button {
+	margin-left: -3.5rem;
+}
+
+.tyr-wrapper {
+	width: 100%;
+	background-color: #E4432D;
+	border-radius: .25rem;
+	color: #fff;
+}
+
+.tyr-container {
+	width: 100%;
+	padding: 1.25rem 1.25rem 1.25rem 6rem;
+	background-image: url("../img/tyr_background.png");
+	background-position: left center;
+	background-repeat: no-repeat;
+	background-size: 60px 60px;
+	margin-bottom: 1rem;
+}
+
+/* Все соревнования */
+
+.choose-view {
+	margin-top: 3.75rem;
+}
+
+#list {
+	display: none;
+}
+
+.flex-container {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-flow: row wrap;
+	justify-content: flex-start;
+}
+
+.flex-item {
+	width: 100%;
+	flex-grow: 1;
+}
+
+/* Меню */
+
+#leftside-menu {
+	background-color: #373a3c;
+	padding: 1.25rem;
+	color: #eceeef;
+	border-right: 2px solid #f5f5f5;
+}
+
+img.img-avatar {
+	height: 23px;
+}
+
+.menu-trigger {
+	margin-top: 0.2rem;
+	cursor: pointer;
+}
+
+/* Мои соревнования */
+
+.border-r-tri {
+	border-left: 6px solid #EB586F!important;
+	margin: 1rem 0;
+}
+
+.border-r-run {
+	border-left: 6px solid #FF9A00!important;
+	margin: 1rem 0;
+}
+
+.border-r-swim {
+	border-left: 6px solid #3490DE!important;
+	margin: 1rem 0;
+}
+
+.border-r-bike {
+	border-left: 6px solid #413D65!important;
+	margin: 1rem 0;
+}
+
+.border {
+	border-left: 1px solid rgba(0, 0, 0, 0.1);
+	margin: 0;
+}
+
+/* Тренеры и клубы */
+
+.training-card {
+	height: 120px;
+	overflow: hidden;
+}
+
+.avatar {
+	width: 120px;
+	height: 120px;
+	border: 5px solid #FFFFFF;
+	position: relative;
+	margin-bottom: 15px;
+    overflow: hidden;
+    border-radius: 50%;
+	display: block;
+	margin: 0 auto;
+    text-transform: none;
+    margin-top: -80px;
+}
+
+.sapik-wrapper {
+	width: 100%;
+	background-color: #94C92C;
+	border-radius: .25rem;
+	color: #fff;
+}
+
+.sapik-container {
+	width: 100%;
+	padding: 1.25rem 1.25rem 1.25rem 6rem;
+	background-image: url("../img/sapik_background.png");
+	background-position: 1.25rem center;
+	background-repeat: no-repeat;
+	background-size: 55px 60px;
+	margin-bottom: 1rem;
+}
+
+/* BMI */
+
+.result {
+	padding: 1.25rem;
+	background-color: #f5f5f5;
+}
+.bmi-result {
+	font-family: "ProximaNovaRegular";
+	font-size: 4rem;
+}
+
+.bmi-result-mobile {
+	font-family: "ProximaNovaRegular";
+	font-size: 2.5rem;
+	line-height: 2.5rem;
+	margin-top: 0.35rem;
+	text-align: right;
+}
+
+.colon {
+	font-size: 2rem;
+	margin: 0;
+}
+
+.form-pace {
+	font-size: 1.25rem;
+	margin-top: 0.6rem;
+}
+
+/* Магазины */
+
+.discount {
+	font-family: "ProximaNovaRegular";
+	margin: 0;	
+}
+
+.partner-shop-caption {
+	font-family: "Helvetica";
+	text-transform: uppercase;
+	letter-spacing: 0.1rem;
+	font-weight: 600;
+	font-size: small;
+	padding: 0.5rem;
+}
+
+/* Магазин */
+
+.shop-hero {
+	padding: 5rem 3rem;
+	background-image: url("/img/shirt.png");
+	background-position: right center;
+	background-repeat: no-repeat;
+}
+
+.shop-second-hero {
+	padding: 3rem;
+	background-image: url("/img/bike.png");
+	background-position: right center;
+	background-repeat: no-repeat;	
+}
+
+.shop-caption {
+	font-family: "Helvetica";
+	text-transform: uppercase;
+	letter-spacing: 0.1rem;
+	font-weight: 600;
+	font-size: small;
+}
+
+h2.price-tag {
+	font-family: "Helvetica Neue";
+	font-weight: 100;
+	font-size: 2.5rem;
+}
