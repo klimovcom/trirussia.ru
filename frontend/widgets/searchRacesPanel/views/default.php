@@ -42,7 +42,7 @@ $dateIntervals = \frontend\widgets\searchRacesPanel\SearchRacesPanel::getDateInt
             <?= \yii\helpers\Html::activeDropDownList(
                 $model,
                 'distance',
-                \yii\helpers\ArrayHelper::map(\distance\models\DistanceCategory::find()->where(['sport_id' => $model->sport])->all(), 'id', 'label'),
+                \yii\helpers\ArrayHelper::map(\distance\models\DistanceCategory::find()->where(['sport_id' => $model->sport])->all(), 'label', 'label'),
                 ['prompt' => 'Выберите дистанцию', 'class' => 'c-select small', ]
             ) ?>
         </div>
@@ -58,7 +58,7 @@ $dateIntervals = \frontend\widgets\searchRacesPanel\SearchRacesPanel::getDateInt
             <?= \yii\helpers\Html::activeDropDownList(
                 $model,
                 'organizer',
-                \yii\helpers\ArrayHelper::map($organizers, 'id', 'label'),
+                \yii\helpers\ArrayHelper::map($organizers, 'label', 'label'),
                 ['prompt' => 'Выберите организатора', 'class' => 'c-select small', ]
             ) ?>
         </div>

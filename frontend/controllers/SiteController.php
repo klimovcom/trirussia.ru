@@ -29,8 +29,6 @@ use yii\web\Response;
  */
 class SiteController extends Controller
 {
-
-    public $successUrl = 'http://front.dev';
     
     /**
      * @inheritdoc
@@ -72,10 +70,10 @@ class SiteController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
-//            'captcha' => [
-//                'class' => 'yii\captcha\CaptchaAction',
-//                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-//            ],
+            'captcha' => [
+                'class' => 'yii\captcha\CaptchaAction',
+                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+            ],
             'auth' => [
                 'class' => 'yii\authclient\AuthAction',
                 'successCallback' => [$this, 'oAuthSuccess'],
@@ -119,50 +117,51 @@ class SiteController extends Controller
      */
     public function actionIndex($sport = null)
     {
-
-        /*$page = !empty($_POST['page']) ? (int)$_POST['page'] : 0;*/
         $raceCondition = Race::find();
+
+        $sportModel = null;
+        if ($sport){
+            if ($sportModel = Sport::find()->where(['url' => $sport])->one()) {
+                $raceCondition->andWhere(['sport_id'  => $sportModel->id ]);
+            } else {
+                throw new NotFoundHttpException();
+            }
+        }
+
 
         if (!empty($_GET['distance'])){
             $idArray = [];
-            $refs = RaceDistanceCategoryRef::find()->where(['distance_category_id' => $_GET['distance']])->all();
+            $distance = DistanceCategory::find()->where(['label' => $_GET['distance'], 'sport_id'  => $sport->id ])->one();
+            if (!$distance){
+                throw new NotFoundHttpException();
+            }
+            $refs = RaceDistanceCategoryRef::find()->where(['distance_category_id' => $distance->id, ])->all();
             foreach ($refs as  $ref)
                 $idArray[] = $ref->race_id;
             if (!empty($idArray))
                 $raceCondition->andWhere(['in', 'id', $idArray]);
         }
 
-        if (!empty($_GET['date'])) $raceCondition->andWhere(['between', 'start_date', $_GET['date'], substr($_GET['date'], 0, 8) . '31']);
+        if (!empty($_GET['date'])){
+            $raceCondition->andWhere(['between', 'start_date', $_GET['date'], substr($_GET['date'], 0, 8) . '31']);
+        } else {
+            $raceCondition->andWhere(['>=', 'start_date', date('Y-m-d', time())]);
+        }
 
-        /*if (!empty($_GET['country'])) $condition['country'] = $_GET['date'];*/
+        if (!empty($_GET['country'])) $raceCondition->andWhere(['country' => $_GET['country']]);
 
-        if (!empty($_GET['organizer'])) $raceCondition->andWhere(['organizer_id' => $_GET['organizer']]);
+        if (!empty($_GET['organizer'])){
+            $raceCondition->leftJoin('{{%organizer}}', 'organizer_id = organizer.id');
+            $raceCondition->andWhere(['organizer.label' => $_GET['organizer']]);
+        }
 
-
-        if ($sport){
-            if ($sport = Sport::find()->where(['url' => $sport])->one()){
-                $raceCondition->andWhere(['sport_id'  => $sport->id ]);
-            } else {
-                throw new NotFoundHttpException();
-            }
-            $races = Race::find()->where($raceCondition->where)->orderBy('start_date DESC')->limit(12)/*->offset($page*12)*/->all();
-            /*if (!empty($_POST['page'])){
-                $output = '';
-                foreach ($races as $race)
-                    $output = $this->renderAjax('_card', ['race' => $race]);
-                return $output;
-            }*/
+        if ($sportModel){
+            $races = $raceCondition->orderBy('start_date DESC')->limit(12)/*->offset($page*12)*/->all();
             return $this->render('races', [
                 'races' => $races,
             ]);
         } else {
             $mainRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC')->limit(12)/*->offset($page*12)*/->all();
-            /*if (!empty($_POST['page'])){
-                $output = '';
-                foreach ($mainRaces as $race)
-                    $output = $this->renderAjax('_card', ['race' => $race]);
-                return $output;
-            }*/
             $secondaryRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC')->limit(12)->offset(12)->all();
             $pastRaces = Race::find()->where('start_date < ' . date('Y-m-d', time()-24*60*60))->orderBy('start_date DESC')->limit(4)->all();
             $lastRaces = Race::find()->orderBy('start_date DESC')->limit(12)->offset(24)->all();

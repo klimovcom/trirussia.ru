@@ -112,4 +112,10 @@ $(document).ready(function(){
         });
     });
 
+
+    $('#search-sumbit').on('click', function (e) {
+        e.preventDefault;
+        window.location = $('#search-race-form').attr('action');
+        return false;
+    })
 });

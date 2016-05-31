@@ -24,6 +24,18 @@ class SearchRacesPanel extends \yii\base\Widget{
             $model->sport = $sportModel->id;
         }
 
+        if (!empty($_GET['organizer'])){
+            $model->organizer = $_GET['organizer'];
+        }
+
+        if (!empty($_GET['distance'])){
+            $model->distance = $_GET['distance'];
+        }
+
+        if (!empty($_GET['country'])){
+            $model->country = $_GET['country'];
+        }
+
         if (!empty($_POST['SearchRaceForm']))
             $model->setAttributes($_POST['SearchRaceForm'], false);
 
