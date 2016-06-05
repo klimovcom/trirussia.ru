@@ -44,6 +44,7 @@ AppAsset::register($this);
     <link rel="stylesheet" href="/css/jquery.fancybox.css">
     <link rel="stylesheet" href="/css/custom.css">
     <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="/css/custom.css">
 
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
