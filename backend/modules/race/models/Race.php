@@ -46,10 +46,9 @@ use yii\helpers\VarDumper;
  */
 class Race extends \yii\db\ActiveRecord
 {
-    const DISPLAY_TYPE_STANDARD = 0;
-    const DISPLAY_TYPE_HIDE_IMAGE = 1;
-    const DISPLAY_TYPE_BLACK_HIDE_IMAGE = 2;
-    const DISPLAY_TYPE_BOTH_SIDES = 3;
+    const DISPLAY_TYPE_HIDE_IMAGE = 0;
+    const DISPLAY_TYPE_BLACK_HIDE_IMAGE = 1;
+    const DISPLAY_TYPE_BOTH_SIDES = 2;
 
     protected $distancesArray;
     public $distancesRefs;
@@ -60,9 +59,8 @@ class Race extends \yii\db\ActiveRecord
     static function getTypes()
     {
         return [
-            self::DISPLAY_TYPE_STANDARD => 'Стандартный',
-            self::DISPLAY_TYPE_HIDE_IMAGE => 'Скрыть изображение',
-            self::DISPLAY_TYPE_BLACK_HIDE_IMAGE => 'Скрыть изображение на черном фоне',
+            self::DISPLAY_TYPE_HIDE_IMAGE => 'Стандартный',
+            self::DISPLAY_TYPE_BLACK_HIDE_IMAGE => 'Стандартный на черном фоне',
             self::DISPLAY_TYPE_BOTH_SIDES => 'Двустороннее',
         ];   
     }
