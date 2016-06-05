@@ -35,3 +35,9 @@ Vagrantfile
 
 # PHP-Storm
 .idea
+
+# vagrant files
+.vagrant
+
+/frontend/web/uploads
+/backend/web/uploads
