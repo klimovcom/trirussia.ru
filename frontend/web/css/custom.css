@@ -55,7 +55,7 @@ a:hover.underline {
 	color: #CC0000;
 	text-decoration: none;
 	border-color: #f0b2b2 !important;
-    transition-duration: 0.3s;
+	transition-duration: 0.3s;
 }
 
 .no-underline {
@@ -70,7 +70,7 @@ a:link.no-underline {
 
 a:hover.no-underline {
 	color: #CC0000;
-    transition-duration: 0.3s;
+	transition-duration: 0.3s;
 }
 
 .underline-white {
@@ -92,7 +92,7 @@ a:hover.underline-white {
 	color: #b2ccf0;
 	text-decoration: none;
 	border-color: #b2ccf0 !important;
-    transition-duration: 0.3s;
+	transition-duration: 0.3s;
 }
 
 .underline-black {
@@ -114,7 +114,7 @@ a:hover.underline-black {
 	color: #CC0000;
 	border-color: #f0b2b2 !important;
 	text-decoration: none;
-    transition-duration: 0.3s;
+	transition-duration: 0.3s;
 }
 
 .dotted {
@@ -136,7 +136,7 @@ a:hover.dotted {
 	color: #CC0000;
 	text-decoration: none;
 	border-color: #f0b2b2 !important;
-    transition-duration: 0.3s;
+	transition-duration: 0.3s;
 }
 
 .highlight-yellow {
@@ -172,7 +172,7 @@ a:hover.highlight-yellow {
 	text-decoration: none;
 	background-color: #373a3c;
 	padding: 0.1rem 0.7rem;
-    transition-duration: 0.3s;
+	transition-duration: 0.3s;
 }
 
 a:hover.highlight-yellow-sm {
@@ -180,29 +180,29 @@ a:hover.highlight-yellow-sm {
 	text-decoration: none;
 	background-color: #373a3c;
 	padding: 0.3rem 0.7rem;
-    transition-duration: 0.3s;
+	transition-duration: 0.3s;
 }
 
 .btn-white-outline {
-    color: #fff;
-    background-color: transparent;
-    background-image: none;
-    border: 1px solid #fff;
+	color: #fff;
+	background-color: transparent;
+	background-image: none;
+	border: 1px solid #fff;
 }
 
 .btn-white-outline:hover {
-    color: #fff;
-    background-color: #CC0000;
-    background-image: none;
-    border: 1px solid #cc0000;
-    text-decoration: none;
-    transition-duration: 0.3s;
+	color: #fff;
+	background-color: #CC0000;
+	background-image: none;
+	border: 1px solid #cc0000;
+	text-decoration: none;
+	transition-duration: 0.3s;
 }
 
 /* Круглые кнопки */
 
 .btn-pill {
-    border-radius: 2rem;
+	border-radius: 2rem;
 }
 
 /* Цвета */
@@ -404,23 +404,23 @@ li.leftbar-small {
 
 .border-line {
 	margin-top: 1.5rem;
-    border: 1px solid #e5e5e5;
-    border-radius: .25rem;
+	border: 1px solid #e5e5e5;
+	border-radius: .25rem;
 }
 
 .subscribe-line {
-    background-color: #FFF;
-    padding: 1.25rem;
+	background-color: #FFF;
+	padding: 1.25rem;
 }
 
 .subscribe-line .form-control {
-    height: auto;
-    font-size: 36px;
-    border: 0;
-    padding: 0;
-    font-weight: 300;
-    line-height: 54px;
-    background-color: transparent;
+	height: auto;
+	font-size: 36px;
+	border: 0;
+	padding: 0;
+	font-weight: 300;
+	line-height: 54px;
+	background-color: transparent;
 }
 
 /* Организаторы */
@@ -517,7 +517,7 @@ li.leftbar-small {
 
 .next-page-button:hover {
 	color: #cc0000;
-    transition-duration: 0.3s;
+	transition-duration: 0.3s;
 }
 
 img.join-race {
@@ -647,9 +647,9 @@ img.map {
 
 .register {
 	padding: 1.25rem;
-    border-radius: .25rem;
-    background-color: #f2fbff;
-    margin-top: 2rem;
+	border-radius: .25rem;
+	background-color: #f2fbff;
+	margin-top: 2rem;
 }
 
 #register-question {
@@ -787,12 +787,12 @@ img.img-avatar {
 	border: 5px solid #FFFFFF;
 	position: relative;
 	margin-bottom: 15px;
-    overflow: hidden;
-    border-radius: 50%;
+	overflow: hidden;
+	border-radius: 50%;
 	display: block;
 	margin: 0 auto;
-    text-transform: none;
-    margin-top: -80px;
+	text-transform: none;
+	margin-top: -80px;
 }
 
 .sapik-wrapper {
@@ -845,7 +845,7 @@ img.img-avatar {
 
 .discount {
 	font-family: "ProximaNovaRegular";
-	margin: 0;	
+	margin: 0;
 }
 
 .partner-shop-caption {
@@ -864,7 +864,7 @@ img.img-avatar {
 		padding: 5rem 3rem;
 		background-image: none;
 		position: relative;
-	}	
+	}
 }
 
 @media (min-width: 47.9em) {
@@ -912,7 +912,7 @@ img.feat {
 		padding: 3rem;
 		background-image: url("/img/bike.png");
 		background-position: right center;
-		background-repeat: no-repeat;	
+		background-repeat: no-repeat;
 	}
 }
 
@@ -952,8 +952,8 @@ h2.price-tag {
 
 .payment-form, .delivery-form {
 	padding: 1.25rem;
-    border-radius: .25rem;
-    background-color: #f2fbff;
+	border-radius: .25rem;
+	background-color: #f2fbff;
 }
 
 /* Select2 */
@@ -970,9 +970,9 @@ h2.price-tag {
 
 .add-advanced {
 	padding: 1.25rem;
-    border-radius: .25rem;
-    background-color: #f2fbff;
-    margin-top: 2rem;
+	border-radius: .25rem;
+	background-color: #f2fbff;
+	margin-top: 2rem;
 }
 
 /* Кастомные соревнования */
@@ -980,9 +980,9 @@ h2.price-tag {
 .main {
 	background: url('http://www.fun-run.ru/wp-content/uploads/2016/03/ironstar-indoor-triathlon-mart-2016-20.jpg') center center no-repeat;
 	background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
 	height: calc(100vh - 62px);
 	-webkit-height: calc(100vh - 62px);
 	-moz-height: calc(100vh - 62px);
