@@ -23,6 +23,18 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: "Merriweather";
 }
 
+.m-t-4 {
+	margin-top: 4rem;
+}
+
+.m-t-5 {
+	margin-top: 5rem;
+}
+
+.m-t-6 {
+	margin-top: 6rem;
+}
+
 .underline {
 	text-decoration: none;
 	border-bottom: 1px solid;
@@ -133,11 +145,25 @@ a:hover.dotted {
 	padding: 0.1rem 0.7rem;
 }
 
+.highlight-yellow-sm {
+	text-decoration: none;
+	background-color: yellow;
+	padding: 0.3rem 0.7rem;
+}
+
 a:link.highlight-yellow {
 	color: #373a3c;
 }
 
+a:link.highlight-yellow-sm {
+	color: #373a3c;
+}
+
 a:visited.highlight-yellow {
+	color: #373a3c;
+}
+
+a:visited.highlight-yellow-sm {
 	color: #373a3c;
 }
 
@@ -146,6 +172,14 @@ a:hover.highlight-yellow {
 	text-decoration: none;
 	background-color: #373a3c;
 	padding: 0.1rem 0.7rem;
+    transition-duration: 0.3s;
+}
+
+a:hover.highlight-yellow-sm {
+	color: yellow;
+	text-decoration: none;
+	background-color: #373a3c;
+	padding: 0.3rem 0.7rem;
     transition-duration: 0.3s;
 }
 
@@ -168,21 +202,7 @@ a:hover.highlight-yellow {
 /* Круглые кнопки */
 
 .btn-pill {
-    display: inline-block;
-    padding: .375rem 1rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
     border-radius: 2rem;
-    color: #fff;
 }
 
 /* Цвета */
@@ -335,7 +355,16 @@ a:hover.highlight-yellow {
 
 /* Меню */
 
-.navbar-nav .nav-link {
+.c-nav {
+	background-color: #373a3c;
+	color: #fff;
+}
+
+.list-inline {
+	margin: 0;
+}
+
+.nav-link {
 	color: #fff!important;
 	font-family: "Helvetica";
 	text-transform: uppercase;
@@ -344,19 +373,8 @@ a:hover.highlight-yellow {
 	font-size: 0.75rem;
 }
 
-.navbar-nav .nav-link:hover {
+.nav-link:hover {
 	color: #b2ccf0!important;
-}
-
-.navbar-nav .nav-item + .nav-item {
-    margin-left: 1.75rem;
-    margin-top: 0.1rem;
-}
-
-.navbar-nav .nav-link.nav-logo {
-	font-size: larger;
-	margin-top: -0.3rem;
-	margin-right: 2rem;
 }
 
 /* Поиск */
@@ -681,6 +699,10 @@ img.map {
 
 /* Все соревнования */
 
+.i-will-go {
+	cursor: pointer;
+}
+
 .choose-view {
 	margin-top: 3.75rem;
 }
@@ -837,22 +859,71 @@ img.img-avatar {
 
 /* Магазин */
 
-.shop-hero {
-	padding: 5rem 3rem;
-	background-image: url("/img/shirt.png");
-	background-position: right center;
-	background-repeat: no-repeat;
+@media (max-width: 47.9em) {
+	.shop-hero {
+		padding: 5rem 3rem;
+		background-image: none;
+		position: relative;
+	}	
 }
 
-.shop-second-hero {
-	padding: 3rem;
-	background-image: url("/img/bike.png");
-	background-position: right center;
-	background-repeat: no-repeat;	
+@media (min-width: 47.9em) {
+	.shop-hero {
+		padding: 5rem 3rem;
+		background-image: url("/img/shirt.png");
+		background-position: right center;
+		background-repeat: no-repeat;
+		position: relative;
+	}
+}
+
+.cart-container {
+	background-color: #fff;
+	padding: 1rem 0;
+	text-align: center;
+}
+
+.shop-hero img {
+	position: absolute;
+	left: 3rem;
+	top: 3rem;
+}
+
+img.feat {
+	margin-right: 0rem;
+}
+
+.shop-hero p {
+	font-family: "Merriweather";
+	font-weight: 300;
+	font-size: 1.25rem;
+	color: #999;
+}
+
+@media (max-width: 47.9em) {
+	.shop-second-hero {
+		padding: 3rem;
+		background-image: none;
+	}
+}
+
+@media (min-width: 47.9em) {
+	.shop-second-hero {
+		padding: 3rem;
+		background-image: url("/img/bike.png");
+		background-position: right center;
+		background-repeat: no-repeat;	
+	}
+}
+
+.shop-second-hero p {
+	font-family: "Merriweather";
+	font-weight: 300;
+	color: #999;
 }
 
 .shop-caption {
-	font-family: "Helvetica";
+	font-family: "Helvetica Neue";
 	text-transform: uppercase;
 	letter-spacing: 0.1rem;
 	font-weight: 600;
@@ -863,4 +934,74 @@ h2.price-tag {
 	font-family: "Helvetica Neue";
 	font-weight: 100;
 	font-size: 2.5rem;
+}
+
+.shop-title {
+	text-align: center;
+	margin: 1.5rem 0;
+}
+
+.shop-item-desc-label {
+	margin-bottom: 0.5rem!important;
+}
+
+.shop-item-desc-label-last {
+	margin-bottom: 0.5rem!important;
+	margin-top: 1.5rem!important;
+}
+
+.payment-form, .delivery-form {
+	padding: 1.25rem;
+    border-radius: .25rem;
+    background-color: #f2fbff;
+}
+
+/* Select2 */
+
+.select2-search--dropdown {
+	padding: .375rem .75rem;
+}
+
+.select2-results__option {
+	padding: .375rem .75rem;
+}
+
+/* Добавить соревнование */
+
+.add-advanced {
+	padding: 1.25rem;
+    border-radius: .25rem;
+    background-color: #f2fbff;
+    margin-top: 2rem;
+}
+
+/* Кастомные соревнования */
+
+.main {
+	background: url('http://www.fun-run.ru/wp-content/uploads/2016/03/ironstar-indoor-triathlon-mart-2016-20.jpg') center center no-repeat;
+	background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+	height: calc(100vh - 62px);
+	-webkit-height: calc(100vh - 62px);
+	-moz-height: calc(100vh - 62px);
+	-o-height: calc(100vh - 62px);
+	color: #fff;
+}
+
+.main-container {
+	height: calc(100vh - 62px);
+	-webkit-height: calc(100vh - 62px);
+	-moz-height: calc(100vh - 62px);
+	-o-height: calc(100vh - 62px);
+	background: rgb(0,0,0);
+	background: rgba(0,0,0,0.3);
+	text-align: center;
+	padding: 7rem 0;
+}
+
+.price-container {
+	background-color: #373a3c;
+	padding: 1.25rem 0;
 }
