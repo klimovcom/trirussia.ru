@@ -39,7 +39,7 @@ Vagrantfile
 # vagrant files
 .vagrant
 
-/frontend/web/uploads
-/backend/web/uploads
+/frontend/web/uploads/*
+/backend/web/uploads/*
 /markup
 /tests
