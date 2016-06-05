@@ -1,7 +1,6 @@
 <?php
 
 /* @var $this yii\web\View */
-/** @var $pastRaces [] */
 /** @var $mainRaces [] */
 /** @var $secondaryRaces [] */
 
@@ -9,7 +8,7 @@ $this->title = 'My Yii Application';
 ?>
 <div class="container">
     <div class="race-block-container">
-        <?= frontend\widgets\pastRaces\PastRaces::widget(['models' => $pastRaces]); ?>
+        <?= frontend\widgets\pastRaces\PastRaces::widget(); ?>
     </div>
     <div class="row m-t-3 m-b-3">
         <div class="col-lg-4 col-xl-4">
@@ -31,37 +30,7 @@ $this->title = 'My Yii Application';
         </div>
     </div>
     <div class="race-block-container">
-        <h4 class="PTSerif"><i>Самые ожидаемые соревнования</i></h4>
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 m-t-1">
-                <a href="#"><img src="http://www.trirussia.ru/img/races/rosa_run_2016.jpg" class="img-fluid"></a>
-                <h5 class="m-t-1"><a href="#" class="no-underline">Весенний гром</a></h5>
-                <p>Ноги болят, в глазах темно, встать не могу, а вылетать домой уже через 20 минут. Отчет участника
-                    Парижского марафона</p>
-                <span class="text-muted small">21.05.2016, <a href="#" class="underline">Москва</a></span>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 m-t-1">
-                <a href="#"><img src="http://www.trirussia.ru/img/races/rosa_run_2016.jpg" class="img-fluid"></a>
-                <h5 class="m-t-1"><a href="#" class="no-underline">Весенний гром</a></h5>
-                <p>Ноги болят, в глазах темно, встать не могу, а вылетать домой уже через 20 минут. Отчет участника
-                    Парижского марафона</p>
-                <span class="text-muted small">21.05.2016, <a href="#" class="underline">Москва</a></span>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 m-t-1">
-                <a href="#"><img src="http://www.trirussia.ru/img/races/rosa_run_2016.jpg" class="img-fluid"></a>
-                <h5 class="m-t-1"><a href="#" class="no-underline">Весенний гром</a></h5>
-                <p>Ноги болят, в глазах темно, встать не могу, а вылетать домой уже через 20 минут. Отчет участника
-                    Парижского марафона</p>
-                <span class="text-muted small">21.05.2016, <a href="#" class="underline">Москва</a></span>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 m-t-1">
-                <a href="#"><img src="http://www.trirussia.ru/img/races/rosa_run_2016.jpg" class="img-fluid"></a>
-                <h5 class="m-t-1"><a href="#" class="no-underline">Весенний гром</a></h5>
-                <p>Ноги болят, в глазах темно, встать не могу, а вылетать домой уже через 20 минут. Отчет участника
-                    Парижского марафона</p>
-                <span class="text-muted small">21.05.2016, <a href="#" class="underline">Москва</a></span>
-            </div>
-        </div>
+       <?= \frontend\widgets\mostPopularRaces\MostPopularRaces::widget(); ?>
     </div>
     <div class="row">
         <div class="grid">

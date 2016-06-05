@@ -5,6 +5,7 @@ namespace race\models;
 use distance\models\Distance;
 use organizer\models\Organizer;
 use sport\models\Sport;
+use willGo\models\WillGo;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -38,8 +39,7 @@ use yii\helpers\VarDumper;
  * @property double $coord_lon
  * @property double $coord_lat
  * @property string $special_distance
- * @property integer $featured
- * @property integer $hide_image
+ * @property integer $display_type
  * @property integer $popularity
  *
  * @property Organizer $organizer
@@ -50,6 +50,13 @@ use yii\helpers\VarDumper;
  */
 class Race extends \yii\db\ActiveRecord
 {
+    const DISPLAY_TYPE_STANDARD = 0;
+    const DISPLAY_TYPE_HIDE_IMAGE = 1;
+    const DISPLAY_TYPE_BLACK_HIDE_IMAGE = 2;
+    const DISPLAY_TYPE_BOTH_SIDES = 3;
+
+
+
     static $sportClasses = [
         1 => 'tri',
         2 => 'run',
@@ -79,7 +86,7 @@ class Race extends \yii\db\ActiveRecord
         return [
             [['created', 'author_id', 'start_date', 'country', 'region', 'label', 'url', 'promo'], 'required'],
             [['created', 'start_date', 'finish_date'], 'safe'],
-            [['author_id', 'organizer_id', 'main_image_id', 'published', 'sport_id', 'featured', 'hide_image'], 'integer'],
+            [['author_id', 'organizer_id', 'main_image_id', 'published', 'sport_id', 'display_type'], 'integer'],
             [['price', 'coord_lon', 'coord_lat', 'popularity'], 'number'],
             [['promo', 'content'], 'string'],
             [['start_time'], 'string', 'max' => 5],
@@ -123,8 +130,6 @@ class Race extends \yii\db\ActiveRecord
             'coord_lon' => 'Coord Lon',
             'coord_lat' => 'Coord Lat',
             'special_distance' => 'Special Distance',
-            'featured' => 'Featured',
-            'hide_image' => 'Hide Image',
         ];
     }
 
@@ -265,5 +270,28 @@ class Race extends \yii\db\ActiveRecord
             self::$maxPopularity = $maxPopularityModel->popularity;
         }
         return self::$maxPopularity;
+    }
+
+    public function isShowImage()
+    {
+        if ($this->display_type == self::DISPLAY_TYPE_BLACK_HIDE_IMAGE
+            OR $this->display_type == self::DISPLAY_TYPE_HIDE_IMAGE){
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public function isJoined()
+    {
+        if (Yii::$app->user->isGuest)
+            return false;
+        $userId = Yii::$app->user->identity->id;
+        $willGo = WillGo::find()->where(['race_id' => $this->id, 'user_id' => $userId])->one();
+        if ($willGo)
+            return true;
+        return false;
+
     }
 }

@@ -93,6 +93,7 @@ class SiteController extends Controller
         }
 
         $attributes = $client->getUserAttributes();
+        //$client->setReturnUrl(\Yii::$app->request->url);
 
         if (!empty($attributes['email'])){
             $user = User::find()->where(['email'=>$attributes['email']])->one();
@@ -163,10 +164,8 @@ class SiteController extends Controller
         } else {
             $mainRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC')->limit(12)/*->offset($page*12)*/->all();
             $secondaryRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC')->limit(12)->offset(12)->all();
-            $pastRaces = Race::find()->where('start_date < ' . date('Y-m-d', time()-24*60*60))->orderBy('start_date DESC')->limit(4)->all();
             $lastRaces = Race::find()->orderBy('start_date DESC')->limit(12)->offset(24)->all();
             return $this->render('index', [
-                'pastRaces' => $pastRaces,
                 'mainRaces' => $mainRaces,
                 'secondaryRaces' => $secondaryRaces,
                 'lastRaces' => $lastRaces,

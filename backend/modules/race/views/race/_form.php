@@ -455,7 +455,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
         
         <?= $form->field($model, 'popularity')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'hide_image')->checkbox(); ?>
+        <?= $form->field($model, 'display_type')->dropDownList(\race\models\Race::getTypes()); ?>
 
         <?= $form->field($model, 'published')->hiddenInput(['id' => 'published-field'])->label(false); ?>
 

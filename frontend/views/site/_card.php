@@ -1,19 +1,26 @@
 <?php
 use yii\helpers\Url;
+use race\models\Race;
+use \metalguardian\fileProcessor\helpers\FPM;
+
 
 /**
  * @var $race \race\models\Race
  */
+
+/*var_dump($race->organizer->image_id);
+var_dump($race->organizer->label);
+die();*/
 ?>
 <div class="grid-sizer col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
 <div class="grid-item col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
     <div class="grid-item-content">
-        <div class="card">
+        <div class="card <?= $race->display_type == Race::DISPLAY_TYPE_BLACK_HIDE_IMAGE ? 'bg-black' : ''; ?>">
             <div class="card-img-caption-container">
-                <?php if ($race->main_image_id && !$race->hide_image) { ?>
+                <?php if ($race->main_image_id && $race->isShowImage()) { ?>
                     <a href="<?= Url::to(['/race/default/view', 'url' => $race->url,]) ?>">
                         <img class="card-img-top img-fluid"
-                             src="<?= \metalguardian\fileProcessor\helpers\FPM::originalSrc($race->main_image_id); ?>"
+                             src="<?= FPM::originalSrc($race->main_image_id); ?>"
                              alt="Card image cap">
                     </a>
                 <?php } ?>
@@ -38,15 +45,22 @@ use yii\helpers\Url;
                     <h6 class="date-caption grey"><?= $race->getDateRepresentation(); ?></h6>
                 </div>
                 <div class="clearfix"></div>
-                <h4 class="card-title"><a href="<?= Url::to(['/race/default/view', 'url' => $race->url,]) ?>"
-                                          class="underline-black"><?= $race->label; ?></a></h4>
+                <h4 class="card-title">
+                    <a href="<?= Url::to(['/race/default/view', 'url' => $race->url,]) ?>" class="underline-black">
+                        <?= $race->label; ?>
+                    </a>
+                </h4>
                 <p class="card-text"><?= $race->promo; ?></p>
             </div>
             <div style="height: 3rem;"></div>
-            <?php if ($race->main_image_id && !$race->hide_image) { ?>
+            <?php if ($race->display_type == Race::DISPLAY_TYPE_BOTH_SIDES) { ?>
                 <div class="next-page">
                     <div class="pull-left">
-                        <img src="img/ironstar.svg" class="card-organizer-logo">
+                        <?php if ($race->organizer->image_id) { ?>
+                            <img src="<?= FPM::originalSrc($race->organizer->image_id)?>" class="card-organizer-logo">
+                        <?php } else { ?>
+                            <span class="PTSerif"><i>Организатор</i></span>
+                        <?php }  ?>
                     </div>
                     <div class="pull-right">
                         <span class="next-page-button text-muted"><span class="small">Перевернуть&nbsp;&nbsp;</span><i
@@ -87,7 +101,11 @@ use yii\helpers\Url;
                     <div style="height: 3rem;"></div>
                     <div class="next-page">
                         <div class="pull-left">
-                            <img src="img/ironstar.svg" class="card-organizer-logo">
+                            <?php if ($race->organizer->image_id) { ?>
+                                <img src="<?= FPM::originalSrc($race->organizer->image_id)?>" class="card-organizer-logo">
+                            <?php } else { ?>
+                                <span class="PTSerif"><i>Организатор</i></span>
+                            <?php }  ?>
                         </div>
                         <div class="pull-right">
                             <span class="next-page-button text-muted"><span class="small">Обратно&nbsp;&nbsp;</span><i

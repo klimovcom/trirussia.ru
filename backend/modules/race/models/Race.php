@@ -41,16 +41,36 @@ use yii\helpers\VarDumper;
  * @property float $coord_lat
  * @property float $coord_lon
  * @property string $special_distance
- * @property integer $hide_image
+ * @property integer $display_type
  * @property integer $popularity
  */
 class Race extends \yii\db\ActiveRecord
 {
+    const DISPLAY_TYPE_STANDARD = 0;
+    const DISPLAY_TYPE_HIDE_IMAGE = 1;
+    const DISPLAY_TYPE_BLACK_HIDE_IMAGE = 2;
+    const DISPLAY_TYPE_BOTH_SIDES = 3;
+
     protected $distancesArray;
     public $distancesRefs;
 
     protected $categoriesArray;
     public $distanceCategoriesRefs;
+    
+    static function getTypes()
+    {
+        return [
+            self::DISPLAY_TYPE_STANDARD => 'Стандартный',
+            self::DISPLAY_TYPE_HIDE_IMAGE => 'Скрыть изображение',
+            self::DISPLAY_TYPE_BLACK_HIDE_IMAGE => 'Скрыть изображение на черном фоне',
+            self::DISPLAY_TYPE_BOTH_SIDES => 'Двустороннее',
+        ];   
+    }
+    
+    public function getType()
+    {
+        return isset(self::getTypes()[$this->display_type]) ? self::getTypes()[$this->display_type] : null; 
+    }    
 
     public function setCategoriesArray($value)
     {
@@ -195,7 +215,7 @@ class Race extends \yii\db\ActiveRecord
                     'organizer_id',
                     'published',
                     'sport_id',
-                    'hide_image',
+                    'display_type',
                     'popularity',
                 ],
                 'integer'
@@ -255,7 +275,7 @@ class Race extends \yii\db\ActiveRecord
             'special_distance' => 'Нестандартная дистанция',
             'categoriesArray' => 'Категории дистанций',
             'distancesArray' => 'Дистанции',
-            'hide_image' => 'Скрыть изображение',
+            'display_type' => 'Тип отображения',
             'popularity' => 'Популярность',
         ];
     }

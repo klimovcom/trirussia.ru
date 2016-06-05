@@ -107,8 +107,18 @@ $(document).ready(function(){
         var raceId = $(this).data('id');
         var that = this;
         $.post(url, {raceId: raceId}, function(response){
-            $('.will-join,.already-joined').removeClass('hidden');
+            $(that).parent().parent().find('.will-join,.already-joined').removeClass('hidden');
             $(that).addClass('hidden');
+            if ($('i.gold').length > 0){
+                console.log($(that));
+                var dataMessage = $(that).data('message');
+                console.log(dataMessage);
+                console.log('message-'+dataMessage);
+                var message = $('span.span-join').data('message-'+dataMessage);
+                console.log(message);
+                console.log($(that).parent());
+                $(that).parent().attr('title', message);
+            }
         });
     });
 

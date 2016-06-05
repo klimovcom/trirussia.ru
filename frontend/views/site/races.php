@@ -1,12 +1,8 @@
 <?php
+use willGo\models\WillGo;
 /**
- * Created by PhpStorm.
- * User: alfred
- * Date: 5/21/16
- * Time: 2:47 PM
- * @races array
+ * @var $races []
  */
-
 ?>
 <div class="search-container">
     <?= frontend\widgets\searchRacesPanel\SearchRacesPanel::widget(); ?>
@@ -43,7 +39,7 @@
             <?php if (empty($races)) { ?>
                 <p><strong>Нет результатов</strong></p>
             <?php } ?>
-            <?php /** @var $races \race\models\Race */ ?>
+            <?php /** @var $race \race\models\Race */ ?>
             <?php foreach ($races as $race) {?>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
                     <li class="flex-item">
@@ -89,8 +85,56 @@
             <?php /** @var $races \race\models\Race */ ?>
             <?php foreach ($races as $race) {?>
                 <tr>
-                    <td><span title="Нажмите, чтобы добавить в календарь"><i class="fa fa-star-o grey i-will-go" aria-hidden="true"></i></span></td>
-                    <td><?= $race->getDateRepresentation(); ?></td>
+                    <td>
+
+                            <?php if ($race->isJoined()) { ?>
+                                <span
+                                    class="span-join"
+                                    title="Вы участвуете"
+                                    data-message-joined="Вы участвуете"
+                                    data-message-will="Нажмите, чтобы добавить в календарь"
+                                >
+                                    <i
+                                        class="fa gold fa-star grey i-will-go already-joined"
+                                        data-message="will"
+                                        aria-hidden="true"
+                                        data-id="<?= $race->id; ?>"
+                                        data-url="<?= WillGo::dismissUrl(); ?>"
+                                    ></i>
+                                    <i
+                                        class="fa fa-star-o grey i-will-go will-join hidden"
+                                        aria-hidden="true"
+                                        data-message="joined"
+                                        data-id="<?= $race->id; ?>"
+                                        data-url="<?= WillGo::joinUrl(); ?>"
+                                    ></i>
+                                </span>
+                            <?php } else { ?>   
+                                <span
+                                    class="span-join"
+                                    title="Нажмите, чтобы добавить в календарь"
+                                    data-message-joined="Вы участвуете"
+                                    data-message-will="Нажмите, чтобы добавить в календарь"
+                                >
+                                    <i
+                                        class="fa gold fa-star grey i-will-go already-joined hidden"
+                                        data-message="will"
+                                        aria-hidden="true"
+                                        data-id="<?= $race->id; ?>"
+                                        data-url="<?= WillGo::dismissUrl(); ?>"
+                                    ></i>
+                                    <i
+                                        class="fa fa-star-o grey i-will-go will-join"
+                                        aria-hidden="joined"
+                                        data-message="will"
+                                        data-id="<?= $race->id; ?>"
+                                        data-url="<?= WillGo::joinUrl(); ?>"
+                                    ></i>
+                                </span>
+                            <?php } ?>
+
+                    </td>
+                    <td><?=  date('d.m.Y', strtotime($race->start_date)); ?></td>
                     <td><a href="#" data-toggle="tooltip" data-placement="left" title="Триатлон">
                             <i class="fa fa-circle tri"></i>
                         </a>&nbsp;

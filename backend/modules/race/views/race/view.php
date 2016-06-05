@@ -79,7 +79,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             'instagram_tag',
                             'facebook_event_id',
                             'published',
-                            'hide_image',
+                            [
+                                'attribute' => 'display_type',
+                                'format' => 'raw',
+                                'value' => $model->getType()
+                            ],
                             'popularity',
                         ],
                     ]) ?>

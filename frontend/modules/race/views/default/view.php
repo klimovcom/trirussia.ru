@@ -119,12 +119,6 @@ $this->registerJsFile("https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in
             <div class="card-block">
                 <h4><?= $race->label; ?></h4>
                 <?= $race->content; ?>
-                <h6 class="partner-caption m-t-3 m-b-3 text-xs-center">Официальные партнёры соревнования</h6>
-                <ul class="list-inline text-xs-center m-b-1">
-                    <li class="list-inline-item m-l-2 m-r-2"><img src="http://endurancehousejax.com/wp-content/uploads/2016/02/logo-tyr.jpg" class="distance"></li>
-                    <li class="list-inline-item m-l-2 m-r-2"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/500px-Logo_NIKE.svg.png" class="distance"></li>
-                    <li class="list-inline-item m-l-2 m-r-2"><img src="http://www.asics.com/medias2/asics-logo.png?context=bWFzdGVyfGltYWdlcy1hb3BBU3wxNzc5NXxpbWFnZS9wbmd8aW1hZ2VzLWFvcEFTL2g2NC9oYjEvODgyMzgwOTk2NjExMC5wbmd8Y2Y2OTc4Mzk2Yzk4Nzg5OTZjNGYzNTk4MjcxZGExZjQxNzVmODQ5NTFlNDMwM2Y5YjhlYjJjZDZlNjUwMjY5ZA" class="distance"></li>
-                </ul>
                 <div class="register">
                     <h5 class="PTSerif m-b-2"><i>Регистрация на Весенний гром</i></h5>
                     <button type="button" class="btn btn-secondary" id="register">Зарегистрироваться</button>
@@ -168,22 +162,7 @@ $this->registerJsFile("https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in
             </div>
         <?php } ?>
         <div class="card m-t-1">
-            <div class="card-block border-run">
-                <h4>Ещё <a href="#" class="underline-black">соревнования по бегу</a></h4>
-                <ul class="list-unstyled m-t-1">
-                    <li><span class="text-muted small">23.05.2016</span>&nbsp;&nbsp;<a href="#" class="underline-black">Осенний гром</a></li>
-                    <li><span class="text-muted small">11.06.2016</span>&nbsp;&nbsp;<a href="#" class="underline-black">Московский полумарафон</a>&nbsp;<span title="Вы участвуете"><i class="fa fa-star gold" aria-hidden="true"></i></span></li>
-                    <li><span class="text-muted small">11.06.2016</span>&nbsp;&nbsp;<a href="#" class="underline-black">Благотворительный забег «Бегущие сердца»</a></li>
-                    <li><span class="text-muted small">12.06.2016</span>&nbsp;&nbsp;<a href="#" class="underline-black">Летний гром</a></li>
-                    <li><span class="text-muted small">23.06.2016</span>&nbsp;&nbsp;<a href="#" class="underline-black">Красочный забег</a>&nbsp;<span title="Вы участвуете"><i class="fa fa-star gold" aria-hidden="true"></i></span></li>
-                    <li><span class="text-muted small">27.06.2016</span>&nbsp;&nbsp;<a href="#" class="underline-black">Музыкальный полумарафон</a>&nbsp;<span title="Вы участвуете"><i class="fa fa-star gold" aria-hidden="true"></i></span></li>
-                </ul>
-
-                <ul class="list-inline m-t-1 m-b-0">
-                    <li class="list-inline-item m-r-2"><a href="#" class="underline small">Все соревнования в России</a></li>
-                    <li class="list-inline-item m-r-2"><a href="#" class="underline small">Соревнования по бегу в мире</a></li>
-                </ul>
-            </div>
+            <?= \frontend\widgets\moreRaces\MoreRaces::widget(['model' => $race, ])?>
         </div>
         <div class="card m-t-1">
             <div class="card-block">
