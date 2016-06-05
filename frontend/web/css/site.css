@@ -149,3 +149,25 @@ a.desc:after {
 i.fa-star, i.fa-star-o{
     cursor: pointer;
 }
+.user-fullname{
+    margin-right: 10px;
+}
+.auth-clients .auth-client .auth-link {
+     width: 100% !important;
+}
+div.auth-clients{
+    text-align: center;
+}
+.facebook-icon{
+    background-image: url("/img/icon175x175.png");
+    width: 23px;
+    height: 24px;
+    display: inline-block;
+    background-size: cover;
+    margin-bottom: -7px;
+    margin-left: 3px;
+    border-radius: 2.5px;
+}
+.auth-facebook.btn-primary{
+    background-color: #3c5a98;
+}

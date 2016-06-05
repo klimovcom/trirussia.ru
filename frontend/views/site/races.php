@@ -135,8 +135,8 @@ use willGo\models\WillGo;
 
                     </td>
                     <td><?=  date('d.m.Y', strtotime($race->start_date)); ?></td>
-                    <td><a href="#" data-toggle="tooltip" data-placement="left" title="Триатлон">
-                            <i class="fa fa-circle tri"></i>
+                    <td><a href="#" data-toggle="tooltip" data-placement="left" title="<?= $race->sport->label; ?>">
+                            <i class="fa fa-circle <?= $race->getSportClass();?>"></i>
                         </a>&nbsp;
                         <a href="<?= \yii\helpers\Url::to(['/race/default/view', 'url' => $race->url, ])?>" class="underline"><?= $race->label; ?></a>
                     </td>

@@ -95,6 +95,7 @@ $this->registerCssFile('/css/site.css');
                     <li><a href="<?= Url::to('/post/post/index'); ?>"><span>Журнал</span></a></li>
                     <li><a href="<?= Url::to('/product/product/index'); ?>"><span>Магазин</span></a></li>
                     <li><a href="<?= Url::to('/promo/promo/index'); ?>"><span>Промо-блоки</span></a></li>
+                    <li><a href="<?= Url::to('/banner/banner/index'); ?>"><span>Баннеры</span></a></li>
                     <li><a href="<?= Url::to('/configuration/configuration/index'); ?>"><span>Конфигурация</span></a></li>
                 </ul>
             </section>

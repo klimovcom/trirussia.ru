@@ -20,10 +20,12 @@ class Auth extends AuthChoice {
      */
     public function clientLink($client, $text = null, array $htmlOptions = [])
     {
-        if ($text === null) {
-            $text = Html::tag('span', '', ['class' => 'auth-icon ' . $client->getName()]);
-            /*$text .= Html::tag('span', $client->getTitle(), ['class' => 'auth-title']);*/
-        }
+        $text = Html::tag(
+            'span',
+            'Авторизоваться',
+            ['class' => 'auth-facebook btn-primary btn-sm m-t-1' . $client->getName()]
+        );
+        $text .= Html::tag('i', '', ['class' => 'facebook-icon']);
         if (!array_key_exists('class', $htmlOptions)) {
             $htmlOptions['class'] = 'auth-link ' . $client->getName();
         }
@@ -53,6 +55,16 @@ class Auth extends AuthChoice {
             $widgetConfig['client'] = $client;
             $widgetConfig['authChoice'] = $this;
             echo $widgetClass::widget($widgetConfig);
+        }
+    }
+
+    /**
+     * Renders the main content, which includes all external services links.
+     */
+    protected function renderMainContent()
+    {
+        foreach ($this->getClients() as $externalService) {
+            $this->clientLink($externalService);
         }
     }
 

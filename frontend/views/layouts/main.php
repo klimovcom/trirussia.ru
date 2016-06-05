@@ -54,26 +54,27 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 <nav class="navbar navbar-full navbar-dark bg-inverse">
     <div class="container">
-      <?= \frontend\widgets\sportsMenu\SportsMenu::widget() ?>
-        <div class="pull-right hidden-sm-down">
-            <ul class="nav navbar-nav">
-                <?php if (Yii::$app->user->isGuest) { ?>
-                    <li>
-                        <?= \frontend\widgets\auth\Auth::widget([
-                            'baseAuthUrl' => ['/site/auth']
-                        ]) ?>
-                    </li>
-                <?php } else { ?>
-                                        
-                <li class="nav-item">
-                    <?= Yii::$app->user->identity->first_name . ' ' . Yii::$app->user->identity->last_name?>
-                    <a class="nav-link" href="<?= Url::to('/site/logout'); ?>">Выйти</a>
-                </li>
-
-                <?php } ?>
-                
-            </ul>
-        </div>
+        <nav class="nav nav-inline c-nav">
+            <div class="container">
+                <div class="pull-left">
+                    <?= \frontend\widgets\sportsMenu\SportsMenu::widget() ?>
+                </div>
+                <div class="pull-right">
+                    <ul class="list-inline">
+                        <li class="nav-item">
+                            <?php if (Yii::$app->user->isGuest) { ?>
+                                <button class="btn btn-primary btn-sm m-t-1" data-toggle="modal" data-target="#openUser">Войти</button>
+                            <?php } else { ?>
+                                <span class="mr-10 user-fullname">
+                                    <?= Yii::$app->user->identity->first_name . ' ' . Yii::$app->user->identity->last_name?>
+                                </span>
+                                <a class="nav-link btn-primary btn-sm m-t-1" href="<?= Url::to('/site/logout'); ?>">Выйти</a>
+                            <?php } ?>
+                        </li>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </nav>
         <ul class="nav navbar-nav hidden-md-up">
             <li class="nav-item">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
@@ -99,6 +100,9 @@ AppAsset::register($this);
             </div>
             <div class="modal-body">
                 <p>Для того, чтобы в полной мере использовать функционал сервиса, вам необходимо зарегистрироваться. Для этого просто кликните по кнопке ниже:</p>
+                <?= \frontend\widgets\auth\Auth::widget([
+                    'baseAuthUrl' => ['/site/auth']
+                ]) ?>
             </div>
         </div>
     </div>

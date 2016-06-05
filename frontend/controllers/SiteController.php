@@ -312,6 +312,7 @@ class SiteController extends Controller
     public function actionCalendar(){
         $joins = ArrayHelper::map(WillGo::find()->where(['user_id' => Yii::$app->user->identity->id])->all(), 'race_id', 'race_id');
         $idArray = array_values($joins);
+
         $races = Race::find()->where(['in', 'id', $idArray])->all();
         $racesArrayImproved = [];
         /** @var Race $race */
@@ -323,6 +324,22 @@ class SiteController extends Controller
             }
 
         }
-        return $this->render('calendar', ['races'=>$racesArrayImproved, ]);
+
+        $notJoinedRaces = Race::find()
+            ->where(['not in', 'id', $idArray])
+            ->andWhere(['between', 'start_date', date('Y-m-d'), date('Y-m-d', time()+92*24*60*60)])
+            ->all();
+        $notJoinedRacesArrayImproved = [];
+        /** @var Race $race */
+        foreach ($notJoinedRaces as $race){
+            if (!isset($notJoinedRacesArrayImproved[strtotime($race->start_date)])){
+                $notJoinedRacesArrayImproved[strtotime($race->start_date)] = [$race];
+            } else {
+                $notJoinedRacesArrayImproved[strtotime($race->start_date)][] = $race;
+            }
+
+        }
+
+        return $this->render('calendar', ['races'=>$racesArrayImproved, 'notJoinedRaces'=>$notJoinedRacesArrayImproved,]);
     }
 }

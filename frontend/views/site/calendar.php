@@ -1,10 +1,13 @@
 <?php
+use yii\helpers\Url;
+
 /**
  * Created by PhpStorm.
  * User: alfred
  * Date: 5/30/16
  * Time: 9:03 PM
  * @var array $races
+ * @var array $notJoinedRaces
  */
 
 ?>
@@ -28,7 +31,7 @@
                             <?php foreach ($races[strtotime(date('Y-m-d', $i))] as $race) { ?>
                                 <li class="border-r-<?= $race->getSportClass();?>">
                                     <h4 class="m-l-1"><span class="small"><?= $race->getDateRepresentation()?>, Вс&nbsp;&nbsp;</span>
-                                        <a href="#" class="underline-black"><?= $race->label; ?></a>
+                                        <a href="<?= Url::to(['/race/default/view', 'url' => $race->url,]) ?>" class="underline-black"><?= $race->label; ?></a>
                                     </h4>
                                     <p class="m-l-1 small"><?= $race->getDistancesRepresentation()?></p>
                                 </li>
@@ -38,6 +41,18 @@
                             <span class="m-l-1">
                                 <?= Yii::$app->formatter->asDate(date('Y-m-d', $i), 'd MMMM yyyy') . ' г.'; ?>
                             </span>
+                            <?php if (isset($notJoinedRaces[strtotime(date('Y-m-d', $i))])) { ?>
+                                <?php $count = count($notJoinedRaces[strtotime(date('Y-m-d', $i))]); ?>
+                                <?php /** @var \race\models\Race $race */?>
+                                <?php foreach ($notJoinedRaces[strtotime(date('Y-m-d', $i))] as $race) { ?>
+                                    <a href="<?= Url::to(['/race/default/view', 'url' => $race->url,]) ?>" class="underline">
+                                        <?= $race->label; ?>
+                                    </a>
+                                    <?php if (--$count > 0) { ?>
+                                        ,
+                                    <?php } ?>
+                                <?php }  ?>
+                            <?php } ?>
                             </li>
                         <?php }  ?>
                     <?php } ?>

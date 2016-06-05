@@ -1,5 +1,5 @@
 <?php
-
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /** @var $mainRaces [] */
 /** @var $secondaryRaces [] */
@@ -15,9 +15,11 @@ $this->title = 'My Yii Application';
             <img src="/img/arr.png">
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-            <h1>Ближайшие соревнования по <a href="#" class="highlight-yellow">триатлону</a>, <a href="#"
-                                                                                                 class="underline-black">бегу</a>,
-                <a href="#" class="underline-black">плаванию</a> и <a href="#" class="underline-black">велоспорту</a>
+            <h1>Ближайшие соревнования по
+                <a href="<?= Url::to(['/', 'sport' => 'triathlon',]) ?>" class="highlight-yellow">триатлону</a>,
+                <a href="<?= Url::to(['/', 'sport' => 'run',]) ?>" class="underline-black">бегу</a>,
+                <a href="<?= Url::to(['/', 'sport' => 'swim',]) ?>" class="underline-black">плаванию</a> и
+                <a href="<?= Url::to(['/', 'sport' => 'bike',]) ?>" class="underline-black">велоспорту</a>
             </h1>
         </div>
     </div>
