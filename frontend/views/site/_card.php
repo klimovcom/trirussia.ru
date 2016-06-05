@@ -23,19 +23,19 @@ die();*/
                              src="<?= FPM::originalSrc($race->main_image_id); ?>"
                              alt="Card image cap">
                     </a>
+                    <div class="card-img-caption bg-<?= $race->getSportClass(); ?>">
+                        <small>
+                            Популярность&nbsp;
+                            <?= $race->getPopularityRepresentation();?>
+                        </small>
+                        <!--<div class="pull-right">
+                            <div class="card-participant">
+                                <span class="small"><strong><i class="fa fa-star fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;Вы
+                                        участвуете</strong></span>
+                            </div>
+                        </div>-->
+                    </div>
                 <?php } ?>
-                <div class="card-img-caption bg-<?= $race->getSportClass(); ?>">
-                    <small>
-                        Популярность&nbsp;
-                        <?= $race->getPopularityRepresentation();?>
-                    </small>
-                    <!--<div class="pull-right">
-                        <div class="card-participant">
-                            <span class="small"><strong><i class="fa fa-star fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;Вы
-                                    участвуете</strong></span>
-                        </div>
-                    </div>-->
-                </div>
             </div>
             <div class="card-block border-<?= $race->getSportClass(); ?>">
                 <div class="pull-left">
