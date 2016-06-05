@@ -42,7 +42,6 @@ AppAsset::register($this);
     <link rel="stylesheet" href="/css/font.css">
     <link rel="stylesheet" href="/css/likely.css">
     <link rel="stylesheet" href="/css/jquery.fancybox.css">
-    <link rel="stylesheet" href="/css/custom.css">
     <link rel="stylesheet" href="/css/site.css">
     <link rel="stylesheet" href="/css/custom.css">
 
