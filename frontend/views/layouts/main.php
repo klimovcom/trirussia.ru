@@ -61,17 +61,20 @@ AppAsset::register($this);
                     <?= \frontend\widgets\sportsMenu\SportsMenu::widget() ?>
                 </div>
                 <div class="pull-right">
-                    <ul class="list-inline">
-                        <li class="nav-item">
-                            <?php if (Yii::$app->user->isGuest) { ?>
-                                <button class="btn btn-primary btn-sm m-t-1" data-toggle="modal" data-target="#openUser">Войти</button>
-                            <?php } else { ?>
-                                <span class="mr-10 user-fullname">
-                                    <?= Yii::$app->user->identity->first_name . ' ' . Yii::$app->user->identity->last_name?>
-                                </span>
-                                <a class="nav-link btn-primary btn-sm m-t-1" href="<?= Url::to('/site/logout'); ?>">Выйти</a>
-                            <?php } ?>
+                    <ul class="list-inline m-t-1">
+                        <?php if (Yii::$app->user->isGuest) { ?>
+                        <li class="list-inline-item">
+                        	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#openUser">Войти</button>
                         </li>
+                        <?php } else { ?>
+						<li class="list-inline-item">
+							<?= Yii::$app->user->identity->first_name . ' ' . Yii::$app->user->identity->last_name?>
+						</li>
+						<li class="list-inline-item">
+                            <a class="btn-primary btn-sm" href="<?= Url::to('/site/logout'); ?>">Выйти</a>
+						</li>
+                        <?php } ?>
+					</ul>
                 </div>
                 <div class="clearfix"></div>
             </div>
