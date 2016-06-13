@@ -22,8 +22,7 @@ class Auth extends AuthChoice {
     {
         $text = Html::tag(
             'button',
-			'<i class="fa fa-facebook-square fa-lg"></i>&nbsp;&nbsp;',
-            'Войти через Facebook',
+            '<i class="fa fa-facebook-square fa-lg"></i>&nbsp;&nbsp;Войти через Facebook',
             ['class' => 'btn-primary btn-lg ' . $client->getName()]
         );
         if (!array_key_exists('class', $htmlOptions)) {
