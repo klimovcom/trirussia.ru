@@ -14,8 +14,5 @@
         <?php foreach ($moreRaces as $race){
             print $this->render('//site/_card', ['race' => $race]);
         }?>
-        <?php if (!$moreRaces){ ?>
-            <h3>Нет результатов</h3>
-        <?php }?>
     </div>
 </div>

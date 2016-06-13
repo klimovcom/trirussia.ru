@@ -21,14 +21,14 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
         </div>
     </a>
     <div class="card card-block">
-        <div class="pull-left">
+        <!--<div class="pull-left">
             <div class="form-group m-b-0">
                 <select class="c-select small">
                     <option>По дате</option>
                     <option>По популярности</option>
                 </select>
             </div>
-        </div>
+        </div>-->
         <div class="pull-right">
             <button class="btn btn-sm btn-secondary" id="option1"><i class="fa fa-th" aria-hidden="true"></i></button>
             <button class="btn btn-sm btn-secondary" id="option2"><i class="fa fa-list" aria-hidden="true"></i></button>
@@ -217,7 +217,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-            <div class="card">
+            <!--<div class="card">
                 <div class="card-block">
                     <h4 class="card-title m-b-0">Все соревнования по триатлону</h4>
                     <hr>
@@ -289,30 +289,10 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
 
             <div class="race-block-container">
-                <h4 class="PTSerif"><i>Самые ожидаемые соревнования по триатлону</i></h4>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 m-t-1">
-                        <a href="#"><img src="http://www.trirussia.ru/img/races/rosa_run_2016.jpg" class="img-fluid"></a>
-                        <h5 class="m-t-1"><a href="#" class="no-underline">Весенний гром</a></h5>
-                        <p>Ноги болят, в глазах темно, встать не могу, а вылетать домой уже через 20 минут. Отчет участника Парижского марафона</p>
-                        <span class="text-muted small">21.05.2016, Москва</span>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 m-t-1">
-                        <a href="#"><img src="http://www.trirussia.ru/img/races/rosa_run_2016.jpg" class="img-fluid"></a>
-                        <h5 class="m-t-1"><a href="#" class="no-underline">Весенний гром</a></h5>
-                        <p>Ноги болят, в глазах темно, встать не могу, а вылетать домой уже через 20 минут. Отчет участника Парижского марафона</p>
-                        <span class="text-muted small">21.05.2016, Москва</span>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 m-t-1">
-                        <a href="#"><img src="http://www.trirussia.ru/img/races/rosa_run_2016.jpg" class="img-fluid"></a>
-                        <h5 class="m-t-1"><a href="#" class="no-underline">Весенний гром</a></h5>
-                        <p>Ноги болят, в глазах темно, встать не могу, а вылетать домой уже через 20 минут. Отчет участника Парижского марафона</p>
-                        <span class="text-muted small">21.05.2016, Москва</span>
-                    </div>
-                </div>
+                <?= \frontend\widgets\mostPopularSportRaces\MostPopularSportRaces::widget(); ?>
             </div>
 
 

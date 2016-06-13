@@ -3,6 +3,7 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /** @var $mainRaces [] */
 /** @var $secondaryRaces [] */
+/** @var $showMore boolean */
 
 $this->title = 'My Yii Application';
 ?>
@@ -75,14 +76,17 @@ $this->title = 'My Yii Application';
             </div>
         </div>
     </div>
-    <div class="block block-more-races">
-        <button 
-            type="submit" 
-            data-lock="0"
-            data-url="<?= \race\models\Race::getMoreRacesUrl();?>"
-            class="btn btn-success btn-lg more-races"
-        >
-            <strong>Загрузить еще соревнования</strong>
-        </button>
-    </div>
+    <?php if ($showMore) { ?>
+        <div class="block block-more-races">
+            <button
+                type="submit"
+                data-lock="0"
+                data-url="<?= \race\models\Race::getMoreRacesUrl();?>"
+                data-sport="<?= isset($_GET['sport']) ? $_GET['sport'] : '';?>"
+                class="btn btn-success btn-lg more-races"
+            >
+                <strong>Загрузить еще соревнования</strong>
+            </button>
+        </div>
+    <?php } ?>
 </div>
