@@ -236,22 +236,14 @@ $(document).ready(function(){
             var that = $(this);
             console.log(page);
             $.post(url, {page: page}, function (response) {
-                var result = JSON.parse(response).result;
-                var data = JSON.parse(response).data;
-                if (result*1 < 12){
-                    $(that).fadeOut();
-                } else {
-                    $(that).removeAttr('disabled');
-                    $(that).attr('data-lock', 0);
-                }
-                if (result > 0){
-                    $('.block-more-races').before(data);
-                    $(".grid").masonry({
-                        itemSelector: ".grid-item",
-                        columnWidth: ".grid-sizer",
-                        percentPosition: true
-                    });
-                }
+                $('.block-more-races').before(response);
+                $(".grid").masonry({
+                    itemSelector: ".grid-item",
+                    columnWidth: ".grid-sizer",
+                    percentPosition: true
+                });
+                $(that).removeAttr('disabled');
+                $(that).attr('data-lock', 0);
             });
         }
     });
