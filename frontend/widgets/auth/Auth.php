@@ -21,11 +21,11 @@ class Auth extends AuthChoice {
     public function clientLink($client, $text = null, array $htmlOptions = [])
     {
         $text = Html::tag(
-            'span',
-            'Авторизоваться',
-            ['class' => 'auth-facebook btn-primary btn-sm m-t-1' . $client->getName()]
+            'button',
+			'<i class="fa fa-facebook-square fa-lg"></i>&nbsp;&nbsp;',
+            'Войти через Facebook',
+            ['class' => 'btn-primary btn-lg ' . $client->getName()]
         );
-        $text .= Html::tag('i', '', ['class' => 'facebook-icon']);
         if (!array_key_exists('class', $htmlOptions)) {
             $htmlOptions['class'] = 'auth-link ' . $client->getName();
         }
