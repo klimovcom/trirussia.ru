@@ -123,7 +123,17 @@ return [
             'showScriptName' => false,
             'rules' => [
 
+
+                //static pages
+                //TODO: move to page module
+                '/domains' => '/site/domains',
+                '/advertising' => '/site/advertising',
+                '/about' => '/site/about',
+                '/magazine' => '/site/magazine',
                 '/calendar' => '/site/calendar',
+                '/bmi' => '/site/bmi',
+                '/convert' => '/site/convert',
+
                 '/<sport:\w+>' => '/',
 
 

@@ -8,6 +8,7 @@ use frontend\widgets\searchRacesPanel\SearchRacesPanel;
 use race\models\Race;
 use sport\models\Sport;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -60,5 +61,33 @@ class DefaultController extends Controller
 
         }
         throw new NotFoundHttpException();
+    }
+
+    public function actionGetMoreRaces()
+    {
+        $this->layout = false;
+        $page = $_POST['page'] + 2;
+
+        $moreRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())]);
+
+        if (isset($_POST['sport'])){
+            $sport = $_POST['sport'];
+            if ($sportModel = Sport::find()->where(['url' => $sport])->one()) {
+                $moreRaces = $moreRaces->andWhere(['sport_id'  => $sportModel->id ]);
+            } else {
+                throw new NotFoundHttpException();
+            }
+        }
+
+        $moreRaces =  $moreRaces
+            ->orderBy('start_date DESC')
+            ->limit(12)
+            ->offset($page*12)
+            ->all();
+
+        return Json::encode([
+            'result' => count($moreRaces),
+            'data' => $this->render('_more-races', ['moreRaces' => $moreRaces]),
+        ]);
     }
 }

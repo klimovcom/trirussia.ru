@@ -128,4 +128,131 @@ $(document).ready(function(){
         window.location = $('#search-race-form').attr('action');
         return false;
     })
+
+    $("#calc").click(function(){
+        var weight = $("#weight").val();
+        var height = $("#height").val();
+        var height = height / 100;
+        var height = height * height;
+        var bmi = weight / height;
+        $(".bmi-result, .bmi-result-mobile").text("BMI: " + Math.round(bmi));
+        $("#bmi-comment").fadeIn(100);
+    });
+
+    $("#swim").click(function(){
+        $(this).removeClass("btn-secondary");
+        $(this).addClass("btn-default");
+        $("#run").addClass("btn-secondary");
+        $("#run-block").hide();
+        $("#swim-block").fadeIn(300);
+    });
+    $("#run").click(function(){
+        $(this).removeClass("btn-secondary");
+        $(this).addClass("btn-default");
+        $("#swim").addClass("btn-secondary");
+        $("#swim-block").hide();
+        $("#run-block").fadeIn(300);
+    });
+    $("#calc").click(function(){
+        if(!$("#timeHour").val()) {
+            var timeHour = 0;
+        } else {
+            var timeHour = parseInt($("#timeHour").val());
+        }
+        if(!$("#timeMin").val()) {
+            var timeMin = 0;
+        } else {
+            var timeMin = parseInt($("#timeMin").val());
+        }
+        if(!$("#timeSec").val()) {
+            var timeSec = 0;
+        } else {
+            var timeSec = parseInt($("#timeSec").val());
+        }
+
+        var distance = parseInt($("#distance").val());
+
+        var totalSec = parseInt((timeHour * 3600) + (timeMin * 60) + timeSec);
+        var paceSec = totalSec / (distance / 1000);
+
+        var intPaceMin = parseInt(paceSec / 60);
+        if(intPaceMin.toString().length < 2) {
+            var intPaceMin = "0".concat(intPaceMin);
+        }
+
+        var intPaceSec = parseInt(paceSec - (intPaceMin * 60));
+        if(intPaceSec.toString().length < 2) {
+            var intPaceSec = "0".concat(intPaceSec);
+        }
+        $(".resultRun").show();
+        $("#paceMin").text(intPaceMin);
+        $("#paceSec").text(intPaceSec);
+    });
+    $("#calcSwim").click(function(){
+        if(!$("#timeHourSwim").val()) {
+            var timeHour = 0;
+        } else {
+            var timeHour = parseInt($("#timeHourSwim").val());
+        }
+        if(!$("#timeMinSwim").val()) {
+            var timeMin = 0;
+        } else {
+            var timeMin = parseInt($("#timeMinSwim").val());
+        }
+        if(!$("#timeSecSwim").val()) {
+            var timeSec = 0;
+        } else {
+            var timeSec = parseInt($("#timeSecSwim").val());
+        }
+
+        var distance = parseInt($("#distanceSwim").val());
+
+        var totalSec = parseInt((timeHour * 3600) + (timeMin * 60) + timeSec);
+        var paceSec = totalSec / (distance / 100);
+
+        var intPaceMin = parseInt(paceSec / 60);
+        if(intPaceMin.toString().length < 2) {
+            var intPaceMin = "0".concat(intPaceMin);
+        }
+
+        var intPaceSec = parseInt(paceSec - (intPaceMin * 60));
+        if(intPaceSec.toString().length < 2) {
+            var intPaceSec = "0".concat(intPaceSec);
+        }
+        $(".resultSwim").show();
+        $("#paceMinSwim").text(intPaceMin);
+        $("#paceSecSwim").text(intPaceSec);
+    });
+
+    page = 0;
+    $('.more-races').on('click', function(){
+        var lock = $(this).data('lock');
+        var url = $(this).data('url');
+        if (lock == 0){
+            lock = 1;
+            page++;
+            $(this).attr('data-lock', lock);
+            $(this).attr('disabled', 'disabled');
+            var that = $(this);
+            console.log(page);
+            $.post(url, {page: page}, function (response) {
+                var result = JSON.parse(response).result;
+                var data = JSON.parse(response).data;
+                if (result*1 < 12){
+                    $(that).fadeOut();
+                } else {
+                    $(that).removeAttr('disabled');
+                    $(that).attr('data-lock', 0);
+                }
+                if (result > 0){
+                    $('.block-more-races').before(data);
+                    $(".grid").masonry({
+                        itemSelector: ".grid-item",
+                        columnWidth: ".grid-sizer",
+                        percentPosition: true
+                    });
+                }
+            });
+        }
+    });
 });

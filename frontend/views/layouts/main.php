@@ -10,6 +10,7 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use \yii\helpers\Url;
+$quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"' : '';
 
 AppAsset::register($this);
 ?>
@@ -185,33 +186,37 @@ AppAsset::register($this);
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                 <h6>TriRussia.ru</h6>
                 <ul class="list-unstyled">
-                    <li><a href="/magazine" class="underline-white">Журнал</a></li>
-                    <li><a href="/about.php" class="underline-white">О проекте</a></li>
-                    <li><a href="/adv.php" class="underline-white">Реклама</a></li>
+                    <!--<li><a href="/magazine" class="underline-white">Журнал</a></li>-->
+                    <li><a href="<?= Url::toRoute('/site/about'); ?>" class="underline-white">О проекте</a></li>
+                    <li><a href="<?= Url::toRoute('/site/advertising'); ?>" class="underline-white">Реклама</a></li>
                     <!--                     <li><a href="#" class="underline-white">Логотипы</a></li> -->
-                    <li><a href="/calend.php" class="underline-white">Мой календарь</a></li>
-                    <li><a href="/domain.php" class="underline-white">Домены</a></li>
+                    <li>
+                        <a href="<?= Url::toRoute('/site/calendar'); ?>" class="underline-white" <?= $quest;?>>
+                            Мой календарь
+                        </a>
+                    </li>
+                    <li><a href="<?= Url::toRoute('/site/domains'); ?>" class="underline-white">Домены</a></li>
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                 <h6>Соревнования</h6>
                 <ul class="list-unstyled">
-                    <li><a href="/add.php" class="underline-white">Добавить соревнование</a></li>
-                    <li><a href="/all.php" class="underline-white">Все соревнования</a></li>
-                    <li><a href="/races.php" class="underline-white">Триатлон</a></li>
-                    <li><a href="/races.php" class="underline-white">Бег</a></li>
-                    <li><a href="/races.php" class="underline-white">Плавание</a></li>
-                    <li><a href="/races.php" class="underline-white">Велоспорт</a></li>
+                    <!--<li><a href="/add.php" class="underline-white">Добавить соревнование</a></li>-->
+                    <li><a href="<?= Url::to('/'); ?>" class="underline-white">Все соревнования</a></li>
+                    <li><a href="<?= Url::to(['/', 'sport' => 'triathlon']); ?>" class="underline-white">Триатлон</a></li>
+                    <li><a href="<?= Url::to(['/', 'sport' => 'run']); ?>" class="underline-white">Бег</a></li>
+                    <li><a href="<?= Url::to(['/', 'sport' => 'swim']); ?>" class="underline-white">Плавание</a></li>
+                    <li><a href="<?= Url::to(['/', 'sport' => 'bike']); ?>" class="underline-white">Велоспорт</a></li>
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                 <h6>Справочник</h6>
                 <ul class="list-unstyled">
-                    <li><a href="/training.php" class="underline-white">Тренеры</a></li>
-                    <li><a href="/org.php" class="underline-white">Организаторы</a></li>
-                    <li><a href="/bmi.php" class="underline-white">Калькулятор BMI</a></li>
-                    <li><a href="/convert.php" class="underline-white">Калькулятор темпа</a></li>
-                    <li><a href="/shop.php" class="underline-white">Скидки</a></li>
+                    <!--<li><a href="/training.php" class="underline-white">Тренеры</a></li>
+                    <li><a href="/org.php" class="underline-white">Организаторы</a></li>-->
+                    <li><a href="<?= Url::toRoute('/site/bmi'); ?>" class="underline-white">Калькулятор BMI</a></li>
+                    <li><a href="<?= Url::toRoute('/site/convert'); ?>" class="underline-white">Калькулятор темпа</a></li>
+                    <!--<li><a href="/shop.php" class="underline-white">Скидки</a></li>-->
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">

@@ -9,7 +9,7 @@
 use \willGo\models\WillGo;
 $this->registerCssFile('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
 $this->registerJsFile("https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places");
-
+$quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"' : '';
 
 ?>
 
@@ -121,7 +121,7 @@ $this->registerJsFile("https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in
                 <?= $race->content; ?>
                 <div class="register">
                     <h5 class="PTSerif m-b-2"><i>Регистрация на Весенний гром</i></h5>
-                    <button type="button" class="btn btn-secondary" id="register">Зарегистрироваться</button>
+                    <button type="button" class="btn btn-secondary" id="register" <?= $quest; ?>>Зарегистрироваться</button>
                     <div id="register-question">
                         <p>Вам было бы удобно в будущем регистрироваться на соревнование здесь же без перехода на сайт организатора?</p>
                         <button type="button" class="btn btn-secondary register-button" id="register-yes">Да</button>

@@ -171,3 +171,10 @@ div.auth-clients{
 .auth-facebook.btn-primary{
     background-color: #3c5a98;
 }
+.block-more-races{
+    text-align: center;
+}
+.block-more-races-sport{
+    padding-top: 20px;
+    padding-bottom: 35px;
+}

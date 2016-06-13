@@ -9,6 +9,7 @@ use willGo\models\WillGo;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\helpers\VarDumper;
 
 /**
@@ -292,5 +293,10 @@ class Race extends \yii\db\ActiveRecord
             return true;
         return false;
 
+    }
+
+    public static function getMoreRacesUrl()
+    {
+        return Url::to(['/race/default/get-more-races']);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 use willGo\models\WillGo;
+$quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"' : '';
 /**
  * @var $races []
  */
@@ -52,7 +53,56 @@ use willGo\models\WillGo;
                                     <h6 class="date-caption grey"><?= $race->getDateRepresentation(); ?></h6>
                                 </div>
                                 <div class="clearfix"></div>
-                                <h4 class="card-title"><i class="fa fa-star-o grey i-will-go" aria-hidden="true"></i>&nbsp;
+                                <h4 class="card-title">
+                                    <?php if ($race->isJoined()) { ?>
+                                        <span
+                                            class="span-join"
+                                            title="Вы участвуете"
+                                            data-message-joined="Вы участвуете"
+                                            data-message-will="Нажмите, чтобы добавить в календарь"
+                                        >
+                                    <i
+                                        <?= $quest; ?>
+                                        class="fa gold fa-star grey i-will-go already-joined"
+                                        data-message="will"
+                                        aria-hidden="true"
+                                        data-id="<?= $race->id; ?>"
+                                        data-url="<?= WillGo::dismissUrl(); ?>"
+                                    ></i>
+                                    <i
+                                        <?= $quest; ?>
+                                        class="fa fa-star-o grey i-will-go will-join hidden"
+                                        aria-hidden="true"
+                                        data-message="joined"
+                                        data-id="<?= $race->id; ?>"
+                                        data-url="<?= WillGo::joinUrl(); ?>"
+                                    ></i>
+                                </span>
+                                    <?php } else { ?>
+                                        <span
+                                            class="span-join"
+                                            title="Нажмите, чтобы добавить в календарь"
+                                            data-message-joined="Вы участвуете"
+                                            data-message-will="Нажмите, чтобы добавить в календарь"
+                                        >
+                                            <i
+                                                <?= $quest; ?>
+                                                class="fa gold fa-star grey i-will-go already-joined hidden"
+                                                data-message="will"
+                                                aria-hidden="true"
+                                                data-id="<?= $race->id; ?>"
+                                                data-url="<?= WillGo::dismissUrl(); ?>"
+                                            ></i>
+                                            <i
+                                                <?= $quest; ?>
+                                                class="fa fa-star-o grey i-will-go will-join"
+                                                aria-hidden="joined"
+                                                data-message="will"
+                                                data-id="<?= $race->id; ?>"
+                                                data-url="<?= WillGo::joinUrl(); ?>"
+                                            ></i>
+                                        </span>
+                                    <?php } ?>
                                     <a href="<?= \yii\helpers\Url::to(['/race/default/view', 'url' => $race->url, ])?>" class="underline-black">
                                         <?= $race->label; ?>
                                     </a>
@@ -66,6 +116,19 @@ use willGo\models\WillGo;
             <?php } ?>
         </ul>
     </div>
+    
+    <div class="block block-more-races block-more-races-sport ">
+        <button
+            type="submit"
+            data-lock="0"
+            data-url="<?= \race\models\Race::getMoreRacesUrl();?>"
+            class="btn btn-success btn-lg more-races"
+            data-sport="<?= $_GET['sport']; ?>"
+        >
+            <strong>Загрузить еще соревнования</strong>
+        </button>
+    </div>
+    
     <div class="card card-block" id="list">
         <table class="table table-hover">
             <thead>
@@ -95,6 +158,7 @@ use willGo\models\WillGo;
                                     data-message-will="Нажмите, чтобы добавить в календарь"
                                 >
                                     <i
+                                        <?= $quest; ?>
                                         class="fa gold fa-star grey i-will-go already-joined"
                                         data-message="will"
                                         aria-hidden="true"
@@ -102,6 +166,7 @@ use willGo\models\WillGo;
                                         data-url="<?= WillGo::dismissUrl(); ?>"
                                     ></i>
                                     <i
+                                        <?= $quest; ?>
                                         class="fa fa-star-o grey i-will-go will-join hidden"
                                         aria-hidden="true"
                                         data-message="joined"
@@ -117,6 +182,7 @@ use willGo\models\WillGo;
                                     data-message-will="Нажмите, чтобы добавить в календарь"
                                 >
                                     <i
+                                        <?= $quest; ?>
                                         class="fa gold fa-star grey i-will-go already-joined hidden"
                                         data-message="will"
                                         aria-hidden="true"
@@ -124,6 +190,7 @@ use willGo\models\WillGo;
                                         data-url="<?= WillGo::dismissUrl(); ?>"
                                     ></i>
                                     <i
+                                        <?= $quest; ?>
                                         class="fa fa-star-o grey i-will-go will-join"
                                         aria-hidden="joined"
                                         data-message="will"

@@ -42,59 +42,6 @@ $this->title = 'My Yii Application';
             <?php } ?>
         </div>
     </div>
-    <div class="news-block-container">
-        <h4 class="PTSerif"><i>Новости из <a href="#" class="underline">журнала TriRussia.ru </a></i></h4>
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                <hr>
-                <h6 class="magazine-caption news">Новости</h6>
-                <h2><a href="#" class="no-underline">Заголовок для новостей, который может быть коротким или очень
-                        длинным</a></h2>
-                <span class="text-muted small">Новая статья</span>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                <div class="row">
-                    <ul class="flex-container">
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                            <li class="flex-item">
-                                <hr>
-                                <h6 class="magazine-caption news">Новости</h6>
-                                <h5><a href="#" class="no-underline">Отчет о главном мероприятии лета</a></h5>
-                                <span class="text-muted small">5 дней назад</span>
-                            </li>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                            <li class="flex-item">
-                                <hr>
-                                <h6 class="magazine-caption news">Новости</h6>
-                                <h5><a href="#" class="no-underline">Как быстрее ехать в гору: сидя или танцуя. Отвечает
-                                        Ильнур Закарин.</a></h5>
-                                <span class="text-muted small">5 дней назад</span>
-                            </li>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                            <li class="flex-item">
-                                <hr>
-                                <h6 class="magazine-caption news">Новости</h6>
-                                <h5><a href="#" class="no-underline">Как бегать марафоны без бананов, но во дворе такая
-                                        погода и где Валера?</a></h5>
-                                <span class="text-muted small">5 дней назад</span>
-                            </li>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                            <li class="flex-item">
-                                <hr>
-                                <h6 class="magazine-caption news">Новости</h6>
-                                <h5><a href="#" class="no-underline">Как бегать марафоны без бананов, но во дворе такая
-                                        погода и где Валера?</a></h5>
-                                <span class="text-muted small">5 дней назад</span>
-                            </li>
-                        </div>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="row">
         <div class="grid">
             <?php /** @var $race \race\models\Race */ ?>
@@ -127,5 +74,15 @@ $this->title = 'My Yii Application';
                 </div>
             </div>
         </div>
+    </div>
+    <div class="block block-more-races">
+        <button 
+            type="submit" 
+            data-lock="0"
+            data-url="<?= \race\models\Race::getMoreRacesUrl();?>"
+            class="btn btn-success btn-lg more-races"
+        >
+            <strong>Загрузить еще соревнования</strong>
+        </button>
     </div>
 </div>

@@ -41,7 +41,17 @@ class SiteController extends Controller
                 /*'only' => ['logout', 'signup'],*/
                 'rules' => [
                     [
-                        'actions' => [ 'login', 'error', 'auth', 'index' ],
+                        'actions' => [
+                            'error',
+                            'auth',
+                            'index',
+                            /*'magazine',*/
+                            'about',
+                            'advertising',
+                            'domains',
+                            'bmi',
+                            'convert'
+                        ],
                         'allow'   => true,
                     ],
                     [
@@ -164,32 +174,11 @@ class SiteController extends Controller
         } else {
             $mainRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC')->limit(12)/*->offset($page*12)*/->all();
             $secondaryRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC')->limit(12)->offset(12)->all();
-            $lastRaces = Race::find()->orderBy('start_date DESC')->limit(12)->offset(24)->all();
+            $lastRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date DESC')->limit(12)->offset(24)->all();
             return $this->render('index', [
                 'mainRaces' => $mainRaces,
                 'secondaryRaces' => $secondaryRaces,
                 'lastRaces' => $lastRaces,
-            ]);
-        }
-    }
-
-    /**
-     * Logs in a user.
-     *
-     * @return mixed
-     */
-    public function actionLogin()
-    {
-        if (!\Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            return $this->render('login', [
-                'model' => $model,
             ]);
         }
     }
@@ -207,29 +196,6 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays contact page.
-     *
-     * @return mixed
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-            } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending email.');
-            }
-
-            return $this->refresh();
-        } else {
-            return $this->render('contact', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
      * Displays about page.
      *
      * @return mixed
@@ -237,76 +203,6 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
-    }
-
-    /**
-     * Signs user up.
-     *
-     * @return mixed
-     */
-    public function actionSignup()
-    {
-        $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
-                }
-            }
-        }
-
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Requests password reset.
-     *
-     * @return mixed
-     */
-    public function actionRequestPasswordReset()
-    {
-        $model = new PasswordResetRequestForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-
-                return $this->goHome();
-            } else {
-                Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for email provided.');
-            }
-        }
-
-        return $this->render('requestPasswordResetToken', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Resets password.
-     *
-     * @param string $token
-     * @return mixed
-     * @throws BadRequestHttpException
-     */
-    public function actionResetPassword($token)
-    {
-        try {
-            $model = new ResetPasswordForm($token);
-        } catch (InvalidParamException $e) {
-            throw new BadRequestHttpException($e->getMessage());
-        }
-
-        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'New password was saved.');
-
-            return $this->goHome();
-        }
-
-        return $this->render('resetPassword', [
-            'model' => $model,
-        ]);
     }
 
     public function actionCalendar(){
@@ -341,5 +237,34 @@ class SiteController extends Controller
         }
 
         return $this->render('calendar', ['races'=>$racesArrayImproved, 'notJoinedRaces'=>$notJoinedRacesArrayImproved,]);
+    }
+
+    
+    //static pages
+    //TODO: move to page module
+    
+    public function actionMagazine()
+    {
+        return $this->render('magazine');
+    }
+
+    public function actionAdvertising()
+    {
+        return $this->render('advertising');
+    }
+
+    public function actionDomains()
+    {
+        return $this->render('domains');
+    }
+
+    public function actionBmi()
+    {
+        return $this->render('bmi');
+    }
+
+    public function actionConvert()
+    {
+        return $this->render('convert');
     }
 }

@@ -46,11 +46,9 @@ use yii\helpers\Url;
                                 <?php /** @var \race\models\Race $race */?>
                                 <?php foreach ($notJoinedRaces[strtotime(date('Y-m-d', $i))] as $race) { ?>
                                     <a href="<?= Url::to(['/race/default/view', 'url' => $race->url,]) ?>" class="underline">
-                                        <?= $race->label; ?>
+                                        <?php if (--$count > 0) $label = $race->label . ','; else $label =  $race->label; ?>
+                                        <?= $label; ?>
                                     </a>
-                                    <?php if (--$count > 0) { ?>
-                                        ,
-                                    <?php } ?>
                                 <?php }  ?>
                             <?php } ?>
                             </li>
