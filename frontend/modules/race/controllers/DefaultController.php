@@ -74,13 +74,13 @@ class DefaultController extends Controller
 
         $sportModel = null;
         if (isset($_POST['sport']) && $sport = $_POST['sport']){
-            $page --;
+            $page -=2;
             if ($sportModel = Sport::find()->where(['url' => $sport])->one()) {
                 $raceCondition->andWhere(['sport_id'  => $sportModel->id ]);
             }
         }
 
-        $races = $raceCondition->orderBy('start_date ASC')->limit($page*12)->all();
+        $races = $raceCondition->orderBy('start_date ASC')->limit(12)->offset($page*12)->all();
 
         return Json::encode([
             'result' => count($races),
