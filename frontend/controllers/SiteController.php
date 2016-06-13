@@ -167,7 +167,7 @@ class SiteController extends Controller
         }
 
         if ($sportModel){
-            $races = $raceCondition->orderBy('start_date DESC')->limit(13)->all();
+            $races = $raceCondition->orderBy('start_date ASC')->limit(13)->all();
             $showMore = false;
             if (count($races) > 12){
                 $showMore = true;
