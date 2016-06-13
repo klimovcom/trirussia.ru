@@ -53,43 +53,29 @@ AppAsset::register($this);
 
 <body>
 <?php $this->beginBody() ?>
-<nav class="navbar navbar-full navbar-dark bg-inverse">
-    <div class="container">
-        <nav class="nav nav-inline c-nav">
-            <div class="container">
-                <div class="pull-left">
-                    <?= \frontend\widgets\sportsMenu\SportsMenu::widget() ?>
-                </div>
-                <div class="pull-right">
-                    <ul class="list-inline m-t-1">
-                        <?php if (Yii::$app->user->isGuest) { ?>
-                        <li class="list-inline-item">
-                        	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#openUser">Войти</button>
-                        </li>
-                        <?php } else { ?>
-						<li class="list-inline-item">
-							<?= Yii::$app->user->identity->first_name . ' ' . Yii::$app->user->identity->last_name?>
-						</li>
-						<li class="list-inline-item">
-                            <a class="btn-primary btn-sm" href="<?= Url::to('/site/logout'); ?>">Выйти</a>
-						</li>
-                        <?php } ?>
-					</ul>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-        </nav>
-        <ul class="nav navbar-nav hidden-md-up">
-            <li class="nav-item">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
-                    &#9776;
-                </button>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link nav-logo" href="/">TriRussia.ru</a>
-            </li>
-        </ul>
-    </div>
+<nav class="nav nav-inline c-nav">
+	<div class="container">
+		<div class="pull-left">
+			<?= \frontend\widgets\sportsMenu\SportsMenu::widget() ?>
+		</div>
+        <div class="pull-right">
+            <ul class="list-inline m-t-1">
+                <?php if (Yii::$app->user->isGuest) { ?>
+                <li class="list-inline-item">
+                	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#openUser">Войти</button>
+                </li>
+                <?php } else { ?>
+				<li class="list-inline-item">
+					<?= Yii::$app->user->identity->first_name . ' ' . Yii::$app->user->identity->last_name?>
+				</li>
+				<li class="list-inline-item">
+                    <a class="btn-primary btn-sm" href="<?= Url::to('/site/logout'); ?>">Выйти</a>
+				</li>
+                <?php } ?>
+			</ul>
+        </div>
+        <div class="clearfix"></div>
+	</div>
 </nav>
 <div class="modal fade" id="openUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
