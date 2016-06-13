@@ -62,14 +62,14 @@ AppAsset::register($this);
             <ul class="list-inline m-t-1">
                 <?php if (Yii::$app->user->isGuest) { ?>
                 <li class="list-inline-item">
-                	<button class="btn btn-primary" data-toggle="modal" data-target="#openUser">Войти</button>
+                	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#openUser">Войти</button>
                 </li>
                 <?php } else { ?>
 				<li class="list-inline-item">
 					<?= Yii::$app->user->identity->first_name . ' ' . Yii::$app->user->identity->last_name?>
 				</li>
 				<li class="list-inline-item">
-                    <a class="btn btn-primary" href="<?= Url::to('/site/logout'); ?>">Выйти</a>
+                    <a class="btn btn-primary btn-sm" href="<?= Url::to('/site/logout'); ?>">Выйти</a>
 				</li>
                 <?php } ?>
 			</ul>
