@@ -51,7 +51,7 @@ die();*/
                     </a>
                 </h4>
                 <p class="card-text"><?= $race->promo; ?></p>
-                <a href="<?= Url::to(['/race/default/view', 'url' => $race->url,]) ?>" class="btn btn-secondary btn-sm">Узнайте больше</a>
+<!--                 <a href="<?= Url::to(['/race/default/view', 'url' => $race->url,]) ?>" class="btn btn-secondary btn-sm">Узнайте больше</a> -->
             </div>
             <div style="height: 3rem;"></div>
             <?php if ($race->display_type == Race::DISPLAY_TYPE_BOTH_SIDES) { ?>
