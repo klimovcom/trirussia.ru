@@ -26,10 +26,10 @@ AppAsset::register($this);
     <meta name="author" content="TriRussia.ru">
     <meta name="keywords" content="Триатлон, бег, велоспорт, плавание, Ironman, Half-Ironman, полуайронмен, марафон, полумарафон, олимпийская дистанция, спринт, суперспринт, 5 км, 10 км, календарь соревнований">
     <meta name="description" content="Вся информация о соревнованиях по триатлону, бегу, велоспорту, плаванию, дуатлону и лыжам. Старты в России, в Москве, гонки серии Ironman, Ironstar, Титан, Гром, олимпийские дистанции и спринты">
-    <meta property="og:image" content="http://www.trirussia.ru/img/logo_black.png">
+    <meta property="og:image" content="http://www.trirussia.ru/img/trirussia_og_image.png">
     <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="200">
-    <meta property="og:image:height" content="200">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <title>TriRussia.ru — Календарь соревнований по триатлону, бегу, велоспорту и плаванию</title>
 
     <title><?= Html::encode($this->title) ?></title>

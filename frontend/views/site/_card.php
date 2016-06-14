@@ -60,7 +60,7 @@ die();*/
                         <?php if ($race->organizer->image_id) { ?>
                             <img src="<?= FPM::originalSrc($race->organizer->image_id)?>" class="card-organizer-logo">
                         <?php } else { ?>
-                            <span class="PTSerif"><i>Организатор</i></span>
+                            <span class="PTSerif"><i><?= $race->organizer; ?></i></span>
                         <?php }  ?>
                     </div>
                     <div class="pull-right">
@@ -90,7 +90,7 @@ die();*/
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-10 col-xl-10">
                                     <h6>Место</h6>
-                                    <p><?= $race->getPlaceRepresetation();?></p>
+                                    <p><?= $race->getPlaceRepresentation();?></p>
                                 </div>
                             </div>
                             <div class="text-xs-center">
