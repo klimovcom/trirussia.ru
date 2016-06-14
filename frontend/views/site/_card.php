@@ -60,7 +60,7 @@ die();*/
                         <?php if ($race->organizer->image_id) { ?>
                             <img src="<?= FPM::originalSrc($race->organizer->image_id)?>" class="card-organizer-logo">
                         <?php } else { ?>
-                            <span class="PTSerif"><i><?= $race->organizer; ?></i></span>
+                            <span class="PTSerif"><i><?= $race->organizer->organizer_id; ?></i></span>
                         <?php }  ?>
                     </div>
                     <div class="pull-right">
