@@ -8,7 +8,7 @@ use race\models\Race;
 ?>
 <div class="card-block border-<?= $race->getSportClass(); ?>">
     <h4>
-	    <a href="#" class="underline-black"><?= $this->context->model->sport->label; ?></a> очень популярен. Посмотрите другие соревнования:
+	    <a href="#" class="underline-black"><?= $this->context->model->sport->label; ?></a> очень популярен. Посмотрите другие соревнования в категории <?= $this->context->model->sport->label; ?>:
     </h4>
     <ul class="list-unstyled m-t-1">
         <?php /** @var $race \race\models\Race */?>
