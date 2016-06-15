@@ -1,12 +1,11 @@
 <?php
 use yii\helpers\Url;
-use race\models\Race;
 
 /**
  * @var $races []
  */
 ?>
-<div class="card-block border-<?= $race->getSportClass(); ?>">
+<div class="card-block border-run">
     <h4>
 	    <a href="#" class="underline-black"><?= $this->context->model->sport->label; ?></a> очень популярен. Посмотрите другие соревнования в категории <?= $this->context->model->sport->label; ?>:
     </h4>
