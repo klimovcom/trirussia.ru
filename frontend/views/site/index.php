@@ -13,7 +13,7 @@ $this->title = 'My Yii Application';
     </div>
     <div class="row m-t-3 m-b-3">
         <div class="col-lg-4 col-xl-4">
-            <img src="/img/arr.png">
+            <a href="<?= Url::to(['/', 'sport' => 'triathlon',]) ?>"><img src="/img/arr.png"></a>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
             <h1>Ближайшие соревнования по

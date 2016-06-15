@@ -174,7 +174,7 @@ class Race extends \yii\db\ActiveRecord
     }
 
     public function getDateRepresentation(){
-        return Yii::$app->formatter->asDate($this->start_date, 'd MMMM yyyy') . ' г.';
+        return Yii::$app->formatter->asDate($this->start_date, 'd MMMM yyyy');
     }
 
     public function getPlaceTimePromo(){

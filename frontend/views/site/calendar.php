@@ -39,7 +39,7 @@ use yii\helpers\Url;
                         <?php } else { ?>
                             <li class="border small text-muted">
                             <span class="m-l-1">
-                                <?= Yii::$app->formatter->asDate(date('Y-m-d', $i), 'd MMMM yyyy') . ' г.'; ?>
+                                <?= Yii::$app->formatter->asDate(date('Y-m-d', $i), 'd MMMM yyyy'); ?>
                             </span>
                             <?php if (isset($notJoinedRaces[strtotime(date('Y-m-d', $i))])) { ?>
                                 <?php $count = count($notJoinedRaces[strtotime(date('Y-m-d', $i))]); ?>

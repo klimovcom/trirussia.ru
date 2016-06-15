@@ -74,7 +74,7 @@ die();*/
                 </div>
                 <div class="card-back">
                     <div class="card-top bg-<?= $race->getSportClass(); ?>">
-                        <h6 class="sport-caption white text-xs-center m-b-0"><?php $race->sport->label; ?></h6>
+                        <h6 class="sport-caption white text-xs-center m-b-0"><?= $race->sport->label; ?></h6>
                     </div>
                     <div class="card-block">
                         <div class="card-container-no-border bg-light-grey">
