@@ -53,6 +53,11 @@ die();*/
                 <p class="card-text"><?= $race->promo; ?></p>
             </div>
             <div style="height: 3rem;"></div>
+            <div class="next-page">
+                <div class="pull-left">
+                    <span class="PTSerif"><i><?= $race->organizer->label; ?></i></span>
+                </div>
+            </div>
             <?php if ($race->display_type == Race::DISPLAY_TYPE_BOTH_SIDES) { ?>
                 <div class="next-page">
                     <div class="pull-left">
