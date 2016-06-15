@@ -211,8 +211,8 @@ class Race extends \yii\db\ActiveRecord
         $labels = ArrayHelper::map($distances, 'id', 'label');
         $output = Html::beginTag('ul', ['class' => 'list-unstyled']);
         foreach ($labels as $label){
-            $output .= Html::beginTag('il');
-            $output .= Html::tag('a', $label, ['href'=>'#']);
+            $output .= Html::beginTag('li');
+            $output .= Html::tag('a', $label, ['class'=>'underline', 'href'=>'#']);
             $output .= Html::endTag('li');
         }
         $output .= Html::endTag('ul');
@@ -241,7 +241,7 @@ class Race extends \yii\db\ActiveRecord
         $this->save();
     }
 
-    public function getPlaceRepresetation(){
+    public function getPlaceRepresentation(){
         $output = Html::tag('a', $this->country, ['class'=>'underline', 'href'=>'#']);
         $output .= $this->region ? ', ' . $this->region : '';
         $output .= $this->place ? ', ' . $this->place : '';

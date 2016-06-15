@@ -89,7 +89,7 @@ die();*/
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-10 col-xl-10">
                                     <h6>Место</h6>
-                                    <p><?= $race->getPlaceRepresetation();?></p>
+                                    <p><?= $race->getPlaceRepresentation();?></p>
                                 </div>
                             </div>
                             <div class="text-xs-center">
