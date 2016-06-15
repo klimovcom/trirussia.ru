@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Url;
+use race\models\Race;
 
 /**
  * @var $races []
