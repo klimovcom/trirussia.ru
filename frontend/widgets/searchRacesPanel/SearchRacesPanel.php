@@ -84,26 +84,31 @@ class SearchRacesPanel extends \yii\base\Widget{
             null, 'Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг','Сен', 'Окт', 'Ноя', 'Дек'
         ];
 
-        //проходим по месяцам оставшимся до конца года
-        for ($i = $monthNumber; $i<=12; $i++){
+        for ($i = $monthNumber; $i<=$monthNumber+10; $i++){
             $day = '01';
-            $month = $i < 10 ? '0'.$i : $i;
             $year = date('Y', time());
-            $date = implode('-', [$year, $month, $day, ]);
-            $dateIntervals[$date] = $monthes[$i] . ' ' . $year;
-        }
+            if ($i < 10 ){
+                $month = '0'.$i;
+            } else if ($i <= 12){
+                $month = $i;
+            } else {
+                $month = $i - 12;
+                $year++;
+            }
 
-        //если до конца года меньше 6 месяцев то показываем весь следующий год, иначе только
-        // первые 6 месяцев
-        $nextYearMonthesCount = count($dateIntervals) < 6 ? 12 : 6;
-        for($i = 1; $i <= $nextYearMonthesCount; $i++){
-            $day = '01';
-            $month = $i < 10 ? '0'.$i : $i;
-            $year = date('Y', time()) + 1;
             $date = implode('-', [$year, $month, $day, ]);
-            $dateIntervals[$date] = $monthes[$i] . ' ' . $year;
-        }
 
+            $racesCount = (new \yii\db\Query())
+                ->select('COUNT(id)')
+                ->from(Race::tableName())
+                ->where(['between', 'start_date', $date, substr($date, 0, 8) . '31'])
+                ->andWhere(['sport_id' => Sport::getCurrentSportModel()->id, ])
+                ->createCommand()
+                ->queryOne()['COUNT(id)'];
+
+
+            $dateIntervals[$date] = $monthes[(int)$month] . ' ' . $year . ' ('.$racesCount.')';
+        }
         return $dateIntervals;
     }
 }
