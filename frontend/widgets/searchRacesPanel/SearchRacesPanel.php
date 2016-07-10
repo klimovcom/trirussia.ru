@@ -98,16 +98,16 @@ class SearchRacesPanel extends \yii\base\Widget{
 
             $date = implode('-', [$year, $month, $day, ]);
 
-            $racesCount = (new \yii\db\Query())
+           /* $racesCount = (new \yii\db\Query())
                 ->select('COUNT(id)')
                 ->from(Race::tableName())
                 ->where(['between', 'start_date', $date, substr($date, 0, 8) . '31'])
                 ->andWhere(['sport_id' => Sport::getCurrentSportModel()->id, ])
                 ->createCommand()
-                ->queryOne()['COUNT(id)'];
+                ->queryOne()['COUNT(id)'];*/
 
 
-            $dateIntervals[$date] = $monthes[(int)$month] . ' ' . $year . ' ('.$racesCount.')';
+            $dateIntervals[$date] = $monthes[(int)$month] . ' ' . $year /*. ' ('.$racesCount.')'*/;
         }
         return $dateIntervals;
     }
