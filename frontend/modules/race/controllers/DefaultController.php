@@ -67,17 +67,18 @@ class DefaultController extends Controller
     public function actionGetMoreRaces()
     {
         $this->layout = false;
+
         $page = $_POST['page'] + 2;
 
         $raceCondition = Race::find();
 
-        $sportModel = $sport = null;
+        $sport = null;
         if (!empty($_POST['sport'])){
             $sport = $_POST['sport'];
         }
 
         if ($sport){
-            $page = $_POST['page'] - 1;
+            $page = $_POST['page'];
             if ($sportModel = Sport::find()->where(['url' => $sport])->one()) {
                 $raceCondition->andWhere(['sport_id'  => $sportModel->id ]);
             } else {
@@ -113,6 +114,7 @@ class DefaultController extends Controller
         }
 
         $races = $raceCondition->orderBy('start_date ASC, id DESC')->limit(12)->offset($page*12)->all();
+
 
         return Json::encode([
             'result' => count($races),

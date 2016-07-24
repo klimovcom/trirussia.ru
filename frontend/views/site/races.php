@@ -3,6 +3,7 @@ use willGo\models\WillGo;
 $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"' : '';
 /**
  * @var $races []
+ * @var $showMore bool
  */
 ?>
 <div class="search-container">
@@ -116,7 +117,8 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
             <?php } ?>
         </ul>
     </div>
-    
+
+    <?php if ($showMore) { ?>
     <div class="block block-more-races block-more-races-sport ">
         <button
             type="submit"
@@ -128,7 +130,8 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
             <strong>Загрузить еще соревнования</strong>
         </button>
     </div>
-    
+    <?php } ?>
+
     <div class="card card-block" id="list">
         <table class="table table-hover">
             <thead>
