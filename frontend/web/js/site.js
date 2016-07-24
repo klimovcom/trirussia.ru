@@ -235,9 +235,9 @@ $(document).ready(function(){
             $(this).attr('data-lock', lock);
             $(this).attr('disabled', 'disabled');
             var that = $(this);
-            console.log(page);
+            /*console.log(page);*/
             $.post(url, {page: page, sport: sport}, function (response) {
-                console.log(response);
+                /*console.log(response);*/
                 var result = JSON.parse(response).result;
                 var data = JSON.parse(response).data;
                 if (result*1 < 12){

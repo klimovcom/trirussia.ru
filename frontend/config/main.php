@@ -47,6 +47,11 @@ return [
             DIRECTORY_SEPARATOR . 'modules' .
             DIRECTORY_SEPARATOR . 'willGo'
         ),
+        'post' => realpath(
+            __DIR__ . DIRECTORY_SEPARATOR . '..' .
+            DIRECTORY_SEPARATOR . 'modules' .
+            DIRECTORY_SEPARATOR . 'post'
+        ),
     ],
     'modules' => [
         'race' => [
@@ -78,6 +83,9 @@ return [
         ],
         'willGo' => [
             'class' => 'willGo\WillGoModule',
+        ],
+        'post' => [
+            'class' => 'post\PostModule',
         ],
 
     ],

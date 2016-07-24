@@ -6,6 +6,7 @@ use distance\models\DistanceCategory;
 use frontend\models\SearchRaceForm;
 use frontend\widgets\searchRacesPanel\SearchRacesPanel;
 use race\models\Race;
+use race\models\RaceDistanceCategoryRef;
 use sport\models\Sport;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
@@ -66,21 +67,51 @@ class DefaultController extends Controller
     public function actionGetMoreRaces()
     {
         $this->layout = false;
-        $page = $_POST['page'] + 2;
+        $page = $_POST['page'] + 1;
 
         $raceCondition = Race::find();
 
-        $raceCondition->andWhere(['>=', 'start_date', date('Y-m-d', time())]);
+        $sportModel = $sport = null;
+        if (!empty($_GET['sport'])){
+            $sport = $_GET['sport'];
+        }
 
-        $sportModel = null;
-        if (isset($_POST['sport']) && $sport = $_POST['sport']){
-            $page -=2;
+        if ($sport){
             if ($sportModel = Sport::find()->where(['url' => $sport])->one()) {
                 $raceCondition->andWhere(['sport_id'  => $sportModel->id ]);
+            } else {
+                throw new NotFoundHttpException();
             }
         }
 
-        $races = $raceCondition->orderBy('start_date ASC')->limit(12)->offset($page*12)->all();
+
+        if (!empty($_GET['distance'])){
+            $idArray = [];
+            $distance = DistanceCategory::find()->where(['label' => $_GET['distance'], 'sport_id'  => $sport->id ])->one();
+            if (!$distance){
+                throw new NotFoundHttpException();
+            }
+            $refs = RaceDistanceCategoryRef::find()->where(['distance_category_id' => $distance->id, ])->all();
+            foreach ($refs as  $ref)
+                $idArray[] = $ref->race_id;
+            if (!empty($idArray))
+                $raceCondition->andWhere(['in', 'id', $idArray]);
+        }
+
+        if (!empty($_GET['date'])){
+            $raceCondition->andWhere(['between', 'start_date', $_GET['date'], substr($_GET['date'], 0, 8) . '31']);
+        } else {
+            $raceCondition->andWhere(['>=', 'start_date', date('Y-m-d', time())]);
+        }
+
+        if (!empty($_GET['country'])) $raceCondition->andWhere(['country' => $_GET['country']]);
+
+        if (!empty($_GET['organizer'])){
+            $raceCondition->leftJoin('{{%organizer}}', 'organizer_id = organizer.id');
+            $raceCondition->andWhere(['organizer.label' => $_GET['organizer']]);
+        }
+
+        $races = $raceCondition->orderBy('start_date ASC, id DESC')->limit(12)->offset($page*12)->all();
 
         return Json::encode([
             'result' => count($races),

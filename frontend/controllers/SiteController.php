@@ -167,7 +167,7 @@ class SiteController extends Controller
         }
 
         if ($sportModel){
-            $races = $raceCondition->orderBy('start_date ASC')->limit(13)->all();
+            $races = $raceCondition->orderBy('start_date ASC, id DESC')->limit(13)->all();
             $showMore = false;
             if (count($races) > 12){
                 $showMore = true;
@@ -178,14 +178,15 @@ class SiteController extends Controller
                 'showMore' => $showMore,
             ]);
         } else {
-            $mainRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC')->limit(12)->all();
-            $secondaryRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC')->limit(12)->offset(12)->all();
-            $lastRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date DESC')->limit(13)->offset(24)->all();
+            $mainRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC, id DESC')->limit(12)->all();
+            $secondaryRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC, id DESC')->limit(12)->offset(12)->all();
+            $lastRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC, id DESC')->limit(13)->offset(24)->all();
             $showMore = false;
             if (count($lastRaces) > 12){
                 $showMore = true;
                 array_pop($lastRaces);
             }
+
             return $this->render('index', [
                 'mainRaces' => $mainRaces,
                 'showMore' => $showMore,

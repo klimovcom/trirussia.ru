@@ -43,6 +43,9 @@ $this->title = 'My Yii Application';
             <?php } ?>
         </div>
     </div>
+
+    <?= frontend\widgets\news\News::widget(); ?>
+    
     <div class="row">
         <div class="grid">
             <?php /** @var $race \race\models\Race */ ?>
