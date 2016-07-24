@@ -46,6 +46,27 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
                     <li class="flex-item">
                         <div class="card">
+                            <div class="card-img-caption-container">
+                                <?php if ($race->main_image_id && $race->isShowImage()) { ?>
+                                    <a href="<?= \yii\helpers\Url::to(['/race/default/view', 'url' => $race->url,]) ?>">
+                                        <img class="card-img-top img-fluid"
+                                             src="<?= \metalguardian\fileProcessor\helpers\FPM::originalSrc($race->main_image_id); ?>"
+                                             alt="Card image cap">
+                                    </a>
+                                    <div class="card-img-caption bg-<?= $race->getSportClass(); ?>">
+                                        <small>
+                                            Популярность&nbsp;
+                                            <?= $race->getPopularityRepresentation();?>
+                                        </small>
+                                        <!--<div class="pull-right">
+                                            <div class="card-participant">
+                                                <span class="small"><strong><i class="fa fa-star fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;Вы
+                                                        участвуете</strong></span>
+                                            </div>
+                                        </div>-->
+                                    </div>
+                                <?php } ?>
+                            </div>
                             <div class="card-block border-<?= $race->getSportClass(); ?>">
                                 <div class="pull-left">
                                     <h6 class="sport-caption <?= $race->getSportClass(); ?>"><?= $race->sport->label; ?></h6>
