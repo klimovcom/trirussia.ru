@@ -67,7 +67,7 @@ class DefaultController extends Controller
     public function actionGetMoreRaces()
     {
         $this->layout = false;
-        $page = $_POST['page'] + 1;
+        $page = $_POST['page'] + 2;
 
         $raceCondition = Race::find();
 
@@ -77,6 +77,7 @@ class DefaultController extends Controller
         }
 
         if ($sport){
+            $page = $_POST['page'] + 1;
             if ($sportModel = Sport::find()->where(['url' => $sport])->one()) {
                 $raceCondition->andWhere(['sport_id'  => $sportModel->id ]);
             } else {
