@@ -72,8 +72,8 @@ class DefaultController extends Controller
         $raceCondition = Race::find();
 
         $sportModel = $sport = null;
-        if (!empty($_GET['sport'])){
-            $sport = $_GET['sport'];
+        if (!empty($_POST['sport'])){
+            $sport = $_POST['sport'];
         }
 
         if ($sport){
