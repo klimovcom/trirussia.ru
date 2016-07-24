@@ -73,7 +73,7 @@ class DefaultController extends Controller
 
         $sportModel = $sport = null;
         if (!empty($_GET['sport'])){
-            $sport = $_GET['sport'] - 1;
+            $sport = $_GET['sport'] + 1;
         }
 
         if ($sport){
