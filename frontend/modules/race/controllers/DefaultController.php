@@ -73,11 +73,11 @@ class DefaultController extends Controller
 
         $sportModel = $sport = null;
         if (!empty($_GET['sport'])){
-            $sport = $_GET['sport'] + 1;
+            $sport = $_GET['sport'];
         }
 
         if ($sport){
-            $page = $_POST['page'];
+            $page = $_POST['page'] + 1;
             if ($sportModel = Sport::find()->where(['url' => $sport])->one()) {
                 $raceCondition->andWhere(['sport_id'  => $sportModel->id ]);
             } else {
