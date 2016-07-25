@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 use distance\models\DistanceCategory;
+use promo\models\Promo;
 use race\models\Race;
 use race\models\RaceDistanceCategoryRef;
 use sport\models\Sport;
@@ -130,6 +131,8 @@ class SiteController extends Controller
     {
         $raceCondition = Race::find();
 
+        $promos = Promo::find()->orderBy('created DESC')->limit(6)->all();
+
         $sportModel = null;
         if ($sport){
             if ($sportModel = Sport::find()->where(['url' => $sport])->one()) {
@@ -175,6 +178,7 @@ class SiteController extends Controller
             }
             return $this->render('races', [
                 'races' => $races,
+                'promos' => $promos,
                 'showMore' => $showMore,
             ]);
         } else {
@@ -189,6 +193,7 @@ class SiteController extends Controller
 
             return $this->render('index', [
                 'mainRaces' => $mainRaces,
+                'promos' => $promos,
                 'showMore' => $showMore,
                 'secondaryRaces' => $secondaryRaces,
                 'lastRaces' => $lastRaces,

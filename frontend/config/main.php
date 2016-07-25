@@ -52,6 +52,11 @@ return [
             DIRECTORY_SEPARATOR . 'modules' .
             DIRECTORY_SEPARATOR . 'post'
         ),
+        'promo' => realpath(
+            __DIR__ . DIRECTORY_SEPARATOR . '..' .
+            DIRECTORY_SEPARATOR . 'modules' .
+            DIRECTORY_SEPARATOR . 'promo'
+        ),
     ],
     'modules' => [
         'race' => [
@@ -86,6 +91,9 @@ return [
         ],
         'post' => [
             'class' => 'post\PostModule',
+        ],
+        'promo' => [
+            'class' => 'promo\PromoModule',
         ],
 
     ],

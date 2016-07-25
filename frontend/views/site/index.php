@@ -4,6 +4,7 @@ use yii\helpers\Url;
 /** @var $mainRaces [] */
 /** @var $secondaryRaces [] */
 /** @var $showMore boolean */
+/** @var $promos [] */
 
 $this->title = 'My Yii Application';
 ?>
@@ -26,9 +27,14 @@ $this->title = 'My Yii Application';
     </div>
     <div class="row">
         <div class="grid">
+            <?php $count = 0; ?>
             <?php /** @var $race \race\models\Race */ ?>
             <?php foreach ($mainRaces as $race) { ?>
-                    <?= $this->render('_card.php', ['race' => $race, ]); ?>
+                <?= $this->render('_card.php', ['race' => $race, ]); ?>
+
+                <?php if ( ( ++$count % 8 == 0 || $count % 9 == 0 ) && !empty($promos)) { ?>
+                    <?= $this->render('_featured.php', ['promo' => array_pop($promos), ]); ?>
+                <?php } ?>
             <?php } ?>
         </div>
     </div>
@@ -37,9 +43,14 @@ $this->title = 'My Yii Application';
     </div>
     <div class="row">
         <div class="grid">
+            <?php $count = 0; ?>
             <?php /** @var $race \race\models\Race */ ?>
             <?php foreach ($secondaryRaces as $race) { ?>
-                    <?= $this->render('_card.php', ['race' => $race, ]); ?>
+                <?= $this->render('_card.php', ['race' => $race, ]); ?>
+
+                <?php if ( ( ++$count % 8 == 0 || $count % 9 == 0 ) && !empty($promos)) { ?>
+                    <?= $this->render('_featured.php', ['promo' => array_pop($promos), ]); ?>
+                <?php } ?>
             <?php } ?>
         </div>
     </div>
@@ -48,9 +59,14 @@ $this->title = 'My Yii Application';
     
     <div class="row">
         <div class="grid">
+            <?php $count = 0; ?>
             <?php /** @var $race \race\models\Race */ ?>
             <?php foreach ($lastRaces as $race) { ?>
-                    <?= $this->render('_card.php', ['race' => $race, ]); ?>
+                <?= $this->render('_card.php', ['race' => $race, ]); ?>
+
+                <?php if ( ( ++$count % 8 == 0 || $count % 9 == 0 ) && !empty($promos)) { ?>
+                    <?= $this->render('_featured.php', ['promo' => array_pop($promos), ]); ?>
+                <?php } ?>
             <?php } ?>
         </div>
     </div>
