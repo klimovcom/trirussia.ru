@@ -8,35 +8,28 @@ use \metalguardian\fileProcessor\helpers\FPM;
  * @var $race \race\models\Race
  */
 
-/*var_dump($race->organizer->image_id);
-var_dump($race->organizer->label);
-die();*/
 ?>
 <div class="grid-sizer col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
 <div class="grid-item col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
     <div class="grid-item-content">
         <div class="card <?= $race->display_type == Race::DISPLAY_TYPE_BLACK_HIDE_IMAGE ? 'bg-black' : ''; ?>">
-            <div class="card-img-caption-container">
-                <?php if ($race->main_image_id && $race->isShowImage()) { ?>
-                    <a href="<?= Url::to(['/race/default/view', 'url' => $race->url,]) ?>">
-                        <img class="card-img-top img-fluid"
-                             src="<?= FPM::originalSrc($race->main_image_id); ?>"
-                             alt="Card image cap">
-                    </a>
-                    <div class="card-img-caption bg-<?= $race->getSportClass(); ?>">
-                        <small>
-                            Популярность&nbsp;
-                            <?= $race->getPopularityRepresentation();?>
-                        </small>
-                        <!--<div class="pull-right">
-                            <div class="card-participant">
-                                <span class="small"><strong><i class="fa fa-star fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;Вы
-                                        участвуете</strong></span>
-                            </div>
-                        </div>-->
-                    </div>
-                <?php } ?>
-            </div>
+            <?php if (empty($_GET['sport']) && empty($_POST['sport'])) { ?>
+                <div class="card-img-caption-container">
+                    <?php if ($race->main_image_id && $race->isShowImage()) { ?>
+                        <a href="<?= Url::to(['/race/default/view', 'url' => $race->url,]) ?>">
+                            <img class="card-img-top img-fluid"
+                                 src="<?= FPM::originalSrc($race->main_image_id); ?>"
+                                 alt="Card image cap">
+                        </a>
+                        <div class="card-img-caption bg-<?= $race->getSportClass(); ?>">
+                            <small>
+                                Популярность&nbsp;
+                                <?= $race->getPopularityRepresentation();?>
+                            </small>
+                        </div>
+                    <?php } ?>
+                </div>
+            <?php } ?>
             <div class="card-block border-<?= $race->getSportClass(); ?>">
                 <div class="pull-left">
                     <h6 class="sport-caption <?= $race->getSportClass(); ?>"><?= $race->sport->label; ?></h6>
