@@ -18,7 +18,8 @@ $firstNew = array_shift($news);
             <hr>
             <h6 class="magazine-caption news">Новости</h6>
             <h2><a href="#" class="no-underline"><?= $firstNew->label; ?></a></h2>
-            <span class="text-muted small">><?= Yii::$app->formatter->asDate($firstNew->created, 'd MMMM yyyy') . ' г.';; ?></span>
+            <p><?= $firstNew->promo; ?></p>
+            <span class="text-muted small"><?= Yii::$app->formatter->asDate($firstNew->created, 'd MMMM yyyy') . ' г.'; ?></span>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
             <div class="row">
