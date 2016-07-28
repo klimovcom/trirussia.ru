@@ -17,6 +17,7 @@
                 <!--<i class="fa fa-star gold" aria-hidden="true"></i> <span class="small"><sup>4,5</sup></span>-->
             </h5>
             <p><?= $race->promo ?></p>
+			<span class="text-muted small"><?= $race->getDateRepresentation(); ?></span>
         </div>
     <?php } ?>
 </div>
