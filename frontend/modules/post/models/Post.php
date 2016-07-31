@@ -2,7 +2,9 @@
 
 namespace post\models;
 
+use common\models\User;
 use Yii;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "post".
@@ -15,12 +17,30 @@ use Yii;
  * @property string $promo
  * @property string $content
  * @property integer $image_id
+ * @property integer $type
+ * @property integer $popularity
  * @property integer $published
  *
  * @property User $author
  */
 class Post extends \yii\db\ActiveRecord
 {
+    const TYPE_NEW = 0;
+    const TYPE_REPORT = 1;
+
+    public static function getTypes()
+    {
+        return [
+            self::TYPE_NEW => 'Новости',
+            self::TYPE_REPORT => 'Отчет',
+        ];
+    }
+
+    public function getType()
+    {
+        return isset(self::getTypes()[(int)$this->type]) ? self::getTypes()[(int)$this->type] : null;
+    }
+
     /**
      * @inheritdoc
      */
@@ -69,5 +89,10 @@ class Post extends \yii\db\ActiveRecord
     public function getAuthor()
     {
         return $this->hasOne(User::className(), ['id' => 'author_id']);
+    }
+
+    public function addStatisticsView(){
+        $this->popularity++;
+        $this->save();
     }
 }

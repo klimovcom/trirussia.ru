@@ -145,10 +145,12 @@ return [
                 '/domains' => '/site/domains',
                 '/advertising' => '/site/advertising',
                 '/about' => '/site/about',
-                '/magazine' => '/site/magazine',
+                '/magazine' => '/post/default/index',
                 '/calendar' => '/site/calendar',
                 '/bmi' => '/site/bmi',
                 '/convert' => '/site/convert',
+
+                'magazine/<url>' => 'post/default/view',
 
                 '/<sport:\w+>' => '/',
 

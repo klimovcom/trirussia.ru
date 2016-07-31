@@ -60,6 +60,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                     )
                                     : null,
                             ],
+                            [
+                                'attribute' => 'type',
+                                'format' => 'raw',
+                                'value' => $model->getType(),
+                            ],
+                            'tags',
+                            'popularity',
                             'published',
                         ],
                     ]) ?>

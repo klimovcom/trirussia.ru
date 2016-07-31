@@ -106,6 +106,12 @@ use yii\widgets\ActiveForm;
             )->label(); ?>
         </div>
 
+        <?= $form->field($model, 'type')->textInput() ?>
+
+        <?php // $form->field($model, 'tags')->textInput() ?>
+
+        <?= $form->field($model, 'popularity')->textInput() ?>
+
         <?= $form->field($model, 'published')->hiddenInput(['id' => 'published-field'])->label(false); ?>
 
     </div>

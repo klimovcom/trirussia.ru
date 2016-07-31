@@ -56,6 +56,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                 },
                                 'filter' => [0 => 'Нет', 1 => 'Да']
                             ],
+                            [
+                                'attribute' => 'type',
+                                'value' => function ($model) {
+                                    /** @var $model \post\models\Post */
+                                    return $model->getType();
+                                },
+                                'filter' => \post\models\Post::getTypes(),
+                            ],
+                            'tags',
+                            'popularity',
                             'created',
                             ['class' => 'yii\grid\ActionColumn'],
                         ],

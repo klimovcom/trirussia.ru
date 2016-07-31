@@ -5,7 +5,7 @@ namespace post;
 /**
  * post module definition class
  */
-class Module extends \yii\base\Module
+class PostModule extends \yii\base\Module
 {
     /**
      * @inheritdoc

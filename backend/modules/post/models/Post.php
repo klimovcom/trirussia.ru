@@ -18,15 +18,34 @@ use yii\helpers\ArrayHelper;
  * @property string $promo
  * @property string $content
  * @property integer $image_id
+ * @property integer $type
+ * @property integer $popularity
+ * @property string $tags
  * @property integer $published
  */
 class Post extends \yii\db\ActiveRecord
 {
+    const TYPE_NEW = 0;
+    const TYPE_REPORT = 1;
+
     public function __construct(array $config = [])
     {
         $this->created = date("Y-m-d H:i", time());
         $this->author_id = Yii::$app->user->id;
         return parent::__construct($config);
+    }
+
+    public static function getTypes()
+    {
+        return [
+            self::TYPE_NEW => 'Новости',
+            self::TYPE_REPORT => 'Отчет',
+        ];
+    }
+
+    public function getType()
+    {
+        return isset(self::getTypes()[(int)$this->type]) ? self::getTypes()[(int)$this->type] : null;
     }
 
     /**
@@ -45,8 +64,8 @@ class Post extends \yii\db\ActiveRecord
         return [
             [['created', 'author_id', 'label', 'url', 'promo', 'content', ], 'required'],
             [['created', 'image_id',], 'safe'],
-            [['author_id', 'published'], 'integer'],
-            [['promo', 'content'], 'string'],
+            [['author_id', 'type', 'post', 'published'], 'integer'],
+            [['promo', 'content', 'tags', ], 'string'],
             [['label', 'url'], 'string', 'max' => 255],
             [['url'], 'unique'],
         ];
@@ -66,6 +85,9 @@ class Post extends \yii\db\ActiveRecord
             'promo' => 'Промо',
             'content' => 'Содержание',
             'image_id' => 'Изображение',
+            'type' => 'Тип публикации',
+            'popularity' => 'Популярность',
+            'tags' => 'Теги',
             'published' => 'Опубликовано',
         ];
     }

@@ -9,6 +9,8 @@ use post\models\Post;
 class News extends \yii\base\Widget{
 
     public $models = [];
+    
+    public $header;
 
     public function run(){
         $news = Post::find()->orderBy('created DESC')->limit(5)->all();

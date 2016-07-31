@@ -46,7 +46,7 @@ class SiteController extends Controller
                             'error',
                             'auth',
                             'index',
-                            /*'magazine',*/
+                            'magazine',
                             'about',
                             'advertising',
                             'domains',

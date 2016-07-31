@@ -25,8 +25,8 @@ class PostSearch extends Post
     public function rules()
     {
         return [
-            [['id', 'author_id', 'image_id', 'published'], 'integer'],
-            [['created', 'label', 'url', 'promo', 'content'], 'safe'],
+            [['id', 'author_id', 'image_id', 'type', 'published'], 'integer'],
+            [['created', 'label', 'url', 'promo', 'content', ], 'safe'],
         ];
     }
 
@@ -73,6 +73,7 @@ class PostSearch extends Post
             'created' => $this->created,
             'author_id' => $this->author_id,
             'image_id' => $this->image_id,
+            'type' => $this->type,
             'published' => $this->published,
         ]);
 
