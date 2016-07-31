@@ -102,9 +102,9 @@ $this->title = 'My Yii Application';
                 data-lock="0"
                 data-url="<?= \race\models\Race::getMoreRacesUrl();?>"
                 data-sport="<?= isset($_GET['sport']) ? $_GET['sport'] : '';?>"
-                class="btn btn-success btn-lg more-races"
+                class="btn btn-primary more-races"
             >
-                <strong>Загрузить еще соревнования</strong>
+                Загрузить ещё соревнования
             </button>
         </div>
     <?php } ?>

@@ -545,7 +545,7 @@ img.map {
 /* Кастомные карточки */
 
 .card-container {
-	border: 1px solid #333;
+	border: 1px solid #e5e5e5;
 	border-radius: .25rem;
 	padding: 1.25rem;
 }
@@ -602,6 +602,12 @@ img.map {
 
 .race-block {
 	height: 14rem;
+}
+
+/* Самые ожидаемые соревнования */
+
+img.most-wanted {
+	border: 1px solid #e5e5e5;
 }
 
 /* Новости */
