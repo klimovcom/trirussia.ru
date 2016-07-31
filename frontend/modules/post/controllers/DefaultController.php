@@ -17,7 +17,10 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $featured = Post::find()->orderBy('created DESC, id DESC')->one();
+
+
+        return $this->render('index', ['featured' => $featured, ]);
     }
 
 
@@ -35,6 +38,8 @@ class DefaultController extends Controller
         if (!$model){
             throw new NotFoundHttpException();
         }
+
+
 
         return $this->render('view', ['post' => $model, ]);
     }

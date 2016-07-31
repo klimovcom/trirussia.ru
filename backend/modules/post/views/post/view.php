@@ -70,6 +70,11 @@ $this->registerJs('$(document).ready(function(){
                                 'format' => 'raw',
                                 'value' => $model->getType(),
                             ],
+                            [
+                                'attribute' => 'featured',
+                                'format' => 'raw',
+                                'value' => $model->featured ? 'Да' : 'Нет',
+                            ],
                             'tags',
                             'popularity',
                             'published',

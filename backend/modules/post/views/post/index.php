@@ -64,7 +64,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                 },
                                 'filter' => \post\models\Post::getTypes(),
                             ],
-                            'tags',
+                            [
+                                'attribute' => 'featured',
+                                'value' => function ($model) {
+                                    /** @var $model \post\models\Post */
+                                    return $model->featured ? 'Да' : 'Нет';
+                                },
+                                'filter' => [0 => 'Нет', 1 => 'Да']
+                            ],
                             'popularity',
                             'created',
                             ['class' => 'yii\grid\ActionColumn'],

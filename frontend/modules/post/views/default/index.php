@@ -1,9 +1,8 @@
 <?php
+use \yii\helpers\Html;
+
 /**
- * Created by PhpStorm.
- * User: alfred
- * Date: 6/13/16
- * Time: 8:27 AM
+ * @var $featured \post\models\Post
  */
 ?>
 <div class="container">
@@ -16,16 +15,22 @@
                 <img src="https://s-media-cache-ak0.pinimg.com/736x/2d/82/a6/2d82a6a6be76603d79a263f05ee96ac8.jpg">
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-            <div class="card">
-                <img src="https://process.filestackapi.com/AMUpLpMHnQfWBIrqRcYd3z/resize=width:800,height:450,fit:crop/http://www.trirussia.ru/magazine/img/sapik_team_camp_jan_2016.jpg" class="img-fluid card-img-top">
-                <div class="card-block">
-                    <h6 class="magazine-caption report">Отчет</h6>
-                    <h4 class="card-title"><a href="#" class="underline-black">Триатлонные сборы на Кипре вместе с Sapik Team</a></h4>
-                    <p>Впервые в жизни я решил провести новогодние каникулы не просто активно, а очень активно и отправился на триатлонные сборы, которые организовывали ребята из Sapik Team. 17 дней драйва, тренировок, отличных дорог, здоровой еды, солнца и веселья в компании друзей!</p>
+        <?php if ($featured) { ?>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                <div class="card">
+                    <?php if ($featured->image_id) { ?>
+                        <?= Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($featured->image_id), ['class' => 'img-fluid card-img-top']); ?>
+                    <?php } ?>
+                    <div class="card-block">
+                        <h6 class="magazine-caption report"><?= $featured->getType(); ?></h6>
+                        <h4 class="card-title">
+                            <?= Html::a($featured->label, ['/magazine/'. $featured->url], ['class' => 'underline-black']);?>
+                        </h4>
+                        <p><?= $featured->promo; ?></p>
+                    </div>
                 </div>
             </div>
-        </div>
+        <?php } ?>
     </div>
     <div class="row m-t-1">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">

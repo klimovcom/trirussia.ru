@@ -21,6 +21,7 @@ use yii\helpers\ArrayHelper;
  * @property integer $type
  * @property integer $popularity
  * @property string $tags
+ * @property bool $featured
  * @property integer $published
  */
 class Post extends \yii\db\ActiveRecord
@@ -67,8 +68,8 @@ class Post extends \yii\db\ActiveRecord
     {
         return [
             [['created', 'author_id', 'label', 'url', 'promo', 'content', ], 'required'],
-            [['created', 'image_id',], 'safe'],
-            [['author_id', 'type', 'post', 'published'], 'integer'],
+            [['created'/*, 'image_id'*/,], 'safe'],
+            [['author_id', 'type', 'published', 'featured', ], 'integer'],
             [['promo', 'content', 'tags', ], 'string'],
             [['label', 'url'], 'string', 'max' => 255],
             [['url'], 'unique'],
@@ -91,6 +92,7 @@ class Post extends \yii\db\ActiveRecord
             'image_id' => 'Изображение',
             'type' => 'Тип публикации',
             'popularity' => 'Популярность',
+            'featured' => 'Выделенная',
             'tags' => 'Теги',
             'published' => 'Опубликовано',
         ];

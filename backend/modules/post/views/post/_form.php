@@ -108,6 +108,8 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'type')->dropDownList(\post\models\Post::getTypes()) ?>
 
+        <?= $form->field($model, 'featured')->checkbox(); ?>
+
         <?= $form->field($model, 'tags')->textInput(['maxlength' => true, 'class' => 'myTags']) ?>
 
         <?= $form->field($model, 'popularity')->textInput() ?>
