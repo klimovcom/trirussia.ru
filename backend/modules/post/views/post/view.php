@@ -9,6 +9,11 @@ use yii\widgets\DetailView;
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Публикации', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerCssFile('/css/tagit.css');
+$this->registerJs('$(document).ready(function(){
+ $(".myTags").tagit({allowSpaces:true});
+});');
 ?>
 
 <section class="content-header post-view">

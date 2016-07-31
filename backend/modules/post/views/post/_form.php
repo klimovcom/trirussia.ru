@@ -106,9 +106,9 @@ use yii\widgets\ActiveForm;
             )->label(); ?>
         </div>
 
-        <?= $form->field($model, 'type')->textInput() ?>
+        <?= $form->field($model, 'type')->dropDownList(\post\models\Post::getTypes()) ?>
 
-        <?php // $form->field($model, 'tags')->textInput() ?>
+        <?= $form->field($model, 'tags')->textInput(['maxlength' => true, 'class' => 'myTags']) ?>
 
         <?= $form->field($model, 'popularity')->textInput() ?>
 
