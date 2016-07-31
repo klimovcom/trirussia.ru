@@ -17,7 +17,7 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        $featured = Post::find()->orderBy('created DESC, id DESC')->one();
+        $featured = Post::find()->where(['featured'=>1])->orderBy('created DESC, id DESC')->one();
 
 
         return $this->render('index', ['featured' => $featured, ]);
