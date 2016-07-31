@@ -27,6 +27,8 @@ class Post extends \yii\db\ActiveRecord
 {
     const TYPE_NEW = 0;
     const TYPE_REPORT = 1;
+    const TYPE_INTERVIEW = 2;
+    const TYPE_REVIEW = 3;
 
     public function __construct(array $config = [])
     {
@@ -40,6 +42,8 @@ class Post extends \yii\db\ActiveRecord
         return [
             self::TYPE_NEW => 'Новости',
             self::TYPE_REPORT => 'Отчет',
+            self::TYPE_INTERVIEW => 'Интервью',
+            self::TYPE_REVIEW => 'Обзор',
         ];
     }
 
