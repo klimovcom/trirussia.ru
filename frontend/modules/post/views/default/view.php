@@ -14,7 +14,7 @@ use \yii\helpers\Html;
             <div class="card">
 
                 <?php if ($post->image_id) { ?>
-                    <?= Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($post->image_id), ['class' => 'Card image cap']); ?>
+                    <?= Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($post->image_id), ['class' => 'card-img-top img-fluid'], ['alt' => $post->label]); ?>
                 <?php } ?>
 
                 <div class="card-block border-gold">
