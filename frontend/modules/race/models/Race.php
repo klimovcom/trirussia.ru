@@ -299,4 +299,39 @@ class Race extends \yii\db\ActiveRecord
     {
         return Url::to(['/race/default/get-more-races']);
     }
+
+    public static function getAllRacesByMonths($from, $to)
+    {
+        if (!\Yii::$app->cache->exists("RacesByMonths[from:$from;to:$to]")){
+            \Yii::$app->cache->set(
+                "RacesByMonths[from:$from;to:$to]",
+                self::getCalculatedAllRacesByMonths($from, $to),
+                10*24*60*60);
+        }
+        return \Yii::$app->cache->get("RacesByMonths[from:$from;to:$to]");
+    }
+
+    public static function getCalculatedAllRacesByMonths($from, $to)
+    {
+        $result = [];
+
+        $races = Race::find()
+            ->select('id, start_date')
+            ->where(['between', 'start_date', date('Y-m-d'), date('Y-m-d', strtotime($to . ' -1 day')), ])
+            ->orderBy('start_date ASC, id DESC')
+            ->all();
+
+        /**
+         * @var $race Race
+         */
+        foreach ($races as $race){
+            if (empty($result[date('Y-m', strtotime($race->start_date))])){
+                $result[date('Y-m', strtotime($race->start_date))] = 1;
+            } else {
+                $result[date('Y-m', strtotime($race->start_date))]++;
+            }
+        }
+
+        return $result;
+    }
 }

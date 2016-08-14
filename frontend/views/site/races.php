@@ -219,80 +219,9 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-            <!--<div class="card">
-                <div class="card-block">
-                    <h4 class="card-title m-b-0">Все соревнования по триатлону</h4>
-                    <hr>
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                            <h6>По месяцам</h6>
-                            <ul class="list-unstyled">
-                                <li><small>В 2016 году</small></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Апрель</a><span class="race-count"><small>11</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Май</a><span class="race-count"><small>13</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Июнь</a><span class="race-count"><small>51</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Июль</a><span class="race-count"><small>10</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Август</a><span class="race-count"><small>2</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Сентябрь</a><span class="race-count"><small>3</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Октябрь</a><span class="race-count"><small>40</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Ноябрь</a><span class="race-count"><small>11</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Декабрь</a><span class="race-count"><small>19</small></span></li>
-                                <li class="m-t-1"><small>В 2017 году</small></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Январь</a><span class="race-count"><small>1</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Февраль</a><span class="race-count"><small>0</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Март</a><span class="race-count"><small>10</small></span></li>
-                            </ul>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                            <h6>По виду спорта</h6>
-                            <ul class="list-unstyled">
-                                <li class="leftbar-small"><a href="#" class="underline">Триатлон</a><span class="race-count"><small>12</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Бег</a><span class="race-count"><small>12</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Плавание</a><span class="race-count"><small>12</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Велоспорт</a><span class="race-count"><small>2</small></span></li>
-                            </ul>
-                            <h6>По дистанции</h6>
-                            <ul class="list-unstyled">
-                                <li><small>Триатлон</small></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Спринт</a><span class="race-count"><small>11</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Олимпийская дистанция</a><span class="race-count"><small>21</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Half-Ironman</a><span class="race-count"><small>33</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Ironman</a><span class="race-count"><small>0</small></span></li>
-                                <li class="m-t-1"><small>Бег</small></li>
-                                <li class="leftbar-small"><a href="#" class="underline">5 км</a><span class="race-count"><small>11</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">10 км</a><span class="race-count"><small>21</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Полумарафон</a><span class="race-count"><small>33</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Марафон</a><span class="race-count"><small>0</small></span></li>
-                            </ul>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                            <h6>По странам</h6>
-                            <ul class="list-unstyled">
-                                <li class="leftbar-small"><a href="#" class="underline">Россия</a><span class="race-count"><small>12</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Германия</a><span class="race-count"><small>10</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Беларусь</a><span class="race-count"><small>9</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Швейцария</a><span class="race-count"><small>8</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Италия</a><span class="race-count"><small>7</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Люксембург</a><span class="race-count"><small>1</small></span></li>
-                            </ul>
-                            <h6>По организаторам</h6>
-                            <ul class="list-unstyled">
-                                <li class="leftbar-small"><a href="#" class="underline">Ironstar</a><span class="race-count"><small>12</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Ironman</a><span class="race-count"><small>10</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">A1 Triathlon</a><span class="race-count"><small>9</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Titan</a><span class="race-count"><small>8</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">New Runners</a><span class="race-count"><small>7</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">3Sport</a><span class="race-count"><small>1</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Выборгмен</a><span class="race-count"><small>8</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Challenge</a><span class="race-count"><small>8</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">Шри Чин Мой</a><span class="race-count"><small>8</small></span></li>
-                                <li class="leftbar-small"><a href="#" class="underline">МБК</a><span class="race-count"><small>8</small></span></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
-
+            <div class="card">
+                <?= \frontend\widgets\allRaces\AllRaces::widget() ?>
+            </div>
             <div class="race-block-container">
                 <?= \frontend\widgets\mostPopularSportRaces\MostPopularSportRaces::widget(); ?>
             </div>
