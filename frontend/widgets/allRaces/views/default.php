@@ -6,6 +6,9 @@
  * Time: 11:17 PM
  */
 $racesByMonths = \race\models\Race::getAllRacesByMonths(date('Y-m'), date('Y-m', strtotime("+12 month")));
+$racesBySports = \race\models\Race::getAllRacesBySport(date('Y-m'));
+$racesByCountries = \race\models\Race::getAllRacesByCountries(date('Y-m'));
+$racesByOrganizers = \race\models\Race::getAllRacesByOrganizers(date('Y-m'));
 
 ?>
 
@@ -47,26 +50,30 @@ $racesByMonths = \race\models\Race::getAllRacesByMonths(date('Y-m'), date('Y-m',
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <h6>По виду спорта</h6>
                 <ul class="list-unstyled">
-                    <li class="leftbar-small"><a href="#" class="underline">Триатлон</a><span class="race-count"><small>
-                                12
-                            </small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">Бег</a><span class="race-count"><small>12
-                            </small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">Плавание</a><span class="race-count"><small>
-                                12
-                            </small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">Велоспорт</a><span class="race-count"><small>
-                                2
-                            </small></span></li>
+                    <?php foreach ($racesBySports as $sport => $racesCount) {?>
+                        <li class="leftbar-small">
+                            <a href="#" class="underline">
+                                <?= $sport; ?>
+                            </a>
+                            <span class="race-count">
+                                <small>
+                                    <?= $racesCount; ?>
+                                </small>
+                            </span>
+                        </li>
+                    <?php }?>
                 </ul>
                 <h6>По дистанции</h6>
                 <ul class="list-unstyled">
                     <li>
                         <small>Триатлон</small>
                     </li>
-                    <li class="leftbar-small"><a href="#" class="underline">Спринт</a><span class="race-count"><small>
-                                11
-                            </small></span></li>
+                    <li class="leftbar-small">
+                        <a href="#" class="underline">Спринт</a>
+                        <span class="race-count">
+                            <small>11</small>
+                        </span>
+                    </li>
                     <li class="leftbar-small"><a href="#" class="underline">Олимпийская дистанция</a><span
                             class="race-count"><small>21</small></span></li>
                     <li class="leftbar-small"><a href="#" class="underline">Half-Ironman</a><span class="race-count"><small>
@@ -94,55 +101,31 @@ $racesByMonths = \race\models\Race::getAllRacesByMonths(date('Y-m'), date('Y-m',
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <h6>По странам</h6>
                 <ul class="list-unstyled">
-                    <li class="leftbar-small"><a href="#" class="underline">Россия</a><span class="race-count"><small>
-                                12
-                            </small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">Германия</a><span class="race-count"><small>
-                                10
-                            </small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">Беларусь</a><span class="race-count"><small>
-                                9
-                            </small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">Швейцария</a><span class="race-count"><small>
-                                8
-                            </small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">Италия</a><span class="race-count"><small>
-                                7
-                            </small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">Люксембург</a><span class="race-count"><small>
-                                1
-                            </small></span></li>
+                    <?php foreach ($racesByCountries as $country=>$racesCount) { ?>
+                        <li class="leftbar-small">
+                            <a href="#" class="underline"><?= $country; ?></a>
+                        <span class="race-count">
+                            <small>
+                                <?= $racesCount; ?>
+                            </small>
+                        </span>
+                        </li>
+                    <?php } ?>
                 </ul>
                 <h6>По организаторам</h6>
                 <ul class="list-unstyled">
-                    <li class="leftbar-small"><a href="#" class="underline">Ironstar</a><span class="race-count"><small>
-                                12
-                            </small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">Ironman</a><span class="race-count"><small>
-                                10
-                            </small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">A1 Triathlon</a><span class="race-count"><small>
-                                9
-                            </small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">Titan</a><span class="race-count"><small>8
-                            </small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">New Runners</a><span class="race-count"><small>
-                                7
-                            </small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">3Sport</a><span class="race-count"><small>
-                                1
-                            </small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">Выборгмен</a><span class="race-count"><small>
-                                8
-                            </small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">Challenge</a><span class="race-count"><small>
-                                8
-                            </small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">Шри Чин Мой</a><span class="race-count"><small>
-                                8
-                            </small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">МБК</a><span class="race-count"><small>8
-                            </small></span></li>
+                    <?php foreach ($racesByOrganizers as $organizer=>$racesCount) {?>
+                        <li class="leftbar-small">
+                            <a href="#" class="underline">
+                                <?= $organizer;?>
+                            </a>
+                        <span class="race-count">
+                            <small>
+                                <?= $racesCount;?>
+                            </small>
+                        </span>
+                        </li>
+                    <?php }?>
                 </ul>
             </div>
         </div>

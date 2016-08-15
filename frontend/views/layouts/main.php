@@ -67,7 +67,7 @@ AppAsset::register($this);
                 </li>
                 <?php } else { ?>
 				<li class="list-inline-item">
-					<?= Yii::$app->user->identity->first_name . ' ' . Yii::$app->user->identity->last_name?>
+					<?= Yii::$app->user->identity->first_name . ' ' . Yii::$app->user->identity->last_name; ?>
 				</li>
 				<li class="list-inline-item">
                     <a class="btn btn-primary btn-sm" href="<?= Url::to('/site/logout'); ?>">Выйти</a>

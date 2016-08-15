@@ -305,20 +305,20 @@ class Race extends \yii\db\ActiveRecord
         if (!\Yii::$app->cache->exists("RacesByMonths[from:$from;to:$to]")){
             \Yii::$app->cache->set(
                 "RacesByMonths[from:$from;to:$to]",
-                self::getCalculatedAllRacesByMonths($from, $to),
-                10*24*60*60);
+                self::getCalculatedAllRacesByMonths($to),
+                1*24*60*60
+            );
         }
         return \Yii::$app->cache->get("RacesByMonths[from:$from;to:$to]");
     }
 
-    public static function getCalculatedAllRacesByMonths($from, $to)
+    public static function getCalculatedAllRacesByMonths($to)
     {
         $result = [];
 
         $races = Race::find()
             ->select('id, start_date')
             ->where(['between', 'start_date', date('Y-m-d'), date('Y-m-d', strtotime($to . ' -1 day')), ])
-            ->orderBy('start_date ASC, id DESC')
             ->all();
 
         /**
@@ -329,6 +329,118 @@ class Race extends \yii\db\ActiveRecord
                 $result[date('Y-m', strtotime($race->start_date))] = 1;
             } else {
                 $result[date('Y-m', strtotime($race->start_date))]++;
+            }
+        }
+
+        return $result;
+    }
+
+    public static function getAllRacesBySport($from)
+    {
+        if (!\Yii::$app->cache->exists("RacesBySports[from:$from]")){
+            \Yii::$app->cache->set(
+                "RacesBySports[from:$from]",
+                self::getCalculatedAllRacesBySports(),
+                1.5*24*60*60
+            );
+        }
+        return \Yii::$app->cache->get("RacesBySports[from:$from]");
+    }
+
+    public static function getCalculatedAllRacesBySports()
+    {
+        $result = [];
+
+        $races = Race::find()
+            ->select('id, sport_id')
+            ->where(['>=', 'start_date', date('Y-m-d')])
+            ->all();
+
+        $sports = ArrayHelper::map(Sport::find()->all(), 'id', 'label');
+
+
+        /**
+         * @var $race Race
+         */
+        foreach ($races as $race){
+            if (empty($result[$sports[$race->sport_id]])){
+                $result[$sports[$race->sport_id]] = 1;
+            } else {
+                $result[$sports[$race->sport_id]]++;
+            }
+        }
+
+        return $result;
+    }
+
+    public static function getAllRacesByCountries($from)
+    {
+        if (!\Yii::$app->cache->exists("RacesByCountries[from:$from]")){
+            \Yii::$app->cache->set(
+                "RacesByCountries[from:$from]",
+                self::getCalculatedAllRacesByCountries(),
+                1.4*24*60*60
+            );
+        }
+        return \Yii::$app->cache->get("RacesByCountries[from:$from]");
+    }
+
+    public static function getCalculatedAllRacesByCountries()
+    {
+        $result = [];
+
+        $races = Race::find()
+            ->select('id, country')
+            ->where(['>=', 'start_date', date('Y-m-d')])
+            ->all();
+
+
+        /**
+         * @var $race Race
+         */
+        foreach ($races as $race){
+            if (empty($result[$race->country])){
+                $result[$race->country] = 1;
+            } else {
+                $result[$race->country]++;
+            }
+        }
+
+        return $result;
+    }
+
+    public static function getAllRacesByOrganizers($from)
+    {
+        if (!\Yii::$app->cache->exists("RacesByOrganizers[from:$from]")){
+            \Yii::$app->cache->set(
+                "RacesByOrganizers[from:$from]",
+                self::getCalculatedAllRacesByOrganizers(),
+                1.4*24*60*60
+            );
+        }
+        return \Yii::$app->cache->get("RacesByOrganizers[from:$from]");
+    }
+
+    public static function getCalculatedAllRacesByOrganizers()
+    {
+        $result = [];
+
+        $races = Race::find()
+            ->select('id, organizer_id')
+            ->where(['>=', 'start_date', date('Y-m-d')])
+            ->all();
+
+        $organizers = ArrayHelper::map(Organizer::find()->all(), 'id', 'label');
+
+
+        /**
+         * @var $race Race
+         */
+        foreach ($races as $race){
+            if (empty($result[$organizers[$race->organizer_id]])){
+                $result[$organizers[$race->organizer_id]] = 1;
+            } else {
+                $result[$organizers[$race->organizer_id]]++;
             }
         }
 
