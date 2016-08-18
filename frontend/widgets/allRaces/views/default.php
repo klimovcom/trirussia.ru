@@ -35,7 +35,8 @@ $racesByDistancesTriathlon = \race\models\Race::getCalculatedAllRacesBySportDist
                         <?php } ?>
 
                         <li class="leftbar-small">
-                            <a href="#" class="underline">
+                            <?php $url = \sport\models\Sport::getCurrentSportModel()->url . '?date=' . date('Y-m-01', strtotime("+$i month"));?>
+                            <a href="<?= $url; ?>" class="underline">
                                 <?=  $this->context->getMonths(1*date('m', strtotime("+$i month"))); ?>
                             </a>
                         <span class="race-count">
@@ -97,7 +98,8 @@ $racesByDistancesTriathlon = \race\models\Race::getCalculatedAllRacesBySportDist
                 <ul class="list-unstyled">
                     <?php foreach ($racesByCountries as $country=>$racesCount) { ?>
                         <li class="leftbar-small">
-                            <a href="#" class="underline"><?= $country; ?></a>
+                            <?php $url = \sport\models\Sport::getCurrentSportModel()->url . '?country=' . urlencode($country)?>
+                            <a href="<?= $url; ?>" class="underline"><?= $country; ?></a>
                         <span class="race-count">
                             <small>
                                 <?= $racesCount; ?>
@@ -110,7 +112,8 @@ $racesByDistancesTriathlon = \race\models\Race::getCalculatedAllRacesBySportDist
                 <ul class="list-unstyled">
                     <?php foreach ($racesByOrganizers as $organizer=>$racesCount) {?>
                         <li class="leftbar-small">
-                            <a href="#" class="underline">
+                            <?php $url = \sport\models\Sport::getCurrentSportModel()->url . '?organizer=' . urlencode($organizer)?>
+                            <a href="<?= $url; ?>" class="underline">
                                 <?= $organizer;?>
                             </a>
                         <span class="race-count">
