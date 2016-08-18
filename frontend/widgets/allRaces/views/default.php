@@ -9,7 +9,8 @@ $racesByMonths = \race\models\Race::getAllRacesByMonths(date('Y-m'), date('Y-m',
 $racesBySports = \race\models\Race::getAllRacesBySport(date('Y-m'));
 $racesByCountries = \race\models\Race::getAllRacesByCountries(date('Y-m'));
 $racesByOrganizers = \race\models\Race::getAllRacesByOrganizers(date('Y-m'));
-
+$racesByDistancesRun = \race\models\Race::getCalculatedAllRacesBySportDistances('Бег');
+$racesByDistancesTriathlon = \race\models\Race::getCalculatedAllRacesBySportDistances('Триатлон');
 ?>
 
     <div class="card-block">
@@ -68,34 +69,25 @@ $racesByOrganizers = \race\models\Race::getAllRacesByOrganizers(date('Y-m'));
                     <li>
                         <small>Триатлон</small>
                     </li>
-                    <li class="leftbar-small">
-                        <a href="#" class="underline">Спринт</a>
+                    <?php foreach ($racesByDistancesTriathlon as $distance => $amount) { ?>
+                        <li class="leftbar-small">
+                            <a href="#" class="underline"><?= $distance;?></a>
                         <span class="race-count">
-                            <small>11</small>
+                            <small><?= $amount;?></small>
                         </span>
-                    </li>
-                    <li class="leftbar-small"><a href="#" class="underline">Олимпийская дистанция</a><span
-                            class="race-count"><small>21</small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">Half-Ironman</a><span class="race-count"><small>
-                                33
-                            </small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">Ironman</a><span class="race-count"><small>
-                                0
-                            </small></span></li>
+                        </li>
+                    <?php } ?>
                     <li class="m-t-1">
                         <small>Бег</small>
                     </li>
-                    <li class="leftbar-small"><a href="#" class="underline">5 км</a><span class="race-count"><small>11
-                            </small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">10 км</a><span class="race-count"><small>
-                                21
-                            </small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">Полумарафон</a><span class="race-count"><small>
-                                33
-                            </small></span></li>
-                    <li class="leftbar-small"><a href="#" class="underline">Марафон</a><span class="race-count"><small>
-                                0
-                            </small></span></li>
+                    <?php foreach ($racesByDistancesTriathlon as $distance => $amount) { ?>
+                        <li class="leftbar-small">
+                            <a href="#" class="underline"><?= $distance;?></a>
+                        <span class="race-count">
+                            <small><?= $amount;?></small>
+                        </span>
+                        </li>
+                    <?php } ?>
                 </ul>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">

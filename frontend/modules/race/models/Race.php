@@ -3,6 +3,7 @@
 namespace race\models;
 
 use distance\models\Distance;
+use distance\models\DistanceCategory;
 use organizer\models\Organizer;
 use sport\models\Sport;
 use willGo\models\WillGo;
@@ -11,6 +12,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\VarDumper;
+use yii\web\BadRequestHttpException;
 
 /**
  * This is the model class for table "race".
@@ -441,6 +443,65 @@ class Race extends \yii\db\ActiveRecord
                 $result[$organizers[$race->organizer_id]] = 1;
             } else {
                 $result[$organizers[$race->organizer_id]]++;
+            }
+        }
+
+        return $result;
+    }
+
+    public static function getAllRacesBySportDistances($from, $sportLabel)
+    {
+        if (!\Yii::$app->cache->exists("RacesBySportDistances[from:$from;sportLabel:$sportLabel]")){
+            \Yii::$app->cache->set(
+                "RacesBySportDistances[from:$from;$sportLabel]",
+                self::getCalculatedAllRacesBySportDistances($sportLabel),
+                1.6*24*60*60
+            );
+        }
+        return \Yii::$app->cache->get("RacesBySportDistances[from:$from;sportLabel:$sportLabel]");
+    }
+
+    public static function getCalculatedAllRacesBySportDistances($sportLabel)
+    {
+        $result = [];
+
+        $sport = Sport::find()->where(['label'=>$sportLabel, ])->one();
+
+        if (!$sportLabel){
+            throw new BadRequestHttpException('Не существует такого вида спорта: ' . $sportLabel);
+        }
+
+        $distanceCategories = DistanceCategory::find()->where(['sport_id'=>$sport->id])->all();
+        $distanceCategoriesIdArray = array_values(ArrayHelper::map($distanceCategories, 'id', 'id'));
+
+        $raceDistanceCategoryRefs = RaceDistanceCategoryRef::find()
+            ->where(['in', 'distance_category_id', $distanceCategoriesIdArray])
+            ->all();
+        $raceIdArray = array_values(ArrayHelper::map($raceDistanceCategoryRefs, 'id', 'race_id'));
+
+        $races = Race::find()
+            ->select('id')
+            ->where(['>=', 'start_date', date('Y-m-d')])
+            ->andWhere(['in', 'id', $raceIdArray])
+            ->all();
+
+        $racesImproved = [];
+
+
+        /** @var DistanceCategory $category */
+        foreach ($distanceCategories as $category){
+            /** @var RaceDistanceCategoryRef $ref */
+            foreach ($raceDistanceCategoryRefs as $ref){
+                /** @var Race $race */
+                foreach ($races as $race) {
+                    if ($category->id == $ref->distance_category_id && $race->id == $ref->race_id){
+                        if (empty($result[$category->label])){
+                            $result[$category->label] = 1;
+                        } else {
+                            $result[$category->label]++;
+                        }
+                    }
+                }
             }
         }
 
