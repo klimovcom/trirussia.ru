@@ -53,7 +53,7 @@ $racesByDistancesTriathlon = \race\models\Race::getCalculatedAllRacesBySportDist
                 <ul class="list-unstyled">
                     <?php foreach ($racesBySports as $sport => $racesCount) {?>
                         <li class="leftbar-small">
-                            <a href="#" class="underline">
+                            <a href="<?= '/' . \sport\models\Sport::getSportUrls()[$sport]; ?>" class="underline">
                                 <?= $sport; ?>
                             </a>
                             <span class="race-count">
@@ -71,7 +71,8 @@ $racesByDistancesTriathlon = \race\models\Race::getCalculatedAllRacesBySportDist
                     </li>
                     <?php foreach ($racesByDistancesTriathlon as $distance => $amount) { ?>
                         <li class="leftbar-small">
-                            <a href="#" class="underline"><?= $distance;?></a>
+                            <?php $url = \sport\models\Sport::getSportUrls()['Триатлон'] . '?distance=' . urlencode($distance)?>
+                            <a href="<?= $url; ?>" class="underline"><?= $distance;?></a>
                         <span class="race-count">
                             <small><?= $amount;?></small>
                         </span>
@@ -80,9 +81,10 @@ $racesByDistancesTriathlon = \race\models\Race::getCalculatedAllRacesBySportDist
                     <li class="m-t-1">
                         <small>Бег</small>
                     </li>
-                    <?php foreach ($racesByDistancesTriathlon as $distance => $amount) { ?>
+                    <?php foreach ($racesByDistancesRun as $distance => $amount) { ?>
                         <li class="leftbar-small">
-                            <a href="#" class="underline"><?= $distance;?></a>
+                            <?php $url = \sport\models\Sport::getSportUrls()['Бег'] . '?distance=' . urlencode($distance)?>
+                            <a href="<?= $url; ?>" class="underline"><?= $distance;?></a>
                         <span class="race-count">
                             <small><?= $amount;?></small>
                         </span>

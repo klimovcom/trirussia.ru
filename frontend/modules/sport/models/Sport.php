@@ -16,6 +16,7 @@ use yii\helpers\VarDumper;
 class Sport extends \yii\db\ActiveRecord
 {
     public static $currentSportModel = false;
+    public static $allSportModels = false;
 
     /**
      * @return array
@@ -103,6 +104,13 @@ class Sport extends \yii\db\ActiveRecord
         return self::$currentSportModel;
     }
 
+    public static function getAllSportModels(){
+        if (self::$allSportModels === false){
+            self::$allSportModels = Sport::find()->all();
+        }
+        return self::$allSportModels;
+    }
+
     /**
      * @param $case
      * @return string
@@ -117,6 +125,12 @@ class Sport extends \yii\db\ActiveRecord
         return null;
     }
     
-    
-
+    public static function getSportUrls(){
+        $result = [];
+        /** @var Sport $sport */
+        foreach (self::getAllSportModels() as $sport){
+            $result[$sport->label] = $sport->url;
+        }
+        return $result;
+    }
 }

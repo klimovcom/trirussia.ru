@@ -145,7 +145,7 @@ class SiteController extends Controller
 
         if (!empty($_GET['distance'])){
             $idArray = [];
-            $distance = DistanceCategory::find()->where(['label' => $_GET['distance'], 'sport_id'  => $sport->id ])->one();
+            $distance = DistanceCategory::find()->where(['label' => $_GET['distance'], 'sport_id'  => $sportModel->id ])->one();
             if (!$distance){
                 throw new NotFoundHttpException();
             }
