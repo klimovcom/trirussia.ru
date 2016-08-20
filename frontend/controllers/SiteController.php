@@ -157,7 +157,11 @@ class SiteController extends Controller
         }
 
         if (!empty($_GET['date'])){
-            $raceCondition->andWhere(['between', 'start_date', $_GET['date'], substr($_GET['date'], 0, 8) . '31']);
+            $raceCondition->andWhere([
+                'between',
+                'start_date', substr($_GET['date'], 0, 8).date('d'),
+                substr($_GET['date'], 0, 8) . '31'
+            ]);
         } else {
             $raceCondition->andWhere(['>=', 'start_date', date('Y-m-d', time())]);
         }
