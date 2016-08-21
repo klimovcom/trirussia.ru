@@ -13,10 +13,33 @@ class AllRaces extends \yii\base\Widget{
      * @var $model Race
      */
     public $model;
+    public $raceView;
+    public $sport;
     public $models = [];
 
     public function run(){
-        return $this->render('default', []);
+        if (!empty($this->sport)){
+            $_GET['sport'] = $this->sport;
+        }
+
+        $params = [
+            'racesByMonths' => \race\models\Race::getAllRacesByMonthsAndSport(date('Y-m'), date('Y-m', strtotime("+12 month"))),
+            'racesBySports' => \race\models\Race::getAllRacesBySport(date('Y-m')),
+            'racesByCountries' => $this->raceView ? null : \race\models\Race::getAllRacesByCountriesAndSport(date('Y-m')),
+            'racesByOrganizers' => $this->raceView ? null : \race\models\Race::getAllRacesByOrganizersAndSport(date('Y-m')),
+            'racesByDistancesRun' => \race\models\Race::getCalculatedAllRacesBySportDistances('Бег'),
+            'racesByDistancesTriathlon' => \race\models\Race::getCalculatedAllRacesBySportDistances('Триатлон'),
+            'sportModel' => \sport\models\Sport::getCurrentSportModel(),
+        ];
+
+        if (!empty($this->sport)){
+            unset($_GET['sport']);
+        }
+
+        if ($this->raceView)
+            return $this->render('race-sidebar', $params);
+
+        return $this->render('default', $params);
     }
 
     public function getMonths($i){

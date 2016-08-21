@@ -4,6 +4,8 @@ namespace sport\models;
 
 use Yii;
 use yii\helpers\VarDumper;
+use yii\web\HttpException;
+use yii\web\NotFoundHttpException;
 
 /**
  * This is the model class for table "sport".
@@ -94,11 +96,10 @@ class Sport extends \yii\db\ActiveRecord
     public static function getCurrentSportModel(){
         if (self::$currentSportModel === false){
             self::$currentSportModel = null;
-            if ($_GET['sport']){
+            if (!empty($_GET['sport'])){
                 $model = self::find()->where(['url' => $_GET['sport']])->one();
-                if ($model){
-                    self::$currentSportModel = $model;
-                }
+                if (!$model) throw new NotFoundHttpException();
+                self::$currentSportModel = $model;
             }
         }
         return self::$currentSportModel;

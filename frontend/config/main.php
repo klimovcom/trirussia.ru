@@ -152,6 +152,8 @@ return [
 
                 'magazine/<url>' => 'post/default/view',
 
+                '/search-races' => '/site/search-races',
+
                 '/<sport:\w+>' => '/',
 
 

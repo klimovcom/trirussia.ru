@@ -51,7 +51,8 @@ class SiteController extends Controller
                             'advertising',
                             'domains',
                             'bmi',
-                            'convert'
+                            'convert',
+                            'search-races',
                         ],
                         'allow'   => true,
                     ],
@@ -157,9 +158,14 @@ class SiteController extends Controller
         }
 
         if (!empty($_GET['date'])){
+            $dateFrom = $_GET['date'];
+            if (substr($dateFrom, 0, 8) == date('Y-m-')){
+                $dateFrom = substr($_GET['date'], 0, 8).date('d');
+            }
             $raceCondition->andWhere([
                 'between',
-                'start_date', substr($_GET['date'], 0, 8).date('d'),
+                'start_date',
+                $dateFrom,
                 substr($_GET['date'], 0, 8) . '31'
             ]);
         } else {
@@ -203,6 +209,82 @@ class SiteController extends Controller
                 'lastRaces' => $lastRaces,
             ]);
         }
+    }
+    
+    public function actionSearchRaces()
+    {
+        $raceCondition = Race::find();
+
+        $promos = Promo::find()->orderBy('created DESC')->limit(6)->all();
+
+        $sportModel = null;
+        if (!empty($_GET['sport'])){
+            if ($sportModel = Sport::find()->where(['url' => $_GET['sport']])->one()) {
+                $raceCondition->andWhere(['sport_id'  => $sportModel->id ]);
+            } else {
+                throw new NotFoundHttpException();
+            }
+        }
+
+
+        if (!empty($_GET['distance'])){
+            $idArray = [];
+            $distance = DistanceCategory::find()
+                ->where(['label' => $_GET['distance'], ]);
+            if ($sportModel){
+                $distance->andWhere(['sport_id'  => $sportModel->id ]);
+            }
+            $distance = $distance->one();
+            if (!$distance){
+                throw new NotFoundHttpException();
+            }
+            $refs = RaceDistanceCategoryRef::find()->where(['distance_category_id' => $distance->id, ])->all();
+            foreach ($refs as  $ref)
+                $idArray[] = $ref->race_id;
+            if (!empty($idArray))
+                $raceCondition->andWhere(['in', 'id', $idArray]);
+        }
+
+        if (!empty($_GET['date'])){
+            $dateFrom = $_GET['date'];
+            if (substr($dateFrom, 0, 8) == date('Y-m-')){
+                $dateFrom = substr($_GET['date'], 0, 8).date('d');
+            }
+            $raceCondition->andWhere([
+                'between',
+                'start_date',
+                $dateFrom,
+                substr($_GET['date'], 0, 8) . '31'
+            ]);
+        }
+
+        if (!empty($_GET['country'])) $raceCondition->andWhere(['country' => $_GET['country']]);
+
+        if (!empty($_GET['organizer'])){
+            $raceCondition->leftJoin('{{%organizer}}', 'organizer_id = organizer.id');
+            $raceCondition->andWhere(['organizer.label' => $_GET['organizer']]);
+        }
+
+        if ($raceCondition->where){
+            $races = $raceCondition->orderBy('start_date ASC, id DESC')->limit(13)->all();
+        } else {
+            $races = [];
+        }
+
+        if (empty($_GET['date'])){
+            $raceCondition->andWhere(['>=', 'start_date', date('Y-m-d', time())]);
+        }
+
+        $showMore = false;
+        if (count($races) > 12){
+            $showMore = true;
+            array_pop($races);
+        }
+        return $this->render('search-races', [
+            'races' => $races,
+            'promos' => $promos,
+            'showMore' => $showMore,
+        ]);
     }
 
     /**

@@ -190,7 +190,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 sidebar">
-       <?= \frontend\widgets\otherRaces\OtherRaces::widget(); ?>
+       <?= \frontend\widgets\allRaces\AllRaces::widget([ 'sport'=>$race->sport->url, 'raceView' => true, ]); ?>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 hidden new-sidebar">
         <div class="card card-block">

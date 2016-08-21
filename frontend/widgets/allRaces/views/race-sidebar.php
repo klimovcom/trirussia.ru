@@ -8,13 +8,18 @@
  * @var $racesByDistancesTriathlon
  * @var $sportModel
  */
+
+if (!$sportModel)
+    $sportUrl = 'search-races';
+else
+    $sportUrl = $sportModel->url;
 ?>
 
-    <div class="card-block">
+    <div class="card card-block">
         <h4 class="card-title m-b-0">Все соревнования</h4>
         <hr>
         <div class="row">
-            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                 <h6>По месяцам</h6>
                 <ul class="list-unstyled">
                     <li>
@@ -32,7 +37,7 @@
                         <?php } ?>
 
                         <li class="leftbar-small">
-                            <?php $url = '/' .$sportModel->url . '?date=' . date('Y-m-01', strtotime("+$i month"));?>
+                            <?php $url = '/' . $sportUrl . '?date=' . date('Y-m-01', strtotime("+$i month"));?>
                             <a href="<?= $url; ?>" class="underline">
                                 <?=  $this->context->getMonths(1*date('m', strtotime("+$i month"))); ?>
                             </a>
@@ -46,7 +51,7 @@
 
                 </ul>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                 <h6>По виду спорта</h6>
                 <ul class="list-unstyled">
                     <?php foreach ($racesBySports as $sport => $racesCount) {?>
@@ -81,45 +86,13 @@
                     </li>
                     <?php foreach ($racesByDistancesRun as $distance => $amount) { ?>
                         <li class="leftbar-small">
-                            <?php $url = '/' .\sport\models\Sport::getSportUrls()['Бег'] . '?distance=' . urlencode($distance)?>
+                            <?php $url = '/' . \sport\models\Sport::getSportUrls()['Бег'] . '?distance=' . urlencode($distance)?>
                             <a href="<?= $url; ?>" class="underline"><?= $distance;?></a>
                         <span class="race-count">
                             <small><?= $amount;?></small>
                         </span>
                         </li>
                     <?php } ?>
-                </ul>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                <h6>По странам</h6>
-                <ul class="list-unstyled">
-                    <?php foreach ($racesByCountries as $country=>$racesCount) { ?>
-                        <li class="leftbar-small">
-                            <?php $url = '/' .$sportModel->url . '?country=' . urlencode($country)?>
-                            <a href="<?= $url; ?>" class="underline"><?= $country; ?></a>
-                        <span class="race-count">
-                            <small>
-                                <?= $racesCount; ?>
-                            </small>
-                        </span>
-                        </li>
-                    <?php } ?>
-                </ul>
-                <h6>По организаторам</h6>
-                <ul class="list-unstyled">
-                    <?php foreach ($racesByOrganizers as $organizer=>$racesCount) {?>
-                        <li class="leftbar-small">
-                            <?php $url = '/' .$sportModel->url . '?organizer=' . urlencode($organizer)?>
-                            <a href="<?= $url; ?>" class="underline">
-                                <?= $organizer;?>
-                            </a>
-                        <span class="race-count">
-                            <small>
-                                <?= $racesCount;?>
-                            </small>
-                        </span>
-                        </li>
-                    <?php }?>
                 </ul>
             </div>
         </div>

@@ -54,7 +54,10 @@ class DefaultController extends Controller
                     $sport = $sport->url;
                 }
 
-                $url = '/' . $sport;
+                if ($sport)
+                    $url = '/' . $sport;
+                else
+                    $url = '/search-races';
                 if (!empty($data))
                     $url .= '?' . http_build_query($data);
                 return $this->renderAjax('_submit-url', ['url' => $url, ]);

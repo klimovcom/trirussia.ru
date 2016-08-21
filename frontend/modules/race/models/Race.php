@@ -243,7 +243,8 @@ class Race extends \yii\db\ActiveRecord
         $this->save();
     }
 
-    public function getPlaceRepresentation(){
+    public function getPlaceRepresentation()
+    {
         $output = Html::tag('a', $this->country, ['class'=>'underline', 'href'=>'#']);
         $output .= $this->region ? ', ' . $this->region : '';
         $output .= $this->place ? ', ' . $this->place : '';
@@ -308,7 +309,7 @@ class Race extends \yii\db\ActiveRecord
             \Yii::$app->cache->set(
                 "RacesByMonths[from:$from;to:$to]",
                 self::getCalculatedAllRacesByMonths($to),
-                1*24*60*60
+                24*60*60 - 2*60*60
             );
         }
         return \Yii::$app->cache->get("RacesByMonths[from:$from;to:$to]");
@@ -337,13 +338,58 @@ class Race extends \yii\db\ActiveRecord
         return $result;
     }
 
+    public static function getAllRacesByMonthsAndSport($from, $to)
+    {
+        $sport = Sport::getCurrentSportModel();
+
+        if (!$sport) return self::getAllRacesByMonths($from, $to);
+
+        $sportUrl = $sport->url;
+
+        \Yii::$app->cache->delete("RacesByMonthsAndSport[from:$from;to:$to:sport:$sportUrl]");
+        if (!\Yii::$app->cache->exists("RacesByMonthsAndSport[from:$from;to:$to:sport:$sportUrl]")){
+            \Yii::$app->cache->set(
+                "RacesByMonthsAndSport[from:$from;to:$to;sport:$sportUrl]",
+                self::getCalculatedAllRacesByMonthsAndSport($to),
+                24*60*60 - 2*60*60
+            );
+        }
+        return \Yii::$app->cache->get("RacesByMonthsAndSport[from:$from;to:$to;sport:$sportUrl]");
+    }
+
+    public static function getCalculatedAllRacesByMonthsAndSport($to)
+    {
+        $result = [];
+
+        $sport = Sport::getCurrentSportModel();
+
+        $races = Race::find()
+            ->select('id, start_date')
+            ->where(['between', 'start_date', date('Y-m-d'), date('Y-m-d', strtotime($to . ' -1 day')), ])
+            ->andWhere(['sport_id' => $sport->id])
+            ->all();
+        
+        /**
+         * @var $race Race
+         */
+        foreach ($races as $race){
+            if (empty($result[date('Y-m', strtotime($race->start_date))])){
+                $result[date('Y-m', strtotime($race->start_date))] = 1;
+            } else {
+                $result[date('Y-m', strtotime($race->start_date))]++;
+            }
+        }
+
+        return $result;
+    }
+
     public static function getAllRacesBySport($from)
     {
         if (!\Yii::$app->cache->exists("RacesBySports[from:$from]")){
             \Yii::$app->cache->set(
                 "RacesBySports[from:$from]",
                 self::getCalculatedAllRacesBySports(),
-                1.5*24*60*60
+                24*60*60 + 3*60*60
             );
         }
         return \Yii::$app->cache->get("RacesBySports[from:$from]");
@@ -381,7 +427,7 @@ class Race extends \yii\db\ActiveRecord
             \Yii::$app->cache->set(
                 "RacesByCountries[from:$from]",
                 self::getCalculatedAllRacesByCountries(),
-                1.4*24*60*60
+                24*60*60 + 2*60*60
             );
         }
         return \Yii::$app->cache->get("RacesByCountries[from:$from]");
@@ -411,13 +457,58 @@ class Race extends \yii\db\ActiveRecord
         return $result;
     }
 
+    public static function getAllRacesByCountriesAndSport($from)
+    {
+        $sport = Sport::getCurrentSportModel();
+
+        if (!$sport) return self::getAllRacesByCountries($from);
+
+        $sportUrl = $sport->url;
+
+        if (!\Yii::$app->cache->exists("RacesByCountriesAndSport[from:$from;sport:$sportUrl]")){
+            \Yii::$app->cache->set(
+                "RacesByCountriesAndSport[from:$from;sport:$sportUrl]",
+                self::getCalculatedAllRacesByCountriesAndSport(),
+                24*60*60 + 2*60*60
+            );
+        }
+        return \Yii::$app->cache->get("RacesByCountriesAndSport[from:$from;sport:$sportUrl]");
+    }
+
+    public static function getCalculatedAllRacesByCountriesAndSport()
+    {
+        $result = [];
+
+        $sport = Sport::getCurrentSportModel();
+
+        $races = Race::find()
+            ->select('id, country')
+            ->where(['>=', 'start_date', date('Y-m-d')])
+            ->andWhere(['sport_id'=>$sport->id])
+            ->all();
+
+
+        /**
+         * @var $race Race
+         */
+        foreach ($races as $race){
+            if (empty($result[$race->country])){
+                $result[$race->country] = 1;
+            } else {
+                $result[$race->country]++;
+            }
+        }
+
+        return $result;
+    }
+
     public static function getAllRacesByOrganizers($from)
     {
         if (!\Yii::$app->cache->exists("RacesByOrganizers[from:$from]")){
             \Yii::$app->cache->set(
                 "RacesByOrganizers[from:$from]",
                 self::getCalculatedAllRacesByOrganizers(),
-                1.4*24*60*60
+                24*60*60 - 60*60
             );
         }
         return \Yii::$app->cache->get("RacesByOrganizers[from:$from]");
@@ -449,13 +540,60 @@ class Race extends \yii\db\ActiveRecord
         return $result;
     }
 
+    public static function getAllRacesByOrganizersAndSport($from)
+    {
+        $sport = Sport::getCurrentSportModel();
+
+        if (!$sport) return self::getAllRacesByOrganizers($from);
+
+        $sportUrl = $sport->url;
+
+        if (!\Yii::$app->cache->exists("RacesByOrganizersAndSport[from:$from;sport:$sportUrl]")){
+            \Yii::$app->cache->set(
+                "RacesByOrganizersAndSport[from:$from;sport:$sportUrl]",
+                self::getCalculatedAllRacesByOrganizersAndSport(),
+                24*60*60 - 60*60
+            );
+        }
+        return \Yii::$app->cache->get("RacesByOrganizersAndSport[from:$from;sport:$sportUrl]");
+    }
+
+    public static function getCalculatedAllRacesByOrganizersAndSport()
+    {
+        $result = [];
+
+        $sport = Sport::getCurrentSportModel();
+
+        $races = Race::find()
+            ->select('id, organizer_id')
+            ->where(['>=', 'start_date', date('Y-m-d')])
+            ->andWhere(['sport_id'=>$sport->id])
+            ->all();
+
+        $organizers = ArrayHelper::map(Organizer::find()->all(), 'id', 'label');
+
+
+        /**
+         * @var $race Race
+         */
+        foreach ($races as $race){
+            if (empty($result[$organizers[$race->organizer_id]])){
+                $result[$organizers[$race->organizer_id]] = 1;
+            } else {
+                $result[$organizers[$race->organizer_id]]++;
+            }
+        }
+
+        return $result;
+    }
+
     public static function getAllRacesBySportDistances($from, $sportLabel)
     {
         if (!\Yii::$app->cache->exists("RacesBySportDistances[from:$from;sportLabel:$sportLabel]")){
             \Yii::$app->cache->set(
                 "RacesBySportDistances[from:$from;$sportLabel]",
                 self::getCalculatedAllRacesBySportDistances($sportLabel),
-                1.6*24*60*60
+                24*60*60 + 60*60
             );
         }
         return \Yii::$app->cache->get("RacesBySportDistances[from:$from;sportLabel:$sportLabel]");
