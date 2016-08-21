@@ -8,6 +8,11 @@
  * @var $racesByDistancesTriathlon
  * @var $sportModel
  */
+
+if (!$sportModel)
+    $sportUrl = 'search-races';
+else
+    $sportUrl = $sportModel->url;
 ?>
 
     <div class="card-block">
@@ -32,7 +37,7 @@
                         <?php } ?>
 
                         <li class="leftbar-small">
-                            <?php $url = '/' .$sportModel->url . '?date=' . date('Y-m-01', strtotime("+$i month"));?>
+                            <?php $url = '/' . $sportUrl . '?date=' . date('Y-m-01', strtotime("+$i month"));?>
                             <a href="<?= $url; ?>" class="underline">
                                 <?=  $this->context->getMonths(1*date('m', strtotime("+$i month"))); ?>
                             </a>
@@ -95,7 +100,7 @@
                 <ul class="list-unstyled">
                     <?php foreach ($racesByCountries as $country=>$racesCount) { ?>
                         <li class="leftbar-small">
-                            <?php $url = '/' .$sportModel->url . '?country=' . urlencode($country)?>
+                            <?php $url = '/' .$sportUrl . '?country=' . urlencode($country)?>
                             <a href="<?= $url; ?>" class="underline"><?= $country; ?></a>
                         <span class="race-count">
                             <small>
@@ -109,7 +114,7 @@
                 <ul class="list-unstyled">
                     <?php foreach ($racesByOrganizers as $organizer=>$racesCount) {?>
                         <li class="leftbar-small">
-                            <?php $url = '/' .$sportModel->url . '?organizer=' . urlencode($organizer)?>
+                            <?php $url = '/' .$sportUrl . '?organizer=' . urlencode($organizer)?>
                             <a href="<?= $url; ?>" class="underline">
                                 <?= $organizer;?>
                             </a>

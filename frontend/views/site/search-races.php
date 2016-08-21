@@ -220,7 +220,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
             <div class="card">
-                <?= \frontend\widgets\allRaces\AllRaces::widget(['raceView' => !empty($_GET['sport']) ? false : true,]) ?>
+                <?= \frontend\widgets\allRaces\AllRaces::widget() ?>
             </div>
             <div class="race-block-container">
                 <?= \frontend\widgets\mostPopularSportRaces\MostPopularSportRaces::widget(); ?>
