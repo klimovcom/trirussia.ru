@@ -58,7 +58,7 @@ class SearchRacesPanel extends \yii\base\Widget{
             ->select('organizer_id as id')
             ->from(Race::tableName())
             ->where($dateCondition)
-            ->andWhere(['sport_id' => $model->sport, ])
+            ->andWhere( $model->sport > 0 ? ['sport_id' => $model->sport, ] : [])
             ->groupBy('organizer_id')
             ->createCommand()
             ->queryAll();

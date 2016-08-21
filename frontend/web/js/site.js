@@ -228,33 +228,62 @@ $(document).ready(function(){
     $('.more-races').on('click', function(){
         var lock = $(this).data('lock');
         var sport = $(this).data('sport');
+        var date = $(this).data('date');
+        var distance = $(this).data('distance');
+        var country = $(this).data('country');
+        var organizer = $(this).data('organizer');
         var url = $(this).data('url');
+        var target = $(this).data('target');
+        var targetList = $(this).data('target-list');
+        var renderType = $(this).data('render-type');
+        var append = $(this).data('append');
+
         if (lock == 0){
             lock = 1;
             page++;
             $(this).attr('data-lock', lock);
             $(this).attr('disabled', 'disabled');
             var that = $(this);
-            /*console.log(page);*/
-            $.post(url, {page: page, sport: sport}, function (response) {
-                console.log(response);
-                var result = JSON.parse(response).result;
-                var data = JSON.parse(response).data;
-                if (result*1 < 12){
-                    $(that).fadeOut();
-                } else {
-                    $(that).removeAttr('disabled');
-                    $(that).attr('data-lock', 0);
+            $.post(
+                url,
+                {
+                    page: page,
+                    sport: sport,
+                    date: date,
+                    distance: distance,
+                    country: country,
+                    organizer: organizer,
+                    renderType: renderType
+                },
+                function (response) {
+                    /*console.log(response);*/
+                    var result = JSON.parse(response).result;
+                    var data = JSON.parse(response).data;
+                    var dataList = JSON.parse(response).list;
+                    if (result*1 < 12){
+                        $(that).fadeOut();
+                    } else {
+                        $(that).removeAttr('disabled');
+                        $(that).attr('data-lock', 0);
+                    }
+                    if (result > 0){
+                        if (renderType == 'search'){
+                            $(target).append(data);
+                            $(targetList).append(dataList);
+                        }else{
+                            $(target).before(data);
+                        }
+
+
+
+                        $(".grid").masonry({
+                            itemSelector: ".grid-item",
+                            columnWidth: ".grid-sizer",
+                            percentPosition: true
+                        });
+                    }
                 }
-                if (result > 0){
-                    $('.block-more-races').before(data);
-                    $(".grid").masonry({
-                        itemSelector: ".grid-item",
-                        columnWidth: ".grid-sizer",
-                        percentPosition: true
-                    });
-                }
-            });
+            );
         }
     });
 });

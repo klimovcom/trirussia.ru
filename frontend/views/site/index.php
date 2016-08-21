@@ -101,6 +101,8 @@ $this->title = 'My Yii Application';
                 type="submit"
                 data-lock="0"
                 data-url="<?= \race\models\Race::getMoreRacesUrl();?>"
+                data-target="<?= \race\models\Race::getMoreRacesIndexTarget();?>"
+                data-render-type="<?= \race\models\Race::getMoreRacesIndexRenderType();?>"
                 data-sport="<?= isset($_GET['sport']) ? $_GET['sport'] : '';?>"
                 class="btn btn-primary more-races"
             >

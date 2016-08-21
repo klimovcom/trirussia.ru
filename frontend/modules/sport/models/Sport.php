@@ -94,6 +94,7 @@ class Sport extends \yii\db\ActiveRecord
     }
 
     public static function getCurrentSportModel(){
+        if (empty($_GET['sport'])) return null;
         if (self::$currentSportModel === false){
             self::$currentSportModel = null;
             if (!empty($_GET['sport'])){

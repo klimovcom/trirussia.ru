@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 use distance\models\DistanceCategory;
+use organizer\models\Organizer;
 use promo\models\Promo;
 use race\models\Race;
 use race\models\RaceDistanceCategoryRef;
@@ -215,8 +216,6 @@ class SiteController extends Controller
     {
         $raceCondition = Race::find();
 
-        $promos = Promo::find()->orderBy('created DESC')->limit(6)->all();
-
         $sportModel = null;
         if (!empty($_GET['sport'])){
             if ($sportModel = Sport::find()->where(['url' => $_GET['sport']])->one()) {
@@ -242,39 +241,35 @@ class SiteController extends Controller
             foreach ($refs as  $ref)
                 $idArray[] = $ref->race_id;
             if (!empty($idArray))
-                $raceCondition->andWhere(['in', 'id', $idArray]);
+                $raceCondition->andWhere(['in', Race::tableName() . '.id', $idArray]);
         }
 
         if (!empty($_GET['date'])){
             $dateFrom = $_GET['date'];
+
+            //если текущий месяц то ищем не с 1 числа этого месяца, а с текущего
             if (substr($dateFrom, 0, 8) == date('Y-m-')){
                 $dateFrom = substr($_GET['date'], 0, 8).date('d');
             }
+
             $raceCondition->andWhere([
                 'between',
                 'start_date',
                 $dateFrom,
                 substr($_GET['date'], 0, 8) . '31'
             ]);
-        }
-
-        if (!empty($_GET['country'])) $raceCondition->andWhere(['country' => $_GET['country']]);
-
-        if (!empty($_GET['organizer'])){
-            $raceCondition->leftJoin('{{%organizer}}', 'organizer_id = organizer.id');
-            $raceCondition->andWhere(['organizer.label' => $_GET['organizer']]);
-        }
-
-        if ($raceCondition->where){
-            $races = $raceCondition->orderBy('start_date ASC, id DESC')->limit(13)->all();
         } else {
-            $races = [];
-        }
-
-        if (empty($_GET['date'])){
             $raceCondition->andWhere(['>=', 'start_date', date('Y-m-d', time())]);
         }
 
+        if (!empty($_GET['country'])) $raceCondition->andWhere([Race::tableName().'.country' => $_GET['country']]);
+
+        if (!empty($_GET['organizer'])){
+            $raceCondition->leftJoin(Organizer::tableName(), 'organizer_id = organizer.id');
+            $raceCondition->andWhere(['organizer.label' => $_GET['organizer']]);
+        }
+
+        $races = $raceCondition->orderBy('start_date ASC, id DESC')->limit(13)->all();
         $showMore = false;
         if (count($races) > 12){
             $showMore = true;
@@ -282,7 +277,6 @@ class SiteController extends Controller
         }
         return $this->render('search-races', [
             'races' => $races,
-            'promos' => $promos,
             'showMore' => $showMore,
         ]);
     }

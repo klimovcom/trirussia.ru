@@ -42,7 +42,12 @@ $dateIntervals = \frontend\widgets\searchRacesPanel\SearchRacesPanel::getDateInt
             <?= \yii\helpers\Html::activeDropDownList(
                 $model,
                 'distance',
-                \yii\helpers\ArrayHelper::map(\distance\models\DistanceCategory::find()->where(['sport_id' => $model->sport])->all(), 'label', 'label'),
+                \yii\helpers\ArrayHelper::map(\distance\models\DistanceCategory::find()
+                    ->where($model->sport > 0 ? ['sport_id' => $model->sport] : [])
+                    ->all(),
+                    'label',
+                    'label'
+                ),
                 ['prompt' => 'Выберите дистанцию', 'class' => 'c-select small', ]
             ) ?>
         </div>

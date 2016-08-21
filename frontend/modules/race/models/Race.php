@@ -303,6 +303,31 @@ class Race extends \yii\db\ActiveRecord
         return Url::to(['/race/default/get-more-races']);
     }
 
+    public static function getMoreRacesIndexTarget()
+    {
+        return '.block-more-races';
+    }
+
+    public static function getMoreRacesTarget()
+    {
+        return '#card .flex-container';
+    }
+
+    public static function getMoreRacesTargetList()
+    {
+        return '#list tbody';
+    }
+
+    public static function getMoreRacesIndexRenderType()
+    {
+        return 'index';
+    }
+
+    public static function getMoreRacesRenderType()
+    {
+        return 'search';
+    }
+
     public static function getAllRacesByMonths($from, $to)
     {
         if (!\Yii::$app->cache->exists("RacesByMonths[from:$from;to:$to]")){

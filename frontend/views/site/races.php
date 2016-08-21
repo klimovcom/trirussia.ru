@@ -118,20 +118,6 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
         </ul>
     </div>
 
-    <?php if ($showMore) { ?>
-    <div class="block block-more-races block-more-races-sport ">
-        <button
-            type="submit"
-            data-lock="0"
-            data-url="<?= \race\models\Race::getMoreRacesUrl();?>"
-            class="btn btn-success btn-lg more-races"
-            data-sport="<?= $_GET['sport']; ?>"
-        >
-            <strong>Загрузить еще соревнования</strong>
-        </button>
-    </div>
-    <?php } ?>
-
     <div class="card card-block" id="list">
         <table class="table table-hover">
             <thead>
@@ -194,8 +180,8 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                                 <i
                                     <?= $quest; ?>
                                     class="fa fa-star-o grey i-will-go will-join"
-                                    aria-hidden="joined"
-                                    data-message="will"
+                                    aria-hidden="true"
+                                    data-message="joined"
                                     data-id="<?= $race->id; ?>"
                                     data-url="<?= WillGo::joinUrl(); ?>"
                                 ></i>
@@ -217,6 +203,25 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
             </tbody>
         </table>
     </div>
+
+    <?php if ($showMore) { ?>
+        <div class="block block-more-races block-more-races-sport ">
+            <button
+                type="submit"
+                data-lock="0"
+                data-url="<?= \race\models\Race::getMoreRacesUrl();?>"
+                data-target="<?= \race\models\Race::getMoreRacesTarget();?>"
+                data-target-list="<?= \race\models\Race::getMoreRacesTargetList();?>"
+                data-render-type="<?= \race\models\Race::getMoreRacesRenderType();?>"
+                class="btn btn-success btn-lg more-races"
+                data-sport="<?= $_GET['sport']; ?>"
+            >
+                <strong>Загрузить еще соревнования</strong>
+            </button>
+        </div>
+    <?php } ?>
+
+
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
             <div class="card">

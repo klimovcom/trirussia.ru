@@ -5,6 +5,7 @@ namespace race\controllers;
 use distance\models\DistanceCategory;
 use frontend\models\SearchRaceForm;
 use frontend\widgets\searchRacesPanel\SearchRacesPanel;
+use organizer\models\Organizer;
 use race\models\Race;
 use race\models\RaceDistanceCategoryRef;
 use sport\models\Sport;
@@ -29,8 +30,10 @@ class DefaultController extends Controller
     }
     
     public function actionUpdateSearchDistance(){
-        if (\Yii::$app->request->isAjax && !empty($_POST['sportId'])){
-            $distanceCategories = DistanceCategory::find()->where(['sport_id' => $_POST['sportId']])->all();
+        if (\Yii::$app->request->isAjax){
+            $distanceCategories = DistanceCategory::find()
+                ->where( !empty($_POST['sportId']) ? ['sport_id' => $_POST['sportId']] : [] )
+                ->all();
             return $this->renderAjax('_options', ['options' => ArrayHelper::map($distanceCategories, 'id', 'label'), ]);
         } 
         throw new NotFoundHttpException();
@@ -62,7 +65,6 @@ class DefaultController extends Controller
                     $url .= '?' . http_build_query($data);
                 return $this->renderAjax('_submit-url', ['url' => $url, ]);
             }
-
         }
         throw new NotFoundHttpException();
     }
@@ -72,6 +74,8 @@ class DefaultController extends Controller
         $this->layout = false;
 
         $page = $_POST['page'] + 2;
+        if (!empty($_POST['renderType']) && $_POST['renderType'] == 'search' )
+            $page = $_POST['page'];
 
         $raceCondition = Race::find();
 
@@ -84,15 +88,13 @@ class DefaultController extends Controller
             $page = $_POST['page'];
             if ($sportModel = Sport::find()->where(['url' => $sport])->one()) {
                 $raceCondition->andWhere(['sport_id'  => $sportModel->id ]);
-            } else {
-                throw new NotFoundHttpException();
             }
         }
 
 
-        if (!empty($_GET['distance'])){
+        if (!empty($_POST['distance'])){
             $idArray = [];
-            $distance = DistanceCategory::find()->where(['label' => $_GET['distance'], 'sport_id'  => $sport->id ])->one();
+            $distance = DistanceCategory::find()->where(['label' => $_POST['distance'], 'sport_id'  => $sport->id ])->one();
             if (!$distance){
                 throw new NotFoundHttpException();
             }
@@ -100,24 +102,31 @@ class DefaultController extends Controller
             foreach ($refs as  $ref)
                 $idArray[] = $ref->race_id;
             if (!empty($idArray))
-                $raceCondition->andWhere(['in', 'id', $idArray]);
+                $raceCondition->andWhere(['in', Race::tableName().'.id', $idArray]);
         }
 
-        if (!empty($_GET['date'])){
-            $raceCondition->andWhere(['between', 'start_date', $_GET['date'], substr($_GET['date'], 0, 8) . '31']);
+        if (!empty($_POST['date'])){
+            $raceCondition->andWhere(['between', 'start_date', $_POST['date'], substr($_POST['date'], 0, 8) . '31']);
         } else {
             $raceCondition->andWhere(['>=', 'start_date', date('Y-m-d', time())]);
         }
 
-        if (!empty($_GET['country'])) $raceCondition->andWhere(['country' => $_GET['country']]);
+        if (!empty($_POST['country'])) $raceCondition->andWhere(['country' => $_POST['country']]);
 
-        if (!empty($_GET['organizer'])){
-            $raceCondition->leftJoin('{{%organizer}}', 'organizer_id = organizer.id');
-            $raceCondition->andWhere(['organizer.label' => $_GET['organizer']]);
+        if (!empty($_POST['organizer'])){
+            $raceCondition->leftJoin(Organizer::tableName(), 'organizer_id = organizer.id');
+            $raceCondition->andWhere([Organizer::tableName().'.label' => $_POST['organizer']]);
         }
 
         $races = $raceCondition->orderBy('start_date ASC, id DESC')->limit(12)->offset($page*12)->all();
 
+
+        if (!empty($_POST['renderType']) && $_POST['renderType'] == 'search' )
+            return Json::encode([
+                'result' => count($races),
+                'data' => $this->render('_more-races-search', ['moreRaces' => $races]),
+                'list' => $this->render('_more-races-search-list', ['moreRaces' => $races]),
+            ]);
 
         return Json::encode([
             'result' => count($races),
