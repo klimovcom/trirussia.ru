@@ -213,10 +213,10 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                 data-target="<?= \race\models\Race::getMoreRacesTarget();?>"
                 data-target-list="<?= \race\models\Race::getMoreRacesTargetList();?>"
                 data-render-type="<?= \race\models\Race::getMoreRacesRenderType();?>"
-                class="btn btn-success btn-lg more-races"
+                class="btn btn-primary more-races"
                 data-sport="<?= $_GET['sport']; ?>"
             >
-                <strong>Загрузить еще соревнования</strong>
+                Загрузить еще соревнования
             </button>
         </div>
     <?php } ?>

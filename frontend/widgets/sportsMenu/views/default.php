@@ -9,6 +9,6 @@
 	<?php foreach ($sports as $sport) { ?>
 		<li class="nav-item"><a href="<?= \yii\helpers\Url::to(['/', 'sport' => $sport->url, ])?>" class="nav-link"><?= $sport->label; ?></a></li>
 	<?php } ?>
-	<!--<li class="nav-item"><a href="/magazine" class="nav-link">Журнал</a></li>
-	<li class="nav-item"><a href="/shop" class="nav-link">Магазин</a></li>-->
+	<li class="nav-item"><a href="/magazine" class="nav-link">Журнал</a></li>
+<!-- 	<li class="nav-item"><a href="/shop" class="nav-link">Магазин</a></li> -->
 </ul>
