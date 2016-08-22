@@ -7,7 +7,7 @@ use yii\helpers\Url;
 ?>
 <div class="card-block border-run">
     <h4>
-	    Посмотрите другие соревнования по <?= \sport\models\Sport::getCurrentSportLabel('дательный');?>:
+	    Посмотрите другие соревнования в категории <?= $this->context->model->sport->label; ?>:
     </h4>
     <ul class="list-unstyled m-t-1">
         <?php /** @var $race \race\models\Race */?>
@@ -23,10 +23,10 @@ use yii\helpers\Url;
 
     <ul class="list-inline m-t-1 m-b-0">
         <li class="list-inline-item m-r-2">
-            <a href="<?= Url::to(['/', 'sport' => $this->context->model->sport->url, 'country' => 'Россия']); ?>" class="underline small">Все соревнования в стране <?= $race->country; ?> по <?= \sport\models\Sport::getCurrentSportLabel('дательный');?></a>
+            <a href="<?= Url::to(['/', 'sport' => $this->context->model->sport->url, 'country' => 'Россия']); ?>" class="underline small">Все соревнования в стране <?= $race->country; ?> в категории <?= $this->context->model->sport->label; ?></a>
         </li>
         <li class="list-inline-item m-r-2">
-            <a href="<?= Url::to(['/', 'sport' => $this->context->model->sport->url])?>" class="underline small">Все соревнования в мире по <?= \sport\models\Sport::getCurrentSportLabel('дательный');?></a>
+            <a href="<?= Url::to(['/', 'sport' => $this->context->model->sport->url])?>" class="underline small">Все соревнования в мире в категории <?= $this->context->model->sport->label; ?></a>
         </li>
     </ul>
 </div>
