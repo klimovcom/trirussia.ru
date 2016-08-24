@@ -7,7 +7,7 @@ use yii\helpers\Url;
 ?>
 <div class="card-block border-run">
     <h4>
-	    <a href="#" class="underline-black"><?= $this->context->model->sport->label; ?></a> очень популярен. Посмотрите другие соревнования в категории <?= $this->context->model->sport->label; ?>:
+	    Посмотрите другие соревнования в категории <?= $this->context->model->sport->label; ?>:
     </h4>
     <ul class="list-unstyled m-t-1">
         <?php /** @var $race \race\models\Race */?>

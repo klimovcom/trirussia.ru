@@ -16,7 +16,7 @@ else
 ?>
 
     <div class="card-block">
-        <h4 class="card-title m-b-0">Все соревнования</h4>
+        <h4 class="card-title m-b-0">Все соревнования по <?= \sport\models\Sport::getCurrentSportLabel('дательный');?></h4>
         <hr>
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4">

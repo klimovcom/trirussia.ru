@@ -213,14 +213,14 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                 data-target="<?= \race\models\Race::getMoreRacesTarget();?>"
                 data-target-list="<?= \race\models\Race::getMoreRacesTargetList();?>"
                 data-render-type="<?= \race\models\Race::getMoreRacesRenderType();?>"
-                class="btn btn-success btn-lg more-races"
+                class="btn btn-primary more-races"
                 data-sport="<?= isset($_GET['sport']) ? $_GET['sport'] : null; ?>"
                 data-date="<?= isset($_GET['date']) ? $_GET['date'] : null; ?>"
                 data-distance="<?= isset($_GET['distance']) ? $_GET['distance'] : null; ?>"
                 data-country="<?= isset($_GET['country']) ? $_GET['country'] : null; ?>"
                 data-organizer="<?= isset($_GET['organizer']) ? $_GET['organizer'] : null; ?>"
             >
-                <strong>Загрузить еще соревнования</strong>
+                Загрузить еще соревнования
             </button>
         </div>
     <?php } ?>
