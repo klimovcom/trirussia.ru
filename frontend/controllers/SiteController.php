@@ -163,12 +163,6 @@ class SiteController extends Controller
      */
     public function actionSport($sport)
     {
-        var_dump(Seo::getModuleName());
-
-        var_dump(Seo::getControllerName());
-
-        var_dump(Seo::getActionName());
-        die();
         $races = Race::searchForSportPage($sport);
         
         $showMore = false;
