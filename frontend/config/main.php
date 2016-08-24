@@ -171,6 +171,8 @@ return [
                 '/search-races' => '/site/search-races',
 
                 '/<sport:\w+>' => '/site/sport',
+                
+                '/' => '/site/index',
 
 
                 '<module:\w+>/<controller:\w+>/<id:\d+>' => '<module>/<controller>/view',

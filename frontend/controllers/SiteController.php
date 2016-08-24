@@ -6,6 +6,7 @@ use organizer\models\Organizer;
 use promo\models\Promo;
 use race\models\Race;
 use race\models\RaceDistanceCategoryRef;
+use seo\models\Seo;
 use sport\models\Sport;
 use user\models\User;
 use willGo\models\WillGo;
@@ -162,6 +163,12 @@ class SiteController extends Controller
      */
     public function actionSport($sport)
     {
+        var_dump(Seo::getModuleName());
+
+        var_dump(Seo::getControllerName());
+
+        var_dump(Seo::getActionName());
+        die();
         $races = Race::searchForSportPage($sport);
         
         $showMore = false;

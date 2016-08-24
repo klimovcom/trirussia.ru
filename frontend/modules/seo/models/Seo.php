@@ -65,23 +65,20 @@ class Seo extends \yii\db\ActiveRecord
 
     public static function getModuleName()
     {
-        $url = explode('/',\Yii::$app->requestedRoute);
-        return isset($url[0]) ? $url[0] : null;
+        return Yii::$app->controller->module->id;
     }
 
     public static function getControllerName()
     {
-        $url = explode('/',\Yii::$app->requestedRoute);
-        return isset($url[1]) ? $url[1] : 'site';
+        return Yii::$app->controller->id;
     }
 
     public static function getActionName()
     {
-        $url = explode('/',\Yii::$app->requestedRoute);
-        return isset($url[2]) ? $url[2] : 'index';
+        return Yii::$app->controller->action->id;
     }
 
-    public static function isRoute($controller, $action, $module = null)
+    public static function isRoute($controller, $action, $module = 'app-frontend')
     {
         if (
             !$module &&
