@@ -23,17 +23,8 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name='yandex-verification' content='5c6a73e6a139de67' />
-    <meta name="author" content="TriRussia.ru">
-    <meta name="keywords" content="Триатлон, бег, велоспорт, плавание, Ironman, Half-Ironman, полуайронмен, марафон, полумарафон, олимпийская дистанция, спринт, суперспринт, 5 км, 10 км, календарь соревнований">
-    <meta name="description" content="Вся информация о соревнованиях по триатлону, бегу, велоспорту, плаванию, дуатлону и лыжам. Старты в России, в Москве, гонки серии Ironman, Ironstar, Титан, Гром, олимпийские дистанции и спринты">
-    <meta property="og:title" content="<?= Html::encode($this->title) ?>">
-    <meta property="og:image" content="http://www.trirussia.ru/img/trirussia_og_image.png">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <title>TriRussia.ru — Календарь соревнований по триатлону, бегу, велоспорту и плаванию</title>
 
-    <title><?= Html::encode($this->title) ?></title>
+    <?= $this->render('_seo-tags'); ?>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">

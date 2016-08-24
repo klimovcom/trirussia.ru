@@ -54,6 +54,7 @@ class SiteController extends Controller
                             'bmi',
                             'convert',
                             'search-races',
+                            'sport',
                         ],
                         'allow'   => true,
                     ],
@@ -129,87 +130,49 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex($sport = null)
+    public function actionIndex()
     {
-        $raceCondition = Race::find();
-
         $promos = Promo::find()->orderBy('created DESC')->limit(6)->all();
 
         $sportModel = null;
-        if ($sport){
-            if ($sportModel = Sport::find()->where(['url' => $sport])->one()) {
-                $raceCondition->andWhere(['sport_id'  => $sportModel->id ]);
-            } else {
-                throw new NotFoundHttpException();
-            }
+
+        $mainRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC, id DESC')->limit(12)->all();
+        $secondaryRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC, id DESC')->limit(12)->offset(12)->all();
+        $lastRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC, id DESC')->limit(13)->offset(24)->all();
+
+        $showMore = false;
+        if (count($lastRaces) > 12){
+            $showMore = true;
+            array_pop($lastRaces);
         }
 
+        return $this->render('index', [
+            'mainRaces' => $mainRaces,
+            'promos' => $promos,
+            'showMore' => $showMore,
+            'secondaryRaces' => $secondaryRaces,
+            'lastRaces' => $lastRaces,
+        ]);
+    }
 
-        if (!empty($_GET['distance'])){
-            $idArray = [];
-            $distance = DistanceCategory::find()->where(['label' => $_GET['distance'], 'sport_id'  => $sportModel->id ])->one();
-            if (!$distance){
-                throw new NotFoundHttpException();
-            }
-            $refs = RaceDistanceCategoryRef::find()->where(['distance_category_id' => $distance->id, ])->all();
-            foreach ($refs as  $ref)
-                $idArray[] = $ref->race_id;
-            if (!empty($idArray))
-                $raceCondition->andWhere(['in', 'id', $idArray]);
+    /**
+     * Displays homepage.
+     *
+     * @return mixed
+     */
+    public function actionSport($sport)
+    {
+        $races = Race::searchForSportPage($sport);
+        
+        $showMore = false;
+        if (count($races) > 12){
+            $showMore = true;
+            array_pop($races);
         }
-
-        if (!empty($_GET['date'])){
-            $dateFrom = $_GET['date'];
-            if (substr($dateFrom, 0, 8) == date('Y-m-')){
-                $dateFrom = substr($_GET['date'], 0, 8).date('d');
-            }
-            $raceCondition->andWhere([
-                'between',
-                'start_date',
-                $dateFrom,
-                substr($_GET['date'], 0, 8) . '31'
-            ]);
-        } else {
-            $raceCondition->andWhere(['>=', 'start_date', date('Y-m-d', time())]);
-        }
-
-        if (!empty($_GET['country'])) $raceCondition->andWhere(['country' => $_GET['country']]);
-
-        if (!empty($_GET['organizer'])){
-            $raceCondition->leftJoin('{{%organizer}}', 'organizer_id = organizer.id');
-            $raceCondition->andWhere(['organizer.label' => $_GET['organizer']]);
-        }
-
-        if ($sportModel){
-            $races = $raceCondition->orderBy('start_date ASC, id DESC')->limit(13)->all();
-            $showMore = false;
-            if (count($races) > 12){
-                $showMore = true;
-                array_pop($races);
-            }
-            return $this->render('races', [
-                'races' => $races,
-                'promos' => $promos,
-                'showMore' => $showMore,
-            ]);
-        } else {
-            $mainRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC, id DESC')->limit(12)->all();
-            $secondaryRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC, id DESC')->limit(12)->offset(12)->all();
-            $lastRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC, id DESC')->limit(13)->offset(24)->all();
-            $showMore = false;
-            if (count($lastRaces) > 12){
-                $showMore = true;
-                array_pop($lastRaces);
-            }
-
-            return $this->render('index', [
-                'mainRaces' => $mainRaces,
-                'promos' => $promos,
-                'showMore' => $showMore,
-                'secondaryRaces' => $secondaryRaces,
-                'lastRaces' => $lastRaces,
-            ]);
-        }
+        return $this->render('races', [
+            'races' => $races,
+            'showMore' => $showMore,
+        ]);
     }
     
     public function actionSearchRaces()

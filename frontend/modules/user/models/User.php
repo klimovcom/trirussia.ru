@@ -89,4 +89,8 @@ class User extends \common\models\User
     {
         return $this->hasMany(Post::className(), ['author_id' => 'id']);
     }
+
+    public function getFullName(){
+        return $this->last_name . ' ' . $this->first_name;
+    }
 }

@@ -3,6 +3,7 @@
 namespace post\controllers;
 
 use post\models\Post;
+use seo\models\Seo;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -34,6 +35,8 @@ class DefaultController extends Controller
         $model = Post::find()->where(['url' => $url])->one();
         /** @var $model Post */
         $model->addStatisticsView();
+
+        Seo::registerModel($model);
         
         if (!$model){
             throw new NotFoundHttpException();

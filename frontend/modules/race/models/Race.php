@@ -13,6 +13,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\VarDumper;
 use yii\web\BadRequestHttpException;
+use yii\web\NotFoundHttpException;
 
 /**
  * This is the model class for table "race".
@@ -669,5 +670,53 @@ class Race extends \yii\db\ActiveRecord
         }
 
         return $result;
+    }
+
+    public static function searchForSportPage($sport)
+    {
+        $raceCondition = Race::find();
+
+        if ($sportModel = Sport::find()->where(['url' => $sport])->one()) {
+            $raceCondition->andWhere(['sport_id'  => $sportModel->id ]);
+        } else {
+            throw new NotFoundHttpException();
+        }
+
+        if (!empty($_GET['distance'])){
+            $idArray = [];
+            $distance = DistanceCategory::find()->where(['label' => $_GET['distance'], 'sport_id'  => $sportModel->id ])->one();
+            if (!$distance){
+                throw new NotFoundHttpException();
+            }
+            $refs = RaceDistanceCategoryRef::find()->where(['distance_category_id' => $distance->id, ])->all();
+            foreach ($refs as  $ref)
+                $idArray[] = $ref->race_id;
+            if (!empty($idArray))
+                $raceCondition->andWhere(['in', 'id', $idArray]);
+        }
+
+        if (!empty($_GET['date'])){
+            $dateFrom = $_GET['date'];
+            if (substr($dateFrom, 0, 8) == date('Y-m-')){
+                $dateFrom = substr($_GET['date'], 0, 8).date('d');
+            }
+            $raceCondition->andWhere([
+                'between',
+                'start_date',
+                $dateFrom,
+                substr($_GET['date'], 0, 8) . '31'
+            ]);
+        } else {
+            $raceCondition->andWhere(['>=', 'start_date', date('Y-m-d', time())]);
+        }
+
+        if (!empty($_GET['country'])) $raceCondition->andWhere(['country' => $_GET['country']]);
+
+        if (!empty($_GET['organizer'])){
+            $raceCondition->leftJoin('{{%organizer}}', 'organizer_id = organizer.id');
+            $raceCondition->andWhere(['organizer.label' => $_GET['organizer']]);
+        }
+
+        return $raceCondition->orderBy('start_date ASC, id DESC')->limit(13)->all();
     }
 }

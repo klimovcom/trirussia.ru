@@ -2,7 +2,7 @@
 
 namespace post\models;
 
-use common\models\User;
+use user\models\User;
 use Yii;
 use yii\helpers\Url;
 

@@ -57,6 +57,16 @@ return [
             DIRECTORY_SEPARATOR . 'modules' .
             DIRECTORY_SEPARATOR . 'promo'
         ),
+        'seo' => realpath(
+            __DIR__ . DIRECTORY_SEPARATOR . '..' .
+            DIRECTORY_SEPARATOR . 'modules' .
+            DIRECTORY_SEPARATOR . 'seo'
+        ),
+        'configuration' => realpath(
+            __DIR__ . DIRECTORY_SEPARATOR . '..' .
+            DIRECTORY_SEPARATOR . 'modules' .
+            DIRECTORY_SEPARATOR . 'configuration'
+        ),
     ],
     'modules' => [
         'race' => [
@@ -94,6 +104,12 @@ return [
         ],
         'promo' => [
             'class' => 'promo\PromoModule',
+        ],
+        'seo' => [
+            'class' => 'seo\SeoModule',
+        ],
+        'configuration' => [
+            'class' => 'configuration\ConfigurationModule',
         ],
 
     ],
@@ -154,7 +170,7 @@ return [
 
                 '/search-races' => '/site/search-races',
 
-                '/<sport:\w+>' => '/',
+                '/<sport:\w+>' => '/site/sport',
 
 
                 '<module:\w+>/<controller:\w+>/<id:\d+>' => '<module>/<controller>/view',
