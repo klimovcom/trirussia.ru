@@ -167,11 +167,12 @@ return [
                 '/convert' => '/site/convert',
 
                 'magazine/<url>' => 'post/default/view',
+                'race/<url>' => 'race/default/view',
 
                 '/search-races' => '/site/search-races',
 
                 '/<sport:\w+>' => '/site/sport',
-                
+
                 '/' => '/site/index',
 
 

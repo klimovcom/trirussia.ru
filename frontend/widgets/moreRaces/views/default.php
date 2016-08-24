@@ -14,7 +14,7 @@ use yii\helpers\Url;
         <?php foreach ( $races as $race ) { ?>
             <li>
                 <span class="text-muted small"><?=  date('d.m.Y', strtotime($race->start_date)); ?></span>&nbsp;&nbsp;
-                <a href="<?= Url::to(['/race/default/view', 'url' => $race->url,]) ?>" class="underline-black">
+                <a href="<?= $race->getViewUrl(); ?>" class="underline-black">
                     <?= $race->label; ?>
                 </a>
             </li>

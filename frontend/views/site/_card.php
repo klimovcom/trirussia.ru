@@ -16,7 +16,7 @@ use \metalguardian\fileProcessor\helpers\FPM;
             <?php if (empty($_GET['sport']) && empty($_POST['sport'])) { ?>
                 <div class="card-img-caption-container">
                     <?php if ($race->main_image_id && $race->isShowImage()) { ?>
-                        <a href="<?= Url::to(['/race/default/view', 'url' => $race->url,]) ?>">
+                        <a href="<?= $race->getViewUrl(); ?>">
                             <img class="card-img-top img-fluid"
                                  src="<?= FPM::originalSrc($race->main_image_id); ?>"
                                  alt="Card image cap">
@@ -39,7 +39,7 @@ use \metalguardian\fileProcessor\helpers\FPM;
                 </div>
                 <div class="clearfix"></div>
                 <h4 class="card-title">
-                    <a href="<?= Url::to(['/race/default/view', 'url' => $race->url,]) ?>" class="underline-black">
+                    <a href="<?= $race->getViewUrl(); ?>" class="underline-black">
                         <?= $race->label; ?>
                     </a>
                 </h4>
@@ -91,7 +91,7 @@ use \metalguardian\fileProcessor\helpers\FPM;
                                 </div>
                             </div>
                             <div class="text-xs-center">
-                                <a href="<?= Url::to(['/race/default/view', 'url' => $race->url,]) ?>" type="button"
+                                <a href="<?= $race->getViewUrl(); ?>" type="button"
                                    class="btn btn-secondary btn-block m-t-2">Узнать подробнее</a>
                             </div>
                         </div>

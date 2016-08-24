@@ -11,11 +11,11 @@ use metalguardian\fileProcessor\helpers\FPM;
     <?php /** @var $race \race\models\Race */?>
    <?php foreach ($races as $race) {?>
        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 m-t-1">
-           <a href="<?= Url::to(['/race/default/view', 'url' => $race->url,]) ?>">
+           <a href="<?= $race->getViewUrl(); ?>">
                <img src="<?= FPM::originalSrc($race->main_image_id);?>" class="img-fluid most-wanted">
            </a>
            <h5 class="m-t-1">
-               <a href="<?= Url::to(['/race/default/view', 'url' => $race->url,]) ?>" class="no-underline">
+               <a href="<?= $race->getViewUrl(); ?>" class="no-underline">
                    <?= $race->label; ?>
                </a>
            </h5>

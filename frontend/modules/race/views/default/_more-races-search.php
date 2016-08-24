@@ -73,12 +73,12 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                                             ></i>
                                         </span>
                                 <?php } ?>
-                                <a href="<?= \yii\helpers\Url::to(['/race/default/view', 'url' => $race->url, ])?>" class="underline-black">
+                                <a href="<?= $race->getViewUrl(); ?>" class="underline-black">
                                     <?= $race->label; ?>
                                 </a>
                             </h4>
                             <p class="card-text"><?= $race->promo; ?></p>
-                            <a href="<?= \yii\helpers\Url::to(['/race/default/view', 'url' => $race->url, ])?>" class="btn btn-secondary btn-sm">Узнайте больше</a>
+                            <a href="<?= $race->getViewUrl(); ?>" class="btn btn-secondary btn-sm">Узнайте больше</a>
                         </div>
                     </div>
                 </li>

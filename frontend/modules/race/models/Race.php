@@ -299,6 +299,11 @@ class Race extends \yii\db\ActiveRecord
 
     }
 
+    public function getViewUrl()
+    {
+        return Url::to(['/race/' . $this->url, ]);
+    }
+
     public static function getMoreRacesUrl()
     {
         return Url::to(['/race/default/get-more-races']);

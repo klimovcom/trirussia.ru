@@ -31,7 +31,7 @@ use yii\helpers\Url;
                             <?php foreach ($races[strtotime(date('Y-m-d', $i))] as $race) { ?>
                                 <li class="border-r-<?= $race->getSportClass();?>">
                                     <h4 class="m-l-1"><span class="small"><?= $race->getDateRepresentation()?>, Вс&nbsp;&nbsp;</span>
-                                        <a href="<?= Url::to(['/race/default/view', 'url' => $race->url,]) ?>" class="underline-black"><?= $race->label; ?></a>
+                                        <a href="<?= $race->getViewUrl(); ?>" class="underline-black"><?= $race->label; ?></a>
                                     </h4>
                                     <p class="m-l-1 small"><?= $race->getDistancesRepresentation()?></p>
                                 </li>
@@ -45,7 +45,7 @@ use yii\helpers\Url;
                                 <?php $count = count($notJoinedRaces[strtotime(date('Y-m-d', $i))]); ?>
                                 <?php /** @var \race\models\Race $race */?>
                                 <?php foreach ($notJoinedRaces[strtotime(date('Y-m-d', $i))] as $race) { ?>
-                                    <a href="<?= Url::to(['/race/default/view', 'url' => $race->url,]) ?>" class="underline">
+                                    <a href="<?= $race->getViewUrl(); ?>" class="underline">
                                         <?php if (--$count > 0) $label = $race->label . ','; else $label =  $race->label; ?>
                                         <?= $label; ?>
                                     </a>

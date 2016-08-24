@@ -20,8 +20,9 @@ class DefaultController extends Controller
     {
         $featured = Post::find()->where(['featured'=>1])->orderBy('created DESC, id DESC')->one();
 
-
-        return $this->render('index', ['featured' => $featured, ]);
+        $posts = Post::find()->orderBy('created DESC')->limit(9)->offset(5)->all();
+        
+        return $this->render('index', ['featured' => $featured, 'posts' => $posts, ]);
     }
 
 

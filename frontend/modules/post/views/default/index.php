@@ -3,6 +3,7 @@ use \yii\helpers\Html;
 
 /**
  * @var $featured \post\models\Post
+ * @var $posts []
  */
 ?>
 <div class="container">
@@ -37,175 +38,26 @@ use \yii\helpers\Html;
             <?= \frontend\widgets\mostPopularPost\MostPopularPost::widget(); ?>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-            <div class="card">
-                <div class="card-block border-gold">
-                    <h4 class="PTSerif"><i>Почитайте ещё</i></h4>
-                    <div class="row">
-                        <ul class="flex-container">
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <li class="flex-item">
-                                    <hr>
-                                    <h6 class="magazine-caption news">Новости</h6>
-                                    <h5><a href="#" class="no-underline">Как бегать марафоны без бананов, но во дворе такая погода и где Валера?</a></h5>
-                                    <span class="text-muted small">5 дней назад</span>
-                                </li>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <li class="flex-item">
-                                    <hr>
-                                    <h6 class="magazine-caption news">Новости</h6>
-                                    <h5><a href="#" class="no-underline">Как бегать марафоны без бананов, но во дворе такая погода и где Валера?</a></h5>
-                                    <span class="text-muted small">5 дней назад</span>
-                                </li>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <li class="flex-item">
-                                    <hr>
-                                    <h6 class="magazine-caption news">Новости</h6>
-                                    <h5><a href="#" class="no-underline">Как бегать марафоны без бананов, но во дворе такая погода и где Валера?</a></h5>
-                                    <span class="text-muted small">5 дней назад</span>
-                                </li>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <li class="flex-item">
-                                    <hr>
-                                    <h6 class="magazine-caption news">Новости</h6>
-                                    <h5><a href="#" class="no-underline">Как бегать марафоны без бананов, но во дворе такая погода и где Валера?</a></h5>
-                                    <span class="text-muted small">5 дней назад</span>
-                                </li>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <li class="flex-item">
-                                    <hr>
-                                    <h6 class="magazine-caption news">Новости</h6>
-                                    <h5><a href="#" class="no-underline">Как бегать марафоны без бананов, но во дворе такая погода и где Валера?</a></h5>
-                                    <span class="text-muted small">5 дней назад</span>
-                                </li>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <li class="flex-item">
-                                    <hr>
-                                    <h6 class="magazine-caption news">Новости</h6>
-                                    <h5><a href="#" class="no-underline">Как бегать марафоны без бананов, но во дворе такая погода и где Валера?</a></h5>
-                                    <span class="text-muted small">5 дней назад</span>
-                                </li>
-                            </div>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <?= \frontend\widgets\mostPopularPosts\MostPopularPosts::widget(); ?>
         </div>
     </div>
     <div class="row m-t-2">
         <ul class="flex-container">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                <li class="flex-item">
-                    <div class="card">
-                        <img src="https://process.filestackapi.com/AMUpLpMHnQfWBIrqRcYd3z/resize=width:800,height:450,fit:crop/http://www.trirussia.ru/magazine/img/paul_van_bike.jpg" class="img-fluid" class="card-img-top">
-                        <div class="card-block">
-                            <h6 class="magazine-caption news">Новости</h6>
-                            <h4 class="card-title"><a href="#" class="underline-black">Кто выиграл гонку «Флеш—Валонь»</a></h4>
-                            <p>После очень удачного отрыва гонщик российской команды «Тинькофф» на финальных метрах вырвал победу у многократного победителя арденских классик Алехандро Вальверде.</p>
+            <?php /** @var $post \post\models\Post */?>
+            <?php foreach ($posts as $post) { ?>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <li class="flex-item">
+                        <div class="card">
+                            <img src="https://process.filestackapi.com/AMUpLpMHnQfWBIrqRcYd3z/resize=width:800,height:450,fit:crop/http://www.trirussia.ru/magazine/img/paul_van_bike.jpg" class="img-fluid" class="card-img-top">
+                            <div class="card-block">
+                                <h6 class="magazine-caption news"><?= $post->getType(); ?></h6>
+                                <h4 class="card-title"><a href="#" class="underline-black"><?= $post->label; ?></a></h4>
+                                <p><?= $post->promo; ?></p>
+                            </div>
                         </div>
-                    </div>
-                </li>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                <li class="flex-item">
-                    <div class="card">
-                        <img src="https://process.filestackapi.com/AMUpLpMHnQfWBIrqRcYd3z/resize=width:800,height:450,fit:crop/http://www.trirussia.ru/magazine/img/paul_van_bike.jpg" class="img-fluid" class="card-img-top">
-                        <div class="card-block">
-                            <h6 class="magazine-caption news">Новости</h6>
-                            <h4 class="card-title"><a href="#" class="underline-black">Кто выиграл гонку «Флеш—Валонь»</a></h4>
-                            <p>После очень удачного отрыва гонщик российской команды «Тинькофф» на финальных метрах вырвал победу у многократного победителя арденских классик Алехандро Вальверде.</p>
-                        </div>
-                    </div>
-                </li>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                <li class="flex-item">
-                    <div class="card">
-                        <img src="https://process.filestackapi.com/AMUpLpMHnQfWBIrqRcYd3z/resize=width:800,height:450,fit:crop/http://www.trirussia.ru/magazine/img/paul_van_bike.jpg" class="img-fluid" class="card-img-top">
-                        <div class="card-block">
-                            <h6 class="magazine-caption news">Новости</h6>
-                            <h4 class="card-title"><a href="#" class="underline-black">Кто выиграл гонку «Флеш—Валонь»</a></h4>
-                            <p>После очень удачного отрыва гонщик российской команды «Тинькофф» на финальных метрах вырвал победу у многократного победителя арденских классик Алехандро Вальверде.</p>
-                        </div>
-                    </div>
-                </li>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                <li class="flex-item">
-                    <div class="card">
-                        <img src="https://process.filestackapi.com/AMUpLpMHnQfWBIrqRcYd3z/resize=width:800,height:450,fit:crop/http://www.trirussia.ru/magazine/img/paul_van_bike.jpg" class="img-fluid" class="card-img-top">
-                        <div class="card-block">
-                            <h6 class="magazine-caption news">Новости</h6>
-                            <h4 class="card-title"><a href="#" class="underline-black">Кто выиграл гонку «Флеш—Валонь»</a></h4>
-                            <p>После очень удачного отрыва гонщик российской команды «Тинькофф» на финальных метрах вырвал победу у многократного победителя арденских классик Алехандро Вальверде.</p>
-                        </div>
-                    </div>
-                </li>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                <li class="flex-item">
-                    <div class="card">
-                        <img src="https://process.filestackapi.com/AMUpLpMHnQfWBIrqRcYd3z/resize=width:800,height:450,fit:crop/http://www.trirussia.ru/magazine/img/paul_van_bike.jpg" class="img-fluid" class="card-img-top">
-                        <div class="card-block">
-                            <h6 class="magazine-caption news">Новости</h6>
-                            <h4 class="card-title"><a href="#" class="underline-black">Кто выиграл гонку «Флеш—Валонь»</a></h4>
-                            <p>После очень удачного отрыва гонщик российской команды «Тинькофф» на финальных метрах вырвал победу у многократного победителя арденских классик Алехандро Вальверде.</p>
-                        </div>
-                    </div>
-                </li>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                <li class="flex-item">
-                    <div class="card">
-                        <img src="https://process.filestackapi.com/AMUpLpMHnQfWBIrqRcYd3z/resize=width:800,height:450,fit:crop/http://www.trirussia.ru/magazine/img/paul_van_bike.jpg" class="img-fluid" class="card-img-top">
-                        <div class="card-block">
-                            <h6 class="magazine-caption news">Новости</h6>
-                            <h4 class="card-title"><a href="#" class="underline-black">Кто выиграл гонку «Флеш—Валонь»</a></h4>
-                            <p>После очень удачного отрыва гонщик российской команды «Тинькофф» на финальных метрах вырвал победу у многократного победителя арденских классик Алехандро Вальверде.</p>
-                        </div>
-                    </div>
-                </li>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                <li class="flex-item">
-                    <div class="card">
-                        <img src="https://process.filestackapi.com/AMUpLpMHnQfWBIrqRcYd3z/resize=width:800,height:450,fit:crop/http://www.trirussia.ru/magazine/img/paul_van_bike.jpg" class="img-fluid" class="card-img-top">
-                        <div class="card-block">
-                            <h6 class="magazine-caption news">Новости</h6>
-                            <h4 class="card-title"><a href="#" class="underline-black">Кто выиграл гонку «Флеш—Валонь»</a></h4>
-                            <p>После очень удачного отрыва гонщик российской команды «Тинькофф» на финальных метрах вырвал победу у многократного победителя арденских классик Алехандро Вальверде.</p>
-                        </div>
-                    </div>
-                </li>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                <li class="flex-item">
-                    <div class="card">
-                        <img src="https://process.filestackapi.com/AMUpLpMHnQfWBIrqRcYd3z/resize=width:800,height:450,fit:crop/http://www.trirussia.ru/magazine/img/paul_van_bike.jpg" class="img-fluid" class="card-img-top">
-                        <div class="card-block">
-                            <h6 class="magazine-caption news">Новости</h6>
-                            <h4 class="card-title"><a href="#" class="underline-black">Кто выиграл гонку «Флеш—Валонь»</a></h4>
-                            <p>После очень удачного отрыва гонщик российской команды «Тинькофф» на финальных метрах вырвал победу у многократного победителя арденских классик Алехандро Вальверде.</p>
-                        </div>
-                    </div>
-                </li>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                <li class="flex-item">
-                    <div class="card">
-                        <img src="https://process.filestackapi.com/AMUpLpMHnQfWBIrqRcYd3z/resize=width:800,height:450,fit:crop/http://www.trirussia.ru/magazine/img/paul_van_bike.jpg" class="img-fluid" class="card-img-top">
-                        <div class="card-block">
-                            <h6 class="magazine-caption news">Новости</h6>
-                            <h4 class="card-title"><a href="#" class="underline-black">Кто выиграл гонку «Флеш—Валонь»</a></h4>
-                            <p>После очень удачного отрыва гонщик российской команды «Тинькофф» на финальных метрах вырвал победу у многократного победителя арденских классик Алехандро Вальверде.</p>
-                        </div>
-                    </div>
-                </li>
-            </div>
+                    </li>
+                </div>
+            <?php } ?>
         </ul>
     </div>
     <div class="race-block-container">

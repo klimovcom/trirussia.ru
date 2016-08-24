@@ -90,7 +90,7 @@ class m160822_181907_insert_into_configuration_table extends Migration
             'label' => 'Сео: изображение для статьи журнала',
             'description' => 'Сео: изображение в теге og:image',
             'key' => 'seo_magazine_post_page_og_image',
-            'value' => '{articleUrl}',
+            'value' => '{articleImageUrl}',
         ]);
     }
 

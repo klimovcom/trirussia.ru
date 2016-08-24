@@ -135,4 +135,9 @@ class Sport extends \yii\db\ActiveRecord
         }
         return $result;
     }
+
+    public function getViewUrl()
+    {
+        return \yii\helpers\Url::to(['/' . $this->url,  ]);
+    }
 }
