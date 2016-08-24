@@ -27,9 +27,9 @@ use \yii\helpers\Html;
                     <article>
                         <?= $post->content; ?>
                     </article>
-                    <a href="#" class="btn btn-secondary btn-sm">триатлон</a>
+                    <!--<a href="#" class="btn btn-secondary btn-sm">триатлон</a>
                     <a href="#" class="btn btn-secondary btn-sm">гели</a>
-                    <a href="#" class="btn btn-secondary btn-sm">спортивное питание</a>
+                    <a href="#" class="btn btn-secondary btn-sm">спортивное питание</a>-->
                     <hr>
                     <div class="likely">
                         <div class="facebook">Поделиться</div>
