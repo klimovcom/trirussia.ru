@@ -52,7 +52,7 @@ class Configuration extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getPreload()
+    public static function getPreload()
     {
         if (self::$_preload === false ){
             self::$_preload = Configuration::find()->all();
