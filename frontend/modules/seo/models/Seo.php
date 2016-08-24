@@ -132,7 +132,7 @@ class Seo extends \yii\db\ActiveRecord
             return $config;
         if (self::isRoute("default", "index", "post") && $config = Configuration::get("seo_magazine_page_$key"))
             return $config;
-        if (self::isRoute("view", "index", "post") && $config = Configuration::get("seo_magazine_post_page_$key"))
+        if (self::isRoute("default", "view", "post") && $config = Configuration::get("seo_magazine_post_page_$key"))
             return $config;
 
         return Configuration::get("seo_standard_$key");
