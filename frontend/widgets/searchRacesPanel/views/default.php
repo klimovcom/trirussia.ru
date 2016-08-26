@@ -67,6 +67,7 @@ $dateIntervals = \frontend\widgets\searchRacesPanel\SearchRacesPanel::getDateInt
                 ['prompt' => 'Выберите организатора', 'class' => 'c-select small', ]
             ) ?>
         </div>
+        <?= \yii\bootstrap\Html::activeHiddenInput($model, 'sort');?>
         <div class="pull-right">
             <?= \yii\helpers\Html::submitButton('Найти', ['class'=>"btn btn-primary btn-sm", 'id' => 'search-sumbit', ]); ?>
         </div>
