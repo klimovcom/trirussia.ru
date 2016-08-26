@@ -32,7 +32,7 @@ use yii\web\Response;
  */
 class SiteController extends Controller
 {
-    
+
     /**
      * @inheritdoc
      */
@@ -175,7 +175,11 @@ class SiteController extends Controller
             'showMore' => $showMore,
         ]);
     }
-    
+
+    /**
+     * @return string
+     * @throws NotFoundHttpException
+     */
     public function actionSearchRaces()
     {
         $raceCondition = Race::find();
@@ -308,8 +312,7 @@ class SiteController extends Controller
 
     
     //static pages
-    //TODO: move to page module
-    
+    //TODO: move to post module
     public function actionMagazine()
     {
         return $this->render('magazine');
