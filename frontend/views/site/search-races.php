@@ -39,7 +39,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
     <div class="row" id="card">
         <ul class="flex-container">
             <?php if (empty($races)) { ?>
-                <p><strong>Нет результатов</strong></p>
+                <span class="text-xs-center m-t-2 m-b-2">Нет результатов</span>
             <?php } ?>
             <?php /** @var $race \race\models\Race */ ?>
             <?php foreach ($races as $race) {?>
