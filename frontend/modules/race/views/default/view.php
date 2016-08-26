@@ -180,9 +180,6 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
 			</noscript>
 			<!--  AdRiver code END  -->
         </div>
-        <div class="ad-sidebar text-xs-center">
-            <img src="http://lightnup.ph/wp-content/uploads/2015/02/2XU2-300x250.jpg">
-        </div>
     </div>
 </div>
 <div class="row">
@@ -218,7 +215,13 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 sidebar">
-       <?= \frontend\widgets\allRaces\AllRaces::widget([ 'sport'=>$race->sport->url, 'raceView' => true, ]); ?>
+		<?= \frontend\widgets\allRaces\AllRaces::widget([ 'sport'=>$race->sport->url, 'raceView' => true, ]); ?>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 hidden new-sidebar">
+		<?= \frontend\widgets\allRaces\AllRaces::widget([ 'sport'=>$race->sport->url, 'raceView' => true, ]); ?>
+        <div class="ad-sidebar text-xs-center">
+			<a href="https://www.asics.ru/running/products/gel-kayano-men/" target="_blank"><img src="http://files.www.fleetfeetraleigh.com/news/cq5dam.thumbnail.400.400-process-s400x333.png"></a>
+        </div>
     </div>
 </div>
 </div>
