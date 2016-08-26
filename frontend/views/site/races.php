@@ -37,10 +37,10 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
         <div class="clearfix"></div>
     </div>
     <div class="row" id="card">
+	    <?php if (empty($races)) { ?>
+	        <span class="text-xs-center m-t-2 m-b-2">К сожалению, нет результатов. Посмотрите <a href="/" class="underline">все старты</a>.</span>
+	    <?php } ?>
         <ul class="flex-container">
-            <?php if (empty($races)) { ?>
-                <span class="text-xs-center m-t-2 m-b-2">Нет результатов</span>
-            <?php } ?>
             <?php /** @var $race \race\models\Race */ ?>
             <?php foreach ($races as $race) {?>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
