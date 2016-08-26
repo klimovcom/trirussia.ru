@@ -56,6 +56,11 @@ $(document).ready(function(){
                 params[this.name] = this.value || '';
             }
         });
+
+        var sort = $('.sort-select').val();
+        if (sort == 'popular')
+            params['sort'] = sort;
+
         var url = $('#search-race-form').data('update-url');
         $.post(url, params, function (response) {
             $('#search-race-form').attr('action', response);

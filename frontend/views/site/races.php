@@ -23,7 +23,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
     </a>
     <div class="card card-block">
             <select
-                class="c-select small sort-select"
+                    class="c-select small sort-select"
                 data-popular="<?= \yii\helpers\Url::current(['sort'=>'popular']);?>"
                 <?php $sort = isset($_GET['sort']) ? $_GET['sort'] : null; ?>
                 <?php unset($_GET['sort']); ?>
