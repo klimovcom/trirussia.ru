@@ -32,7 +32,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                 value="<?= !empty($_GET['sort']) ? $_GET['sort'] : ''?>"
             >
                 <option value="date">По дате</option>
-                <option value="popular">По популярности</option>
+                <option value="popular" <?= !empty($_GET['sort']) && $_GET['sort'] == 'popular' ? 'selected' : ''?>>По популярности</option>
             </select>
         <div class="pull-right">
             <button class="btn btn-sm btn-secondary" id="option1"><i class="fa fa-th" aria-hidden="true"></i></button>
