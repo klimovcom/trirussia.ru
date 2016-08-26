@@ -38,7 +38,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
     </div>
     <div class="row" id="card">
 	    <?php if (empty($races)) { ?>
-	        <span class="text-xs-center m-t-2 m-b-2">К сожалению, нет результатов. Посмотрите <a href="/" class="underline">все старты</a>.</span>
+	        <p class="text-xs-center m-t-2 m-b-2">К сожалению, нет результатов. Посмотрите <a href="/" class="underline">все старты</a>.</p>
 	    <?php } ?>
         <ul class="flex-container">
             <?php /** @var $race \race\models\Race */ ?>
