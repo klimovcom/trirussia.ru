@@ -68,7 +68,7 @@ $dateIntervals = \frontend\widgets\searchRacesPanel\SearchRacesPanel::getDateInt
             ) ?>
         </div>
         <div class="pull-right">
-            <?= \yii\helpers\Html::submitButton('Найти', ['class'=>"btn btn-primary btn-sm", 'id' => 'search-sumbit', ]); ?>
+            <?= \yii\helpers\Html::submitButton('Найти', ['class'=>"btn btn-secondary-outline btn-sm", 'id' => 'search-sumbit', ]); ?>
         </div>
     <?= \yii\helpers\Html::endForm(); ?>
 </div>
