@@ -6,7 +6,16 @@ use \yii\helpers\Html;
  */
 
 ?>
-
+<div id="fb-root"></div>
+<script>
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.5&appId=597412183700544";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
 <div class="container">
     <h1 class="m-t-3 m-b-3"><?= $post->label; ?></h1>
     <div class="row">
