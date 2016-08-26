@@ -22,14 +22,20 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
         </div>
     </a>
     <div class="card card-block">
-        <!--<div class="pull-left">
-            <div class="form-group m-b-0">
-                <select class="c-select small">
-                    <option>По дате</option>
-                    <option>По популярности</option>
-                </select>
-            </div>
-        </div>-->
+        <div class="form-group m-b-0">
+            <select
+                class="c-select small sort-select"
+                data-popular="<?= \yii\helpers\Url::current(['sort'=>'popular']);?>"
+                <?php $sort = isset($_GET['sort']) ? $_GET['sort'] : null; ?>
+                <?php unset($_GET['sort']); ?>
+                data-date="<?= \yii\helpers\Url::current();?>"
+                <?php $_GET['sort'] = $sort ? $sort : null; ?>
+                value="<?= !empty($_GET['sort']) ? $_GET['sort'] : ''?>"
+            >
+                <option value="date">По дате</option>
+                <option value="popular">По популярности</option>
+            </select>
+        </div>
         <div class="pull-right">
             <button class="btn btn-sm btn-secondary" id="option1"><i class="fa fa-th" aria-hidden="true"></i></button>
             <button class="btn btn-sm btn-secondary" id="option2"><i class="fa fa-list" aria-hidden="true"></i></button>
@@ -213,6 +219,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                 data-target="<?= \race\models\Race::getMoreRacesTarget();?>"
                 data-target-list="<?= \race\models\Race::getMoreRacesTargetList();?>"
                 data-render-type="<?= \race\models\Race::getMoreRacesRenderType();?>"
+                data-sort="<?= isset($_GET['sort']) ? $_GET['sort'] : null; ?>"
                 class="btn btn-primary more-races"
                 data-sport="<?= $_GET['sport']; ?>"
             >

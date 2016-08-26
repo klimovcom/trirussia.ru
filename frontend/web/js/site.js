@@ -236,6 +236,7 @@ $(document).ready(function(){
         var target = $(this).data('target');
         var targetList = $(this).data('target-list');
         var renderType = $(this).data('render-type');
+        var sort = $(this).data('sort');
         var append = $(this).data('append');
 
         if (lock == 0){
@@ -253,6 +254,7 @@ $(document).ready(function(){
                     distance: distance,
                     country: country,
                     organizer: organizer,
+                    sort: sort,
                     renderType: renderType
                 },
                 function (response) {
@@ -285,5 +287,10 @@ $(document).ready(function(){
                 }
             );
         }
+    });
+
+    $('.sort-select').on('change', function(){
+        var href = $(this).data($(this).val());
+        window.location.href = href;
     });
 });

@@ -722,6 +722,12 @@ class Race extends \yii\db\ActiveRecord
             $raceCondition->andWhere(['organizer.label' => $_GET['organizer']]);
         }
 
-        return $raceCondition->orderBy('start_date ASC, id DESC')->limit(13)->all();
+        if (!empty($_GET['sort']) && $_GET['sort'] == 'popular'){
+            $races = $raceCondition->orderBy('popularity DESC, start_date ASC, id DESC')->limit(13)->all();
+        } else {
+            $races = $raceCondition->orderBy('start_date ASC, id DESC')->limit(13)->all();
+        }
+
+        return $races;
     }
 }

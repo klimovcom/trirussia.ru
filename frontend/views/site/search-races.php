@@ -22,14 +22,21 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
         </div>
     </a>
     <div class="card card-block">
-        <!--<div class="pull-left">
+        <div class="pull-left">
             <div class="form-group m-b-0">
-                <select class="c-select small">
-                    <option>По дате</option>
-                    <option>По популярности</option>
+                <select
+                    class="c-select small sort-select"
+                    data-popular="<?= \yii\helpers\Url::current(['sort'=>'popular']);?>"
+                    <?php $sort = isset($_GET['sort']) ? $_GET['sort'] : null; ?>
+                    <?php unset($_GET['sort']); ?>
+                    data-date="<?= \yii\helpers\Url::current();?>"
+                    <?php $_GET['sort'] = $sort ? $sort : null; ?>
+                >
+                    <option value="date">По дате</option>
+                    <option value="popular" <?= !empty($_GET['sort']) && $_GET['sort'] == 'popular' ? 'selected' : ''?>>По популярности</option>
                 </select>
             </div>
-        </div>-->
+        </div>
         <div class="pull-right">
             <button class="btn btn-sm btn-secondary" id="option1"><i class="fa fa-th" aria-hidden="true"></i></button>
             <button class="btn btn-sm btn-secondary" id="option2"><i class="fa fa-list" aria-hidden="true"></i></button>
@@ -219,6 +226,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                 data-distance="<?= isset($_GET['distance']) ? $_GET['distance'] : null; ?>"
                 data-country="<?= isset($_GET['country']) ? $_GET['country'] : null; ?>"
                 data-organizer="<?= isset($_GET['organizer']) ? $_GET['organizer'] : null; ?>"
+                data-sort="<?= isset($_GET['sort']) ? $_GET['sort'] : null; ?>"
             >
                 Загрузить еще соревнования
             </button>
