@@ -81,6 +81,7 @@ class Configuration extends \yii\db\ActiveRecord
         return $result;
     }
 
+    static $cnt = 0;
     public static function get($key)
     {
         foreach (self::getPreload() as $p) {

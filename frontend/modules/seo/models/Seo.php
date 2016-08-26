@@ -113,7 +113,7 @@ class Seo extends \yii\db\ActiveRecord
         //static pages
         if (self::isRoute("site", "about") && $config = Configuration::get("seo_about_page_$key"))
             return $config;
-        if (self::isRoute("site", "advertising") && $config = self::isRoute("site", "advertising"))
+        if (self::isRoute("site", "advertising") && $config = Configuration::get("seo_advertising_page_$key"))
             return $config;
         if (self::isRoute("site", "domains") && $config = Configuration::get("seo_domains_page_$key"))
             return $config;
