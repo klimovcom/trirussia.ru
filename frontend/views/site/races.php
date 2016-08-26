@@ -22,7 +22,6 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
         </div>
     </a>
     <div class="card card-block">
-        <div class="form-group m-b-0">
             <select
                 class="c-select small sort-select"
                 data-popular="<?= \yii\helpers\Url::current(['sort'=>'popular']);?>"
@@ -35,7 +34,6 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                 <option value="date">По дате</option>
                 <option value="popular">По популярности</option>
             </select>
-        </div>
         <div class="pull-right">
             <button class="btn btn-sm btn-secondary" id="option1"><i class="fa fa-th" aria-hidden="true"></i></button>
             <button class="btn btn-sm btn-secondary" id="option2"><i class="fa fa-list" aria-hidden="true"></i></button>
