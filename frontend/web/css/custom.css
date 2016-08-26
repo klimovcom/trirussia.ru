@@ -671,7 +671,7 @@ img.most-wanted {
 .ad-sidebar {
 	width: 100%;
 	background-color: #fff;
-	padding: 1.5rem;
+	padding: 1.5rem 0 1rem 0;
 	margin-bottom: 1rem;
 }
 
