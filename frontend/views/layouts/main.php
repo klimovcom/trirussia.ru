@@ -118,7 +118,7 @@ AppAsset::register($this);
                 <h6>Соревнования</h6>
                 <ul class="list-unstyled">
                     <!--<li><a href="/add.php" class="underline-white">Добавить соревнование</a></li>-->
-                    <li><a href="<?= Url::to('/'); ?>" class="underline-white">Все соревнования</a></li>
+					<!--<li><a href="<?= Url::to('/'); ?>" class="underline-white">Все соревнования</a></li> -->
                     <li><a href="<?= Url::to(['/', 'sport' => 'triathlon']); ?>" class="underline-white">Триатлон</a></li>
                     <li><a href="<?= Url::to(['/', 'sport' => 'run']); ?>" class="underline-white">Бег</a></li>
                     <li><a href="<?= Url::to(['/', 'sport' => 'swim']); ?>" class="underline-white">Плавание</a></li>
