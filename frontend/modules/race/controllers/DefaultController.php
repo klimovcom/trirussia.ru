@@ -8,6 +8,7 @@ use frontend\widgets\searchRacesPanel\SearchRacesPanel;
 use organizer\models\Organizer;
 use race\models\Race;
 use race\models\RaceDistanceCategoryRef;
+use seo\models\Seo;
 use sport\models\Sport;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
@@ -25,6 +26,7 @@ class DefaultController extends Controller
         if (!$race){
             throw new NotFoundHttpException();
         }
+        Seo::registerModel($race);
         $race->addStatisticsView();
         return $this->render('view', ['race' => $race, ]);
     }

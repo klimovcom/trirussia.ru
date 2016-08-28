@@ -164,12 +164,17 @@ class SiteController extends Controller
     public function actionSport($sport)
     {
         $races = Race::searchForSportPage($sport);
-        
+
+        Seo::registerModel(Sport::getCurrentSportModel());
+
         $showMore = false;
         if (count($races) > 12){
             $showMore = true;
             array_pop($races);
         }
+
+
+
         return $this->render('races', [
             'races' => $races,
             'showMore' => $showMore,

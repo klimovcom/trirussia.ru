@@ -31,9 +31,9 @@ class Seo extends \yii\db\ActiveRecord
         '{raceSportLabel}' => [
             'sport' => 'label'
         ],
-        '{raceDistanceCategoryLabel}' => [
+        /*'{raceDistanceCategoryLabel}' => [
             'distanceCategory' => 'label',
-        ],
+        ],*/
         '{raceOrganizerLabel}' => [
             'organizer' => 'label',
         ],
@@ -99,7 +99,7 @@ class Seo extends \yii\db\ActiveRecord
     {
         return Yii::$app->controller->module->id;
     }
-
+    
     public static function getControllerName()
     {
         return Yii::$app->controller->id;
@@ -144,28 +144,28 @@ class Seo extends \yii\db\ActiveRecord
     {
         //static pages
         if (self::isRoute("site", "about") && $config = Configuration::get("seo_about_page_$key"))
-            return $config;
+            return self::applyReplaces($config);
         if (self::isRoute("site", "advertising") && $config = Configuration::get("seo_advertising_page_$key"))
-            return $config;
+            return self::applyReplaces($config);
         if (self::isRoute("site", "domains") && $config = Configuration::get("seo_domains_page_$key"))
-            return $config;
+            return self::applyReplaces($config);
         if (self::isRoute("site", "bmi") && $config = Configuration::get("seo_bmi_page_$key"))
-            return $config;
+            return self::applyReplaces($config);
         if (self::isRoute("site", "convert") && $config = Configuration::get("seo_convert_page_$key"))
-            return $config;
+            return self::applyReplaces($config);
 
         if (self::isRoute("default", "view", "race") && $config = Configuration::get("seo_race_view_page_$key"))
-            return $config;
+            return self::applyReplaces($config);
         if (self::isRoute("site", "search-races") && $config = Configuration::get("seo_race_search_page_$key"))
-            return $config;
+            return self::applyReplaces($config);
         if (self::isRoute("site", "sport") && $config = Configuration::get("seo_race_sport_page_$key"))
-            return $config;
+            return self::applyReplaces($config);
         if (self::isRoute("site", "index") && $config = Configuration::get("seo_main_page_$key"))
-            return $config;
+            return self::applyReplaces($config);
         if (self::isRoute("default", "index", "post") && $config = Configuration::get("seo_magazine_page_$key"))
-            return $config;
+            return self::applyReplaces($config);
         if (self::isRoute("default", "view", "post") && $config = Configuration::get("seo_magazine_post_page_$key"))
-            return $config;
+            return self::applyReplaces($config);
 
         return Configuration::get("seo_standard_$key");
     }

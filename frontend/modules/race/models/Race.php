@@ -681,7 +681,7 @@ class Race extends \yii\db\ActiveRecord
     {
         $raceCondition = Race::find();
 
-        if ($sportModel = Sport::find()->where(['url' => $sport])->one()) {
+        if ($sportModel = Sport::getCurrentSportModel()) {
             $raceCondition->andWhere(['sport_id'  => $sportModel->id ]);
         } else {
             throw new NotFoundHttpException();
