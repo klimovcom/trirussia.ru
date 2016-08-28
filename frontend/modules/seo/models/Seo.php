@@ -22,6 +22,38 @@ class Seo extends \yii\db\ActiveRecord
 {
     private static $_model;
 
+    public static $replaces = [
+        '{raceLabel}' => 'label',
+        '{raceStartDate}' => 'start_date',
+        '{raceCountry}' => 'country',
+        '{raceRegion}' => 'region',
+        '{racePlace}' => 'place',
+        '{raceSportLabel}' => [
+            'sport' => 'label'
+        ],
+        '{raceDistanceCategoryLabel}' => [
+            'distanceCategory' => 'label',
+        ],
+        '{raceOrganizerLabel}' => [
+            'organizer' => 'label',
+        ],
+        '{racePromo}' => 'promo',
+        '{raceStartTime}' => 'start_time',
+        '{raceAddress}' => 'address',
+        '{raceImageUrl}' => 'imageUrl',
+        
+        '{sportLabel}' => 'label',
+
+        '{postTags}' => 'tags',
+        '{postPromo}' => 'promo',
+        '{postTitle}' => 'title',
+        '{postImageUrl}' => 'imageUrl',
+        '{postDate}' => 'created',
+        '{postAuthor}' => [
+            'author' => 'fullName'
+        ],
+    ];
+
     /**
      * @inheritdoc
      */
@@ -136,6 +168,24 @@ class Seo extends \yii\db\ActiveRecord
             return $config;
 
         return Configuration::get("seo_standard_$key");
+    }
+
+    public static function applyReplaces($value)
+    {
+        foreach (self::$replaces as $replaceKey => $replaceValue){
+            if (strpos($value, $replaceKey) !== false){
+                if (is_array($replaceValue)){
+                    foreach ($replaceValue as $relation => $attribute){
+                        if (isset(self::$_model->{$relation}->{$attribute}))
+                            $value = str_replace($replaceKey, self::$_model->{$relation}->{$attribute}, $value);
+                    }
+                } else {
+                    if (isset(self::$_model->{$replaceValue}))
+                        $value = str_replace($replaceKey, self::$_model->{$replaceValue}, $value);
+                }
+            }
+        }
+        return $value;
     }
 
     public static function getKeywordsMeta()

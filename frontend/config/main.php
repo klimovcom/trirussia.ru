@@ -155,7 +155,7 @@ return [
             'showScriptName' => false,
             'rules' => [
 
-                '/race.php?id=<url>' => '/race/<url>',
+                '/races.php?id=<url>' => '/race/<url>',
 
                 //static pages
                 //TODO: move to page module

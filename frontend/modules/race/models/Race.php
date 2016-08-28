@@ -301,12 +301,12 @@ class Race extends \yii\db\ActiveRecord
 
     public function getViewUrl()
     {
-        return Url::to(['/race/' . $this->url, ]);
+        return Url::to('/race/' . $this->url);
     }
 
     public static function getMoreRacesUrl()
     {
-        return Url::to(['/race/default/get-more-races']);
+        return Url::to('/race/default/get-more-races');
     }
 
     public static function getMoreRacesIndexTarget()

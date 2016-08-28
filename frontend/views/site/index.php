@@ -14,14 +14,14 @@ $this->title = 'My Yii Application';
     </div>
     <div class="row m-t-3 m-b-3">
         <div class="col-lg-4 col-xl-4">
-            <a href="<?= Url::to(['/', 'sport' => 'triathlon',]) ?>"><img src="/img/arr.png"></a>
+            <a href="<?= Url::to('/' . 'triathlon'/*, 'sport' => 'triathlon',*/) ?>"><img src="/img/arr.png"></a>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
             <h1>Ближайшие соревнования по
-                <a href="<?= Url::to(['/', 'sport' => 'triathlon',]) ?>" class="highlight-yellow">триатлону</a>,
-                <a href="<?= Url::to(['/', 'sport' => 'run',]) ?>" class="underline-black">бегу</a>,
-                <a href="<?= Url::to(['/', 'sport' => 'swim',]) ?>" class="underline-black">плаванию</a> и
-                <a href="<?= Url::to(['/', 'sport' => 'bike',]) ?>" class="underline-black">велоспорту</a>
+                <a href="<?= Url::to('/' . 'triathlon'/*, 'sport' => 'triathlon',*/) ?>" class="highlight-yellow">триатлону</a>,
+                <a href="<?= Url::to('/' . 'run'/*, 'sport' => 'run',*/) ?>" class="underline-black">бегу</a>,
+                <a href="<?= Url::to('/' . 'swim'/*, 'sport' => 'swim',*/) ?>" class="underline-black">плаванию</a> и
+                <a href="<?= Url::to('/' . 'bike'/*, 'sport' => 'bike',*/) ?>" class="underline-black">велоспорту</a>
             </h1>
         </div>
     </div>
@@ -39,7 +39,7 @@ $this->title = 'My Yii Application';
         </div>
     </div>
     <div class="race-block-container">
-       <?= \frontend\widgets\mostPopularRaces\MostPopularRaces::widget(); ?>
+        <?= \frontend\widgets\mostPopularRaces\MostPopularRaces::widget(); ?>
     </div>
     <div class="row">
         <div class="grid">
@@ -56,7 +56,7 @@ $this->title = 'My Yii Application';
     </div>
 
     <?= frontend\widgets\news\News::widget(); ?>
-    
+
     <div class="row">
         <div class="grid">
             <?php $count = 0; ?>

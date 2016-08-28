@@ -11,7 +11,6 @@ use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use \yii\helpers\Url;
 $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"' : '';
-
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -119,10 +118,10 @@ AppAsset::register($this);
                 <ul class="list-unstyled">
                     <!--<li><a href="/add.php" class="underline-white">Добавить соревнование</a></li>-->
 					<!--<li><a href="<?= Url::to('/'); ?>" class="underline-white">Все соревнования</a></li> -->
-                    <li><a href="<?= Url::to(['/' . 'triathlon', /*'sport' => 'triathlon'*/]); ?>" class="underline-white">Триатлон</a></li>
-                    <li><a href="<?= Url::to(['/' . 'run', /*'sport' => 'run'*/]); ?>" class="underline-white">Бег</a></li>
-                    <li><a href="<?= Url::to(['/' . 'swim', /*sport' => 'swim'*/]); ?>" class="underline-white">Плавание</a></li>
-                    <li><a href="<?= Url::to(['/' . 'bike', /*'sport' => 'bike'*/]); ?>" class="underline-white">Велоспорт</a></li>
+                    <li><a href="<?= Url::to('/' . 'triathlon'/*, 'sport' => 'triathlon'*/); ?>" class="underline-white">Триатлон</a></li>
+                    <li><a href="<?= Url::to('/' . 'run'/*, 'sport' => 'run'*/); ?>" class="underline-white">Бег</a></li>
+                    <li><a href="<?= Url::to('/' . 'swim'/*, sport' => 'swim'*/); ?>" class="underline-white">Плавание</a></li>
+                    <li><a href="<?= Url::to('/' . 'bike'/*, 'sport' => 'bike'*/); ?>" class="underline-white">Велоспорт</a></li>
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
