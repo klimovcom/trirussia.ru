@@ -206,6 +206,7 @@ try {
 <noscript><div><img src="https://mc.yandex.ru/watch/26019216" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
+<!-- Google Analytics -->
 <script>
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -214,6 +215,7 @@ try {
 	ga('create', 'UA-16018298-20', 'auto');
 	ga('send', 'pageview');
 </script>
+<!-- /Google Analytics -->
 
 <!-- Rating@Mail.ru counter -->
 <script type="text/javascript">
