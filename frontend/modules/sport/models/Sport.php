@@ -150,13 +150,13 @@ class Sport extends \yii\db\ActiveRecord
     {
         $condition = [];
         if (!empty($_GET['country'])){
-            $condition[] = 'в стране ' . $_GET['country'];
+            $condition[] = 'в стране ' . urldecode($_GET['country']);
         }
         if (!empty($_GET['organizer'])){
-            $condition[] = 'организатор ' . $_GET['organizer'];
+            $condition[] = 'организатор ' . urldecode($_GET['organizer']);
         }
         if (!empty($_GET['distance'])){
-            $condition[] = 'по дистанции ' . $_GET['distance'];
+            $condition[] = 'по дистанции ' . urldecode($_GET['distance']);
         }
         if (!empty($_GET['date'])){
             $condition[] = Yii::$app->formatter->asDate($_GET['date'], 'MMM yyyy') . ' г.';;
