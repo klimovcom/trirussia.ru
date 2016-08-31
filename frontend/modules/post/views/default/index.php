@@ -65,7 +65,9 @@ use \yii\helpers\Html;
 	                        <?= Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($post->image_id), ['class' => 'img-fluid card-img-top']); ?>
                             <div class="card-block">
                                 <h6 class="magazine-caption news"><?= $post->getType(); ?></h6>
-                                <h4 class="card-title"><a href="#" class="underline-black"><?= $post->label; ?></a></h4>
+                                <h4 class="card-title">
+	                                <?= Html::a($post->label, ['/magazine/'.$post->url, ], ['class'=>'no-underline'])?>
+								</h4>
                                 <p><?= $post->promo; ?></p>
                             </div>
                         </div>
