@@ -90,7 +90,7 @@ class m160822_173709_insert_into_configuration_table extends Migration
             'label' => 'Сео: описание для статьи журнала',
             'description' => 'Сео: описание в теге description',
             'key' => 'seo_magazine_post_page_description',
-            'value' => '{articlePromo}',
+            'value' => '{postPromo}',
         ]);
     }
 

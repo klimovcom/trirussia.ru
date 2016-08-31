@@ -47,7 +47,7 @@ class Seo extends \yii\db\ActiveRecord
 
         '{postTags}' => 'tags',
         '{postPromo}' => 'promo',
-        '{postTitle}' => 'title',
+        '{postTitle}' => 'label',
         '{postImageUrl}' => 'imageUrl',
         '{postDate}' => 'created',
         '{postAuthor}' => [
@@ -171,7 +171,6 @@ class Seo extends \yii\db\ActiveRecord
         return Configuration::get("seo_standard_$key");
     }
 
-    public static $cnt = 0;
     public static function applyReplaces($value)
     {
         foreach (self::$replaces as $replaceKey => $replaceValue){

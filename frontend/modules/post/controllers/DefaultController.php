@@ -34,6 +34,7 @@ class DefaultController extends Controller
     public function actionView($url)
     {
         $model = Post::find()->where(['url' => $url])->one();
+        
         /** @var $model Post */
         $model->addStatisticsView();
 

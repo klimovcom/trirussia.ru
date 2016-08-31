@@ -2,6 +2,7 @@
 
 namespace post\models;
 
+use metalguardian\fileProcessor\helpers\FPM;
 use user\models\User;
 use Yii;
 use yii\helpers\Url;
@@ -38,6 +39,11 @@ class Post extends \yii\db\ActiveRecord
             self::TYPE_INTERVIEW => 'Интервью',
             self::TYPE_REVIEW => 'Обзор',
         ];
+    }
+
+    public function getImageUrl()
+    {
+        return FPM::originalSrc($this->image_id);
     }
 
     public function getType()

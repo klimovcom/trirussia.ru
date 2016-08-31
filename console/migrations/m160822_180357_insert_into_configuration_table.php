@@ -90,7 +90,7 @@ class m160822_180357_insert_into_configuration_table extends Migration
             'label' => 'Сео: заголовок для статьи журнала',
             'description' => 'Сео: заголовок в теге title',
             'key' => 'seo_magazine_post_page_title',
-            'value' => 'Журнал TriRussia.ru — {articleTitle}',
+            'value' => 'Журнал TriRussia.ru — {postTitle}',
         ]);
     }
 
