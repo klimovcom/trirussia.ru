@@ -710,7 +710,7 @@ class Race extends \yii\db\ActiveRecord
             foreach ($refs as  $ref)
                 $idArray[] = $ref->race_id;
             if (!empty($idArray))
-                $raceCondition->andWhere(['in', 'id', $idArray]);
+                $raceCondition->andWhere(['in', 'race.id', $idArray]);
         }
 
         if (!empty($_GET['date'])){
@@ -728,7 +728,7 @@ class Race extends \yii\db\ActiveRecord
             $raceCondition->andWhere(['>=', 'start_date', date('Y-m-d', time())]);
         }
 
-        if (!empty($_GET['country'])) $raceCondition->andWhere(['country' => $_GET['country']]);
+        if (!empty($_GET['country'])) $raceCondition->andWhere(['race.country' => $_GET['country']]);
 
         if (!empty($_GET['organizer'])){
             $raceCondition->leftJoin('{{%organizer}}', 'organizer_id = organizer.id');
@@ -736,9 +736,9 @@ class Race extends \yii\db\ActiveRecord
         }
 
         if (!empty($_GET['sort']) && $_GET['sort'] == 'popular'){
-            $races = $raceCondition->orderBy('popularity DESC, start_date ASC, id DESC')->limit(13)->all();
+            $races = $raceCondition->orderBy('popularity DESC, start_date ASC, race.id DESC')->limit(13)->all();
         } else {
-            $races = $raceCondition->orderBy('start_date ASC, id DESC')->limit(13)->all();
+            $races = $raceCondition->orderBy('start_date ASC, race.id DESC')->limit(13)->all();
         }
 
         return $races;

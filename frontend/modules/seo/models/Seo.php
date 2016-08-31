@@ -43,6 +43,7 @@ class Seo extends \yii\db\ActiveRecord
         '{raceImageUrl}' => 'imageUrl',
         
         '{sportLabel}' => 'label',
+        '{sportCondition}' => 'condition',
         '{sportLabel:дательный}' => 'labelModified',
 
         '{postTags}' => 'tags',

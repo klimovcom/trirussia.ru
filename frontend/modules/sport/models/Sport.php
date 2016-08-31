@@ -145,4 +145,22 @@ class Sport extends \yii\db\ActiveRecord
     {
         return self::sportNames()[mb_strtolower($this->label, 'utf-8')]['дательный'];
     }
+
+    public function getCondition()
+    {
+        $condition = [];
+        if (!empty($_GET['country'])){
+            $condition[] = 'в стране ' . $_GET['country'];
+        }
+        if (!empty($_GET['organizer'])){
+            $condition[] = 'организатор ' . $_GET['organizer'];
+        }
+        if (!empty($_GET['distance'])){
+            $condition[] = 'по дистанции ' . $_GET['distance'];
+        }
+        if (!empty($_GET['date'])){
+            $condition[] = Yii::$app->formatter->asDate($_GET['date'], 'MMM yyyy') . ' г.';;
+        }
+        return implode(', ', $condition);
+    }
 }
