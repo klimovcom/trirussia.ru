@@ -2,6 +2,7 @@
 
 namespace race\models;
 
+use distance\models\DistanceCategory;
 use Yii;
 
 /**

@@ -43,3 +43,5 @@ Vagrantfile
 /backend/web/uploads/*
 /markup
 /tests
+
+tests/_output/*

@@ -7,6 +7,7 @@ use post\models\Post;
 use yii\helpers\Url;
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\VarDumper;
 
 /**
  * This is the model class for table "seo".
@@ -25,15 +26,14 @@ class Seo extends \yii\db\ActiveRecord
     public static $replaces = [
         '{raceLabel}' => 'label',
         '{raceStartDate}' => 'start_date',
+        '{raceStartDate:dd.M.yyyy}' => 'dateRepresentation',
         '{raceCountry}' => 'country',
         '{raceRegion}' => 'region',
         '{racePlace}' => 'place',
         '{raceSportLabel}' => [
             'sport' => 'label'
         ],
-        /*'{raceDistanceCategoryLabel}' => [
-            'distanceCategory' => 'label',
-        ],*/
+        '{raceDistanceCategoryLabel}' => 'distanceCategory',
         '{raceOrganizerLabel}' => [
             'organizer' => 'label',
         ],
@@ -43,6 +43,7 @@ class Seo extends \yii\db\ActiveRecord
         '{raceImageUrl}' => 'imageUrl',
         
         '{sportLabel}' => 'label',
+        '{sportLabel:дательный}' => 'labelModified',
 
         '{postTags}' => 'tags',
         '{postPromo}' => 'promo',
@@ -170,10 +171,11 @@ class Seo extends \yii\db\ActiveRecord
         return Configuration::get("seo_standard_$key");
     }
 
+    public static $cnt = 0;
     public static function applyReplaces($value)
     {
         foreach (self::$replaces as $replaceKey => $replaceValue){
-            if (strpos($value, $replaceKey) !== false){
+            if (mb_strpos($value, $replaceKey) !== false){
                 if (is_array($replaceValue)){
                     foreach ($replaceValue as $relation => $attribute){
                         if (isset(self::$_model->{$relation}->{$attribute}))

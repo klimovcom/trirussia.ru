@@ -140,4 +140,9 @@ class Sport extends \yii\db\ActiveRecord
     {
         return \yii\helpers\Url::to('/' . $this->url);
     }
+
+    public function getLabelModified()
+    {
+        return self::sportNames()[mb_strtolower($this->label, 'utf-8')]['дательный'];
+    }
 }

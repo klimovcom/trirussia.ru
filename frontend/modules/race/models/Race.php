@@ -4,6 +4,7 @@ namespace race\models;
 
 use distance\models\Distance;
 use distance\models\DistanceCategory;
+use metalguardian\fileProcessor\helpers\FPM;
 use organizer\models\Organizer;
 use sport\models\Sport;
 use willGo\models\WillGo;
@@ -134,6 +135,18 @@ class Race extends \yii\db\ActiveRecord
             'coord_lat' => 'Coord Lat',
             'special_distance' => 'Special Distance',
         ];
+    }
+
+    public function getDistanceCategory()
+    {
+        $raceDistanceCategoryRefs = $this->raceDistanceCategoryRefs;
+        if (empty($raceDistanceCategoryRefs)) return null;
+        return $raceDistanceCategoryRefs[0]->distanceCategory->label;
+    }
+
+    public function getImageUrl()
+    {
+        return FPM::originalSrc($this->main_image_id);
     }
 
     /**
