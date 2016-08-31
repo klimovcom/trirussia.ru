@@ -16,7 +16,7 @@ use metalguardian\fileProcessor\helpers\FPM;
                <img src="<?= FPM::originalSrc($race->main_image_id);?>" class="img-fluid">
            </a>
            <h5 class="m-t-1">
-               <a href="<?= $race->getViewUrl(); ?>" class="no-underline">
+               <a href="<?= $race->getViewUrl(); ?>" class="underline-black">
                    <?= $race->label; ?>
                </a>
            </h5>
