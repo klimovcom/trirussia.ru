@@ -12,7 +12,7 @@ use \yii\helpers\Html;
     </div>
     <?php if ($post->image_id) { ?>
         <?= Html::a(
-            Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($post->image_id), ['class' => 'img-fluid']),
+            Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($post->image_id), ['class' => 'img-fluid most-popular-post']),
             ['/magazine/'.$post->url, ]
         );?>
     <?php } ?>
