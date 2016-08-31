@@ -62,9 +62,7 @@ use \yii\helpers\Html;
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                     <li class="flex-item">
                         <div class="card">
-		                    <?php if ($featured->image_id) { ?>
-		                        <?= Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($featured->image_id), ['class' => 'img-fluid card-img-top']); ?>
-		                    <?php } ?>
+	                        <?= Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($post->image_id), ['class' => 'img-fluid card-img-top']); ?>
                             <div class="card-block">
                                 <h6 class="magazine-caption news"><?= $post->getType(); ?></h6>
                                 <h4 class="card-title"><a href="#" class="underline-black"><?= $post->label; ?></a></h4>
