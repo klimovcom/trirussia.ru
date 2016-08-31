@@ -636,6 +636,11 @@ img.most-wanted {
 	font-size: small;
 }
 
+img.most-popular-post {
+	border-top: 1px solid #e5e5e5;
+	border-bottom: 1px solid #e5e5e5;
+}
+
 /* Страница соревнования */
 
 .i-will-go {
@@ -671,7 +676,7 @@ img.most-wanted {
 .ad-sidebar {
 	width: 100%;
 	background-color: #fff;
-	padding: 1.5rem 0 1rem 0;
+	padding: 1.5rem 0;
 	margin-bottom: 1rem;
 }
 

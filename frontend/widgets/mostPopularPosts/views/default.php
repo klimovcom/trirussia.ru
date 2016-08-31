@@ -19,7 +19,7 @@ use \yii\helpers\Html;
                                 <?= $post->getType(); ?>
                             </h6>
                             <h5>
-                                <a href="#" class="no-underline"><?= $post->label; ?></a>
+								<?= Html::a($post->label, ['/magazine/'.$post->url, ], ['class'=>'no-underline'])?>
                             </h5>
                             <span class="text-muted small"><?= Yii::$app->formatter->asDate($post->created, 'd MMMM yyyy'); ?></span>
                         </li>

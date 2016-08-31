@@ -13,14 +13,31 @@ use \yii\helpers\Html;
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
             <div class="ad-sidebar text-xs-center">
-                <img src="https://s-media-cache-ak0.pinimg.com/736x/2d/82/a6/2d82a6a6be76603d79a263f05ee96ac8.jpg">
+				<!--  AdRiver code START. Type:300x250 Site: trirussia PZ: 0 BN: 1 -->
+				<script type="text/javascript">
+				var RndNum4NoCash = Math.round(Math.random() * 1000000000);
+				var ar_Tail='unknown'; if (document.referrer) ar_Tail = escape(document.referrer);
+				document.write(
+				'<iframe src="' + ('https:' == document.location.protocol ? 'https:' : 'http:') + '//ad.adriver.ru/cgi-bin/erle.cgi?'
+				+ 'sid=201788&bn=1&target=blank&w=300&h=600&bt=40&pz=0&rnd=' + RndNum4NoCash + '&tail256=' + ar_Tail
+				+ '" frameborder=0 vspace=0 hspace=0 width=300 height=600 marginwidth=0'
+				+ ' marginheight=0 scrolling=no></iframe>');
+				</script>
+				<noscript>
+				<a href="//ad.adriver.ru/cgi-bin/click.cgi?sid=201788&bn=1&bt=40&pz=0&rnd=335117872" target=_blank>
+				<img src="//ad.adriver.ru/cgi-bin/rle.cgi?sid=201788&bn=1&bt=40&pz=0&rnd=335117872" alt="-AdRiver-" border=0 width=300 height=600></a>
+				</noscript>
+				<!--  AdRiver code END  -->
             </div>
         </div>
         <?php if ($featured) { ?>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
                 <div class="card">
                     <?php if ($featured->image_id) { ?>
-                        <?= Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($featured->image_id), ['class' => 'img-fluid card-img-top']); ?>
+						<?= Html::a(
+							Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($featured->image_id), ['class' => 'img-fluid card-img-top']),
+							['/magazine/'.$featured->url, ]
+						);?>
                     <?php } ?>
                     <div class="card-block">
                         <h6 class="magazine-caption report"><?= $featured->getType(); ?></h6>
@@ -48,10 +65,15 @@ use \yii\helpers\Html;
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                     <li class="flex-item">
                         <div class="card">
-                            <img src="https://process.filestackapi.com/AMUpLpMHnQfWBIrqRcYd3z/resize=width:800,height:450,fit:crop/http://www.trirussia.ru/magazine/img/paul_van_bike.jpg" class="img-fluid" class="card-img-top">
+							<?= Html::a(
+								Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($post->image_id), ['class' => 'img-fluid card-img-top']),
+								['/magazine/'.$post->url, ]
+							);?>
                             <div class="card-block">
                                 <h6 class="magazine-caption news"><?= $post->getType(); ?></h6>
-                                <h4 class="card-title"><a href="#" class="underline-black"><?= $post->label; ?></a></h4>
+                                <h4 class="card-title">
+	                                <?= Html::a($post->label, ['/magazine/'.$post->url, ], ['class'=>'underline-black'])?>
+								</h4>
                                 <p><?= $post->promo; ?></p>
                             </div>
                         </div>
