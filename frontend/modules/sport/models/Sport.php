@@ -150,7 +150,7 @@ class Sport extends \yii\db\ActiveRecord
     {
         $condition = [];
         if (!empty($_GET['country'])){
-            $condition[] = 'в стране ' . urlencode($_GET['country']);
+            $condition[] = 'в стране ' . urldecode($_GET['country']);
         }
         if (!empty($_GET['organizer'])){
             $condition[] = 'организатор ' . urldecode($_GET['organizer']);
