@@ -34,7 +34,10 @@ use \yii\helpers\Html;
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
                 <div class="card">
                     <?php if ($featured->image_id) { ?>
-                        <?= Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($featured->image_id), ['class' => 'img-fluid card-img-top']); ?>
+						<?= Html::a(
+							Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($featured->image_id), ['class' => 'img-fluid card-img-top']),
+							['/magazine/'.$featured->url, ]
+						);?>
                     <?php } ?>
                     <div class="card-block">
                         <h6 class="magazine-caption report"><?= $featured->getType(); ?></h6>
@@ -62,11 +65,14 @@ use \yii\helpers\Html;
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                     <li class="flex-item">
                         <div class="card">
-	                        <?= Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($post->image_id), ['class' => 'img-fluid card-img-top']); ?>
+							<?= Html::a(
+								Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($post->image_id), ['class' => 'img-fluid card-img-top']),
+								['/magazine/'.$post->url, ]
+							);?>
                             <div class="card-block">
                                 <h6 class="magazine-caption news"><?= $post->getType(); ?></h6>
                                 <h4 class="card-title">
-	                                <?= Html::a($post->label, ['/magazine/'.$post->url, ], ['class'=>'no-underline'])?>
+	                                <?= Html::a($post->label, ['/magazine/'.$post->url, ], ['class'=>'underline-black'])?>
 								</h4>
                                 <p><?= $post->promo; ?></p>
                             </div>

@@ -18,7 +18,9 @@ use \yii\helpers\Html;
     <?php } ?>
     <div class="card-block">
         <h6 class="magazine-caption report"><?= $post->getType(); ?></h6>
-        <h4 class="card-title"><a href="#" class="underline-black"><?= $post->label; ?></a></h4>
+        <h4 class="card-title">
+	        <?= Html::a($post->label, ['/magazine/'.$post->url, ], ['class'=>'underline-black'])?>
+        </h4>
         <p><?= $post->promo; ?></p>
     </div>
 </div>
