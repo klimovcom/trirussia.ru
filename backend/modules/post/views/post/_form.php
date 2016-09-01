@@ -65,19 +65,7 @@ use yii\widgets\ActiveForm;
             ]
         )->label(); ?>
 
-        <?= $form->field($model, 'promo')->widget(
-            \vova07\imperavi\Widget::className(),
-            [
-                'settings' => [
-                    'lang' => 'ru',
-                    'minHeight' => 200,
-                    'plugins' => [
-                        'clips',
-                        'fullscreen'
-                    ]
-                ]
-            ]
-        )->label(); ?>
+		<?= $form->field($model, 'promo')->textarea()->label(); ?>
 
         <?php
         $image = $model->image_id ? Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($model->image_id)) : false;
