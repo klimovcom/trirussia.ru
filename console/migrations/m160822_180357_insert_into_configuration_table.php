@@ -55,7 +55,7 @@ class m160822_180357_insert_into_configuration_table extends Migration
             'label' => 'Сео: заголовок для страницы просмотра гонки',
             'description' => 'Сео: заголовок в теге title',
             'key' => 'seo_race_view_page_title',
-            'value' => '{raceLabel}, {raceCountry}, {racePlace}, {sportLabel} {raceStartDate:dd.M.yyyy}',
+            'value' => '{raceLabel}, {raceCountry}, {racePlace}, {raceSportLabel} {raceStartDate:dd.M.yyyy}',
         ]);
 
         $this->insert($this->tableName, [
