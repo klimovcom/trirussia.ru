@@ -220,7 +220,7 @@ class Seo extends \yii\db\ActiveRecord
     public static function getImageHeightMeta()
     {
         if (self::isRoute('default', 'view', 'race') || self::isRoute('default', 'view', 'post'))
-            return '800';
+            return '450';
         return '630';
     }
 
