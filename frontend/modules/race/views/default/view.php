@@ -22,7 +22,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
             <?php if ($race->main_image_id) { ?>
                 <?= \yii\helpers\Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($race->main_image_id), [
                     'class' => 'card-img-top img-fluid',
-                    'alt' => 'Card image cap',
+                    'alt' => $race->label,
                 ]); ?>
             <?php } ?>
             <div class="card-block border-run">
@@ -123,7 +123,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
         </div>
         <div class="card">
             <div class="card-block">
-                <h4><?= $race->label; ?></h4>
+                <h2><?= $race->label; ?>. Краткое описание</h2>
                 <?= $race->content; ?>
                 <div class="register">
                     <h5 class="PTSerif m-b-2"><i>Регистрация на <?= $race->label;?></i></h5>
