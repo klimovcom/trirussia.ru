@@ -123,7 +123,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
         </div>
         <div class="card">
             <div class="card-block">
-                <h2><?= $race->label; ?>. Краткое описание</h2>
+                <h2>Описание</h2>
                 <?= $race->content; ?>
                 <div class="register">
                     <h5 class="PTSerif m-b-2"><i>Регистрация на <?= $race->label;?></i></h5>
