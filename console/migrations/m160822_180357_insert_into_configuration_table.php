@@ -62,7 +62,7 @@ class m160822_180357_insert_into_configuration_table extends Migration
             'label' => 'Сео: заголовок для страницы просмотра поиска соревнований',
             'description' => 'Сео: заголовок в теге title',
             'key' => 'seo_race_search_page_title',
-            'value' => 'TriRussia.ru — Календарь соревнований {searchRaceCondition}',
+            'value' => 'TriRussia.ru — Календарь соревнований {sportCondition}',
         ]);
 
         $this->insert($this->tableName, [
