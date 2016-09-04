@@ -156,10 +156,10 @@ class Sport extends \yii\db\ActiveRecord
             $condition[] = 'организатор ' . urldecode($_GET['organizer']);
         }
         if (!empty($_GET['distance'])){
-            $condition[] = 'по дистанции ' . urldecode($_GET['distance']);
+            $condition[] = 'на дистанции ' . urldecode($_GET['distance']);
         }
         if (!empty($_GET['date'])){
-            $condition[] = Yii::$app->formatter->asDate($_GET['date'], 'MMM yyyy') . ' г.';;
+            $condition[] = 'в ' . Yii::$app->formatter->asDate($_GET['date'], 'MMMM yyyy') . ' г.';
         }
         return implode(', ', $condition);
     }

@@ -81,7 +81,7 @@ class SearchRacesPanel extends \yii\base\Widget{
         $monthNumber = (int)date('m', time());
         $dateIntervals = [];
         $monthes = [
-            null, 'Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг','Сен', 'Окт', 'Ноя', 'Дек'
+            null, 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август','Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
         ];
 
         for ($i = $monthNumber; $i<=$monthNumber+10; $i++){
