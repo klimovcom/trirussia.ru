@@ -187,6 +187,12 @@ class SiteController extends Controller
      */
     public function actionSearchRaces()
     {
+        $sportModelSeo = Sport::getCurrentSportModel();
+        if (!$sportModelSeo){
+            $sportModelSeo = new Sport();
+        }
+        Seo::registerModel($sportModelSeo);
+
         $raceCondition = Race::find();
 
         $sportModel = null;
