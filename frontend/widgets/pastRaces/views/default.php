@@ -10,7 +10,7 @@
     <?php foreach ($pastRaces as $race) {?>
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
             <hr>
-            <h6 class="sport-caption tri"><?= $race->sport->label; ?></h6>
+            <h6 class="sport-caption <?= $race->getSportClass(); ?>"><?= $race->sport->label; ?></h6>
             <h5>
                 <a href="<?= $race->getViewUrl(); ?>" class="no-underline">
                     <?= $race->label; ?>
