@@ -135,7 +135,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                     </div>
                     <div id="register-link">
                         <p>Спасибо! Мы учтём ваш ответ в нашей работе.</p>
-                        <a href="#" type="button" class="btn btn-secondary" target="_blank">Перейти на сайт</a>
+                        <a href="<?= $race->site; ?>" type="button" class="btn btn-secondary" target="_blank">Перейти на сайт</a>
                     </div>
                 </div>
             </div>

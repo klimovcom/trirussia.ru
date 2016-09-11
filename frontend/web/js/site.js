@@ -293,4 +293,17 @@ $(document).ready(function(){
         var href = $(this).data($(this).val());
         window.location.href = href;
     });
+
+
+    if ($("#logout-button").length > 0){
+        $("#register").click(function(){
+            $(this).hide();
+            $("#register-question").fadeIn(300);
+        });
+        $(".register-button").click(function(){
+            $("#register-question").hide();
+            $("#register-link").fadeIn(300);
+        });
+    }
+
 });

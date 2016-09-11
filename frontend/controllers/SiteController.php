@@ -191,6 +191,7 @@ class SiteController extends Controller
         if (!$sportModelSeo){
             $sportModelSeo = new Sport();
         }
+
         Seo::registerModel($sportModelSeo);
 
         $raceCondition = Race::find();
@@ -203,7 +204,6 @@ class SiteController extends Controller
                 throw new NotFoundHttpException();
             }
         }
-
 
         if (!empty($_GET['distance'])){
             $idArray = [];
