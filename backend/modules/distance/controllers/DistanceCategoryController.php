@@ -2,6 +2,7 @@
 
 namespace distance\controllers;
 
+use backend\components\BackController;
 use Yii;
 use distance\models\DistanceCategory;
 use distance\models\DistanceCategorySearch;
@@ -12,7 +13,7 @@ use yii\filters\VerbFilter;
 /**
  * DistanceCategoryController implements the CRUD actions for DistanceCategory model.
  */
-class DistanceCategoryController extends Controller
+class DistanceCategoryController extends BackController
 {
     public function behaviors()
     {
@@ -88,19 +89,6 @@ class DistanceCategoryController extends Controller
                 'model' => $model,
             ]);
         }
-    }
-
-    /**
-     * Deletes an existing DistanceCategory model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**

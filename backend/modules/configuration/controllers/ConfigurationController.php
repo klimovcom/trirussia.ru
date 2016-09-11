@@ -2,6 +2,7 @@
 
 namespace configuration\controllers;
 
+use backend\components\BackController;
 use Yii;
 use configuration\models\Configuration;
 use configuration\models\ConfigurationSearch;
@@ -12,7 +13,7 @@ use yii\filters\VerbFilter;
 /**
  * ConfigurationController implements the CRUD actions for Configuration model.
  */
-class ConfigurationController extends Controller
+class ConfigurationController extends BackController
 {
     public function behaviors()
     {
@@ -88,19 +89,6 @@ class ConfigurationController extends Controller
                 'model' => $model,
             ]);
         }
-    }
-
-    /**
-     * Deletes an existing Configuration model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**

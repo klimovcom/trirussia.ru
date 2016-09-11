@@ -2,6 +2,7 @@
 
 namespace user\controllers;
 
+use backend\components\BackController;
 use Faker\Factory;
 use Yii;
 use user\models\User;
@@ -13,7 +14,7 @@ use yii\filters\VerbFilter;
 /**
  * UserController implements the CRUD actions for User model.
  */
-class UserController extends Controller
+class UserController extends BackController
 {
     public function behaviors()
     {
@@ -105,19 +106,6 @@ class UserController extends Controller
                 'model' => $model,
             ]);
         }
-    }
-
-    /**
-     * Deletes an existing User model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**

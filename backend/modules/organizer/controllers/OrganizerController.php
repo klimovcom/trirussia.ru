@@ -2,6 +2,7 @@
 
 namespace organizer\controllers;
 
+use backend\components\BackController;
 use Yii;
 use organizer\models\Organizer;
 use organizer\models\OrganizerSearch;
@@ -12,7 +13,7 @@ use yii\filters\VerbFilter;
 /**
  * OrganizerController implements the CRUD actions for Organizer model.
  */
-class OrganizerController extends Controller
+class OrganizerController extends BackController
 {
     public function behaviors()
     {
@@ -88,19 +89,6 @@ class OrganizerController extends Controller
                 'model' => $model,
             ]);
         }
-    }
-
-    /**
-     * Deletes an existing Organizer model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**

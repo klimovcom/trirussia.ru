@@ -70,3 +70,10 @@ th a.desc:after{
 #googleMap{
 	margin-bottom: 20px;
 }
+.flash-error{
+	border: 1px solid #EA3A3A;
+	padding: 3px;
+	border-radius: 6px;
+	color: red;
+	background: rgba(255, 198, 198, 0.48);
+}

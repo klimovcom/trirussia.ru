@@ -2,6 +2,7 @@
 
 namespace race\controllers;
 
+use backend\components\BackController;
 use distance\models\Distance;
 use distance\models\DistanceCategory;
 use distance\models\DistanceDistanceCategoryRef;
@@ -18,7 +19,7 @@ use yii\filters\VerbFilter;
 /**
  * RaceController implements the CRUD actions for Race model.
  */
-class RaceController extends Controller
+class RaceController extends BackController
 {
     public function behaviors()
     {
@@ -99,19 +100,6 @@ class RaceController extends Controller
                 'model' => $model,
             ]);
         }
-    }
-
-    /**
-     * Deletes an existing Race model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**

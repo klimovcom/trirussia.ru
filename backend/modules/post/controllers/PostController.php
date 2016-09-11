@@ -2,6 +2,7 @@
 
 namespace post\controllers;
 
+use backend\components\BackController;
 use Yii;
 use post\models\Post;
 use post\models\PostSearch;
@@ -13,7 +14,7 @@ use yii\filters\VerbFilter;
 /**
  * PostController implements the CRUD actions for Post model.
  */
-class PostController extends Controller
+class PostController extends BackController
 {
     public function behaviors()
     {
@@ -90,19 +91,6 @@ class PostController extends Controller
                 'model' => $model,
             ]);
         }
-    }
-
-    /**
-     * Deletes an existing Post model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**

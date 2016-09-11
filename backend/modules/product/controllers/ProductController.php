@@ -2,6 +2,7 @@
 
 namespace product\controllers;
 
+use backend\components\BackController;
 use Yii;
 use product\models\Product;
 use product\models\ProductSearch;
@@ -12,7 +13,7 @@ use yii\filters\VerbFilter;
 /**
  * ProductController implements the CRUD actions for Product model.
  */
-class ProductController extends Controller
+class ProductController extends BackController
 {
     public function behaviors()
     {
@@ -88,19 +89,6 @@ class ProductController extends Controller
                 'model' => $model,
             ]);
         }
-    }
-
-    /**
-     * Deletes an existing Product model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace promo\controllers;
 
+use backend\components\BackController;
 use Yii;
 use promo\models\Promo;
 use promo\models\PromoSearch;
@@ -12,7 +13,7 @@ use yii\filters\VerbFilter;
 /**
  * PromoController implements the CRUD actions for Promo model.
  */
-class PromoController extends Controller
+class PromoController extends BackController
 {
     /**
      * @inheritdoc
@@ -91,19 +92,6 @@ class PromoController extends Controller
                 'model' => $model,
             ]);
         }
-    }
-
-    /**
-     * Deletes an existing Promo model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**

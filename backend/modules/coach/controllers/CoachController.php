@@ -2,6 +2,7 @@
 
 namespace coach\controllers;
 
+use backend\components\BackController;
 use Yii;
 use coach\models\Coach;
 use coach\models\CoachSearch;
@@ -12,7 +13,7 @@ use yii\filters\VerbFilter;
 /**
  * CoachController implements the CRUD actions for Coach model.
  */
-class CoachController extends Controller
+class CoachController extends BackController
 {
     public function behaviors()
     {
@@ -88,19 +89,6 @@ class CoachController extends Controller
                 'model' => $model,
             ]);
         }
-    }
-
-    /**
-     * Deletes an existing Coach model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**

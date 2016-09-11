@@ -27,8 +27,6 @@ $this->registerCssFile('/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.cs
 $this->registerCssFile('/css/site.css');
 
 
-
-
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
@@ -101,6 +99,11 @@ $this->registerCssFile('/css/site.css');
             </section>
         </aside>
         <div class="content-wrapper">
+        <?php foreach (Yii::$app->session->getAllFlashes() as $key=>$value){ ?>
+          <div class="flash <?= $key; ?>">
+              <label><?= array_pop($value); ?></label>
+          </div>
+        <?php } ?>
 
         <?= $content; ?>
 

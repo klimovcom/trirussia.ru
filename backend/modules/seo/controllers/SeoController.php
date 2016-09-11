@@ -2,6 +2,7 @@
 
 namespace seo\controllers;
 
+use backend\components\BackController;
 use Yii;
 use seo\models\Seo;
 use seo\models\SeoSearch;
@@ -13,7 +14,7 @@ use yii\filters\AccessControl;
 /**
  * SeoController implements the CRUD actions for Seo model.
  */
-class SeoController extends Controller
+class SeoController extends BackController
 {
 	public function behaviors()
 	{
@@ -116,21 +117,6 @@ class SeoController extends Controller
 				]
 			);
 		}
-	}
-
-	/**
-	 * Deletes an existing Seo model.
-	 * If deletion is successful, the browser will be redirected to the 'index' page.
-	 *
-	 * @param integer $id
-	 *
-	 * @return mixed
-	 */
-	public function actionDelete($id)
-	{
-		$this->findModel($id)->delete();
-
-		return $this->redirect(['index']);
 	}
 
 	/**
