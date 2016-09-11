@@ -211,6 +211,6 @@ $(document).ready(function(){
     });
 
     setTimeout(function () {
-        $('.flash').fadeOut();
-    }, 3000)
+        $('.flash').fadeOut('slow');
+    }, 4000)
 });

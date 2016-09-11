@@ -53,6 +53,8 @@ function codeAddress(address)
   {
     if (status == google.maps.GeocoderStatus.OK)
     {
+        console.log('results');
+        console.log(results);
       map.setCenter(results[0].geometry.location);//center the map over the result
       //place a marker at the location
       var marker = new google.maps.Marker(
@@ -62,7 +64,7 @@ function codeAddress(address)
       });
     } else {
       alert('Geocode was not successful for the following reason: ' + status);
-   }
+    }
   });
 }
 
@@ -122,38 +124,27 @@ function fillInAddress() {
     map.setZoom(12);
     $('#race-coord_lat').val(place.geometry.location.lat());
     $('#race-coord_lon').val(place.geometry.location.lng());
-
-    if (place.address_components[\"4\"]){
-        $('#race-country').val(place.address_components[\"4\"].long_name);
-        translate(place.address_components[\"4\"].long_name, '#race-country_en');
-
-        $('#race-region').val(place.address_components[\"2\"].short_name);
-        translate(place.address_components[\"2\"].long_name, '#race-region_en');
-
-        $('#race-place').val(place.address_components[\"0\"].short_name);
-        translate(place.address_components[\"0\"].long_name, '#race-place_en');
-    } else if (place.address_components[\"3\"]){
-        $('#race-country').val(place.address_components[\"3\"].long_name);
-        translate(place.address_components[\"3\"].long_name, '#race-country_en');
-
-        $('#race-region').val(place.address_components[\"2\"].short_name);
-        translate(place.address_components[\"2\"].long_name, '#race-region_en');
-
-        $('#race-place').val(place.address_components[\"0\"].short_name);
-        translate(place.address_components[\"0\"].long_name, '#race-place_en');
-    } else {
-        $('#race-country').val(place.address_components[\"2\"].long_name);
-        translate(place.address_components[\"2\"].long_name, '#race-country_en');
-
-        $('#race-region').val(place.address_components[\"1\"].short_name);
-        translate(place.address_components[\"1\"].long_name, '#race-region_en');
-
-        $('#race-place').val(place.address_components[\"0\"].short_name);
-        translate(place.address_components[\"0\"].long_name, '#race-place_en');
+    for(var i = 0; i < place.address_components.length; i++){
+        console.log(place.address_components[i].types);
+        if (place.address_components[i].types.indexOf('political') != -1){
+            if (place.address_components[i].types.indexOf('country') != -1){
+                console.log('here we are 1');
+                $('#race-country').val(place.address_components[i].long_name);
+                translate(place.address_components[i].long_name, '#race-country_en');
+            }
+            if (place.address_components[i].types.indexOf('locality') != -1){
+                console.log('here we are 2');
+                $('#race-region').val(place.address_components[i].short_name);
+                translate(place.address_components[i].long_name, '#race-region_en');
+            }
+        }
+        if (place.address_components[i].types.indexOf('point_of_interest') != -1 
+            && place.address_components[i].types.indexOf('establishment') != -1){
+                console.log('here we are 3');
+                $('#race-place').val(place.address_components[i].short_name);
+                translate(place.address_components[i].long_name, '#race-place_en');
+        }
     }
-
-
-
 }
 
 window.geolocate = function() {
