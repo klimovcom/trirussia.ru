@@ -185,6 +185,11 @@ $(document).ready(function(){
         }
     });
 
+    $(document).on('keyup', '#race-label', function() {
+        $('#race-url').val(cyr2lat($(this).val()));
+    });
+
+
     $(document).on('change', '#race-categoriesarray', function(){
         var val = $(this).val();
         console.log('changed');
