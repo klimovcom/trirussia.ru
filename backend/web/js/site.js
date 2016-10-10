@@ -219,3 +219,7 @@ $(document).ready(function(){
         $('.flash').fadeOut('slow');
     }, 4000)
 });
+
+    $(document).ready(function() {
+        $("#myTags").tagit();
+    });

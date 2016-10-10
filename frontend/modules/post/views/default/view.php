@@ -1,10 +1,9 @@
 <?php
 use \yii\helpers\Html;
-
+use \yii\helpers\Url;
 /**
  * @var $post \post\models\Post
  */
-
 ?>
 <div id="fb-root"></div>
 <script>
@@ -21,7 +20,6 @@ use \yii\helpers\Html;
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
             <div class="card">
-
                 <?php if ($post->image_id) { ?>
                     <?= Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($post->image_id), ['class' => 'card-img-top img-fluid', 'alt' => $post->label]); ?>
                 <?php } ?>
@@ -36,9 +34,11 @@ use \yii\helpers\Html;
                     <article>
                         <?= $post->content; ?>
                     </article>
-                    <!--<a href="#" class="btn btn-secondary btn-sm">триатлон</a>
-                    <a href="#" class="btn btn-secondary btn-sm">гели</a>
-                    <a href="#" class="btn btn-secondary btn-sm">спортивное питание</a>-->
+                    <?php foreach (explode(', ', $post->tags) as $tag) { ?>
+                        <a href="<?= Url::to(['/magazine/search', 'tag' => $tag, ]);?>"class="btn btn-secondary btn-sm">
+                            <?= $tag;?>
+                        </a>
+                    <?php } ?>
                     <hr>
                     <div class="likely">
                         <div class="facebook">Поделиться</div>

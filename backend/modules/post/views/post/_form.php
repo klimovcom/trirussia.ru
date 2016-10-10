@@ -7,7 +7,6 @@ use yii\widgets\ActiveForm;
 /* @var $model post\models\Post */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
 <div class="post-form">
 
     <div class="box-body">
@@ -98,7 +97,7 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'featured')->checkbox(); ?>
 
-        <?= $form->field($model, 'tags')->textInput(['maxlength' => true, 'class' => 'myTags']) ?>
+        <?= $form->field($model, 'tags')->textInput(['maxlength' => true, 'id' =>'myTags']) ?>
 
         <?= $form->field($model, 'popularity')->textInput() ?>
 

@@ -133,6 +133,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+
+
+
         $promos = Promo::find()->orderBy('created DESC')->limit(6)->all();
 
         $sportModel = null;

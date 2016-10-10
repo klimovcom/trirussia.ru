@@ -19,9 +19,16 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
+
+        '/plugins/tag-it/css/jquery.tagit.css',
+        '/plugins/tag-it/css/tagit.ui-zendesk.css',
+        '/plugins/tag-it/_static/master.css',
+        '/plugins/tag-it/_static/examples.css',
+        '/plugins/tag-it/_static/subpage.css',
     ];
     public $js = [
         /*'/plugins/jQuery/jQuery-2.1.4.min.js',*/
+        '/js/jquery-ui.min.js',
         '/js/bootstrap.min.js',
         '/plugins/datatables/jquery.dataTables.min.js',
         '/plugins/datatables/dataTables.bootstrap.min.js',
@@ -29,12 +36,11 @@ class AppAsset extends AssetBundle
         '/plugins/select2/select2.full.min.js',
         '/plugins/timepicker/bootstrap-timepicker.min.js',
         '/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js',
+        '/plugins/tag-it/js/tag-it.js',
         '/js/site.js',
-
     ];
     public $jsOptions = [
-        'position' => View::POS_END
-    ];
+        'position' => View::POS_END];
     public $depends = [
         /*'yii\web\YiiAsset',*/
         /*'yii\bootstrap\BootstrapAsset',*/

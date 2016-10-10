@@ -34,18 +34,26 @@ class DefaultController extends Controller
     public function actionView($url)
     {
         $model = Post::find()->where(['url' => $url])->one();
-        
-        /** @var $model Post */
-        $model->addStatisticsView();
 
-        Seo::registerModel($model);
-        
         if (!$model){
             throw new NotFoundHttpException();
         }
 
+        /** @var $model Post */
+        $model->addStatisticsView();
 
+        Seo::registerModel($model);
 
         return $this->render('view', ['post' => $model, ]);
     }
+    public function actionSearch()
+    {
+        $tag = $_GET['tag'];
+
+        $posts = Post::find()->where("tags LIKE('%$tag%')")->all();
+
+
+        return $this->render('search', ['posts' => $posts, ]);
+    }
+
 }

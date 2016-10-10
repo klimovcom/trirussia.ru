@@ -13,7 +13,6 @@ use \yii\helpers\Url;
 /* @var $content string */
 
 \backend\assets\AppAsset::register($this);
-
 $this->registerCssFile('/css/bootstrap.min.css');
 $this->registerCssFile('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
 $this->registerCssFile('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
@@ -28,6 +27,7 @@ $this->registerCssFile('/css/site.css');
 
 
 ?>
+
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">

@@ -167,7 +167,11 @@ return [
                 '/bmi' => '/site/bmi',
                 '/convert' => '/site/convert',
 
+                '/magazine/search' => '/post/default/search',
+
                 'magazine/<url>' => 'post/default/view',
+
+
                 'race/<url>' => 'race/default/view',
 
                 '/search-races' => '/site/search-races',
