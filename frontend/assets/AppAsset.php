@@ -18,9 +18,26 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
+        '/css/select2-bootstrap.css',
+        '/css/font.css">',
+        '/css/likely.css',
+        '/css/jquery.fancybox.css',
+        '/css/site.css',
+        'css/custom.css',
+        '/css/site.css',
+        '/css/style.css',
     ];
     public $js = [
+
+        '/js/modernizr.js',
+        '/js/jquery.smooth-scroll.js',
+        '/js/jquery.fancybox.pack.js',
+        '/js/theia-sticky-sidebar.js',
+        '/js/scotchPanels.min.js',
+        '/js/leftside-top-menu.js',
+        '/js/modalfix.js',
+        '/js/ad-sidebar.js',
+        '/js/site.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

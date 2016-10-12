@@ -30,13 +30,6 @@ AppAsset::register($this);
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700,700italic|Merriweather:400,300,700&subset=latin,cyrillic,cyrillic-ext">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker3.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css">
-    <link rel="stylesheet" href="/css/select2-bootstrap.css">
-    <link rel="stylesheet" href="/css/font.css">
-    <link rel="stylesheet" href="/css/likely.css">
-    <link rel="stylesheet" href="/css/jquery.fancybox.css">
-    <link rel="stylesheet" href="/css/site.css">
-    <link rel="stylesheet" href="/css/custom.css">
-
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
     <?php $this->head() ?>
@@ -44,6 +37,7 @@ AppAsset::register($this);
 
 <body>
 <?php $this->beginBody() ?>
+<a href="#0" class="cd-top">Top</a>
 <nav class="nav nav-inline c-nav">
 	<div class="container">
 		<div class="pull-left">
@@ -159,7 +153,7 @@ AppAsset::register($this);
             </ul>
         </div>
     </div>
-</footer>
+    </footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="/js/tether.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
@@ -169,14 +163,6 @@ AppAsset::register($this);
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/locales/bootstrap-datepicker.ru.min.js"></script>
 <script src="/js/likely.js"></script>
-<script src="/js/jquery.smooth-scroll.js"></script>
-<script src="/js/jquery.fancybox.pack.js"></script>
-<script src="/js/theia-sticky-sidebar.js"></script>
-<script src="/js/scotchPanels.min.js"></script>
-<script src="/js/leftside-top-menu.js"></script>
-<script src="/js/modalfix.js"></script>
-<script src="/js/ad-sidebar.js"></script>
-<script src="/js/site.js"></script>
 <script>
     $(document).ready(function(){
         $(".card", this).hover(function(){
@@ -189,7 +175,8 @@ AppAsset::register($this);
     });
 </script>
 
-<!-- Yandex.Metrika counter -->
+
+    <!-- Yandex.Metrika counter -->
 <script src="https://mc.yandex.ru/metrika/watch.js" type="text/javascript"></script>
 <script type="text/javascript">
 try {

@@ -307,3 +307,41 @@ $(document).ready(function(){
     }
 
 });
+
+jQuery(document).ready(function($){
+    // browser window scroll (in pixels) after which the "back to top" link is shown
+    var offset = 300,
+        //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
+        offset_opacity = 300,
+        //duration of the top scrolling animation (in ms)
+        scroll_top_duration = 900;
+
+    console.log('init');
+    //hide or show the "back to top" link
+    $(window).scroll(function(){
+        if ( $(this).scrollTop() > offset ) {
+            console.log(1);
+            $('.cd-top').addClass('cd-is-visible')
+        } else {
+            console.log(2);
+            $('.cd-top').removeClass('cd-is-visible cd-fade-out')
+        }
+        if( $(this).scrollTop() > offset_opacity ) {
+            console.log(3);
+            $('.cd-top').addClass('cd-fade-out');
+        }
+    });
+
+    //smooth scroll to top
+    $('.cd-top').on('click', function(event){
+        event.preventDefault();
+        $('body,html').animate({
+                scrollTop: 0 ,
+            }, scroll_top_duration
+        );
+    });
+
+    setTimeout(function(){
+        $('.cd-top').appendTo('body');
+    }, 1000);
+});

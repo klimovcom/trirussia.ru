@@ -181,3 +181,13 @@ div.auth-clients{
 .card-block .c-select{
     width: 155px;
 }
+
+/* описание контейнера */
+.leftbar-wrap {
+     position: fixed;
+     height: 100%;
+     top: 0;
+     width: 500px !important;
+     left: 0;
+ }
+
