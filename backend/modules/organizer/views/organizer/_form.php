@@ -32,11 +32,7 @@ use vova07\imperavi\Widget;
                 <?= $form->field($model, 'site')->textInput(['maxlength' => true]) ?>
             </div>
         </div>
-
-
-
-        <?= $form->field($model, 'label')->textInput(['maxlength' => true, 'class' => 'form-control w850 ']) ?>
-
+            <?= $form->field($model, 'label')->textInput(['maxlength' => true, 'class' => 'form-control w850 ']) ?>
         <div class="row">
             <div class="col-md-6">
                 <?= $form->field($model, 'country')->textInput(['maxlength' => true]) ?>

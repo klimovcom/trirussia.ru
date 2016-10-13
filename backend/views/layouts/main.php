@@ -24,8 +24,6 @@ $this->registerCssFile('/css/skins/skin-blue.min.css');
 $this->registerCssFile('/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css');
 $this->registerCssFile('/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css');
 $this->registerCssFile('/css/site.css');
-
-
 ?>
 
 <?php $this->beginPage() ?>

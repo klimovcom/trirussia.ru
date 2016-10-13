@@ -90,8 +90,9 @@ $(document).ready(function(){
         $('#post-url').val(cyr2lat($(this).val()));
     });
 
-
-
+    $(document).on('keyup', '#race-label', function() {
+        $('#race-url').val(cyr2lat($(this).val()));
+    });
 
     $('#news-header').on('change', function(){
         if (!($('#news-url').val().length > 0)){
@@ -191,9 +192,7 @@ $(document).ready(function(){
         }
     });
 
-    $(document).on('keyup', '#race-label', function() {
-        $('#race-url').val(cyr2lat($(this).val()));
-    });
+
 
 
     $(document).on('change', '#race-categoriesarray', function(){
@@ -226,9 +225,9 @@ $(document).ready(function(){
     }, 4000)
 });
 
-    $(document).ready(function() {
-        $("#myTags").tagit();
-    });
+$(document).ready(function() {
+     $("#myTags").tagit();
+});
 
 
 

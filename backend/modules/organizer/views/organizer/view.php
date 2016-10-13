@@ -10,8 +10,6 @@ $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Организаторы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
-
 <section class="content-header organizer-view">
     <?php
     $breadcrumbs = isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [];
