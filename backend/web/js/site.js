@@ -86,6 +86,12 @@ $(document).ready(function(){
         return newStr.replace(/[-]{2,}/gim, '-').replace(/\n/gim, '').toLowerCase();;
     }
 
+    $(document).on('keyup', '#post-label', function() {
+        $('#post-url').val(cyr2lat($(this).val()));
+    });
+
+
+
 
     $('#news-header').on('change', function(){
         if (!($('#news-url').val().length > 0)){
@@ -223,3 +229,6 @@ $(document).ready(function(){
     $(document).ready(function() {
         $("#myTags").tagit();
     });
+
+
+
