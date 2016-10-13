@@ -41,9 +41,7 @@ use yii\widgets\ActiveForm;
                 ?>
             </div>
         </div>
-        <input type="range" oninput="myFun)">
         <?= $form->field($model, 'label')->textInput(['maxlength' => true, 'class' => 'form-control w850 ']) ?>
-
         <div class="row">
             <div class="col-md-6">
                 <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
