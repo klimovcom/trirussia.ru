@@ -1,0 +1,56 @@
+/* описание контейнера */
+.leftbar-wrap {
+    position: fixed;
+    height: 100%;
+    top: 0;
+    width: 10px !important;
+
+}
+
+/* описание кнопки «Вверх» */
+.left-controlbar {
+     height: 100%;
+     display: block;
+     text-decoration: none;
+}
+
+/* описание кнопки «Вернуться» */
+#scroll-back {
+     display: block;
+     height: 100%;
+     top: 0;
+     display: none;
+     text-align: left;
+}
+
+/* описание столбца фонового цвета для обеих кнопок */
+.active-area {
+      width: 100px;
+      height: 100%;
+      display: block;
+      text-align: center;
+}
+
+/* задаем прозрачность фонового цвета при наведении на активную область страницы */
+.leftbar-wrap:hover .active-area {
+   background: #E1E7ED !important;
+   opacity:0.1 !important;
+}
+
+/* делаем подсветку немного ярче при наведении на надпись */
+.leftbar-wrap .active-area:hover {
+
+}
+
+/* центрируем надпись у кнопок */
+.bar-desc-niz {
+     top: 26% !important;
+     position: relative;
+     display: inline-block;
+}
+
+.bar-desc-top {
+    top: 26% !important;
+    position: relative;
+    display: inline-block;
+}
