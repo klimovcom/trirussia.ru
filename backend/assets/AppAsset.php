@@ -22,9 +22,6 @@ class AppAsset extends AssetBundle
 
        '/plugins/tag-it/css/jquery.tagit.css',
        '/plugins/tag-it/css/tagit.ui-zendesk.css',
-       '/plugins/tag-it/_static/master.css',
-       '/plugins/tag-it/_static/examples.css',
-       '/plugins/tag-it/_static/subpage.css',
     ];
     public $js = [
         /*'/plugins/jQuery/jQuery-2.1.4.min.js',*/
