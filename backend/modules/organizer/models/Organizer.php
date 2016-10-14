@@ -4,6 +4,7 @@ namespace organizer\models;
 
 use metalguardian\fileProcessor\behaviors\UploadBehavior;
 use metalguardian\fileProcessor\helpers\FPM;
+use race\models\Race;
 use Yii;
 use yii\helpers\ArrayHelper;
 
@@ -98,8 +99,17 @@ class Organizer extends \yii\db\ActiveRecord
      */
     public function beforeDelete()
     {
+
+
         parent::beforeDelete();
 
+        $alienModel = Organizer::find()->where(['label' => 'Другой'])->one();
+        $alien = $alienModel->id;
+        $races = Race::find()->where(['organizer_id'=> $this->id])->all();
+        foreach($races as $race){
+            $race->organizer_id = $alien;
+            $race->save();
+        }
         FPM::deleteFile($this->image_id);
 
         return true;
