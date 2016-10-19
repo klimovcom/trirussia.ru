@@ -153,7 +153,7 @@ class Sport extends \yii\db\ActiveRecord
             $condition[] = ' в стране ' . urldecode($_GET['country']);
         }
         if (!empty($_GET['organizer'])){
-            $condition[] = ' организатор ' . urldecode($_GET['organizer']);
+            $condition[] = ' организатора ' . urldecode($_GET['organizer']);
         }
         if (!empty($_GET['distance'])){
             $condition[] = 'на дистанции ' . urldecode($_GET['distance']);
@@ -162,18 +162,18 @@ class Sport extends \yii\db\ActiveRecord
             $mon=substr($_GET['date'], 5, 2);
 
             $months = array(
-                1 =>  'Январе',
-                2 =>  'Феврале',
-                3 =>  'Марте',
-                4 =>  'Апреле',
-                5 =>  'Мае',
-                6 =>  'Июне',
-                7 =>  'Июле',
-                8 =>  'Августе',
-                9 =>  'Сентябре',
-                10 => 'Октябре',
-                11 => 'Ноябре',
-                12 => 'Декабре',
+                1 =>  'январе',
+                2 =>  'феврале',
+                3 =>  'марте',
+                4 =>  'апреле',
+                5 =>  'мае',
+                6 =>  'июне',
+                7 =>  'июле',
+                8 =>  'августе',
+                9 =>  'сентябре',
+                10 => 'октябре',
+                11 => 'ноябре',
+                12 => 'декабре',
             );
             foreach($months as $key=>$value ){
                 if($key==$mon){
@@ -185,6 +185,6 @@ class Sport extends \yii\db\ActiveRecord
             $condition[] = ' в '. $mon . ' ' . Yii::$app->formatter->asDate($_GET['date'], 'yyyy') . ' г.';
 
         }
-        return implode(', ', $condition);
+        return implode(' ', $condition);
     }
 }
