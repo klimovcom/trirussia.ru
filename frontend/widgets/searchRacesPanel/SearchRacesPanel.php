@@ -84,20 +84,27 @@ class SearchRacesPanel extends \yii\base\Widget{
             null, 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август','Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
         ];
 
+
+
         for ($i = $monthNumber; $i<=$monthNumber+10; $i++){
-           // $day = '01';
-            $year = date('Y', time());
-            if ($i < 10 ){
-                $month = '0'.$i;
-            } else if ($i <= 12){
-                $month = $i;
-            } else {
-                $month = $i - 12;
+             $year = date('Y', time());
+
+            $realMonth = $i;
+            if ($realMonth > 12){
+                $realMonth = $realMonth-12;
                 $year++;
             }
 
-            $date = implode('-', [$year, $month]);
+            if ($realMonth < 10 ){
+                $month = '0'.$realMonth;
+            } else if ($realMonth <= 12){
+                $month = $realMonth;
 
+            } else {
+                $month = $realMonth;
+
+            }
+            $date = implode('-', [$year, $month]);
            /* $racesCount = (new \yii\db\Query())
                 ->select('COUNT(id)')
                 ->from(Race::tableName())
@@ -105,12 +112,9 @@ class SearchRacesPanel extends \yii\base\Widget{
                 ->andWhere(['sport_id' => Sport::getCurrentSportModel()->id, ])
                 ->createCommand()
                 ->queryOne()['COUNT(id)'];*/
-
-
             $dateIntervals[$date] = $monthes[(int)$month] . ' ' . $year /*. ' ('.$racesCount.')'*/;
+
         }
-
-
         return $dateIntervals;
     }
 }

@@ -145,39 +145,15 @@ class Sport extends \yii\db\ActiveRecord
     {
         return self::sportNames()[mb_strtolower($this->label, 'utf-8')]['дательный'];
     }
-    public function months()
-    {
-        if (!empty($_GET['date'])) {
 
-            //substr($_GET['date'],6, 1)=='-' ?  ;
-
-            $arr = array(
-                1 =>  'Январе',
-                2 =>  'Феврале',
-                3 =>  'Марте',
-                4 =>  'Апреле',
-                5 =>  'Мае',
-                6 =>  'Июне',
-                7 =>  'Июле',
-                8 =>  'Августе',
-                9 =>  'Сентябре',
-                10 => 'Октябре',
-                11 => 'Ноябре',
-                12 => 'Декабре',
-            );
-        }
-
-     return $this;
-
-    }
     public function getCondition()
     {
         $condition = [];
         if (!empty($_GET['country'])){
-            $condition[] = 'в стране ' . urldecode($_GET['country']);
+            $condition[] = ' в стране ' . urldecode($_GET['country']);
         }
         if (!empty($_GET['organizer'])){
-            $condition[] = 'организатор ' . urldecode($_GET['organizer']);
+            $condition[] = ' организатор ' . urldecode($_GET['organizer']);
         }
         if (!empty($_GET['distance'])){
             $condition[] = 'на дистанции ' . urldecode($_GET['distance']);
@@ -205,7 +181,6 @@ class Sport extends \yii\db\ActiveRecord
                 }
             }
 
-            //VarDumper::dump($mon); die();
 
             $condition[] = ' в '. $mon . ' ' . Yii::$app->formatter->asDate($_GET['date'], 'yyyy') . ' г.';
 

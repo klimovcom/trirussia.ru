@@ -235,7 +235,6 @@ class SiteController extends Controller
         } else {
             $raceCondition->andWhere(['>=', 'start_date', date('Y-m-d', time())]);
         }
-        //VarDumper::dump($dateFrom); die();
         if (!empty($_GET['country'])) $raceCondition->andWhere([Race::tableName().'.country' => $_GET['country']]);
 
         if (!empty($_GET['organizer'])){
@@ -248,7 +247,6 @@ class SiteController extends Controller
         } else {
             $races = $raceCondition->orderBy('start_date ASC, id DESC')->limit(13)->all();
         }
-
         $showMore = false;
         if (count($races) > 12){
             $showMore = true;
