@@ -19,7 +19,7 @@ $dateIntervals = \frontend\widgets\searchRacesPanel\SearchRacesPanel::getDateInt
             'data-update-distances-url' => Url::toRoute('/race/default/update-search-distance'),
             'data-update-url' => Url::toRoute('/race/default/update-url'),
         ]
-    ); ?>
+    ); ?><?php VarDumper::dump($dateIntervals, 3, 1); die();?>
         <div class="form-group">
             <?= \yii\helpers\Html::activeDropDownList(
                 $model,
