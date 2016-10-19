@@ -21,4 +21,5 @@ class RaceModule extends \yii\base\Module
 
         // custom initialization code goes here
     }
+
 }

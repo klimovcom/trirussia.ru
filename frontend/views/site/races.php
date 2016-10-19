@@ -11,6 +11,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
 </div>
 <div class="container">
     <div class="pull-left">
+        <?php  ?>
         <h1 class="m-t-3 m-b-3">Календарь соревнований по <?= \sport\models\Sport::getCurrentSportLabel('дательный');?></h1>
     </div>
     <div class="clearfix"></div>

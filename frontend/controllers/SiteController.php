@@ -227,23 +227,15 @@ class SiteController extends Controller
         }
 
         if (!empty($_GET['date'])){
-            $dateFrom = $_GET['date'];
-
-            //если текущий месяц то ищем не с 1 числа этого месяца, а с текущего
+            $dateFrom = $_GET['date'] . '-01';
             if (substr($dateFrom, 0, 8) == date('Y-m-')){
-                $dateFrom = substr($_GET['date'], 0, 8).date('d');
+                $dateFrom = substr($_GET['date'], 0, 8).date('-d');
             }
-
-            $raceCondition->andWhere([
-                'between',
-                'start_date',
-                $dateFrom,
-                substr($_GET['date'], 0, 8) . '31'
-            ]);
+            $raceCondition->andWhere(['between', 'start_date', $dateFrom, substr($_GET['date'], 0, 8) . '-31']);
         } else {
             $raceCondition->andWhere(['>=', 'start_date', date('Y-m-d', time())]);
         }
-
+        //VarDumper::dump($dateFrom); die();
         if (!empty($_GET['country'])) $raceCondition->andWhere([Race::tableName().'.country' => $_GET['country']]);
 
         if (!empty($_GET['organizer'])){

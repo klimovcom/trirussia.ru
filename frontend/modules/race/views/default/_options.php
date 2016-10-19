@@ -9,5 +9,5 @@
 ?>
 <option value="">Выберите дистанцию</option>
 <?php foreach ($options as $id => $option){ ?>
-    <option value="<?= $id; ?>"><?= $option; ?></option>
+    <option value="<?= $option; ?>"><?= $option; ?></option>
 <?php } ?>

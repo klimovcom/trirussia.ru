@@ -11,7 +11,9 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
 </div>
 <div class="container">
     <div class="pull-left">
-        <h1 class="m-t-3 m-b-3">Календарь соревнований</h1>
+        <h1 class="m-t-3 m-b-3">Календарь соревнований<?=\sport\models\Sport::getCondition()?>
+        <?php//$k=date('Y-m', strtotime("+$i month")); \yii\helpers\VarDumper::dump($k); die();?>
+        </h1>
     </div>
     <div class="clearfix"></div>
     <a href="http://tyrrussia.ru/?utm_source=trirussia&utm_medium=banner&utm_term=triathlon&utm_campaign=triathlon-sponsorship" class="no-underline" target="_blank">

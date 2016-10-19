@@ -5,6 +5,7 @@ use organizer\models\Organizer;
 use race\models\Race;
 use sport\models\Sport;
 use yii\db\sqlite\QueryBuilder;
+use yii\helpers\VarDumper;
 use yii\web\NotFoundHttpException;
 
 
@@ -44,8 +45,7 @@ class SearchRacesPanel extends \yii\base\Widget{
             $model->date = isset($this->getDateIntervals()[$_GET['date']]) ? $_GET['date'] : null;
             $dateCondition = ['between', 'start_date', $_GET['date'], substr($_GET['date'], 0, 8) . '31'];
         }
-
-        $countriesData = (new \yii\db\Query())
+            $countriesData = (new \yii\db\Query())
             ->select(['country',])
             ->from(Race::tableName())
             ->where($dateCondition)
@@ -85,7 +85,7 @@ class SearchRacesPanel extends \yii\base\Widget{
         ];
 
         for ($i = $monthNumber; $i<=$monthNumber+10; $i++){
-            $day = '01';
+           // $day = '01';
             $year = date('Y', time());
             if ($i < 10 ){
                 $month = '0'.$i;
@@ -96,7 +96,7 @@ class SearchRacesPanel extends \yii\base\Widget{
                 $year++;
             }
 
-            $date = implode('-', [$year, $month, $day, ]);
+            $date = implode('-', [$year, $month]);
 
            /* $racesCount = (new \yii\db\Query())
                 ->select('COUNT(id)')
@@ -109,6 +109,8 @@ class SearchRacesPanel extends \yii\base\Widget{
 
             $dateIntervals[$date] = $monthes[(int)$month] . ' ' . $year /*. ' ('.$racesCount.')'*/;
         }
+
+
         return $dateIntervals;
     }
 }

@@ -33,7 +33,7 @@ else
             <?php } ?>
 
             <li class="leftbar-small">
-                <?php $url = '/' . $sportUrl . '?date=' . date('Y-m-01', strtotime("+$i month"));?>
+                <?php $url = '/' . $sportUrl . '?date=' . date('Y-m', strtotime("+$i month"));?>
                 <a href="<?= $url; ?>" class="underline-white">
                     <?=  $this->context->getMonths(1*date('m', strtotime("+$i month"))); ?>
                 </a>

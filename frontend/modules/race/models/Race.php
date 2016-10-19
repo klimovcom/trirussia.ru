@@ -714,17 +714,12 @@ class Race extends \yii\db\ActiveRecord
         }
 
         if (!empty($_GET['date'])){
-            $dateFrom = $_GET['date'];
+            $dateFrom = $_GET['date'] . '-01';
             if (substr($dateFrom, 0, 8) == date('Y-m-')){
-                $dateFrom = substr($_GET['date'], 0, 8).date('d');
+                $dateFrom = substr($_GET['date'], 0, 8).date('-d');
             }
-            $raceCondition->andWhere([
-                'between',
-                'start_date',
-                $dateFrom,
-                substr($_GET['date'], 0, 8) . '31'
-            ]);
-        } else {
+            $raceCondition->andWhere(['between', 'start_date', $dateFrom, substr($_GET['date'], 0, 8) . '-31']);
+            } else {
             $raceCondition->andWhere(['>=', 'start_date', date('Y-m-d', time())]);
         }
 
