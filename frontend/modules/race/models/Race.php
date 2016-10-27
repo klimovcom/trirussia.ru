@@ -146,7 +146,7 @@ class Race extends \yii\db\ActiveRecord
 
     public function getImageUrl()
     {
-        return FPM::originalSrc($this->main_image_id);
+        return Url::to(FPM::originalSrc($this->main_image_id), true);
     }
 
     /**
@@ -191,6 +191,14 @@ class Race extends \yii\db\ActiveRecord
 
     public function getDateRepresentation(){
         return Yii::$app->formatter->asDate($this->start_date, 'd MMMM yyyy') . ' г.';
+    }
+
+    public function getDateRepresentationScript(){
+        return Yii::$app->formatter->asDate($this->start_date, 'yyyy-mm-dd');
+    }
+
+    public function getTimeRepresentation(){
+        return $this->start_time . ':00';
     }
 
     public function getPlaceTimePromo(){
