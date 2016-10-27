@@ -26,7 +26,9 @@ class Seo extends \yii\db\ActiveRecord
     public static $replaces = [
         '{raceLabel}' => 'label',
         '{raceStartDate}' => 'start_date',
+        '{raceStartTime:hh:mm:ss}' => 'timeRepresentation',
         '{raceStartDate:dd.M.yyyy}' => 'dateRepresentation',
+        '{raceDate:yyyy-mm-dd}' => 'dateRepresentationScript',
         '{raceCountry}' => 'country',
         '{raceRegion}' => 'region',
         '{racePlace}' => 'place',
@@ -227,5 +229,36 @@ class Seo extends \yii\db\ActiveRecord
     public static function getPageTitleMeta()
     {
         return self::getMeta('title');
+    }
+
+    public static function getScript()
+    {
+        if (self::isRoute("default", "view", "race")){
+            $script = '<script type="application/ld+json">
+                    {
+                        "@context": "http://schema.org/",
+                        "@type": "SportsEvent",
+                        "name": "{raceLabel}",
+                        "startDate": "{raceDate:yyyy-mm-dd}T{raceStartTime:hh:mm:ss}+03:00",
+                        "location": {
+                        "@type": "StadiumOrArena",
+                        "name": "{racePlace}",
+                        "address": "{raceCountry}"
+                        },
+                        "offers": {
+                        "@type": "Offer",
+                        "category": "primary",
+                        "url": "'. Url::to('race/' . self::$_model->url, true).'"
+                        },
+                        "description": "{racePromo}",
+                        "endDate": "{raceDate:yyyy-mm-dd}T23:00:00",
+                        "image": "{raceImageUrl}",
+                        "url": "'. Url::to('race/' . self::$_model->url, true).'",
+                        "performer": "{raceOrganizerLabel}"
+                    }
+                </script>';
+            return self::applyReplaces($script);
+        }
+        return '';
     }
 }
