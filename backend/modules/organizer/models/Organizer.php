@@ -87,6 +87,9 @@ class Organizer extends \yii\db\ActiveRecord
                 'image_id' => [
                     'class' => UploadBehavior::className(),
                     'attribute' => 'image_id',
+                    'validator' => [
+                        'extensions' => 'png, jpg, svg, tiff',
+                    ],
                     'image' => true,
                     'required' => true,
                 ],
