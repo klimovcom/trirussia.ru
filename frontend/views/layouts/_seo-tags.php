@@ -17,4 +17,7 @@ use yii\helpers\Html;
 <meta property="og:image:type" content="<?= Seo::getImageTypeMeta();?>">
 <meta property="og:image:width" content="<?= Seo::getImageWidthMeta();?>">
 <meta property="og:image:height" content="<?= Seo::getImageHeightMeta();?>">
+
+<?= Seo::getScript(); ?>
+
 <title><?= Seo::getPageTitleMeta();?></title>
