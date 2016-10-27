@@ -17,6 +17,8 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
         </h1>
     </div>
     <div class="clearfix"></div>
+    <?php //\yii\helpers\VarDumper::dump($_GET);die();?>
+    <?php if (($_GET['sport']=='triathlon')){?>
     <a href="http://tyrrussia.ru/?utm_source=trirussia&utm_medium=banner&utm_term=triathlon&utm_campaign=triathlon-sponsorship" class="no-underline" target="_blank">
         <div class="tyr-wrapper">
             <div class="tyr-container">
@@ -24,6 +26,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
             </div>
         </div>
     </a>
+    <?php }?>
     <div class="card card-block">
             <select
                     class="c-select small sort-select"
