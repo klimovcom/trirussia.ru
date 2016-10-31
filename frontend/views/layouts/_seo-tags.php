@@ -13,7 +13,7 @@ use yii\helpers\Html;
 <meta name="description" content="<?= Seo::getDescriptionMeta();?>">
 <meta property="og:title" content="<?= Seo::getPageTitleMeta();?>">
 <meta property="og:url" content="<?= Seo::getUrlMeta(); ?>">
-<meta property="og:image" content="http://www.trirussia.ru<?= Seo::getImageMeta();?>">
+<meta property="og:image" content="<?= Seo::getImageMeta();?>">
 <meta property="og:image:type" content="<?= Seo::getImageTypeMeta();?>">
 <meta property="og:image:width" content="<?= Seo::getImageWidthMeta();?>">
 <meta property="og:image:height" content="<?= Seo::getImageHeightMeta();?>">
