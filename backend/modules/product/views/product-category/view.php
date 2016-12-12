@@ -7,19 +7,8 @@ use yii\widgets\DetailView;
 /* @var $model product\models\Product */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Продукты', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Категории продуктов', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-
-$images = '';
-if (count($model->productImages)) {
-    $images .= Html::beginTag('div', ['class' => 'row']);
-    foreach ($model->productImages as $image) {
-        $images .= Html::beginTag('div', ['class' => 'col-xs-4']);
-        $images .= Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($image->image_id), ['class' => 'img-responsive form-control-with-margin']);
-        $images .= Html::endTag('div');
-    }
-    $images .= Html::endTag('div');
-}
 ?>
 
 <section class="content-header product-view">
@@ -58,19 +47,15 @@ if (count($model->productImages)) {
                             'id',
                             'created',
                             'label',
-                            'url',
-                            'promo:ntext',
                             'content:ntext',
                             [
-                                'attribute' => 'images',
+                                'attribute' => 'image_id',
                                 'format' => 'raw',
-                                'value' => $images,
-                            ],
-                            'price',
-                            [
-                                'attribute' => 'category_id',
-                                'format' => 'raw',
-                                'value' => $model->category->label,
+                                'value' => $model->image_id
+                                    ? Html::img(
+                                        \metalguardian\fileProcessor\helpers\FPM::originalSrc($model->image_id)
+                                    )
+                                    : null,
                             ],
                             [
                                 'attribute' => 'published',
@@ -84,3 +69,4 @@ if (count($model->productImages)) {
         </div>
     </div>
 </section>
+

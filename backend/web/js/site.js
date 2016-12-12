@@ -22,6 +22,8 @@ $(document).ready(function(){
         "autoWidth": false
     });
 
+    $('.sortable').sortable();
+
     function cyr2lat(str) {
 
         var cyr2latChars = new Array(
@@ -86,12 +88,16 @@ $(document).ready(function(){
         return newStr.replace(/[-]{2,}/gim, '-').replace(/\n/gim, '').toLowerCase();;
     }
 
-    $(document).on('keyup', '#post-label', function() {
+    $(document).on('input', '#post-label', function() {
         $('#post-url').val(cyr2lat($(this).val()));
     });
 
-    $(document).on('keyup', '#race-label', function() {
+    $(document).on('input', '#race-label', function() {
         $('#race-url').val(cyr2lat($(this).val()));
+    });
+
+    $(document).on('input', '#product-label', function() {
+        $('#product-url').val(cyr2lat($(this).val()));
     });
 
     $('#news-header').on('change', function(){
@@ -229,5 +235,63 @@ $(document).ready(function() {
      $("#myTags").tagit();
 });
 
+function addAttrValue() {
+    var $container = $('#product-attr-form-values');
+    var valueCounter = parseInt($container.attr('data-attr-counter')) || 0;
+    $container.attr('data-attr-counter', valueCounter + 1);
+    var inputName = 'ProductAttr[values][new-' + valueCounter + ']';
+    var blockId = 'product-attr-value-new' + valueCounter;
 
+    var $input = '<div id="' + blockId +'" class="row">' +
+        '<div class="col-xs-11">' +
+        '<input type="text" name="' + inputName + '" class="form-control form-control-with-margin">' +
+        '</div>' +
+        '<div class="col-xs-1">' +
+        '<a href="javascript:;" onclick="deleteAttrValue(\'#' + blockId + '\')" class="btn btn-danger">-</a>' +
+        '</div>' +
+        '</div>';
+    $container.append($input);
+}
+function deleteAttrValue(id) {
+    $(id).remove();
+}
+function deleteProductImage(id) {
+    $.ajax({
+        type: "POST",
+        url: '/product/product/deleteimg',
+        data: {
+            id: id
+        },
+        dataType: "html",
+        cache: false,
+        success: function (data)
+        {
+            $('#product-images-' + id).remove();
+        },
+        error: function (data)
+        {
+            alert('Ошибка сервера, повторите позднее');
+        }
+    });
+}
 
+$('#product_category_id').on('change', function() {
+   var id = $(this).val();
+    $.ajax({
+        type: "POST",
+        url: '/product/product/getattrlist',
+        data: {
+            id: id
+        },
+        dataType: "html",
+        cache: false,
+        success: function (data)
+        {
+            $('#product-attr').html(data);
+        },
+        error: function (data)
+        {
+            $('#product-attr').html('Ошибка сервера, повторите позднее');
+        }
+    });
+});

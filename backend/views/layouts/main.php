@@ -29,92 +29,99 @@ $this->registerCssFile('/css/site.css');
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
-    <html>
+<html>
 
-    <head>
-        <meta charset="<?= Yii::$app->charset ?>">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <?= Html::csrfMetaTags() ?>
-        <title><?= Html::encode($this->title) ?></title>
-        <?php $this->head() ?>
-        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-    </head>
+<head>
+    <meta charset="<?= Yii::$app->charset ?>">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <?= Html::csrfMetaTags() ?>
+    <title><?= Html::encode($this->title) ?></title>
+    <?php $this->head() ?>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
 
-    <body class="hold-transition skin-blue sidebar-mini">
-    <div class="wrapper">
-        <header class="main-header">
-            <a href="#" class="logo">
-                <span class="logo-mini"><b>Tri</b></span>
-                <span class="logo-lg"><b>TriRussia.ru</b></span>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <header class="main-header">
+        <a href="#" class="logo">
+            <span class="logo-mini"><b>Tri</b></span>
+            <span class="logo-lg"><b>TriRussia.ru</b></span>
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Скрыть</span>
             </a>
-            <nav class="navbar navbar-static-top" role="navigation">
-                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Скрыть</span>
-                </a>
-                <!-- Navbar Right Menu -->
-                <div class="navbar-custom-menu">
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="/images/user2-160x160.jpg" class="user-image" alt="User Image">
-                                <span class="hidden-xs">Artem Klimov</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <aside class="main-sidebar">
-            <section class="sidebar">
-                <ul class="sidebar-menu">
-                    <li class="header">Главное меню</li>
-                    <li><a href="<?= Url::to('/user/user/index'); ?>"><span>Пользователи</span></a></li>
-                    <li><a href="<?= Url::to('/race/race/index'); ?>"><span>Соревнования</span></a></li>
-                    <li><a href="<?= Url::to('/sport/sport/index'); ?>"><span>Виды спорта</span></a></li>
-                    <li class="treeview <?= $this->context->module->id == 'distance' ? 'active' : '';?>">
-                        <a href="#"><span>Дистанции</span> <i class="fa fa-angle-left pull-right"></i></a>
-                        <ul class="treeview-menu">
-                            <li><a href="<?= Url::to('/distance/distance/index'); ?>">Дистанции</a></li>
-                            <li><a href="<?= Url::to('/distance/distance-category/index'); ?>">Категории</a></li>
-                        </ul>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="/images/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <span class="hidden-xs">Artem Klimov</span>
+                        </a>
                     </li>
-                    <li><a href="<?= Url::to('/organizer/organizer/index'); ?>"><span>Организаторы</span></a></li>
-                    <li><a href="<?= Url::to('/coach/coach/index'); ?>"><span>Тренеры</span></a></li>
-                    <li><a href="<?= Url::to('/page/page/index'); ?>"><span>Страницы</span></a></li>
-                    <li><a href="<?= Url::to('/post/post/index'); ?>"><span>Журнал</span></a></li>
-                    <li><a href="<?= Url::to('/product/product/index'); ?>"><span>Магазин</span></a></li>
-                    <li><a href="<?= Url::to('/promo/promo/index'); ?>"><span>Промо-блоки</span></a></li>
-                    <li><a href="<?= Url::to('/banner/banner/index'); ?>"><span>Баннеры</span></a></li>
-                    <li><a href="<?= Url::to('/configuration/configuration/index'); ?>"><span>Конфигурация</span></a></li>
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
                 </ul>
-            </section>
-        </aside>
-        <div class="content-wrapper">
+            </div>
+        </nav>
+    </header>
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="header">Главное меню</li>
+                <li><a href="<?= Url::to('/user/user/index'); ?>"><span>Пользователи</span></a></li>
+                <li><a href="<?= Url::to('/race/race/index'); ?>"><span>Соревнования</span></a></li>
+                <li><a href="<?= Url::to('/sport/sport/index'); ?>"><span>Виды спорта</span></a></li>
+                <li class="treeview <?= $this->context->module->id == 'distance' ? 'active' : '';?>">
+                    <a href="#"><span>Дистанции</span> <i class="fa fa-angle-left pull-right"></i></a>
+                    <ul class="treeview-menu">
+                        <li><a href="<?= Url::to('/distance/distance/index'); ?>">Дистанции</a></li>
+                        <li><a href="<?= Url::to('/distance/distance-category/index'); ?>">Категории</a></li>
+                    </ul>
+                </li>
+                <li><a href="<?= Url::to('/organizer/organizer/index'); ?>"><span>Организаторы</span></a></li>
+                <li><a href="<?= Url::to('/coach/coach/index'); ?>"><span>Тренеры</span></a></li>
+                <li><a href="<?= Url::to('/page/page/index'); ?>"><span>Страницы</span></a></li>
+                <li><a href="<?= Url::to('/post/post/index'); ?>"><span>Журнал</span></a></li>
+                <li class="treeview <?= $this->context->module->id == 'product' ? 'active' : '';?>">
+                    <a href="#"><span>Магазин</span> <i class="fa fa-angle-left pull-right"></i></a>
+                    <ul class="treeview-menu">
+                        <li><a href="<?= Url::to('/product/product/index'); ?>"><span>Продукты</span></a></li>
+                        <li><a href="<?= Url::to('/product/product-category/index'); ?>"><span>Категории</span></a></li>
+                        <li><a href="<?= Url::to('/product/product-attr/index'); ?>"><span>Атрибуты</span></a></li>
+                    </ul>
+                </li>
+                <li><a href="<?= Url::to('/promo/promo/index'); ?>"><span>Промо-блоки</span></a></li>
+                <li><a href="<?= Url::to('/banner/banner/index'); ?>"><span>Баннеры</span></a></li>
+                <li><a href="<?= Url::to('/configuration/configuration/index'); ?>"><span>Конфигурация</span></a></li>
+            </ul>
+        </section>
+    </aside>
+    <div class="content-wrapper">
         <?php foreach (Yii::$app->session->getAllFlashes() as $key=>$value){ ?>
-          <div class="flash <?= $key; ?>">
-              <label><?= array_pop($value); ?></label>
-          </div>
+            <div class="flash <?= $key; ?>">
+                <label><?= array_pop($value); ?></label>
+            </div>
         <?php } ?>
 
         <?= $content; ?>
 
-        </div>
-        <footer class="main-footer">
-            <div class="pull-right hidden-xs">
-                Удачных стартов!
-            </div>
-            <strong>Copyright &copy; <?=date('Y');?> <a target="_blank" href="http://www.trirussia.ru">TriRussia.ru</a>.</strong>
-        </footer>
     </div>
-    <script type="application/javascript" src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    <?php $this->endBody() ?>
-    </body>
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            Удачных стартов!
+        </div>
+        <strong>Copyright &copy; <?=date('Y');?> <a target="_blank" href="http://www.trirussia.ru">TriRussia.ru</a>.</strong>
+    </footer>
+</div>
+<script type="application/javascript" src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<?php $this->endBody() ?>
+</body>
 </html>
 <?php $this->endPage();

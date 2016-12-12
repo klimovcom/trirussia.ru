@@ -2,15 +2,15 @@
 
 use yii\helpers\Html;
 
+
 /* @var $this yii\web\View */
 /* @var $model product\models\Product */
 
-$this->title = 'Редактирование продукта: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Продукты', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Редактирование';
+$this->title = 'Создание категории продуктов';
+$this->params['breadcrumbs'][] = ['label' => 'Категории продуктов', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<section class="content-header product-update">
+<section class="content-header product-category-create">
     <?php
     $breadcrumbs = isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [];
     if ($breadcrumbs) {?>
@@ -25,15 +25,13 @@ $this->params['breadcrumbs'][] = 'Редактирование';
         ) ?>
     <?php } ?>
 </section>
-<section class="content product-update">
+<section class="content product-create">
     <div class="row">
         <div class="col-xs-9">
             <div class="box box-primary">
                 <div class="box-body">
                     <?= $this->render('_form', [
                         'model' => $model,
-                        'attrs' => $attrs,
-                        'checkedAttr' => $checkedAttr,
                     ]) ?>
                 </div>
             </div>

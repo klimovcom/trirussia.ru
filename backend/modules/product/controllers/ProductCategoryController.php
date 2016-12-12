@@ -2,42 +2,40 @@
 
 namespace product\controllers;
 
-use backend\components\BackController;
-use product\models\ProductAttr;
-use product\models\ProductImage;
-use product\models\ProductProductAttrValue;
 use Yii;
-use product\models\Product;
-use product\models\ProductSearch;
-use yii\helpers\ArrayHelper;
+use product\models\ProductCategory;
+use product\models\ProductCategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ProductController implements the CRUD actions for Product model.
+ * ProductCategoryController implements the CRUD actions for ProductCategory model.
  */
-class ProductController extends BackController
+class ProductCategoryController extends Controller
 {
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-
+                    'delete' => ['POST'],
                 ],
             ],
         ];
     }
 
     /**
-     * Lists all Product models.
+     * Lists all ProductCategory models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ProductSearch();
+        $searchModel = new ProductCategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -47,7 +45,7 @@ class ProductController extends BackController
     }
 
     /**
-     * Displays a single Product model.
+     * Displays a single ProductCategory model.
      * @param integer $id
      * @return mixed
      */
@@ -59,29 +57,25 @@ class ProductController extends BackController
     }
 
     /**
-     * Creates a new Product model.
+     * Creates a new ProductCategory model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Product();
-        $attrs = [];
-        $checkedAttr = [];
+        $model = new ProductCategory();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'attrs' => $attrs,
-                'checkedAttr' => $checkedAttr,
             ]);
         }
     }
 
     /**
-     * Updates an existing Product model.
+     * Updates an existing ProductCategory model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -89,53 +83,42 @@ class ProductController extends BackController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $attrs = ProductAttr::find()->where(['category_id' => $model->category_id])->all();
-        $checkedAttr = ArrayHelper::getColumn(ProductProductAttrValue::find()->where(['product_id' => $model->id])->all(), 'value_id');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'attrs' => $attrs,
-                'checkedAttr' => $checkedAttr,
             ]);
         }
     }
 
     /**
-     * Finds the Product model based on its primary key value.
+     * Deletes an existing ProductCategory model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Finds the ProductCategory model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Product the loaded model
+     * @return ProductCategory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Product::findOne($id)) !== null) {
+        if (($model = ProductCategory::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
-
-    /**
-     * Ищет атрибуты для выбранной категории
-     */
-    public function actionGetattrlist() {
-        $id = Yii::$app->request->post('id');
-        $attrs = ProductAttr::find()->where(['category_id' => $id])->all();
-        $checkedAttr = [];
-
-        return $this->renderPartial('_attr', [
-            'attrs' => $attrs,
-            'checkedAttr' => $checkedAttr,
-        ]);
-    }
-
-    public function actionDeleteimg() {
-        $id = Yii::$app->request->post('id');
-        $image = ProductImage::find()->where(['id' => $id])->one();
-        $image->delete();
     }
 }

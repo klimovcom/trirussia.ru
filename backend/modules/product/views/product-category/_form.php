@@ -2,14 +2,13 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
-/* @var $model product\models\Product */
+/* @var $model product\models\ProductCategory */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="product-form">
+<div class="product-category-form">
 
     <div class="box-body">
         <?php $form = ActiveForm::begin([ 'options' => ['enctype' => 'multipart/form-data'], ]); ?>
@@ -30,25 +29,9 @@ use yii\helpers\ArrayHelper;
                 ]) ?>
             </div>
             <div class="col-md-6">
-                <?= $form->field($model, 'url')->textInput(['maxlength' => true, 'id' => 'product-url']) ?>
+                <?= $form->field($model, 'label')->textInput(['maxlength' => true, 'class' => 'form-control w850 ']) ?>
             </div>
         </div>
-
-        <?= $form->field($model, 'label')->textInput(['maxlength' => true, 'class' => 'form-control w850', 'id' => 'product-label']) ?>
-
-        <?= $form->field($model, 'promo')->widget(
-            \vova07\imperavi\Widget::className(),
-            [
-                'settings' => [
-                    'lang' => 'ru',
-                    'minHeight' => 200,
-                    'plugins' => [
-                        'clips',
-                        'fullscreen'
-                    ]
-                ]
-            ]
-        )->label(); ?>
 
         <?= $form->field($model, 'content')->widget(
             \vova07\imperavi\Widget::className(),
@@ -65,23 +48,17 @@ use yii\helpers\ArrayHelper;
         )->label(); ?>
 
         <?php
-        if (count($model->productImages)) : ?>
+        $image = $model->image_id ? Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($model->image_id)) : false;
+        if ($image) : ?>
             <div class="form-group">
                 <label class="control-label">Превью</label>
-                <div class="row">
-                    <?php
-                    foreach ($model->productImages as $image) {
-                        echo Html::beginTag('div', ['id' => 'product-images-' . $image->id,'class' => 'col-xs-4']);
-                        echo Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($image->image_id), ['class' => 'img-responsive form-control-with-margin']);
-                        echo Html::a('Удалить', 'javascript:;', ['class' => 'btn btn-danger', 'onClick' => 'deleteProductImage(' . $image->id .')']);
-                        echo Html::endTag('div');
-                    }
-                    ?>
+                <div class="">
+                    <?= $image ?>
                 </div>
             </div>
         <?php endif ?>
         <div class="">
-            <?= $form->field($model, 'images[]')->widget(
+            <?= $form->field($model, 'image_id')->widget(
                 \kartik\file\FileInput::classname(),
                 [
                     'pluginOptions' => [
@@ -92,30 +69,10 @@ use yii\helpers\ArrayHelper;
                         'browseIcon' => '',
                         'browseLabel' => 'Загрузить изображение'
                     ],
-                    'options' => ['accept' => 'image/*', 'multiple'=>true],
+                    'options' => ['accept' => 'image/*'],
                 ]
             )->label(); ?>
         </div>
-
-        <?= $form->field($model, 'category_id')->dropDownList(ArrayHelper::map(\product\models\ProductCategory::find()->all(), 'id', 'label'), ['id' => 'product_category_id']);?>
-
-        <div class="row">
-            <div class="col-md-6">
-                <?= $form->field($model, 'price')->textInput() ?>
-            </div>
-            <div class="col-md-6">
-                <?= $form->field($model, 'popularity')->textInput() ?>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label">Атрибуты</label>
-
-            <div id="product-attr">
-                <?= $this->render('_attr', ['attrs' => $attrs, 'checkedAttr' => $checkedAttr]);?>
-            </div>
-        </div>
-
 
         <?= $form->field($model, 'published')->hiddenInput(['id' => 'published-field'])->label(false); ?>
 

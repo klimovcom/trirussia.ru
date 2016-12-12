@@ -5,12 +5,12 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model product\models\Product */
 
-$this->title = 'Редактирование продукта: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Продукты', 'url' => ['index']];
+$this->title = 'Редактирование атрибута продуктов: ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Атрибуты продуктов', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Редактирование';
 ?>
-<section class="content-header product-update">
+<section class="content-header product-attr-update">
     <?php
     $breadcrumbs = isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [];
     if ($breadcrumbs) {?>
@@ -25,15 +25,16 @@ $this->params['breadcrumbs'][] = 'Редактирование';
         ) ?>
     <?php } ?>
 </section>
-<section class="content product-update">
+<section class="content product-attr-update">
     <div class="row">
         <div class="col-xs-9">
             <div class="box box-primary">
                 <div class="box-body">
                     <?= $this->render('_form', [
                         'model' => $model,
-                        'attrs' => $attrs,
-                        'checkedAttr' => $checkedAttr,
+                        'values' => $values,
+                        'categoryArray' => $categoryArray,
+                        'types' => $types,
                     ]) ?>
                 </div>
             </div>

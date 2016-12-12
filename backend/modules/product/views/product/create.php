@@ -32,6 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="box-body">
                     <?= $this->render('_form', [
                         'model' => $model,
+                        'attrs' => $attrs,
+                        'checkedAttr' => $checkedAttr,
                     ]) ?>
                 </div>
             </div>
