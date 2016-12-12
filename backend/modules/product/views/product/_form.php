@@ -97,7 +97,7 @@ use yii\helpers\ArrayHelper;
             )->label(); ?>
         </div>
 
-        <?= $form->field($model, 'category_id')->dropDownList(ArrayHelper::map(\product\models\ProductCategory::find()->all(), 'id', 'label'), ['id' => 'product_category_id']);?>
+        <?= $form->field($model, 'category_id')->dropDownList(ArrayHelper::map(\product\models\ProductCategory::find()->all(), 'id', 'label'), ['id' => 'product_category_id', 'prompt' => 'Выберите категорию']);?>
 
         <div class="row">
             <div class="col-md-6">
