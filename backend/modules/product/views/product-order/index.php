@@ -2,15 +2,16 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use product\models\ProductOrder;
 
 /* @var $this yii\web\View */
 /* @var $searchModel product\models\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Атрибуты продуктов';
+$this->title = 'Заказы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<section class="content-header product-attr-index">
+<section class="content-header product-order-index">
     <?php
     $breadcrumbs = isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [];
     if ($breadcrumbs) {?>
@@ -25,8 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ) ?>
     <?php } ?>
 </section>
-<section class="content  product-attr-index">
-    <p><a href="<?= \yii\helpers\Url::to('create'); ?>" class="btn btn-primary">Добавить атрибут продуктов</a></p>
+<section class="content  product-order-index">
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-primary">
@@ -39,7 +39,16 @@ $this->params['breadcrumbs'][] = $this->title;
                         'columns' => [
                             'id',
                             'label',
-                            'position',
+                            'name',
+                            'email',
+                            'phone',
+                            'date',
+                            [
+                                'attribute' => 'status',
+                                'value' => function ($model) {
+                                    return ProductOrder::getStatusArray()[$model->status];
+                                },
+                            ],
                             ['class' => 'yii\grid\ActionColumn'],
                         ],
                     ]); ?>

@@ -27,6 +27,7 @@ class Product extends \yii\db\ActiveRecord
     public function __construct(array $config = [])
     {
         $this->created = date("Y-m-d H:i", time());
+        $this->popularity = 0;
         return parent::__construct($config);
     }
 

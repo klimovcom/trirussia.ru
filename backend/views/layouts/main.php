@@ -95,6 +95,7 @@ $this->registerCssFile('/css/site.css');
                         <li><a href="<?= Url::to('/product/product/index'); ?>"><span>Продукты</span></a></li>
                         <li><a href="<?= Url::to('/product/product-category/index'); ?>"><span>Категории</span></a></li>
                         <li><a href="<?= Url::to('/product/product-attr/index'); ?>"><span>Атрибуты</span></a></li>
+                        <li><a href="<?= Url::to('/product/product-order/index'); ?>"><span>Заказы</span></a></li>
                     </ul>
                 </li>
                 <li><a href="<?= Url::to('/promo/promo/index'); ?>"><span>Промо-блоки</span></a></li>
