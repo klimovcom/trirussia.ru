@@ -347,10 +347,15 @@ jQuery(document).ready(function($){
 });
 
 function AddProductToCart(id, attr_block_id) {
+    if (attr_block_id) {
+        formdata = $('#' + attr_block_id).serialize();
+    }else {
+        formdata = null;
+    }
     var params = {
         product_id : id,
         quantity : 1,
-        info: $('#' + attr_block_id).serialize()
+        info: formdata
     };
     $.ajax({
         type: "POST",
