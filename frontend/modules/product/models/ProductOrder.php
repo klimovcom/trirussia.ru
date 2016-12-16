@@ -46,6 +46,7 @@ class ProductOrder extends \yii\db\ActiveRecord
         return [
             [['name', 'email', 'phone', 'address', 'date', 'time', 'label'], 'required'],
             [['date', 'is_new'], 'safe'],
+            [['email'], 'email'],
             [['time', 'status', 'cost'], 'integer'],
             [['name', 'email', 'phone', 'address', 'label'], 'string', 'max' => 255],
             [['comment'], 'string'],
