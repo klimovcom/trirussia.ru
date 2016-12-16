@@ -20,7 +20,7 @@ foreach ($products as $product) {
     echo Html::tag('h5', Html::a($product->label, ['view', 'url' => $product->url], ['class' => 'no-underline']), ['class' => 'shop-title']);
 
     if ($type == 'normal') {
-        echo Html::a('Купить за ' . $product->price, 'javascript:;', ['class' => 'btn btn-primary-outline btn-block', 'onclick' => 'AddProductToCart("' . $product->id . '", false)']);
+        echo Html::a('Купить за ' . $product->price . ' ₽', 'javascript:;', ['class' => 'btn btn-primary-outline btn-block', 'onclick' => 'AddProductToCart("' . $product->id . '", false)']);
     }else {
         echo Html::tag('hr');
         echo Html::beginTag('form', ['class' => 'form-inline', 'id' => $formId . $product->id]);
