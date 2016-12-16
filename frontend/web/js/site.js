@@ -345,3 +345,75 @@ jQuery(document).ready(function($){
         $('.cd-top').appendTo('body');
     }, 1000);
 });
+
+function AddProductToCart(id, attr_block_id) {
+    var params = {
+        product_id : id,
+        quantity : 1,
+        info: $('#' + attr_block_id).serialize()
+    };
+    $.ajax({
+        type: "POST",
+        url: '/product/default/add-product-to-cart',
+        data: params,
+        dataType: "json",
+        cache: false,
+        success: function (data)
+        {
+            $('#product_cart_count').html(data['count']);
+            $('#product_cart_cost').html(data['cost']);
+        },
+        error: function (data)
+        {
+            alert('Ошибка сервера, повторите позднее');
+        }
+    });
+}
+
+function ChangeCartPositionCount(id, diff) {
+    $.ajax({
+        type: "POST",
+        url: '/product/default/change-cart-position-count',
+        data: {
+            id : id,
+            diff : diff
+        },
+        dataType: "json",
+        cache: false,
+        success: function (data)
+        {
+            $('#cart_order_item_quantity_' + id).html(data['quantity']);
+            $('#cart_order_item_cost_' + id).html(data['cost']);
+            UpdateTotalCost(data['total']);
+        },
+        error: function (data)
+        {
+            alert('Ошибка сервера, повторите позднее');
+        }
+    });
+}
+
+function RemoveFromCart(id) {
+    $.ajax({
+        type: "POST",
+        url: '/product/default/remove-cart-position',
+        data: {
+            id : id
+        },
+        dataType: "json",
+        cache: false,
+        success: function (data)
+        {
+            $('#cart_order_item_' + id).remove();
+            UpdateTotalCost(data);
+        },
+        error: function (data)
+        {
+            alert('Ошибка сервера, повторите позднее');
+        }
+    });
+}
+
+function UpdateTotalCost(cost) {
+    $('#cart_total').html(cost);
+}

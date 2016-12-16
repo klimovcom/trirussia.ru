@@ -67,6 +67,11 @@ return [
             DIRECTORY_SEPARATOR . 'modules' .
             DIRECTORY_SEPARATOR . 'configuration'
         ),
+        'product' => realpath(
+            __DIR__ . DIRECTORY_SEPARATOR . '..' .
+            DIRECTORY_SEPARATOR . 'modules' .
+            DIRECTORY_SEPARATOR . 'product'
+        ),
     ],
     'modules' => [
         'race' => [
@@ -111,6 +116,9 @@ return [
         'configuration' => [
             'class' => 'configuration\ConfigurationModule',
         ],
+        'product' => [
+            'class' => 'product\ProductModule',
+        ]
 
     ],
     'controllerNamespace' => 'frontend\controllers',
@@ -176,6 +184,7 @@ return [
 
                 '/search-races' => '/site/search-races',
 
+                'shop' => 'product/default/index',
                 '/<sport:\w+>' => '/site/sport',
 
                 '/' => '/site/index',
@@ -198,7 +207,10 @@ return [
                 ],
             ],
         ],
-
+        'cart' => [
+            'class' => 'yz\shoppingcart\ShoppingCart',
+            'cartId' => 'trirussia_cart',
+        ],
     ],
     'params' => $params,
 ];
