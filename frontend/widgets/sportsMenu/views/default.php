@@ -11,5 +11,5 @@
 		<li class="nav-item"><a href="<?= $sport->getViewUrl(); ?>" class="nav-link"><?= $sport->label; ?></a></li>
 	<?php } ?>
  	<li class="nav-item"><a href="/magazine" class="nav-link">Журнал</a></li>
-<!-- 	<li class="nav-item"><a href="/shop" class="nav-link">Магазин</a></li> -->
+ 	<li class="nav-item"><a href="/shop" class="nav-link">Магазин</a></li>
 </ul>
