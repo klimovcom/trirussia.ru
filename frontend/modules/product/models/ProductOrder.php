@@ -75,7 +75,6 @@ class ProductOrder extends \yii\db\ActiveRecord
     public function __construct(array $config = [])
     {
         $this->date = date("Y-m-d", time() + 3 * 60 * 60 * 24);
-        $this->label = ProductOrder::createUniqueLabel(4);
         return parent::__construct($config);
     }
 
@@ -84,6 +83,7 @@ class ProductOrder extends \yii\db\ActiveRecord
 
         if ($this->isNewRecord) {
             $this->is_new = true;
+            $this->label = ProductOrder::createUniqueLabel(4);
             $this->status = ProductOrder::STATUS_CREATED;
             $this->cost = Yii::$app->cart->getCost();
         }else {
