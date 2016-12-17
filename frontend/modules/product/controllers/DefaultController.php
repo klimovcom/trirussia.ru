@@ -176,12 +176,14 @@ class DefaultController extends Controller
         $post = Yii::$app->request->post();
         $checkString = sha1(ArrayHelper::getValue($post, 'notification_type') . '&' . ArrayHelper::getValue($post, 'operation_id') . '&' . ArrayHelper::getValue($post, 'amount') . '&' . ArrayHelper::getValue($post, 'currency') . '&' . ArrayHelper::getValue($post, 'datetime') . '&' . ArrayHelper::getValue($post, 'sender') . '&' . ArrayHelper::getValue($post, 'codepro') . '&' . $secret . '&' . ArrayHelper::getValue($post, 'label'));
 
+        Yii::info($post['label']);
+
         if ($checkString !== ArrayHelper::getValue($post, 'sha1_hash')) {
             throw new NotFoundHttpException();
         }
 
         $order = ProductOrder::find()->where(['label' => $post['label']])->one();
-        if ($post['withdraw_amount'] === $order->cost) {
+        if (ArrayHelper::getValue($post, 'withdraw_amount') === $order->cost) {
             $order->status = ProductOrder::STATUS_PAID;
             $order->save();
         }
