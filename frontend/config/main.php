@@ -159,6 +159,7 @@ return [
         ],
 
         'urlManager' => [
+            'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
@@ -185,6 +186,11 @@ return [
                 '/search-races' => '/site/search-races',
 
                 'shop' => 'product/default/index',
+                'shop/cart' => 'product/default/cart',
+                'shop/delivery' => 'product/default/delivery',
+                'shop/payment/<label>' => 'product/default/payment',
+                'shop/<url>' => 'product/default/view',
+
                 'yandex-money-check' => 'product/default/yandex-money-check',
                 '/<sport:\w+>' => '/site/sport',
 
