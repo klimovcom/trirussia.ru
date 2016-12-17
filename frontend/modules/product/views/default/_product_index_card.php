@@ -25,7 +25,12 @@ foreach ($products as $product) {
         echo Html::tag('hr');
         echo Html::beginTag('form', ['class' => 'form-inline', 'id' => $formId . $product->id]);
 
-        $attrValues = ArrayHelper::index($attrValuesArray[$product->id], null, 'attr_id');
+        if (is_array(ArrayHelper::getValue($attrValuesArray, '$product->id'))) {
+            $attrValues = ArrayHelper::index(ArrayHelper::getValue($attrValuesArray, '$product->id'), null, 'attr_id');
+        }else {
+            $attrValues = [];
+        }
+
 
         if (count($attrValues)) {
             echo Html::beginTag('div', ['class' => 'pull-left hidden-md-down']);
