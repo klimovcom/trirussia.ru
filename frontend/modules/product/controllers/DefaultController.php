@@ -148,6 +148,10 @@ class DefaultController extends Controller
     }
 
     public function actionDelivery() {
+        if (!Yii::$app->cart->getCount()) {
+            return $this->redirect(['cart']);
+        }
+
         $model = new ProductOrder();
         $timeArray = ProductOrder::getTimeArray();
 
