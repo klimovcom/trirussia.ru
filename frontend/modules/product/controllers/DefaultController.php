@@ -152,6 +152,8 @@ class DefaultController extends Controller
         $timeArray = ProductOrder::getTimeArray();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $model->sendOrderCreatedMessage();
             return $this->redirect(['payment', 'label' => $model->label]);
         }
 
@@ -184,6 +186,7 @@ class DefaultController extends Controller
         if (ArrayHelper::getValue($post, 'withdraw_amount') === number_format($order->cost,  2, '.', '')) {
             $order->status = ProductOrder::STATUS_PAID;
             $order->save();
+            $order->sendOrderPaidMessage();
         }
         return true;
     }

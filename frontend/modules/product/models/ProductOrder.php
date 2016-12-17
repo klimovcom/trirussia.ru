@@ -75,6 +75,7 @@ class ProductOrder extends \yii\db\ActiveRecord
     public function __construct(array $config = [])
     {
         $this->date = date("Y-m-d", time() + 3 * 60 * 60 * 24);
+        $this->label = ProductOrder::createUniqueLabel(4);
         return parent::__construct($config);
     }
 
@@ -83,7 +84,6 @@ class ProductOrder extends \yii\db\ActiveRecord
 
         if ($this->isNewRecord) {
             $this->is_new = true;
-            $this->label = ProductOrder::createUniqueLabel(4);
             $this->status = ProductOrder::STATUS_CREATED;
             $this->cost = Yii::$app->cart->getCost();
         }else {
@@ -162,5 +162,35 @@ class ProductOrder extends \yii\db\ActiveRecord
         }
 
         return $result;
+    }
+
+    public function sendOrderCreatedMessage() {
+        return Yii::$app->mailer->compose(['text' => 'order-create'], [
+            'model' => $this
+        ])
+            ->setFrom('no-reply@trirussia.ru')
+            ->setTo($this->email)
+            ->setSubject('Заказ №' . $this->label . ' на сайте trirussia.ru создан')
+            ->send();
+    }
+
+    public function sendOrderPaidMessage() {
+        //to customer
+        Yii::$app->mailer->compose(['text' => 'order-paid'], [
+            'model' => $this
+        ])
+            ->setFrom('no-reply@trirussia.ru')
+            ->setTo($this->email)
+            ->setSubject('Заказ №' . $this->label . ' на сайте trirussia.ru оплачен')
+            ->send();
+        //to admin
+        Yii::$app->mailer->compose(['text' => 'order-paid-admin'], [
+            'model' => $this
+        ])
+            ->setFrom('no-reply@trirussia.ru')
+            ->setTo($this->email)
+            ->setSubject('Заказ №' . $this->label . ' на сайте trirussia.ru оплачен')
+            ->send();
+        return true;
     }
 }
