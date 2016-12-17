@@ -185,6 +185,7 @@ return [
                 '/search-races' => '/site/search-races',
 
                 'shop' => 'product/default/index',
+                'yandex-money-check' => 'product/default/yandex-money-check',
                 '/<sport:\w+>' => '/site/sport',
 
                 '/' => '/site/index',

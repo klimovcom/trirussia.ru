@@ -165,6 +165,24 @@ class DefaultController extends Controller
         ]);
     }
 
+    public function actionYandexMoneyCheck() {
+        $secret = 'vRWZxpgaEzsLOFz3WYFLh51l';
+        $post = Yii::$app->request->post();
+        $checkString = sha1(ArrayHelper::getValue($post, 'notification_type') . '&' . ArrayHelper::getValue($post, 'operation_id') . '&' . ArrayHelper::getValue($post, 'amount') . '&' . ArrayHelper::getValue($post, 'currency') . '&' . ArrayHelper::getValue($post, 'datetime') . '&' . ArrayHelper::getValue($post, 'sender') . '&' . ArrayHelper::getValue($post, 'codepro') . '&' . $secret . '&' . ArrayHelper::getValue($post, 'label'));
+
+        if ($checkString !== ArrayHelper::getValue($post, 'sha1_hash')) {
+            throw new NotFoundHttpException();
+        }
+
+        $order = ProductOrder::find()->where(['label' => $post['label']])->one();
+        if ($post['withdraw_amount'] === $order->cost) {
+            $order->status = ProductOrder::STATUS_PAID;
+            $order->save();
+        }
+
+        return true;
+    }
+
     public function loadOrder($label) {
         $model = ProductOrder::find()->where(['label' => $label])->andWhere(['status' => ProductOrder::STATUS_CREATED])->one();
         if ($model === null) {

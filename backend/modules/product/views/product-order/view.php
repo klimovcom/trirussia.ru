@@ -10,7 +10,7 @@ $this->title = $model->label;
 $this->params['breadcrumbs'][] = ['label' => 'Заказы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-$orderItems = Html::beginTag('ul', ['class' => '']);
+$orderItems = Html::beginTag('ul', ['class' => 'list-unstyled']);
 foreach ($model->productOrderProductOrderItems as $item) {
     $orderItems .= Html::beginTag('li');
     $orderItems .= 'Продукт: ' . Html::a($item->productOrderItem->product->label, ['product/view', 'id' => $item->productOrderItem->product->id]) . ', кол-во ' . $item->quantity;
