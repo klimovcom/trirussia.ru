@@ -20,6 +20,12 @@ use yii\filters\VerbFilter;
  */
 class DefaultController extends Controller
 {
+
+    public function beforeAction($action) {
+        $this->enableCsrfValidation = ($action->id !== "yandex-money-check");
+        return parent::beforeAction($action);
+    }
+
     public function actionIndex()
     {
         $orderType = Yii::$app->request->get('sort');
