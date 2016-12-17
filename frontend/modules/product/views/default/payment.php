@@ -27,7 +27,7 @@
                                 <input type="hidden" name="sum" value="<?= $model->cost;?>">
                                 <input type="hidden" name="formcomment" value="Trirussia.ru, Заказ №<?= $model->label;?>">
                                 <input type="hidden" name="short-dest" value="Trirussia.ru, Заказ №<?= $model->label;?>">
-                                <input type="hidden" name="label " value="<?= $model->label;?>">
+                                <input type="hidden" name="label" value="<?= $model->label;?>">
                                 <input type="hidden" name="targets" value="<?= $model->getOrderPositionsString();?>">
 
                             </div>
