@@ -180,7 +180,7 @@ class DefaultController extends Controller
             throw new NotFoundHttpException();
         }
 
-        $order = ProductOrder::find()->where(['label' => ArrayHelper::getColumn($post, 'label')])->one();
+        $order = ProductOrder::find()->where(['label' => ArrayHelper::getValue($post, 'label')])->one();
         if (ArrayHelper::getValue($post, 'withdraw_amount') === $order->cost) {
             $order->status = ProductOrder::STATUS_PAID;
             $order->save();
