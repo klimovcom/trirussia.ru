@@ -181,7 +181,7 @@ class DefaultController extends Controller
         }
 
         $order = ProductOrder::find()->where(['label' => ArrayHelper::getValue($post, 'label')])->one();
-        if (ArrayHelper::getValue($post, 'withdraw_amount') === $order->cost) {
+        if (ArrayHelper::getValue($post, 'withdraw_amount') === number_format($order->cost,  2, '.', '')) {
             $order->status = ProductOrder::STATUS_PAID;
             $order->save();
         }
