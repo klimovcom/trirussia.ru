@@ -188,7 +188,7 @@ class ProductOrder extends \yii\db\ActiveRecord
             'model' => $this
         ])
             ->setFrom('no-reply@trirussia.ru')
-            ->setTo($this->email)
+            ->setTo(Yii::$app->params['supportEmail'])
             ->setSubject('Заказ №' . $this->label . ' на сайте trirussia.ru оплачен')
             ->send();
         return true;
