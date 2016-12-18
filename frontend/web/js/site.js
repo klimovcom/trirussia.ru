@@ -377,8 +377,8 @@ function AddProductToCart(id, attr_block_id) {
         cache: false,
         success: function (data)
         {
-            $('#product_cart_count').html(data['count']);
-            $('#product_cart_cost').html(data['cost']);
+            $('.product_cart_count').html(data['count']);
+            $('.product_cart_cost').html(data['cost']);
         },
         error: function (data)
         {
