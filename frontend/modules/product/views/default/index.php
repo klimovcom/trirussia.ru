@@ -8,8 +8,10 @@ use yii\helpers\Url;
 <div class="container">
 
     <?php
-    foreach (ArrayHelper::getValue($banners, \product\models\ProductBanner::TYPE_BEFORE) as $banner) {
-        echo $banner->content;
+    if (is_array(ArrayHelper::getValue($banners, \product\models\ProductBanner::TYPE_BEFORE))) {
+        foreach (ArrayHelper::getValue($banners, \product\models\ProductBanner::TYPE_BEFORE) as $banner) {
+            echo $banner->content;
+        }
     }
     ?>
 
@@ -49,8 +51,10 @@ use yii\helpers\Url;
     ?>
 
     <?php
-    foreach (ArrayHelper::getValue($banners, \product\models\ProductBanner::TYPE_AFTER) as $banner) {
-        echo $banner->content;
+    if (is_array(ArrayHelper::getValue($banners, \product\models\ProductBanner::TYPE_AFTER))) {
+        foreach (ArrayHelper::getValue($banners, \product\models\ProductBanner::TYPE_AFTER) as $banner) {
+            echo $banner->content;
+        }
     }
     ?>
 
