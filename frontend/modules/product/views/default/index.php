@@ -6,6 +6,13 @@ use yii\helpers\Url;
 ?>
 <?= $this->render('_cart');?>
 <div class="container">
+
+    <?php
+    foreach (ArrayHelper::getValue($banners, \product\models\ProductBanner::TYPE_BEFORE) as $banner) {
+        echo $banner->content;
+    }
+    ?>
+
     <div class="card card-block">
         <div class="pull-left">
             <div class="form-group m-b-0">
@@ -29,26 +36,21 @@ use yii\helpers\Url;
     </div>
 
     <?php
-    foreach ($categories as $category) {
+    echo $this->render('_product_index_card', [
+        'products' => $products,
+        'attrValuesArray' => $attrValuesArray,
+        'type' => 'normal'
+    ]);
+    echo $this->render('_product_index_card', [
+        'products' => $products,
+        'attrValuesArray' => $attrValuesArray,
+        'type' => 'large'
+    ]);
+    ?>
 
-        //блок категории
-        echo Html::beginTag('div', ['class' => 'card m-t-3 shop-hero', 'style' => 'background-image: url("' . FPM::originalSrc($category->image_id) .'")']);
-        echo Html::tag('h2', $category->label, ['class' => 'm-t-3']);
-        echo Html::tag('div', $category->content);
-        echo Html::endTag('div');
-        //блок входящих в категорию продуктов
-        if (is_array(ArrayHelper::getValue($productsArray, $category->id))) {
-            echo $this->render('_product_index_card', [
-                'products' => ArrayHelper::getValue($productsArray, $category->id),
-                'attrValuesArray' => $attrValuesArray,
-                'type' => 'normal'
-            ]);
-            echo $this->render('_product_index_card', [
-                'products' => ArrayHelper::getValue($productsArray, $category->id),
-                'attrValuesArray' => $attrValuesArray,
-                'type' => 'large'
-            ]);
-        }
+    <?php
+    foreach (ArrayHelper::getValue($banners, \product\models\ProductBanner::TYPE_AFTER) as $banner) {
+        echo $banner->content;
     }
     ?>
 

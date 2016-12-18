@@ -306,6 +306,18 @@ $(document).ready(function(){
         });
     }
 
+    $(document).on('click', '.btn-shop-add-cart', function() {
+        var product_id = $(this).attr('data-product-id');
+        var attr_block_id = $(this).attr('data-attr-block-id');
+        AddProductToCart(product_id, attr_block_id);
+        if (!attr_block_id) {
+            $(this).addClass('disabled');
+        }
+    });
+
+    skickPrepare($('.cart-container'));
+
+    scrollIntervalID = setInterval(stickIt, 10);
 });
 
 jQuery(document).ready(function($){
@@ -421,4 +433,30 @@ function RemoveFromCart(id) {
 
 function UpdateTotalCost(cost) {
     $('#cart_total').html(cost);
+}
+
+function skickPrepare($el) {
+    $el.addClass('original').clone().appendTo($('body')).addClass('cloned').css('position','fixed').css('top','0').css('margin-top','0').css('z-index','500').removeClass('original').hide();
+}
+
+function stickIt() {
+
+    var orgElementPos = $('.original').offset();
+    orgElementTop = orgElementPos.top;
+
+    if ($(window).scrollTop() >= (orgElementTop)) {
+        // scrolled past the original position; now only show the cloned, sticky element.
+
+        // Cloned element should always have same left position and width as original element.
+        orgElement = $('.original');
+        coordsOrgElement = orgElement.offset();
+        leftOrgElement = coordsOrgElement.left;
+        widthOrgElement = orgElement.css('width');
+        $('.cloned').css('left',leftOrgElement+'px').css('top',0).css('width',widthOrgElement).show();
+        $('.original').css('visibility','hidden');
+    } else {
+        // not scrolled past the menu; only show the original menu.
+        $('.cloned').hide();
+        $('.original').css('visibility','visible');
+    }
 }

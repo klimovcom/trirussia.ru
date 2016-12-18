@@ -35,7 +35,7 @@ $mainImage = array_shift($imageArray);
                     'attrArray' => $attrArray,
                     'attrValuesArray' => $attrValuesArray,
                 ]);?>
-                <button onclick="AddProductToCart('<?= $model->id; ?>', '<?= 'product_attr_block-' . $model->id;?>')" class="btn btn-danger btn-lg m-t-1 m-b-1">Купить за <?= $model->price;?> ₽</button>
+                <button class="btn btn-danger btn-lg m-t-1 m-b-1  btn-shop-add-cart" data-product-id="<?= $model->id;?>", data-attr-block-id="<?= 'product_attr_block-' . $model->id;?>">Купить за <?= $model->price;?> ₽</button>
             </div>
         </div>
     </div>

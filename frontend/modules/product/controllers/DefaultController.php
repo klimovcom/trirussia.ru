@@ -4,6 +4,7 @@ namespace product\controllers;
 
 use product\models\ProductAttr;
 use product\models\ProductAttrValue;
+use product\models\ProductBanner;
 use product\models\ProductCategory;
 use product\models\ProductOrder;
 use product\models\ProductOrderItem;
@@ -44,18 +45,18 @@ class DefaultController extends Controller
                 break;
         }
 
-        $categories = ProductCategory::find()->published()->all();
-        $products = Product::find()->where(['category_id' => ArrayHelper::getColumn($categories, 'id')])->orderBy($order)->published()->all();
-        $productsArray = ArrayHelper::index($products, null, 'category_id');
+        $products = Product::find()->orderBy($order)->published()->all();
 
         $attrValues = ProductProductAttrValue::find()->where(['product_id' => ArrayHelper::getColumn($products, 'id')])->joinWith('value')->joinWith('attr')->orderBy(['product_attr.position' => SORT_ASC, 'product_attr_value.position' => SORT_ASC])->all();
         $attrValuesArray = ArrayHelper::index($attrValues, null, 'product_id');
 
+        $banners = ArrayHelper::index(ProductBanner::find()->orderBy(['position' => SORT_ASC])->all(), null, 'type');
+
         return $this->render('index', [
-            'categories' => $categories,
-            'productsArray' => $productsArray,
+            'products' => $products,
             'attrValuesArray' => $attrValuesArray,
             'sort' => $orderType,
+            'banners' => $banners,
         ]);
     }
 

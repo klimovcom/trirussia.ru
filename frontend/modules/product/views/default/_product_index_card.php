@@ -20,13 +20,13 @@ foreach ($products as $product) {
     echo Html::tag('h5', Html::a($product->label, ['view', 'url' => $product->url], ['class' => 'no-underline']), ['class' => 'shop-title']);
 
     if ($type == 'normal') {
-        echo Html::a('Купить за ' . $product->price . ' ₽', 'javascript:;', ['class' => 'btn btn-primary-outline btn-block', 'onclick' => 'AddProductToCart("' . $product->id . '", false)']);
+        echo Html::a('Купить за ' . $product->price . ' ₽', 'javascript:;', ['class' => 'btn btn-primary-outline btn-block btn-shop-add-cart', 'data-product-id' => $product->id]);
     }else {
         echo Html::tag('hr');
         echo Html::beginTag('form', ['class' => 'form-inline', 'id' => $formId . $product->id]);
 
-        if (is_array(ArrayHelper::getValue($attrValuesArray, '$product->id'))) {
-            $attrValues = ArrayHelper::index(ArrayHelper::getValue($attrValuesArray, '$product->id'), null, 'attr_id');
+        if (is_array(ArrayHelper::getValue($attrValuesArray, $product->id))) {
+            $attrValues = ArrayHelper::index(ArrayHelper::getValue($attrValuesArray, $product->id), null, 'attr_id');
         }else {
             $attrValues = [];
         }
@@ -42,7 +42,7 @@ foreach ($products as $product) {
             echo Html::endTag('div');
         }
 
-        echo Html::tag('div', Html::a('Купить за ' . $product->price . ' ₽', 'javascript:;', ['class' => 'btn btn-primary-outline', 'onclick' => 'AddProductToCart("' . $product->id . '", "'. $formId . $product->id . '")']), ['class' => 'pull-right']);
+        echo Html::tag('div', Html::a('Купить за ' . $product->price . ' ₽', 'javascript:;', ['class' => 'btn btn-primary-outline btn-shop-add-cart', 'data-product-id' => $product->id, 'data-attr-block-id' => $formId . $product->id]), ['class' => 'pull-right']);
         echo Html::tag('div', '', ['class' => 'clearfix']);
         echo Html::endTag('form');
     }
