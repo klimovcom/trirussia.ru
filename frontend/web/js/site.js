@@ -317,7 +317,7 @@ $(document).ready(function(){
 
     skickPrepare($('.cart-container'));
 
-    scrollIntervalID = setInterval(stickIt, 10);
+
 });
 
 jQuery(document).ready(function($){
@@ -436,7 +436,11 @@ function UpdateTotalCost(cost) {
 }
 
 function skickPrepare($el) {
-    $el.addClass('original').clone().appendTo($('body')).addClass('cloned').css('position','fixed').css('top','0').css('margin-top','0').css('z-index','500').removeClass('original').hide();
+    if ($el.length) {
+        $el.addClass('original').clone().appendTo($('body')).addClass('cloned').css('position','fixed').css('top','0').css('margin-top','0').css('z-index','500').removeClass('original').hide();
+
+        scrollIntervalID = setInterval(stickIt, 10);
+    }
 }
 
 function stickIt() {
