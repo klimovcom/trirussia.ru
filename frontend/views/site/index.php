@@ -6,7 +6,7 @@ use yii\helpers\Url;
 /** @var $showMore boolean */
 /** @var $promos [] */
 
-$this->title = 'My Yii Application';
+$this->title = 'TriRussia.ru — Главный сайт о триатлоне';
 ?>
 <div class="container">
     <div class="race-block-container">

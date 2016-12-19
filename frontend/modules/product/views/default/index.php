@@ -15,7 +15,7 @@ use yii\helpers\Url;
     }
     ?>
 
-    <div class="card card-block">
+    <div class="card card-block m-t-1">
         <div class="pull-left">
             <div class="form-group m-b-0">
                 <?= Html::dropDownList('', $sort, [
