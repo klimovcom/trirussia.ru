@@ -1,6 +1,15 @@
 <?php
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
+
+$fieldOptions = [
+    'labelOptions' => [
+        'class' => 'form-control-label',
+    ],
+    'errorOptions' => [
+        'class' => 'form-control-feedback help-block'
+    ],
+]
 ?>
 <div class="container">
     <div class="row m-t-3">
@@ -8,29 +17,32 @@ use yii\helpers\Html;
             <div class="card card-block">
                 <h1 class="text-xs-center m-t-2 m-b-3">Данные для доставки</h1>
                 <hr>
-                <?php $form = ActiveForm::begin();?>
+                <?php $form = ActiveForm::begin([
+                    'errorCssClass' => 'has-danger',
+                    'successCssClass' => 'has-success',
+                ]);?>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 m-t-2 m-b-2">
                             <div class="payment-form">
-                                <?= $form->field($model, 'name')->textInput();?>
+                                <?= $form->field($model, 'name', $fieldOptions)->textInput();?>
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                                        <?= $form->field($model, 'phone')->textInput();?>
+                                        <?= $form->field($model, 'phone', $fieldOptions)->textInput();?>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                                        <?= $form->field($model, 'email')->textInput();?>
+                                        <?= $form->field($model, 'email', $fieldOptions)->textInput();?>
                                     </div>
                                 </div>
-                                <?= $form->field($model, 'address')->textInput();?>
+                                <?= $form->field($model, 'address', $fieldOptions)->textInput();?>
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                                        <?= $form->field($model, 'date')->textInput();?>
+                                        <?= $form->field($model, 'date', $fieldOptions)->textInput();?>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                                        <?= $form->field($model, 'time')->dropDownList($timeArray, ['class' => 'c-select']);?>
+                                        <?= $form->field($model, 'time', $fieldOptions)->dropDownList($timeArray, ['class' => 'c-select']);?>
                                     </div>
                                 </div>
-                                <?= $form->field($model, 'comment')->textarea(['placeholder' => 'Не обязательно', 'rows' => 6]);?>
+                                <?= $form->field($model, 'comment', $fieldOptions)->textarea(['placeholder' => 'Не обязательно', 'rows' => 6]);?>
 
                             </div>
                         </div>
