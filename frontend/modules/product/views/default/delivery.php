@@ -27,7 +27,7 @@ use yii\helpers\Html;
                                         <?= $form->field($model, 'date')->textInput();?>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                                        <?= $form->field($model, 'time')->dropDownList($timeArray);?>
+                                        <?= $form->field($model, 'time')->dropDownList($timeArray, ['class' => 'c-select']);?>
                                     </div>
                                 </div>
                                 <?= $form->field($model, 'comment')->textarea(['placeholder' => 'Не обязательно', 'rows' => 6]);?>

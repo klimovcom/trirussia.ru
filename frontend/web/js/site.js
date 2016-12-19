@@ -311,6 +311,7 @@ $(document).ready(function(){
         var attr_block_id = $(this).attr('data-attr-block-id');
         AddProductToCart(product_id, attr_block_id);
         if (!attr_block_id) {
+            $(this).html('В корзине');
             $(this).addClass('disabled');
         }
     });
