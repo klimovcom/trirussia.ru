@@ -134,7 +134,7 @@ class ProductOrder extends \yii\db\ActiveRecord
     }
 
     public static function createUniqueLabel($length) {
-        $chars = ['ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', '1234567890'];
+        $chars = ['ABCDEFGHIJKLMNOPQRSTUVWXYZ', '1234567890'];
         do {
             $resultArr = [];
             foreach ($chars as $char) {
