@@ -35,7 +35,26 @@ $mainImage = array_shift($imageArray);
                     'attrArray' => $attrArray,
                     'attrValuesArray' => $attrValuesArray,
                 ]);?>
-                <button class="btn btn-danger btn-lg m-t-1 m-b-1  btn-shop-add-cart" data-product-id="<?= $model->id;?>", data-attr-block-id="<?= 'product_attr_block-' . $model->id;?>">Купить за <?= $model->price;?> ₽</button>
+                <hr>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+						<img src="../img/delivery.png" style="height: 50px;">
+						<p class="small m-b-0">Бесплатная доставка от 3000 ₽</p>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+						<img src="../img/card.png" style="height: 50px;">
+						<p class="small m-b-0">Оплата картой на сайте</p>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+						<img src="../img/return.png" style="height: 50px;">
+						<p class="small m-b-0">Бесплатные возврат или замена</p>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+						<img src="../img/quality.png" style="height: 50px;">
+						<p class="small m-b-0">96% клиентов счастливы и довольны</p>
+					</div>
+				</div>
+                <button class="btn btn-danger btn-lg m-t-1 m-b-1  btn-shop-add-cart" data-product-id="<?= $model->id;?>", data-attr-block-id="<?= 'product_attr_block-' . $model->id;?>">Купить за <?= $model->price;?> ₽</button>                
             </div>
         </div>
     </div>

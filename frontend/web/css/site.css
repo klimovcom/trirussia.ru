@@ -149,15 +149,19 @@ a.desc:after {
 i.fa-star, i.fa-star-o{
     cursor: pointer;
 }
+
 .user-fullname{
     margin-right: 10px;
 }
+
 .auth-clients .auth-client .auth-link {
      width: 100% !important;
 }
+
 div.auth-clients{
     text-align: center;
 }
+
 .facebook-icon{
     background-image: url("/img/icon175x175.png");
     width: 23px;
@@ -168,19 +172,25 @@ div.auth-clients{
     margin-left: 3px;
     border-radius: 2.5px;
 }
+
 .auth-facebook.btn-primary{
     background-color: #3c5a98;
 }
+
 .block-more-races{
     text-align: center;
 }
+
 .block-more-races-sport{
     padding-top: 20px;
     padding-bottom: 35px;
 }
+
+/*
 .card-block .c-select{
     width: 155px;
 }
+*/
 
 /* описание контейнера */
 .leftbar-wrap {
@@ -189,5 +199,4 @@ div.auth-clients{
      top: 0;
      width: 500px !important;
      left: 0;
- }
-
+}
