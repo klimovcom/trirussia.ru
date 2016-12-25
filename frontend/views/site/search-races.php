@@ -21,16 +21,6 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
             </div>
         </div>
     </a>
-
-				<div class="pull-left">
-					<div class="form-group m-b-0">
-						<select class="c-select small">
-							<option>По дате</option>
-							<option>По популярности</option>
-						</select>
-					</div>
-				</div>
-
     <div class="card card-block">
         <div class="pull-left">
 	        <div class="form-group m-b-0">
