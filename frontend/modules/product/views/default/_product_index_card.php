@@ -35,7 +35,7 @@ foreach ($products as $product) {
             echo Html::beginTag('div', ['class' => 'pull-left hidden-md-down']);
             foreach ($attrValues as $attr_id => $values) {
                 echo Html::beginTag('div', ['class' => 'form-group']);
-                echo Html::dropDownList($formName . '[' . $attr_id .']', '', ArrayHelper::map($values, 'value.id', 'value.label'), ['class' => 'c-select m-r-1']);
+                echo Html::dropDownList($formName . '[' . $attr_id .']', '', ArrayHelper::map($values, 'value.id', 'value.label'), ['class' => 'c-select']);
                 echo Html::endTag('div');
             }
             echo Html::endTag('div');
