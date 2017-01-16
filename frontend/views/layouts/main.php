@@ -95,15 +95,11 @@ AppAsset::register($this);
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                 <h6>TriRussia.ru</h6>
                 <ul class="list-unstyled">
-                    <!--<li><a href="/magazine" class="underline-white">Журнал</a></li>-->
+                    <li><a href="<?= Url::toRoute('/site/magazine'); ?>" class="underline-white">Журнал</a></li>
+                    <li><a href="<?= Url::toRoute('/site/shop'); ?>" class="underline-white">Магазин</a></li>
                     <li><a href="<?= Url::toRoute('/site/about'); ?>" class="underline-white">О проекте</a></li>
                     <li><a href="<?= Url::toRoute('/site/advertising'); ?>" class="underline-white">Реклама</a></li>
-                    <!--                     <li><a href="#" class="underline-white">Логотипы</a></li> -->
-                    <li>
-                        <a href="<?= Url::toRoute('/site/calendar'); ?>" class="underline-white" <?= $quest;?>>
-                            Мой календарь
-                        </a>
-                    </li>
+                    <li><a href="<?= Url::toRoute('/site/calendar'); ?>" class="underline-white" <?= $quest;?>>Мой календарь</a></li>
                     <li><a href="<?= Url::toRoute('/site/domains'); ?>" class="underline-white">Домены</a></li>
                 </ul>
             </div>
@@ -116,6 +112,7 @@ AppAsset::register($this);
                     <li><a href="<?= Url::to('/' . 'run'/*, 'sport' => 'run'*/); ?>" class="underline-white">Бег</a></li>
                     <li><a href="<?= Url::to('/' . 'swim'/*, sport' => 'swim'*/); ?>" class="underline-white">Плавание</a></li>
                     <li><a href="<?= Url::to('/' . 'bike'/*, 'sport' => 'bike'*/); ?>" class="underline-white">Велоспорт</a></li>
+                    <li><a href="<?= Url::to('/' . 'ski'/*, 'sport' => 'ski'*/); ?>" class="underline-white">Лыжи</a></li>
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
