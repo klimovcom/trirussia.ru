@@ -98,7 +98,7 @@ class Race extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created', 'author_id', 'start_date', 'start_time', 'country', 'region', 'place', 'label', 'promo', 'content', 'main_image_id'], 'required'],
+            [['created', 'author_id', 'start_date', 'start_time', 'country', 'region', 'place', 'label', 'promo', 'content'], 'required'],
             [['created', 'start_date', 'finish_date', 'categoriesArray', 'distancesArray'], 'safe'],
             [['author_id', 'organizer_id', 'published', 'sport_id', 'display_type'], 'integer'],
             [['price', 'coord_lon', 'coord_lat', 'popularity'], 'number'],
@@ -114,7 +114,7 @@ class Race extends \yii\db\ActiveRecord
                 'extensions' => 'jpg, jpeg, png',
                 'maxFiles' => 1,
                 'maxSize' => 1024 * 1024 * 10, // 10 MB
-                'skipOnEmpty' => true,
+                'skipOnEmpty' => false,
                 'tooBig' => 'Объем файла больше 10 MB. Пожалуйста, загрузите файл меньшего размера.',
                 'wrongMimeType' => 'Можно загружать только JPG файлы.',
             ],
