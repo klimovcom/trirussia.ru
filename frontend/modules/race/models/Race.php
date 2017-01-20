@@ -5,6 +5,7 @@ namespace race\models;
 use common\components\GoogleGeocoding;
 use distance\models\Distance;
 use distance\models\DistanceCategory;
+use Imagine\Image\ImageInterface;
 use metalguardian\fileProcessor\behaviors\UploadBehavior;
 use metalguardian\fileProcessor\helpers\FPM;
 use omgdef\multilingual\MultilingualBehavior;
@@ -19,6 +20,7 @@ use yii\helpers\Url;
 use yii\helpers\VarDumper;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "race".
@@ -150,12 +152,6 @@ class Race extends \yii\db\ActiveRecord
         return ArrayHelper::merge(
             parent::behaviors(),
             [
-                'main_image_id' => [
-                    'class' => UploadBehavior::className(),
-                    'attribute' => 'main_image_id',
-                    'image' => true,
-                    'required' => true,
-                ],
                 'ml' => [
                     'class' => MultilingualBehavior::className(),
                     'languages' => [
@@ -301,6 +297,22 @@ class Race extends \yii\db\ActiveRecord
 
         $this->createRaceDistanceCategory($this->categoriesArray);
         $this->createRaceDistance($this->distancesArray);
+    }
+
+    public function uploadImage() {
+        $this->main_image_id = FPM::transfer()->saveUploadedFile(UploadedFile::getInstance($this, 'main_image_id'));
+
+        $imagine = new \Imagine\Imagick\Imagine();
+        $imageModel = FPM::transfer()->getData($this->main_image_id);
+
+        $imagePath = FPM::getOriginalFileName($imageModel->id, $imageModel->base_name, $imageModel->extension);
+        $image = $imagine->open($imagePath);
+        $image->interlace(ImageInterface::INTERLACE_PLANE);
+        $size = $image->getSize()->widen(800);
+        $image->thumbnail($size, ImageInterface::THUMBNAIL_OUTBOUND, ImageInterface::FILTER_SINC);
+        $image->save($imagePath, ['quality' => 90]);
+
+
     }
 
     public function getCoordinates() {
