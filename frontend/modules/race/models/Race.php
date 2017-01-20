@@ -2,6 +2,7 @@
 
 namespace race\models;
 
+use common\components\GoogleGeocoding;
 use distance\models\Distance;
 use distance\models\DistanceCategory;
 use metalguardian\fileProcessor\behaviors\UploadBehavior;
@@ -290,6 +291,7 @@ class Race extends \yii\db\ActiveRecord
 
         $this->spellCheckFields();
         $this->translateFields();
+        $this->getCoordinates();
 
         return true;
     }
@@ -299,6 +301,13 @@ class Race extends \yii\db\ActiveRecord
 
         $this->createRaceDistanceCategory($this->categoriesArray);
         $this->createRaceDistance($this->distancesArray);
+    }
+
+    public function getCoordinates() {
+        $coordinates = (new GoogleGeocoding($this->country . ' ' . $this->region . ' ' . $this->place))->locate();
+        $this->coord_lat = ArrayHelper::getValue($coordinates, 'lat');
+        $this->coord_lon = ArrayHelper::getValue($coordinates, 'lng');
+        return true;
     }
 
     public function spellCheckFields() {
