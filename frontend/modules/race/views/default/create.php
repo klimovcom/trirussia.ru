@@ -8,7 +8,6 @@ use yii\widgets\ActiveForm;
 
         <?php $form = ActiveForm::begin([
             'enableClientValidation' => true,
-            'enableAjaxValidation' => true,
             'errorCssClass' => 'has-danger',
             'successCssClass' => 'has-success',
             'fieldConfig' => [
