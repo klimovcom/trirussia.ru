@@ -321,8 +321,8 @@ class Race extends \yii\db\ActiveRecord
             $image = $imagine->open($imagePath);
             $image->interlace(ImageInterface::INTERLACE_PLANE);
             $size = $image->getSize()->widen(800);
-            $image->thumbnail($size, ImageInterface::THUMBNAIL_OUTBOUND, ImageInterface::FILTER_SINC);
-            $image->save($imagePath, ['quality' => 90]);
+            $image->resize($size, ImageInterface::FILTER_SINC);
+            $image->save($imagePath, ['quality' => 80]);
         }
 
 
