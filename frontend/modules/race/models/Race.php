@@ -98,8 +98,8 @@ class Race extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created', 'author_id', 'start_date', 'start_time', 'country', 'region', 'place', 'label', 'promo'], 'required'],
-            [['created', 'start_date', 'finish_date', 'categoriesArray', 'distancesArray', 'main_image_id'], 'safe'],
+            [['created', 'author_id', 'start_date', 'start_time', 'country', 'region', 'place', 'label', 'promo', 'content', 'main_image_id'], 'required'],
+            [['created', 'start_date', 'finish_date', 'categoriesArray', 'distancesArray'], 'safe'],
             [['author_id', 'organizer_id', 'published', 'sport_id', 'display_type'], 'integer'],
             [['price', 'coord_lon', 'coord_lat', 'popularity'], 'number'],
             [['promo', 'content'], 'string'],
@@ -110,6 +110,14 @@ class Race extends \yii\db\ActiveRecord
             [['url'], 'unique'],
             [['organizer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Organizer::className(), 'targetAttribute' => ['organizer_id' => 'id']],
             [['sport_id'], 'exist', 'skipOnError' => true, 'targetClass' => Sport::className(), 'targetAttribute' => ['sport_id' => 'id']],
+            [['main_image_id'], 'file',
+                'extensions' => 'jpg, jpeg, png',
+                'maxFiles' => 1,
+                'maxSize' => 1024 * 1024 * 10, // 10 MB
+                'skipOnEmpty' => true,
+                'tooBig' => 'Объем файла больше 10 MB. Пожалуйста, загрузите файл меньшего размера.',
+                'wrongMimeType' => 'Можно загружать только JPG файлы.',
+            ],
         ];
     }
 
@@ -288,6 +296,7 @@ class Race extends \yii\db\ActiveRecord
         $this->spellCheckFields();
         $this->translateFields();
         $this->getCoordinates();
+        $this->uploadImage();
 
         return true;
     }
