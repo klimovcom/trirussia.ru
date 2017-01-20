@@ -317,7 +317,7 @@ class Race extends \yii\db\ActiveRecord
             $imagine = new \Imagine\Imagick\Imagine();
             $imageModel = FPM::transfer()->getData($this->main_image_id);
 
-            $imagePath = FPM::getOriginalFileName($imageModel->id, $imageModel->base_name, $imageModel->extension);
+            $imagePath = FPM::getOriginalDirectory($imageModel->id) . DIRECTORY_SEPARATOR .FPM::getOriginalFileName($imageModel->id, $imageModel->base_name, $imageModel->extension);
             $image = $imagine->open($imagePath);
             $image->interlace(ImageInterface::INTERLACE_PLANE);
             $size = $image->getSize()->widen(800);
