@@ -188,7 +188,9 @@ class Race extends \yii\db\ActiveRecord
         $this->created = date("Y-m-d H:i", time());
         $this->start_date = date("Y-m-d", time() + (2 * 60 * 60 * 24));
         $this->start_time = '08:00';
-        $this->author_id = Yii::$app->user->id;
+        if (!Yii::$app->user->isGuest) {
+            $this->author_id = Yii::$app->user->identity->id;
+        }
         $this->url = time() . uniqid(true);
         return parent::__construct($config);
     }
