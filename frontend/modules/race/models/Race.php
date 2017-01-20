@@ -464,8 +464,7 @@ class Race extends \yii\db\ActiveRecord
     }
 
     public function addStatisticsView(){
-        $this->popularity++;
-        $this->save();
+        $this->updateCounters(['popularity' => 1]);
     }
 
     public function getPlaceRepresentation()
