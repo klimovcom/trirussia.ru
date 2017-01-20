@@ -70,6 +70,7 @@ class Race extends \yii\db\ActiveRecord
 
     public $categoriesArray;
     public $distanceCategoriesRefs;
+    public $main_image;
 
     static $sportClasses = [
         1 => 'tri',
@@ -114,9 +115,9 @@ class Race extends \yii\db\ActiveRecord
                 'extensions' => 'jpg, jpeg, png',
                 'maxFiles' => 1,
                 'maxSize' => 1024 * 1024 * 10, // 10 MB
-                'skipOnEmpty' => false,
+                'skipOnEmpty' => true,
                 'tooBig' => 'Объем файла больше 10 MB. Пожалуйста, загрузите файл меньшего размера.',
-                'wrongMimeType' => 'Можно загружать только JPG файлы.',
+                'wrongMimeType' => 'Можно загружать только JPG и PNG файлы.',
             ],
         ];
     }
@@ -309,17 +310,21 @@ class Race extends \yii\db\ActiveRecord
     }
 
     public function uploadImage() {
-        $this->main_image_id = FPM::transfer()->saveUploadedFile(UploadedFile::getInstance($this, 'main_image_id'));
+        $this->main_image_id = UploadedFile::getInstance($this, 'main_image_id');
+        if ($this->main_image_id instanceof UploadedFile) {
+            $this->main_image_id = FPM::transfer()->saveUploadedFile($this->main_image_id);
 
-        $imagine = new \Imagine\Imagick\Imagine();
-        $imageModel = FPM::transfer()->getData($this->main_image_id);
+            $imagine = new \Imagine\Imagick\Imagine();
+            $imageModel = FPM::transfer()->getData($this->main_image_id);
 
-        $imagePath = FPM::getOriginalFileName($imageModel->id, $imageModel->base_name, $imageModel->extension);
-        $image = $imagine->open($imagePath);
-        $image->interlace(ImageInterface::INTERLACE_PLANE);
-        $size = $image->getSize()->widen(800);
-        $image->thumbnail($size, ImageInterface::THUMBNAIL_OUTBOUND, ImageInterface::FILTER_SINC);
-        $image->save($imagePath, ['quality' => 90]);
+            $imagePath = FPM::getOriginalFileName($imageModel->id, $imageModel->base_name, $imageModel->extension);
+            $image = $imagine->open($imagePath);
+            $image->interlace(ImageInterface::INTERLACE_PLANE);
+            $size = $image->getSize()->widen(800);
+            $image->thumbnail($size, ImageInterface::THUMBNAIL_OUTBOUND, ImageInterface::FILTER_SINC);
+            $image->save($imagePath, ['quality' => 90]);
+        }
+
 
 
     }

@@ -5,29 +5,6 @@ use yii\widgets\ActiveForm;
 
 <div class="container">
     <?php if (!Yii::$app->user->isGuest):?>
-
-        <?php $form = ActiveForm::begin([
-            'enableClientValidation' => true,
-            'errorCssClass' => 'has-danger',
-            'successCssClass' => 'has-success',
-            'fieldConfig' => [
-                'options' => [
-                    'tag' => 'fieldset',
-                    'class' => 'form-group row',
-                ],
-                'inputOptions' => [
-                    'class' => 'form-control form-control-danger',
-                ],
-                'labelOptions' => [
-                    'class' => 'col-sm-4 form-control-label',
-                ],
-                'errorOptions' => [
-                    'class' => 'form-control-feedback small'
-                ],
-                'template' => "{label}\n<div class=\"col-sm-8\">{input}</div>\n<div class=\"col-sm-8 col-sm-offset-4\">{hint}\n{error}</div>",
-            ],
-
-        ]);?>
         <h1 class="m-t-3 m-b-3">Добавьте новое соревнование</h1>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
@@ -42,98 +19,120 @@ use yii\widgets\ActiveForm;
                         <li>Ссылки <strong>запрещены</strong></li>
                     </ul>
                     <hr>
-                    <form class="m-t-3">
-                        <?= $form->field($model, 'label')->textInput(['maxlength' => true]) ?>
+                    <?php $form = ActiveForm::begin([
+                        'class' => 'm-t-3',
+                        'enableClientValidation' => true,
+                        'errorCssClass' => 'has-danger',
+                        'successCssClass' => 'has-success',
+                        'fieldConfig' => [
+                            'options' => [
+                                'tag' => 'fieldset',
+                                'class' => 'form-group row',
+                            ],
+                            'inputOptions' => [
+                                'class' => 'form-control form-control-danger',
+                            ],
+                            'labelOptions' => [
+                                'class' => 'col-sm-4 form-control-label',
+                            ],
+                            'errorOptions' => [
+                                'class' => 'form-control-feedback small'
+                            ],
+                            'template' => "{label}\n<div class=\"col-sm-8\">{input}</div>\n<div class=\"col-sm-8 col-sm-offset-4\">{hint}\n{error}</div>",
+                        ],
 
-                        <?= $form->field($model, 'start_date')->textInput([
-                            'maxlength' => true,
-                            'class' => 'form-control form-control-danger datepicker',
+                    ]);?>
+                    <?= $form->field($model, 'label')->textInput(['maxlength' => true]) ?>
+
+                    <?= $form->field($model, 'start_date')->textInput([
+                        'maxlength' => true,
+                        'class' => 'form-control form-control-danger datepicker',
+                    ]) ?>
+
+                    <?= $form->field($model, 'start_time')->textInput(['maxlength' => true]) ?>
+
+                    <?= $form->field($model, 'country')->dropDownList(
+                        [
+                            'Россия' => 'Россия',
+                            'Абхазия' => 'Абхазия',
+                        ],
+                        [
+                            'class' => 'c-select select2',
                         ]) ?>
 
-                        <?= $form->field($model, 'start_time')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'region')->textInput(['maxlength' => true]) ?>
 
-                        <?= $form->field($model, 'country')->dropDownList(
-                            [
-                                'Россия' => 'Россия',
-                                'Абхазия' => 'Абхазия',
+                    <?= $form->field($model, 'place')->textInput(['maxlength' => true]) ?>
+
+                    <?= $form->field($model, 'sport_id')->dropDownList(
+                        \yii\helpers\ArrayHelper::map(\sport\models\Sport::find()->all(), 'id', 'label'),
+                        [
+                            'id' => 'race-create-sport_id',
+                            'class' => 'c-select',
+                        ]
+                    ) ?>
+
+                    <div id="race-create-distance">
+                        <?= $distanceList;?>
+                    </div>
+
+                    <div class="form-group row">
+                        <?= $form->field($model, 'price', [
+                            'options' => [
+                                'tag' => false
                             ],
+                            'template' => "{label}\n<div class=\"col-sm-3\">{input}</div>",
+                        ])->textInput() ?>
+
+                        <?= $form->field($model, 'currency', [
+                            'options' => [
+                                'tag' => false
+                            ],
+                            'template' => "<div class=\"col-sm-5\">{input}</div>",
+                        ])->radioList(
+                            ['рубли' => 'Рублей', 'доллары' => 'Долларов', 'евро' => 'Евро',],
                             [
-                                'class' => 'c-select select2',
-                            ]) ?>
-
-                        <?= $form->field($model, 'region')->textInput(['maxlength' => true]) ?>
-
-                        <?= $form->field($model, 'place')->textInput(['maxlength' => true]) ?>
-
-                        <?= $form->field($model, 'sport_id')->dropDownList(
-                            \yii\helpers\ArrayHelper::map(\sport\models\Sport::find()->all(), 'id', 'label'),
-                            [
-                                'id' => 'race-create-sport_id',
-                                'class' => 'c-select',
+                                'class' => 'btn-group',
+                                'data-toggle' => 'buttons',
+                                'itemOptions' => [
+                                    'labelOptions' => [
+                                        'class' => 'btn btn-secondary',
+                                    ]
+                                ],
                             ]
                         ) ?>
+                    </div>
 
-                        <div id="race-create-distance">
-                            <?= $distanceList;?>
-                        </div>
+                    <?= $form->field($model, 'organizer_id')->dropDownList(
+                        \yii\helpers\ArrayHelper::map(\organizer\models\Organizer::find()->all(), 'id', 'label'),
+                        [
+                            'class' => 'c-select select2',
+                        ]
+                    ) ?>
 
-                        <div class="form-group row">
-                            <?= $form->field($model, 'price', [
-                                'options' => [
-                                    'tag' => false
-                                ],
-                                'template' => "{label}\n<div class=\"col-sm-3\">{input}</div>",
-                            ])->textInput() ?>
+                    <?= $form->field($model, 'main_image_id', [
+                        'template' => "{label}\n<div class=\"col-sm-8\"><label class=\"custom-file\">{input}<span class=\"custom-file-control\"></span></label></div>",
+                    ])->fileInput([
+                        'class' => 'custom-file-input',
+                    ]);?>
 
-                            <?= $form->field($model, 'currency', [
-                                'options' => [
-                                    'tag' => false
-                                ],
-                                'template' => "<div class=\"col-sm-5\">{input}</div>",
-                            ])->radioList(
-                                ['рубли' => 'Рублей', 'доллары' => 'Долларов', 'евро' => 'Евро',],
-                                [
-                                    'class' => 'btn-group',
-                                    'data-toggle' => 'buttons',
-                                    'itemOptions' => [
-                                        'labelOptions' => [
-                                            'class' => 'btn btn-secondary',
-                                        ]
-                                    ],
-                                ]
-                            ) ?>
-                        </div>
+                    <?= $form->field($model, 'site')->textInput(['maxlength' => true]) ?>
 
-                        <?= $form->field($model, 'organizer_id')->dropDownList(
-                            \yii\helpers\ArrayHelper::map(\organizer\models\Organizer::find()->all(), 'id', 'label'),
-                            [
-                                'class' => 'c-select select2',
-                            ]
-                        ) ?>
+                    <?= $form->field($model, 'facebook_event_id')->textInput(['maxlength' => true]) ?>
 
-                        <?= $form->field($model, 'main_image_id', [
-                            'template' => "{label}\n<div class=\"col-sm-8\"><label class=\"custom-file\">{input}<span class=\"custom-file-control\"></span></label></div>",
-                        ])->fileInput([
-                            'class' => 'custom-file-input',
-                        ]);?>
+                    <?= $form->field($model, 'promo')->textarea([
+                        'rows' => 3,
+                        'maxlength' => 100,
+                    ]); ?>
 
-                        <?= $form->field($model, 'site')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'content')->textarea([
+                        'rows' => 6,
+                    ]); ?>
 
-                        <?= $form->field($model, 'facebook_event_id')->textInput(['maxlength' => true]) ?>
-
-                        <?= $form->field($model, 'promo')->textarea([
-                            'rows' => 3,
-                            'maxlength' => 100,
-                        ]); ?>
-
-                        <?= $form->field($model, 'content')->textarea([
-                            'rows' => 6,
-                        ]); ?>
-
-                        <div class="text-xs-right">
-                            <?= Html::submitButton('Добавить гонку', ['class' => 'btn btn-primary btn-lg']) ?>
-                        </div>
-                    </form>
+                    <div class="text-xs-right">
+                        <?= Html::submitButton('Добавить гонку', ['class' => 'btn btn-primary btn-lg']) ?>
+                    </div>
+                    <?php ActiveForm::end(); ?>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 sidebar">
@@ -157,7 +156,6 @@ use yii\widgets\ActiveForm;
                 </div>
             </div>
         </div>
-        <?php ActiveForm::end(); ?>
     <?php else:?>
         <h1 class="m-t-3 m-b-3">Требуется регистрация</h1>
     <?php endif;?>
