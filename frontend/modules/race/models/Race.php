@@ -96,7 +96,7 @@ class Race extends \yii\db\ActiveRecord
     {
         return [
             [['created', 'author_id', 'start_date', 'start_time', 'country', 'region', 'place', 'label', 'promo'], 'required'],
-            [['created', 'start_date', 'finish_date', 'categoriesArray', 'distancesArray'], 'safe'],
+            [['created', 'start_date', 'finish_date', 'categoriesArray', 'distancesArray', 'main_image_id'], 'safe'],
             [['author_id', 'organizer_id', 'published', 'sport_id', 'display_type'], 'integer'],
             [['price', 'coord_lon', 'coord_lat', 'popularity'], 'number'],
             [['promo', 'content'], 'string'],

@@ -38,7 +38,7 @@ class YandexSpeller {
     private function updateText($speller) {
         foreach ($speller as $key => $text) {
             foreach ($text as $error) {
-                $this->texts[$key] = str_replace($error['word'], $error['s'][0], $this->texts[$key]);
+                $this->texts[$key] = str_replace($error['word'], ArrayHelper::getValue($error['s'], 0), $this->texts[$key]);
             }
         }
     }
