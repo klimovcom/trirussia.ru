@@ -318,7 +318,33 @@ $(document).ready(function(){
 
     skickPrepare($('.cart-container'));
 
+    $(".datepicker").datepicker({
+        format: "yyyy-mm-dd",
+        language: "ru",
+        autoclose: true,
+        startDate: "d",
+        todayHighlight: true
+    });
 
+    $(document).on('change', '#race-create-sport_id', function() {
+        $.ajax({
+            type: "POST",
+            url: '/race/default/render-distance-list',
+            data: {
+                'id' : $(this).find('option:selected').val()
+            },
+            dataType: "html",
+            cache: false,
+            success: function (data)
+            {
+                $('#race-create-distance').html(data);
+            },
+            error: function (data)
+            {
+                alert('Ошибка сервера, повторите позднее');
+            }
+        });
+    })
 });
 
 jQuery(document).ready(function($){

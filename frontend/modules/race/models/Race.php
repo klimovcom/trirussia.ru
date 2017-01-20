@@ -4,7 +4,10 @@ namespace race\models;
 
 use distance\models\Distance;
 use distance\models\DistanceCategory;
+use metalguardian\fileProcessor\behaviors\UploadBehavior;
 use metalguardian\fileProcessor\helpers\FPM;
+use omgdef\multilingual\MultilingualBehavior;
+use omgdef\multilingual\MultilingualQuery;
 use organizer\models\Organizer;
 use sport\models\Sport;
 use willGo\models\WillGo;
@@ -59,7 +62,11 @@ class Race extends \yii\db\ActiveRecord
     const DISPLAY_TYPE_BLACK_HIDE_IMAGE = 1;
     const DISPLAY_TYPE_BOTH_SIDES = 2;
 
+    public $distancesArray;
+    public $distancesRefs;
 
+    public $categoriesArray;
+    public $distanceCategoriesRefs;
 
     static $sportClasses = [
         1 => 'tri',
@@ -88,9 +95,9 @@ class Race extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created', 'author_id', 'start_date', 'country', 'region', 'label', 'url', 'promo'], 'required'],
-            [['created', 'start_date', 'finish_date'], 'safe'],
-            [['author_id', 'organizer_id', 'main_image_id', 'published', 'sport_id', 'display_type'], 'integer'],
+            [['created', 'author_id', 'start_date', 'start_time', 'country', 'region', 'place', 'label', 'promo'], 'required'],
+            [['created', 'start_date', 'finish_date', 'categoriesArray', 'distancesArray'], 'safe'],
+            [['author_id', 'organizer_id', 'published', 'sport_id', 'display_type'], 'integer'],
             [['price', 'coord_lon', 'coord_lat', 'popularity'], 'number'],
             [['promo', 'content'], 'string'],
             [['start_time'], 'string', 'max' => 5],
@@ -112,29 +119,78 @@ class Race extends \yii\db\ActiveRecord
             'id' => 'ID',
             'created' => 'Created',
             'author_id' => 'Author ID',
-            'start_date' => 'Start Date',
+            'start_date' => 'Дата старта',
             'finish_date' => 'Finish Date',
-            'start_time' => 'Start Time',
-            'country' => 'Country',
-            'region' => 'Region',
-            'place' => 'Place',
-            'label' => 'Label',
+            'start_time' => 'Время старта',
+            'country' => 'Страна',
+            'region' => 'Город',
+            'place' => 'Место',
+            'label' => 'Название',
             'url' => 'Url',
-            'price' => 'Price',
+            'price' => 'Стоимость участия',
             'currency' => 'Currency',
-            'organizer_id' => 'Organizer ID',
-            'site' => 'Site',
-            'main_image_id' => 'Main Image ID',
-            'promo' => 'Promo',
-            'content' => 'Content',
+            'organizer_id' => 'Организатор',
+            'site' => 'Ссылка на официальный сайт',
+            'main_image_id' => 'Изображение',
+            'promo' => 'Краткое описание (не более 100 знаков)',
+            'content' => 'Описание',
             'instagram_tag' => 'Instagram Tag',
-            'facebook_event_id' => 'Facebook Event ID',
+            'facebook_event_id' => 'Номер из ссылки на мероприятие в Фейбсуке',
             'published' => 'Published',
-            'sport_id' => 'Sport ID',
+            'sport_id' => 'Вид спорта',
             'coord_lon' => 'Coord Lon',
             'coord_lat' => 'Coord Lat',
             'special_distance' => 'Special Distance',
         ];
+    }
+
+    public function behaviors()
+    {
+        return ArrayHelper::merge(
+            parent::behaviors(),
+            [
+                'main_image_id' => [
+                    'class' => UploadBehavior::className(),
+                    'attribute' => 'main_image_id',
+                    'image' => true,
+                    'required' => true,
+                ],
+                'ml' => [
+                    'class' => MultilingualBehavior::className(),
+                    'languages' => [
+                        'ru' => 'Russian',
+                        'en-US' => 'English',
+                    ],
+                    //'languageField' => 'language',
+                    //'localizedPrefix' => '',
+                    //'requireTranslations' => false',
+                    //'dynamicLangClass' => true',
+                    //'langClassName' => RaceLang::className(),
+                    'defaultLanguage' => 'ru',
+                    'langForeignKey' => 'race_id',
+                    'tableName' => "{{%race_lang}}",
+                    'attributes' => [
+                        'label',
+                        'content',
+                        'promo',
+                        'country',
+                        'region',
+                        'place',
+                        'currency',
+                    ]
+                ],
+            ]
+        );
+    }
+
+    public function __construct(array $config = [])
+    {
+        $this->created = date("Y-m-d H:i", time());
+        $this->start_date = date("Y-m-d", time() + (2 * 60 * 60 * 24));
+        $this->start_time = '08:00';
+        $this->author_id = Yii::$app->user->id;
+        $this->url = time() . uniqid(true);
+        return parent::__construct($config);
     }
 
     public function getDistanceCategory()
@@ -179,6 +235,142 @@ class Race extends \yii\db\ActiveRecord
     public function getRaceDistanceRefs()
     {
         return RaceDistanceRef::find()->where(['race_id' => $this->id])->all() ;
+    }
+
+    public function getDistancesData()
+    {
+        $values = [];
+        if ($this->isNewRecord) {
+            return $values;
+        }
+        $categoriesRefs = $this->raceDistanceCategoryRefs;
+        $categoriesIdArray = [];
+        foreach ($categoriesRefs as $ref) {
+            $categoriesIdArray[] = $ref->distance_category_id;
+        }
+        $distancesRefs = DistanceDistanceCategoryRef::find()
+            ->where(['in', 'distance_category_id', $categoriesIdArray])
+            ->all();
+        $distances = ArrayHelper::map(Distance::find()->all(), 'id', 'label');
+        foreach ($distancesRefs as $ref) {
+            $values[$ref->distance_id] = $distances[$ref->distance_id];
+        }
+        return $values;
+    }
+
+    public function getDistancesArrayValues()
+    {
+        $values = [];
+        if ($this->isNewRecord) {
+            return $values;
+        }
+        $refs = $this->getRaceDistanceRefs();
+        $distances = ArrayHelper::map(Distance::find()->all(), 'id', 'label');
+        foreach ($refs as $ref) {
+            $values[$ref->distance_id] = $distances[$ref->distance_id];
+        }
+        return $values;
+    }
+
+    public function getCategoriesArrayValues()
+    {
+        $categories = ArrayHelper::map(DistanceCategory::find()->all(), 'id', 'label');
+        $refs = $this->raceDistanceCategoryRefs;
+        $values = [];
+        foreach ($refs as $ref) {
+            $values[$ref->distance_category_id] = $categories[$ref->distance_category_id];
+        }
+        return $values;
+    }
+
+    public function beforeSave($insert) {
+        parent::beforeSave($insert);
+
+        $this->spellCheckFields();
+        $this->translateFields();
+
+        return true;
+    }
+
+    public function afterSave($insert, $changedAttribures){
+        parent::afterSave($insert, $changedAttribures);
+
+        $this->createRaceDistanceCategory($this->categoriesArray);
+        $this->createRaceDistance($this->distancesArray);
+    }
+
+    public function spellCheckFields() {
+        $texts = [
+            $this->promo,
+            $this->content,
+        ];
+
+        $checked = (new \common\components\YandexSpeller($texts))->check();
+        if ($checked) {
+            $this->promo = array_shift($checked);
+            $this->content = array_shift($checked);
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
+    public function translateFields() {
+        $this->currency_en = $this->currency;
+
+        $texts = [
+            $this->country,
+            $this->region,
+            $this->place,
+            $this->label,
+            $this->promo,
+            $this->content,
+        ];
+
+        $translated = (new \common\components\YandexTranslator($texts))->translate();
+        if ($translated) {
+            $this->country_en = array_shift($translated);
+            $this->region_en = array_shift($translated);
+            $this->place_en = array_shift($translated);
+            $this->label_en = array_shift($translated);
+            $this->promo_en = array_shift($translated);
+            $this->content_en = array_shift($translated);
+
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public function createRaceDistance($distances) {
+        if (!is_array($distances)) {
+            return false;
+        }
+
+        $values = [];
+
+        foreach ($distances as $distance) {
+            $values[] = [$this->id, $distance];
+        }
+
+        self::getDb()->createCommand()->batchInsert(RaceDistanceRef::tableName(), ['race_id', 'distance_id'], $values)->execute();
+        return true;
+    }
+
+    public function createRaceDistanceCategory($categories) {
+        if (!is_array($categories)) {
+            return false;
+        }
+
+        $values = [];
+
+        foreach ($categories as $category) {
+            $values[] = [$this->id, $category];
+        }
+
+        self::getDb()->createCommand()->batchInsert(RaceDistanceCategoryRef::tableName(), ['race_id', 'distance_category_id'], $values)->execute();
+        return true;
     }
 
     /**

@@ -56,6 +56,10 @@ class DistanceCategory extends \yii\db\ActiveRecord
         return $this->hasMany(DistanceDistanceCategoryRef::className(), ['distance_category_id' => 'id']);
     }
 
+    public function getDistances() {
+        return $this->hasMany(Distance::className(), ['id' => 'distance_id'])->viaTable('distance_distance_category_ref', ['distance_category_id' => 'id']);
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */

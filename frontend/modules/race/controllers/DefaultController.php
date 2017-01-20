@@ -2,7 +2,10 @@
 
 namespace race\controllers;
 
+use Yii;
+use distance\models\Distance;
 use distance\models\DistanceCategory;
+use distance\models\DistanceDistanceCategoryRef;
 use frontend\models\SearchRaceForm;
 use frontend\widgets\searchRacesPanel\SearchRacesPanel;
 use organizer\models\Organizer;
@@ -138,6 +141,52 @@ class DefaultController extends Controller
         return Json::encode([
             'result' => count($races),
             'data' => $this->render('_more-races', ['moreRaces' => $races]),
+        ]);
+    }
+
+    public function actionCreate() {
+        $model = new Race();
+        $model->published = 0;
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['advanced']);
+        } else {
+            $model->sport_id = null;
+            $model->currency = 'рубли';
+            $sport = Sport::find()->one();
+            $distanceList = $this->renderDistanceList($sport->id);
+            return $this->render('create', [
+                'model' => $model,
+                'distanceList' => $distanceList,
+            ]);
+        }
+    }
+
+    public function actionRenderDistanceList() {
+        $id = (int) Yii::$app->request->post('id');
+
+        return $this->renderDistanceList($id);
+    }
+
+    public function actionAdvanced() {
+        return $this->render('advanced', [
+        ]);
+    }
+
+    public function renderDistanceList($id) {
+        $distanceCategory = DistanceCategory::find()->where(['sport_id' => $id])->all();
+        $distanceDistanceCategoryRef = DistanceDistanceCategoryRef::find()->where(['distance_category_id' => ArrayHelper::getColumn($distanceCategory, 'id')])->all();
+        $distances = Distance::find()->where(['id' => ArrayHelper::getColumn($distanceDistanceCategoryRef, 'distance_id')])->all();
+
+        $distancesArray = ArrayHelper::map($distances, 'id', 'label');
+        $categoriesArray = ArrayHelper::getColumn($distanceCategory, 'id');
+
+        $model = new Race();
+
+        return $this->renderPartial('_distances-list', [
+            'model' => $model,
+            'distancesArray' => $distancesArray,
+            'categoriesArray' => $categoriesArray,
         ]);
     }
 }

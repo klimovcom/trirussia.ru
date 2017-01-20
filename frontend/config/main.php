@@ -180,7 +180,8 @@ return [
 
                 'magazine/<url>' => 'post/default/view',
 
-
+                'race/add' => 'race/default/create',
+                'race/advanced' => 'race/default/advanced',
                 'race/<url>' => 'race/default/view',
 
                 '/search-races' => '/site/search-races',
