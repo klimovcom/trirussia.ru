@@ -5,7 +5,9 @@ namespace race\models;
 use common\components\GoogleGeocoding;
 use distance\models\Distance;
 use distance\models\DistanceCategory;
+use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
+use Imagine\Image\Point;
 use metalguardian\fileProcessor\behaviors\UploadBehavior;
 use metalguardian\fileProcessor\helpers\FPM;
 use omgdef\multilingual\MultilingualBehavior;
@@ -314,14 +316,26 @@ class Race extends \yii\db\ActiveRecord
         if ($this->main_image_id instanceof UploadedFile) {
             $this->main_image_id = FPM::transfer()->saveUploadedFile($this->main_image_id);
 
+            $neededWidth = 800;
+            $neededHeight = 450;
             $imagine = new \Imagine\Imagick\Imagine();
             $imageModel = FPM::transfer()->getData($this->main_image_id);
 
             $imagePath = FPM::getOriginalDirectory($imageModel->id) . DIRECTORY_SEPARATOR .FPM::getOriginalFileName($imageModel->id, $imageModel->base_name, $imageModel->extension);
             $image = $imagine->open($imagePath);
             $image->interlace(ImageInterface::INTERLACE_PLANE);
-            $size = $image->getSize()->widen(800);
+
+            //resize
+            $size = $image->getSize()->widen($neededWidth);
             $image->resize($size, ImageInterface::FILTER_SINC);
+
+            //crop to needed height
+
+            if ($image->getSize()->getHeight() > $neededHeight) {
+                $cropBox = new Box($neededWidth, $neededHeight);
+                $cropPoint = new Point(0, ($image->getSize()->getHeight() - $neededHeight)/2);
+                $image->crop($cropPoint, $cropBox);
+            }
             $image->getImagick()->setImageCompressionQuality(70);
             $image->getImagick()->setImageFormat('jpg');
             $image->getImagick()->stripImage();
