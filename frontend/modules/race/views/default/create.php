@@ -45,12 +45,12 @@ use \kartik\select2\Select2;
                     ]);?>
                     <?= $form->field($model, 'label')->textInput(['maxlength' => true]) ?>
 
-                    <?= $form->field($model, 'start_date')->input('date',[
+                    <?= $form->field($model, 'start_date')->textInput([
                         'maxlength' => true,
                         'class' => 'form-control form-control-danger datepicker',
                     ]) ?>
 
-                    <?= $form->field($model, 'start_time')->input('date',['maxlength' => true]) ?>
+                    <?= $form->field($model, 'start_time')->textInput(['maxlength' => true]) ?>
 
                     <fieldset class="form-group row">
                         <label for="" class="col-sm-4 form-control-label">Страна</label>
@@ -62,6 +62,7 @@ use \kartik\select2\Select2;
                                     'Россия' => 'Россия',
                                     'Абхазия' => 'Абхазия',
                                 ],
+                                'theme' => Select2::THEME_BOOTSTRAP,
                                 'options' => ['placeholder' => 'Выберите страну'],
                                 'pluginOptions' => [
                                     'tags' => true,
