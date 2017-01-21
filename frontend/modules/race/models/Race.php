@@ -61,6 +61,16 @@ use yii\web\UploadedFile;
  * @property RaceDistanceRef[] $raceDistanceRefs
  * @property RaceLang[] $raceLangs
  */
+
+class RaceQuery extends \yii\db\ActiveQuery {
+
+    public function published() {
+        return $this->andWhere(['published' => 1]);
+    }
+
+}
+
+
 class Race extends \yii\db\ActiveRecord
 {
     const DISPLAY_TYPE_HIDE_IMAGE = 0;
@@ -189,6 +199,10 @@ class Race extends \yii\db\ActiveRecord
                 ],
             ]
         );
+    }
+
+    public static function find() {
+        return new RaceQuery(get_called_class());
     }
 
     public function __construct(array $config = [])
@@ -943,7 +957,7 @@ class Race extends \yii\db\ActiveRecord
 
     public static function searchForSportPage($sport)
     {
-        $raceCondition = Race::find();
+        $raceCondition = Race::find()->published();
 
         if ($sportModel = Sport::getCurrentSportModel()) {
             $raceCondition->andWhere(['sport_id'  => $sportModel->id ]);

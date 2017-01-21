@@ -133,16 +133,13 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-
-
-
         $promos = Promo::find()->orderBy('created DESC')->limit(6)->all();
 
         $sportModel = null;
 
-        $mainRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC, id DESC')->limit(12)->all();
-        $secondaryRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC, id DESC')->limit(12)->offset(12)->all();
-        $lastRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('start_date ASC, id DESC')->limit(13)->offset(24)->all();
+        $mainRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->published()->orderBy('start_date ASC, id DESC')->limit(12)->all();
+        $secondaryRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->published()->orderBy('start_date ASC, id DESC')->limit(12)->offset(12)->all();
+        $lastRaces = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->published()->orderBy('start_date ASC, id DESC')->limit(13)->offset(24)->all();
 
         $showMore = false;
         if (count($lastRaces) > 12){
