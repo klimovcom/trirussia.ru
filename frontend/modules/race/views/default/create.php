@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use \kartik\select2\Select2;
 ?>
 
 <div class="container">
@@ -44,21 +45,33 @@ use yii\widgets\ActiveForm;
                     ]);?>
                     <?= $form->field($model, 'label')->textInput(['maxlength' => true]) ?>
 
-                    <?= $form->field($model, 'start_date')->textInput([
+                    <?= $form->field($model, 'start_date')->input('date',[
                         'maxlength' => true,
                         'class' => 'form-control form-control-danger datepicker',
                     ]) ?>
 
-                    <?= $form->field($model, 'start_time')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'start_time')->input('date',['maxlength' => true]) ?>
 
-                    <?= $form->field($model, 'country')->dropDownList(
-                        [
-                            'Россия' => 'Россия',
-                            'Абхазия' => 'Абхазия',
-                        ],
-                        [
-                            'class' => 'c-select select2',
-                        ]) ?>
+                    <fieldset class="form-group row">
+                        <label for="" class="col-sm-4 form-control-label">Страна</label>
+                        <div class="col-sm-8">
+                            <?= Select2::widget([
+                                'name' => $model->formName() . '[country]',
+                                'value' => 'Россия', // initial value
+                                'data' => [
+                                    'Россия' => 'Россия',
+                                    'Абхазия' => 'Абхазия',
+                                ],
+                                'options' => ['placeholder' => 'Выберите страну'],
+                                'pluginOptions' => [
+                                    'tags' => true,
+                                    'tokenSeparators' => [',', ' '],
+                                    'maximumInputLength' => 50
+                                ],
+                            ]);
+                            ?>
+                        </div>
+                    </fieldset>
 
                     <?= $form->field($model, 'region')->textInput(['maxlength' => true]) ?>
 
