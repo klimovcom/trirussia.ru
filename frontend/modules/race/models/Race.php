@@ -83,6 +83,7 @@ class Race extends \yii\db\ActiveRecord
     public $categoriesArray;
     public $distanceCategoriesRefs;
     public $main_image;
+    public $is_new;
 
     static $sportClasses = [
         1 => 'tri',
@@ -112,7 +113,7 @@ class Race extends \yii\db\ActiveRecord
     {
         return [
             [['created', 'author_id', 'start_date', 'start_time', 'country', 'region', 'place', 'label', 'promo', 'content'], 'required'],
-            [['created', 'start_date', 'finish_date', 'categoriesArray', 'distancesArray'], 'safe'],
+            [['created', 'start_date', 'finish_date', 'categoriesArray', 'distancesArray', 'is_new'], 'safe'],
             [['author_id', 'organizer_id', 'published', 'sport_id', 'display_type'], 'integer'],
             [['price', 'coord_lon', 'coord_lat', 'popularity'], 'number'],
             [['promo', 'content'], 'string'],
@@ -315,6 +316,8 @@ class Race extends \yii\db\ActiveRecord
         $this->getCoordinates();
         $this->uploadImage();
 
+        $this->is_new = $this->isNewRecord ? true : false;
+
         return true;
     }
 
@@ -323,6 +326,21 @@ class Race extends \yii\db\ActiveRecord
 
         $this->createRaceDistanceCategory($this->categoriesArray);
         $this->createRaceDistance($this->distancesArray);
+
+        if ($this->is_new) {
+            $this->sendMessage();
+        }
+
+    }
+
+    public function sendMessage() {
+        Yii::$app->mailer->compose(['text' => 'race-create'], [
+            'model' => $this
+        ])
+            ->setFrom('no-reply@trirussia.ru')
+            ->setTo(Yii::$app->params['supportEmail'])
+            ->setSubject('Пользователь создал гонку ' . $this->label)
+            ->send();
     }
 
     public function uploadImage() {
