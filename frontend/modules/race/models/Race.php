@@ -322,11 +322,12 @@ class Race extends \yii\db\ActiveRecord
             $image->interlace(ImageInterface::INTERLACE_PLANE);
             $size = $image->getSize()->widen(800);
             $image->resize($size, ImageInterface::FILTER_SINC);
-            $image->save($imagePath, ['quality' => 80]);
+            $image->getImagick()->setImageCompressionQuality(70);
+            $image->getImagick()->setImageFormat('jpg');
+            $image->getImagick()->stripImage();
+
+            $image->save($imagePath);
         }
-
-
-
     }
 
     public function getCoordinates() {
