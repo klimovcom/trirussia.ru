@@ -27,7 +27,7 @@ $mainImage = array_shift($imageArray);
             <div class="card card-block">
                 <h4><?= $model->label;?></h4>
                 <div>
-                    <?= $model->content;?>
+                    <?= $model->promo;?>
                 </div>
                 <hr>
                 <?= $this->render('_attrs', [
@@ -35,6 +35,12 @@ $mainImage = array_shift($imageArray);
                     'attrArray' => $attrArray,
                     'attrValuesArray' => $attrValuesArray,
                 ]);?>
+                <?php if($model->content):?>
+                    <div>
+                        <?= $model->content;?>
+                    </div>
+                    <hr>
+                <?php endif;?>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
 						<img src="../img/delivery.png" style="height: 50px;">
