@@ -5,6 +5,7 @@ namespace race\models;
 use common\components\GoogleGeocoding;
 use distance\models\Distance;
 use distance\models\DistanceCategory;
+use distance\models\DistanceDistanceCategoryRef;
 use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\Point;
@@ -324,7 +325,7 @@ class Race extends \yii\db\ActiveRecord
     public function afterSave($insert, $changedAttribures){
         parent::afterSave($insert, $changedAttribures);
 
-        $this->createRaceDistanceCategory($this->categoriesArray);
+        $this->createRaceDistanceCategory($this->categoriesArray, $this->distancesArray);
         $this->createRaceDistance($this->distancesArray);
 
         if ($this->is_new) {
@@ -442,15 +443,21 @@ class Race extends \yii\db\ActiveRecord
         return true;
     }
 
-    public function createRaceDistanceCategory($categories) {
-        if (!is_array($categories)) {
+    public function createRaceDistanceCategory($categories, $distances) {
+        if (!is_array($categories) || !is_array($distances)) {
             return false;
         }
+
+        $distanceCategoryRef = DistanceDistanceCategoryRef::find()->where(['distance_id' => $distances])->all();
+        $distanceCategories = ArrayHelper::getColumn($distanceCategoryRef, 'distance_category_id');
 
         $values = [];
 
         foreach ($categories as $category) {
-            $values[] = [$this->id, $category];
+            if (in_array($category, $distanceCategories)) {
+                $values[] = [$this->id, $category];
+            }
+
         }
 
         self::getDb()->createCommand()->batchInsert(RaceDistanceCategoryRef::tableName(), ['race_id', 'distance_category_id'], $values)->execute();
