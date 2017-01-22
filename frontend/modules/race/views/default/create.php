@@ -171,6 +171,8 @@ use \kartik\select2\Select2;
             </div>
         </div>
     <?php else:?>
-        <h1 class="m-t-3 m-b-3">Требуется регистрация</h1>
+        <h1 class="m-t-3 m-b-3">Добавьте соревнование бесплатно</h1>
+        <p>Это займёт у вас не более 3 минут и после проверки появится на сайте. Для того, чтобы добавить соревнование, вам необходимо зарегистрироваться.</p>
+        <button class="btn btn-primary m-t-1" id="login-button" data-toggle="modal" data-target="#openUser">Зарегистрироваться</button>
     <?php endif;?>
 </div>
