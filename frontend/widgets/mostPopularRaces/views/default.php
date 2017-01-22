@@ -6,7 +6,9 @@ use metalguardian\fileProcessor\helpers\FPM;
  */
 ?>
 
-<h4 class="PTSerif"><i>Самые ожидаемые соревнования</i></h4>
+<div class="pull-left"><h4 class="PTSerif"><i>Самые ожидаемые соревнования</i></h4></div>
+<div class="pull-right"><a href="/race/add" class="btn btn-secondary btn-sm">Добавить соревнование</a></div>
+<div class="clearfix"></div>
 <div class="row">
     <?php /** @var $race \race\models\Race */?>
    <?php foreach ($races as $race) {?>
