@@ -40,7 +40,7 @@ AppAsset::register($this);
 <a href="#0" class="cd-top">Top</a>
 <nav class="nav nav-inline c-nav">
 	<div class="container">
-		<div class="pull-left">
+		<div class="pull-left hidden-xs-down">
 			<?= \frontend\widgets\sportsMenu\SportsMenu::widget() ?>
 		</div>
         <div class="pull-right">
