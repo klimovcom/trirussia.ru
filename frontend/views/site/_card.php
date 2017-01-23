@@ -19,7 +19,7 @@ use \metalguardian\fileProcessor\helpers\FPM;
                         <a href="<?= $race->getViewUrl(); ?>">
                             <img class="card-img-top img-fluid"
                                  src="<?= FPM::originalSrc($race->main_image_id); ?>"
-                                 alt="Card image cap">
+                                 alt="<?= $race->label; ?>">
                         </a>
                         <div class="card-img-caption bg-<?= $race->getSportClass(); ?>">
                             <small>
