@@ -34,8 +34,8 @@ use \yii\helpers\Url;
                     <article>
                         <?= $post->content; ?>
                     </article>
-                    <?php foreach (explode(', ', $post->tags) as $tag) { ?>
-                        <a href="<?= Url::to(['/magazine/search', 'tag' => $tag, ]);?>"class="btn btn-secondary btn-sm">
+                    <?php foreach (explode(',', $post->tags) as $tag) { ?>
+                        <a href="<?= Url::to(['/magazine/search', 'tag' => $tag]);?>" class="btn btn-secondary btn-sm">
                             <?= $tag;?>
                         </a>
                     <?php } ?>
