@@ -18,6 +18,11 @@ class MostPopularPost extends \yii\base\Widget{
             ->limit(1)
             ->one();
 
-        return $this->render('default', ['post' => $this->model, ]);
+        if ($this->model) {
+            return $this->render('default', ['post' => $this->model]);
+        }else {
+            return false;
+        }
+
     }
 }
