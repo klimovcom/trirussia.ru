@@ -982,7 +982,7 @@ class Race extends \yii\db\ActiveRecord
 
     public static function searchForSportPage($sport)
     {
-        $raceCondition = Race::find()->published();
+        $raceCondition = Race::find();
 
         if ($sportModel = Sport::getCurrentSportModel()) {
             $raceCondition->andWhere(['sport_id'  => $sportModel->id ]);
@@ -1019,6 +1019,8 @@ class Race extends \yii\db\ActiveRecord
             $raceCondition->leftJoin('{{%organizer}}', 'organizer_id = organizer.id');
             $raceCondition->andWhere(['organizer.label' => $_GET['organizer']]);
         }
+
+        $raceCondition->published();
 
         if (!empty($_GET['sort']) && $_GET['sort'] == 'popular'){
             $races = $raceCondition->orderBy('popularity DESC, start_date ASC, race.id DESC')->limit(13)->all();

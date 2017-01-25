@@ -22,6 +22,7 @@ class MoreRaces extends \yii\base\Widget{
         $this->models = Race::find()
             ->where(['>', 'start_date', date('Y-m-d', time()+4*60*60)])
             ->andWhere(['sport_id' => $this->model->sport_id])
+            ->published()
             ->orderBy('start_date')
             ->limit(6)
             ->all();

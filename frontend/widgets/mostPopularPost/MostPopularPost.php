@@ -13,6 +13,7 @@ class MostPopularPost extends \yii\base\Widget{
 
     public function run(){
         $this->model = Post::find()
+            ->published()
             ->orderBy('popularity DESC')
             ->limit(1)
             ->one();

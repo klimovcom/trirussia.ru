@@ -19,6 +19,7 @@ class MostPopularSportRaces extends \yii\base\Widget{
             $this->models = Race::find()
                 ->where(['>', 'start_date', date('Y-m-d', time()+6*60*60)])
                 ->andWhere(['sport_id' => $sportModel->id, ])
+                ->published()
                 ->orderBy('popularity DESC')
                 ->limit(3)
                 ->all();

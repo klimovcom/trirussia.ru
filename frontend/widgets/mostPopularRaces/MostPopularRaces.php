@@ -14,6 +14,7 @@ class MostPopularRaces extends \yii\base\Widget{
     public function run(){
         $this->models = Race::find()
             ->where(['>', 'start_date', date('Y-m-d', time()+6*60*60)])
+            ->published()
             ->orderBy('popularity DESC')
             ->limit(4)
             ->all();

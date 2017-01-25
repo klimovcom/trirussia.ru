@@ -14,6 +14,7 @@ class PastRaces extends \yii\base\Widget{
     public function run(){
         $this->models = Race::find()
             ->where(['<', 'start_date', date('Y-m-d', time()-4*60*60)])
+            ->published()
             ->orderBy('start_date DESC')
             ->limit(4)
             ->all();

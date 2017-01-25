@@ -18,9 +18,9 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        $featured = Post::find()->where(['featured'=>1])->orderBy('created DESC, id DESC')->one();
+        $featured = Post::find()->where(['featured'=>1])->published()->orderBy('created DESC, id DESC')->one();
 
-        $posts = Post::find()->orderBy('created DESC')->limit(9)->offset(5)->all();
+        $posts = Post::find()->orderBy('created DESC')->published()->limit(9)->offset(5)->all();
         
         return $this->render('index', ['featured' => $featured, 'posts' => $posts, ]);
     }
@@ -33,7 +33,7 @@ class DefaultController extends Controller
      */
     public function actionView($url)
     {
-        $model = Post::find()->where(['url' => $url])->one();
+        $model = Post::find()->where(['url' => $url])->published()->one();
 
         if (!$model){
             throw new NotFoundHttpException();

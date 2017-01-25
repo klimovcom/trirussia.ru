@@ -24,6 +24,15 @@ use yii\helpers\Url;
  *
  * @property User $author
  */
+
+class PostQuery extends \yii\db\ActiveQuery {
+
+    public function published() {
+        return $this->andWhere(['published' => 1]);
+    }
+
+}
+
 class Post extends \yii\db\ActiveRecord
 {
     const TYPE_NEW = 0;
@@ -91,6 +100,10 @@ class Post extends \yii\db\ActiveRecord
             'image_id' => 'Image ID',
             'published' => 'Published',
         ];
+    }
+
+    public static function find() {
+        return new PostQuery(get_called_class());
     }
 
     /**

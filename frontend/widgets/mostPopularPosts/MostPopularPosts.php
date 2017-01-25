@@ -14,6 +14,7 @@ class MostPopularPosts extends \yii\base\Widget{
     public function run(){
         if (!$this->models)
             $this->models = Post::find()
+                ->published()
                 ->orderBy('popularity DESC')
                 ->limit(6)
                 ->offset(1)
