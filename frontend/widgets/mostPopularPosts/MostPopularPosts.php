@@ -20,6 +20,11 @@ class MostPopularPosts extends \yii\base\Widget{
                 ->offset(1)
                 ->all();
 
-        return $this->render('default', ['posts' => $this->models, ]);
+        if (count($this->models)) {
+            return $this->render('default', ['posts' => $this->models, ]);
+        }else{
+            return false;
+        }
+
     }
 }
