@@ -76,7 +76,7 @@ class Post extends \yii\db\ActiveRecord
         return [
             [['created', 'author_id', 'label', 'url', 'promo', 'content', 'image_id'], 'required'],
             [['created'], 'safe'],
-            [['author_id', 'image_id', 'published'], 'integer'],
+            [['author_id', 'image_id', 'published', 'popularity'], 'integer'],
             [['promo', 'content'], 'string'],
             [['label', 'url'], 'string', 'max' => 255],
             [['url'], 'unique'],
@@ -115,7 +115,6 @@ class Post extends \yii\db\ActiveRecord
     }
 
     public function addStatisticsView(){
-        $this->popularity++;
-        $this->save();
+        $this->updateCounters(['popularity' => 1]);
     }
 }
