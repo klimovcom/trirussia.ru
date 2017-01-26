@@ -35,6 +35,17 @@ $mainImage = array_shift($imageArray);
                     'attrArray' => $attrArray,
                     'attrValuesArray' => $attrValuesArray,
                 ]);?>
+
+                <p class="small shop-item-desc-label-last">Количество</p>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="form-group">
+                            <input type="number" name="product_count" id="<?= 'product_quantity_' . $model->id;?>" value="1" min="1" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
                 <?php if($model->content):?>
                     <div>
                         <?= $model->content;?>
@@ -60,7 +71,7 @@ $mainImage = array_shift($imageArray);
 					</div>
 				</div>
 				<hr>
-                <button class="btn btn-danger btn-lg m-t-1 m-b-1  btn-shop-add-cart" data-product-id="<?= $model->id;?>", data-attr-block-id="<?= 'product_attr_block-' . $model->id;?>">Купить за <?= $model->price;?> ₽</button>                
+                <button class="btn btn-danger btn-lg m-t-1 m-b-1  btn-shop-add-cart" data-product-id="<?= $model->id;?>", data-attr-block-id="<?= 'product_attr_block-' . $model->id;?>" data-attr-quantity-id="<?= 'product_quantity_' . $model->id;?>">Купить за <?= $model->price;?> ₽</button>
             </div>
         </div>
     </div>

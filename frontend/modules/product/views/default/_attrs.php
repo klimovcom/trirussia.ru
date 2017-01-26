@@ -32,5 +32,4 @@ if (count($attrValuesArray)) {
         }
     }
     echo Html::endTag('form');
-    echo Html::tag('hr');
 }

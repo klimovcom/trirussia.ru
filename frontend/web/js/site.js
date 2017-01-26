@@ -309,7 +309,8 @@ $(document).ready(function(){
     $(document).on('click', '.btn-shop-add-cart', function() {
         var product_id = $(this).attr('data-product-id');
         var attr_block_id = $(this).attr('data-attr-block-id');
-        AddProductToCart(product_id, attr_block_id);
+        var quantity_id = $(this).attr('data-attr-quantity-id');
+        AddProductToCart(product_id, attr_block_id, quantity_id);
         if (!attr_block_id) {
             $(this).html('В корзине');
             $(this).addClass('disabled');
@@ -385,15 +386,26 @@ jQuery(document).ready(function($){
     }, 1000);
 });
 
-function AddProductToCart(id, attr_block_id) {
+function AddProductToCart(id, attr_block_id, quantity_id) {
+
+    var formdata;
+    var quantity;
+
     if (attr_block_id) {
         formdata = $('#' + attr_block_id).serialize();
     }else {
         formdata = null;
     }
+
+    if (quantity_id) {
+        quantity = $('#' + quantity_id).val();
+    }else {
+        quantity = 1;
+    }
+
     var params = {
         product_id : id,
-        quantity : 1,
+        quantity : quantity,
         info: formdata
     };
     $.ajax({
