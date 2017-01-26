@@ -10,9 +10,9 @@ use \willGo\models\WillGo;
 $this->registerCssFile('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
 $this->registerJsFile("https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places");
 if (Yii::$app->user->isGuest) {
-    $ratingInputClass = 'rating-input rating-input-active';
-}else {
     $ratingInputClass = 'rating-input';
+}else {
+    $ratingInputClass = 'rating-input rating-input-active';
 }
 ?>
 
