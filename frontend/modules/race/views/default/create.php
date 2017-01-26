@@ -52,27 +52,9 @@ use \kartik\select2\Select2;
 
                     <?= $form->field($model, 'start_time')->textInput(['maxlength' => true]) ?>
 
-                    <fieldset class="form-group row">
-                        <label for="" class="col-sm-4 form-control-label">Страна</label>
-                        <div class="col-sm-8">
-                            <?= Select2::widget([
-                                'name' => $model->formName() . '[country]',
-                                'value' => 'Россия', // initial value
-                                'data' => [
-                                    'Россия' => 'Россия',
-                                    'Абхазия' => 'Абхазия',
-                                ],
-                                'theme' => Select2::THEME_BOOTSTRAP,
-                                'options' => ['placeholder' => 'Выберите страну'],
-                                'pluginOptions' => [
-                                    'tags' => true,
-                                    'tokenSeparators' => [',', ' '],
-                                    'maximumInputLength' => 50
-                                ],
-                            ]);
-                            ?>
-                        </div>
-                    </fieldset>
+                    <?= $form->field($model, 'country')->dropDownList($countryList, [
+                        'class' => 'c-select',
+                    ]);?>
 
                     <?= $form->field($model, 'region')->textInput(['maxlength' => true]) ?>
 

@@ -2,6 +2,7 @@
 
 namespace race\controllers;
 
+use common\components\CountryList;
 use race\models\RaceRating;
 use Yii;
 use distance\models\Distance;
@@ -154,6 +155,8 @@ class DefaultController extends Controller
     public function actionCreate() {
         $model = new Race();
         $model->published = 0;
+        $model->country = 'Россия';
+        $countryList = (new CountryList())->getCountryDropDown();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['advanced']);
@@ -165,6 +168,7 @@ class DefaultController extends Controller
             return $this->render('create', [
                 'model' => $model,
                 'distanceList' => $distanceList,
+                'countryList' => $countryList,
             ]);
         }
     }
