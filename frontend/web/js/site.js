@@ -357,7 +357,7 @@ $(document).ready(function(){
     $(document).on('click', '.rating-input--star', function(e) {
         var $container = $(this).parents('.rating-input');
 
-        if ($container.hasClass('.rating-input-active')) {
+        if ($container.hasClass('rating-input-active')) {
             var race = $container.attr('data-race');
             var $stars = $(this).parent().find('.rating-input--star');
             var index = $stars.index($(this)) + 1;
