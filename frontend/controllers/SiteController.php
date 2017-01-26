@@ -92,6 +92,7 @@ class SiteController extends Controller
             'auth' => [
                 'class' => 'yii\authclient\AuthAction',
                 'successCallback' => [$this, 'oAuthSuccess'],
+                'successUrl' => Yii::$app->request->referrer,
             ],
         ];
     }
