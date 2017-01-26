@@ -177,6 +177,7 @@ class DefaultController extends Controller
         $distanceCategory = DistanceCategory::find()->where(['sport_id' => $id])->all();
         $distanceDistanceCategoryRef = DistanceDistanceCategoryRef::find()->where(['distance_category_id' => ArrayHelper::getColumn($distanceCategory, 'id')])->all();
         $distances = Distance::find()->where(['id' => ArrayHelper::getColumn($distanceDistanceCategoryRef, 'distance_id')])->all();
+        ArrayHelper::multisort($distances, 'label', SORT_ASC, SORT_NATURAL);
 
         $distancesArray = ArrayHelper::map($distances, 'id', 'label');
         $categoriesArray = ArrayHelper::getColumn($distanceCategory, 'id');
