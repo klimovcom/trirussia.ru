@@ -15,18 +15,51 @@ class YandexTranslator {
     }
 
     public function translate() {
-        $url = $this->url .
-            '?key=' . $this->key .
-            '&lang=' . $this->lang;
+        $translator = [];
         foreach ($this->texts as $text) {
-            $url .= '&text=' . urlencode($text);
-        }
-        $translator = json_decode(file_get_contents($url), true);
+            $str = $text;
+            $result = '';
+            do {
+                if (strlen($str) > 9500) {
+                    $i = 9500;
+                    while ($str[$i] != ' ') {
+                        $i--;
+                    }
+                    $request = substr($str, 0, $i);
+                    $str = substr($str, $i + 1);
+                }else {
+                    $request = $str;
+                    $str = '';
+                }
 
-        if (ArrayHelper::getValue($translator, 'code') != '200') {
-            return false;
+                $request = $this->sendRequest($request);
+                if ($request === false) {
+                    return false;
+                }
+
+                $translated = json_decode($request, true);
+
+                if (ArrayHelper::getValue($translated, 'code') != '200') {
+                    return false;
+                }
+                $result .= ArrayHelper::getValue($translated, 'text.0');
+
+            }while (strlen($str));
+            $translator[] = $result;
         }
 
-        return ArrayHelper::getValue($translator, 'text');
+
+        return $translator;
+    }
+
+    public function sendRequest($text) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $this->url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(['key' => $this->key, 'lang' => $this->lang, 'text' => $text]));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch,CURLOPT_SSL_VERIFYPEER, false);
+        $result = curl_exec ($ch);
+        return $result;
     }
 }

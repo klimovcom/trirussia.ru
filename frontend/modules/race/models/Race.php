@@ -313,7 +313,7 @@ class Race extends \yii\db\ActiveRecord
     public function beforeSave($insert) {
         parent::beforeSave($insert);
 
-        $this->spellCheckFields();
+        //$this->spellCheckFields();
         $this->translateFields();
         $this->getCoordinates();
         $this->uploadImage();
