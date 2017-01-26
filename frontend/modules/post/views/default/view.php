@@ -32,7 +32,7 @@ use \yii\helpers\Url;
                     <p class="card-text PTSerif lead"><i><?= $post->promo; ?></i></p>
                     <hr>
                     <article>
-                        <?= $post->content; ?>
+                        <?= $content; ?>
                     </article>
                     <?php foreach (explode(',', $post->tags) as $tag) { ?>
                         <a href="<?= Url::to(['/magazine/search', 'tag' => $tag]);?>" class="btn btn-secondary btn-sm">

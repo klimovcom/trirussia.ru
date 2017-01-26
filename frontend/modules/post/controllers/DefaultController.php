@@ -41,7 +41,7 @@ class DefaultController extends Controller
         }
 
         $tags = explode(',', $model->tags);
-        $simularPosts = Post::find()->where(['or like', 'tags', $tags])->andWhere(['!=', 'id', $model->id])->all();
+        $simularPosts = Post::find()->where(['or like', 'tags', $tags])->andWhere(['!=', 'id', $model->id])->published()->all();
         $simularPostsArray = [];
         foreach ($simularPosts as $post) {
             $postTags = explode(',', $post->tags);
@@ -50,6 +50,19 @@ class DefaultController extends Controller
         }
         ArrayHelper::multisort($simularPostsArray, ['intersectCount', 'popularity'], [SORT_DESC, SORT_DESC]);
 
+        $mostPopularPosts = Post::find()->where(['!=', 'id', $model->id])->published()->orderBy(['popularity' => SORT_DESC])->limit(3)->all();
+
+        $mostPopularPostsText = $this->renderPartial('_most_popular', [
+            'posts' => $mostPopularPosts,
+        ]);
+
+        preg_match_all("/<\/p>/", utf8_decode($model->content), $matches, PREG_OFFSET_CAPTURE);
+        $pos = ArrayHelper::getValue($matches, '0.2.1');
+        if ($pos) {
+            $content = mb_substr($model->content, 0, $pos+4) . $mostPopularPostsText . mb_substr($model->content, $pos+4);
+        }else {
+            $content = $model->content . $mostPopularPostsText;
+        }
         /** @var $model Post */
         $model->addStatisticsView();
 
@@ -58,6 +71,8 @@ class DefaultController extends Controller
         return $this->render('view', [
             'post' => $model,
             'simularPostsArray' => $simularPostsArray,
+            'mostPopularPosts' => $mostPopularPosts,
+            'content' => $content,
         ]);
     }
     public function actionSearch()
