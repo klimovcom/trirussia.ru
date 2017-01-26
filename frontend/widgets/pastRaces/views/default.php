@@ -15,7 +15,9 @@
                 <a href="<?= $race->getViewUrl(); ?>" class="no-underline">
                     <?= $race->label; ?>
                 </a>
-                <!--<i class="fa fa-star gold" aria-hidden="true"></i> <span class="small"><sup>4,5</sup></span>-->
+                <?php if ($race->rating):?>
+                    <i class="fa fa-star gold" aria-hidden="true"></i> <span class="small"><sup><?= round($race->rating, 2);?></sup></span>
+                <?php endif;?>
             </h5>
             <p><?= $race->promo ?></p>
 			<span class="text-muted small"><?= $race->getDateRepresentation(); ?></span>
