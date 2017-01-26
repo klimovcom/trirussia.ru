@@ -4,6 +4,7 @@ use yii\authclient\widgets\AuthChoice;
 use yii\authclient\widgets\AuthChoiceItem;
 use yii\base\InvalidConfigException;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
  * Class Auth
@@ -25,6 +26,9 @@ class Auth extends AuthChoice {
             '<i class="fa fa-facebook-square fa-lg"></i>&nbsp;&nbsp;Войти через Facebook',
             ['class' => 'btn btn-secondary btn-lg ' . $client->getName()]
         );
+
+        //юрл для редиректа
+        \Yii::$app->getUser()->setReturnUrl(Url::to());
 
         $viewOptions = $client->getViewOptions();
         if (empty($viewOptions['widget'])) {
