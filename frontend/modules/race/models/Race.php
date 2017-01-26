@@ -1031,4 +1031,16 @@ class Race extends \yii\db\ActiveRecord
 
         return $races;
     }
+
+    public function getRating() {
+        $raceRating = RaceRating::find()->where(['race_id' => $this->id])->all();
+
+        $rating = 0;
+        if (count($raceRating)) {
+            $rateArr = ArrayHelper::getColumn($raceRating, 'rate');
+            $rating = array_sum($rateArr) / count($raceRating);
+        }
+
+        return $rating;
+    }
 }
