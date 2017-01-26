@@ -346,6 +346,51 @@ $(document).ready(function(){
             }
         });
     })
+
+    $(document).on('mouseenter', '.rating-input--star', function(e) {
+        var $container = $(this).parents('.rating-input');
+        var $stars = $(this).parent().find('.rating-input--star');
+        var index = $stars.index($(this)) + 1;
+        $container.attr('data-rate', index);
+    });
+
+    $(document).on('click', '.rating-input--star', function(e) {
+        var $container = $(this).parents('.rating-input');
+
+        if ($container.hasClass('.rating-input-active')) {
+            var race = $container.attr('data-race');
+            var $stars = $(this).parent().find('.rating-input--star');
+            var index = $stars.index($(this)) + 1;
+            $container.find('.rating-input--value').val(index);
+
+            $.ajax({
+                type: "POST",
+                url: '/race/default/set-rating',
+                data: {
+                    rate : index,
+                    race : race
+                },
+                dataType: "json",
+                cache: false,
+                success: function (data)
+                {
+                },
+                error: function (data)
+                {
+                    alert('Ошибка сервера, повторите позднее');
+                }
+            });
+        }else {
+            $('#openUser').modal();
+        }
+
+    });
+
+    $(document).on('mouseleave', '.rating-input', function(e) {
+        var index = $(this).find('.rating-input--value').val();
+        $(this).attr('data-rate', index);
+    });
+
 });
 
 jQuery(document).ready(function($){

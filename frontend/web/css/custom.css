@@ -1016,3 +1016,55 @@ h2.price-tag {
 	background-color: #373a3c;
 	padding: 1.25rem 0;
 }
+
+/* Рейтнговые звезды */
+.rating-input {
+	display: inline;
+}
+.rating-input--filled,
+.rating-input--not-filled {
+	display: inline;
+}
+.rating-input .rating-input--filled .rating-input--star {
+	display: none;
+}
+.rating-input .rating-input--not-filled .rating-input--star {
+	display: inline;
+}
+.rating-input[data-rate="1"] .rating-input--filled .rating-input--star:nth-child(1),
+.rating-input[data-rate="2"] .rating-input--filled .rating-input--star:nth-child(1),
+.rating-input[data-rate="3"] .rating-input--filled .rating-input--star:nth-child(1),
+.rating-input[data-rate="4"] .rating-input--filled .rating-input--star:nth-child(1),
+.rating-input[data-rate="5"] .rating-input--filled .rating-input--star:nth-child(1),
+.rating-input[data-rate="2"] .rating-input--filled .rating-input--star:nth-child(2),
+.rating-input[data-rate="3"] .rating-input--filled .rating-input--star:nth-child(2),
+.rating-input[data-rate="4"] .rating-input--filled .rating-input--star:nth-child(2),
+.rating-input[data-rate="5"] .rating-input--filled .rating-input--star:nth-child(2),
+.rating-input[data-rate="3"] .rating-input--filled .rating-input--star:nth-child(3),
+.rating-input[data-rate="4"] .rating-input--filled .rating-input--star:nth-child(3),
+.rating-input[data-rate="5"] .rating-input--filled .rating-input--star:nth-child(3),
+.rating-input[data-rate="4"] .rating-input--filled .rating-input--star:nth-child(4),
+.rating-input[data-rate="5"] .rating-input--filled .rating-input--star:nth-child(4),
+.rating-input[data-rate="5"] .rating-input--filled .rating-input--star:nth-child(5)
+{
+	display: inline;
+}
+.rating-input[data-rate="1"] .rating-input--not-filled .rating-input--star:nth-child(1),
+.rating-input[data-rate="2"] .rating-input--not-filled .rating-input--star:nth-child(1),
+.rating-input[data-rate="3"] .rating-input--not-filled .rating-input--star:nth-child(1),
+.rating-input[data-rate="4"] .rating-input--not-filled .rating-input--star:nth-child(1),
+.rating-input[data-rate="5"] .rating-input--not-filled .rating-input--star:nth-child(1),
+.rating-input[data-rate="2"] .rating-input--not-filled .rating-input--star:nth-child(2),
+.rating-input[data-rate="3"] .rating-input--not-filled .rating-input--star:nth-child(2),
+.rating-input[data-rate="4"] .rating-input--not-filled .rating-input--star:nth-child(2),
+.rating-input[data-rate="5"] .rating-input--not-filled .rating-input--star:nth-child(2),
+.rating-input[data-rate="3"] .rating-input--not-filled .rating-input--star:nth-child(3),
+.rating-input[data-rate="4"] .rating-input--not-filled .rating-input--star:nth-child(3),
+.rating-input[data-rate="5"] .rating-input--not-filled .rating-input--star:nth-child(3),
+.rating-input[data-rate="4"] .rating-input--not-filled .rating-input--star:nth-child(4),
+.rating-input[data-rate="5"] .rating-input--not-filled .rating-input--star:nth-child(4),
+.rating-input[data-rate="5"] .rating-input--not-filled .rating-input--star:nth-child(5)
+{
+	display: none;
+}
+/* конец рейтинговые звезды */

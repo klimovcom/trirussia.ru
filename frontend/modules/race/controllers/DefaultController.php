@@ -2,6 +2,7 @@
 
 namespace race\controllers;
 
+use race\models\RaceRating;
 use Yii;
 use distance\models\Distance;
 use distance\models\DistanceCategory;
@@ -31,7 +32,13 @@ class DefaultController extends Controller
         }
         Seo::registerModel($race);
         $race->addStatisticsView();
-        return $this->render('view', ['race' => $race, ]);
+
+        $viewName = 'view';
+        if ($race->start_date < date('Y-m-d', time())) {
+            $viewName = 'past';
+        }
+
+        return $this->render($viewName, ['race' => $race, ]);
     }
     
     public function actionUpdateSearchDistance(){
@@ -171,6 +178,26 @@ class DefaultController extends Controller
     public function actionAdvanced() {
         return $this->render('advanced', [
         ]);
+    }
+
+    public function actionSetRating() {
+        $race_id = (int) Yii::$app->request->post('race');
+        $rate = (int) Yii::$app->request->post('rate');
+
+        $race = Race::find()->where(['id' => $race_id])->one();
+        if ($rate < 1 || $rate > 5 || Yii::$app->user->isGuest || !$race) {
+            return true;
+        }
+
+        $raceRaiting = RaceRating::find()->where(['user_id' => Yii::$app->user->identity->id, 'race_id' => $race->id])->one();
+        if (!$raceRaiting) {
+            $raceRaiting = new RaceRating();
+            $raceRaiting->user_id = Yii::$app->user->identity->id;
+            $raceRaiting->race_id = $race->id;
+        }
+        $raceRaiting->rate = $rate;
+        $raceRaiting->save();
+        return true;
     }
 
     public function renderDistanceList($id) {
