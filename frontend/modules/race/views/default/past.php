@@ -29,23 +29,26 @@ if (Yii::$app->user->isGuest) {
             <div class="card card-block">
                 <h4>Поставьте оценку и <a href="#comment" class="underline">оставьте комментарий</a></h4>
                 <p>Если вы были участником этого соревнования, помогите организаторам сделать его лучше &mdash; поставьте оценку. Ваш голос очень поможет.</p>
-                <div class="<?= $ratingInputClass;?>" data-rate="<?= round($race->rating);?>" data-race="<?= $race->id;?>">
-                    <input type="hidden" name="" value="<?= round($race->rating);?>" class="rating-input--value">
-                    <div class="rating-input--part rating-input--filled">
-                        <i class="fa fa-star fa-2x gold rating-input--star" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-2x gold rating-input--star" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-2x gold rating-input--star" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-2x gold rating-input--star" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-2x gold rating-input--star" aria-hidden="true"></i>
+                <h4>
+                    <div class="<?= $ratingInputClass;?>" data-rate="<?= round($race->rating);?>" data-race="<?= $race->id;?>">
+                        <input type="hidden" name="" value="<?= round($race->rating);?>" class="rating-input--value">
+                        <div class="rating-input--part rating-input--filled">
+                            <i class="fa fa-star fa-2x gold rating-input--star" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-2x gold rating-input--star" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-2x gold rating-input--star" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-2x gold rating-input--star" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-2x gold rating-input--star" aria-hidden="true"></i>
+                        </div>
+                        <div class="rating-input--part rating-input--not-filled">
+                            <i class="fa fa-star-o fa-2x gold rating-input--star" aria-hidden="true"></i>
+                            <i class="fa fa-star-o fa-2x gold rating-input--star" aria-hidden="true"></i>
+                            <i class="fa fa-star-o fa-2x gold rating-input--star" aria-hidden="true"></i>
+                            <i class="fa fa-star-o fa-2x gold rating-input--star" aria-hidden="true"></i>
+                            <i class="fa fa-star-o fa-2x gold rating-input--star" aria-hidden="true"></i>
+                        </div>
                     </div>
-                    <div class="rating-input--part rating-input--not-filled">
-                        <i class="fa fa-star-o fa-2x gold rating-input--star" aria-hidden="true"></i>
-                        <i class="fa fa-star-o fa-2x gold rating-input--star" aria-hidden="true"></i>
-                        <i class="fa fa-star-o fa-2x gold rating-input--star" aria-hidden="true"></i>
-                        <i class="fa fa-star-o fa-2x gold rating-input--star" aria-hidden="true"></i>
-                        <i class="fa fa-star-o fa-2x gold rating-input--star" aria-hidden="true"></i>
-                    </div>
-                </div>
+                    <?= $race->rating;?>
+                </h4>
             </div>
 
             <div class="card">
