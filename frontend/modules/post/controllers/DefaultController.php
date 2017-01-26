@@ -4,6 +4,7 @@ namespace post\controllers;
 
 use post\models\Post;
 use seo\models\Seo;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -39,12 +40,25 @@ class DefaultController extends Controller
             throw new NotFoundHttpException();
         }
 
+        $tags = explode(',', $model->tags);
+        $simularPosts = Post::find()->where(['or like', 'tags', $tags])->andWhere(['!=', 'id', $model->id])->all();
+        $simularPostsArray = [];
+        foreach ($simularPosts as $post) {
+            $postTags = explode(',', $post->tags);
+            $intersectCount = count(array_intersect($tags, $postTags));
+            $simularPostsArray[] = ['post' => $post, 'intersectCount' => $intersectCount, 'popularity' => $post->popularity];
+        }
+        ArrayHelper::multisort($simularPostsArray, ['intersectCount', 'popularity'], [SORT_DESC, SORT_DESC]);
+
         /** @var $model Post */
         $model->addStatisticsView();
 
         Seo::registerModel($model);
 
-        return $this->render('view', ['post' => $model, ]);
+        return $this->render('view', [
+            'post' => $model,
+            'simularPostsArray' => $simularPostsArray,
+        ]);
     }
     public function actionSearch()
     {
