@@ -316,7 +316,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
             </div>
             <div class="col-md-6">
                 <?= $form->field($model, 'organizer_id')->dropDownList(
-                    \yii\helpers\ArrayHelper::map(\organizer\models\Organizer::find()->all(), 'id', 'label'),
+                    \yii\helpers\ArrayHelper::map(\organizer\models\Organizer::find()->orderBy(['label' => SORT_ASC])->all(), 'id', 'label'),
                     ['prompt' => '-- Выберите организатора --',]
                     ) ?>
             </div>
