@@ -2,11 +2,15 @@
 use yii\helpers\Url;
 use race\models\Race;
 use \metalguardian\fileProcessor\helpers\FPM;
-
+use yii\helpers\Html;
 
 /**
  * @var $race \race\models\Race
  */
+
+$organizerLabel = $race->organizer->image_id ?
+    Html::img(FPM::originalSrc($race->organizer->image_id), ['alt' => $race->organizer->label, 'title' => $race->organizer->label, 'class' => 'card-organizer-logo']) :
+    Html::tag('span', Html::tag('i', $race->organizer->label), ['class' => 'PTSerif']);
 
 ?>
 <div class="grid-sizer col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
@@ -48,23 +52,16 @@ use \metalguardian\fileProcessor\helpers\FPM;
             <div style="height: 3rem;"></div>
             <div class="next-page">
                 <div class="pull-left">
-                    <span class="PTSerif"><i><?= $race->organizer->label; ?></i></span>
+                    <?= $organizerLabel;?>
                 </div>
-            </div>
-            <?php if ($race->display_type == Race::DISPLAY_TYPE_BOTH_SIDES) { ?>
-                <div class="next-page">
-                    <div class="pull-left">
-                        <?php if ($race->organizer->image_id) { ?>
-                            <img src="<?= FPM::originalSrc($race->organizer->image_id)?>" class="card-organizer-logo">
-                        <?php } else { ?>
-                            <span class="PTSerif"><i><?= $race->organizer->label; ?></i></span>
-                        <?php }  ?>
-                    </div>
-                    <div class="pull-right">
+                <?php if ($race->display_type == Race::DISPLAY_TYPE_BOTH_SIDES) : ?>
+                <div class="pull-right">
                         <span class="next-page-button text-muted"><span class="small">Перевернуть&nbsp;&nbsp;</span><i
                                 class="fa fa-retweet fa-lg" aria-hidden="true"></i></span>
-                    </div>
                 </div>
+                <?php endif ?>
+            </div>
+            <?php if ($race->display_type == Race::DISPLAY_TYPE_BOTH_SIDES) { ?>
                 <div class="card-back">
                     <div class="card-top bg-<?= $race->getSportClass(); ?>">
                         <h6 class="sport-caption white text-xs-center m-b-0"><?= $race->sport->label; ?></h6>
@@ -99,11 +96,7 @@ use \metalguardian\fileProcessor\helpers\FPM;
                     <div style="height: 3rem;"></div>
                     <div class="next-page">
                         <div class="pull-left">
-                            <?php if ($race->organizer->image_id) { ?>
-                                <img src="<?= FPM::originalSrc($race->organizer->image_id)?>" class="card-organizer-logo">
-                            <?php } else { ?>
-                                <span class="PTSerif"><i>Организатор</i></span>
-                            <?php }  ?>
+                            <?= $organizerLabel;?>
                         </div>
                         <div class="pull-right">
                             <span class="next-page-button text-muted"><span class="small">Обратно&nbsp;&nbsp;</span><i
