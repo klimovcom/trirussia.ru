@@ -374,7 +374,7 @@ $(document).ready(function(){
                 cache: false,
                 success: function (data)
                 {
-                    $container.find('.raiting-input--text').html(data);
+                    $container.find('.rating-input--text').html(data);
                 },
                 error: function (data)
                 {
