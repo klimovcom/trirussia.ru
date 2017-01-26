@@ -33,21 +33,22 @@ if (Yii::$app->user->isGuest) {
                     <div class="<?= $ratingInputClass;?>" data-rate="<?= round($race->rating);?>" data-race="<?= $race->id;?>">
                         <input type="hidden" name="" value="<?= round($race->rating);?>" class="rating-input--value">
                         <div class="rating-input--part rating-input--filled">
-                            <i class="fa fa-star fa-2x gold rating-input--star" aria-hidden="true"></i>
-                            <i class="fa fa-star fa-2x gold rating-input--star" aria-hidden="true"></i>
-                            <i class="fa fa-star fa-2x gold rating-input--star" aria-hidden="true"></i>
-                            <i class="fa fa-star fa-2x gold rating-input--star" aria-hidden="true"></i>
-                            <i class="fa fa-star fa-2x gold rating-input--star" aria-hidden="true"></i>
+                            <i class="fa fa-star gold rating-input--star" aria-hidden="true"></i>
+                            <i class="fa fa-star gold rating-input--star" aria-hidden="true"></i>
+                            <i class="fa fa-star gold rating-input--star" aria-hidden="true"></i>
+                            <i class="fa fa-star gold rating-input--star" aria-hidden="true"></i>
+                            <i class="fa fa-star gold rating-input--star" aria-hidden="true"></i>
                         </div>
                         <div class="rating-input--part rating-input--not-filled">
-                            <i class="fa fa-star-o fa-2x gold rating-input--star" aria-hidden="true"></i>
-                            <i class="fa fa-star-o fa-2x gold rating-input--star" aria-hidden="true"></i>
-                            <i class="fa fa-star-o fa-2x gold rating-input--star" aria-hidden="true"></i>
-                            <i class="fa fa-star-o fa-2x gold rating-input--star" aria-hidden="true"></i>
-                            <i class="fa fa-star-o fa-2x gold rating-input--star" aria-hidden="true"></i>
+                            <i class="fa fa-star-o gold rating-input--star" aria-hidden="true"></i>
+                            <i class="fa fa-star-o gold rating-input--star" aria-hidden="true"></i>
+                            <i class="fa fa-star-o gold rating-input--star" aria-hidden="true"></i>
+                            <i class="fa fa-star-o gold rating-input--star" aria-hidden="true"></i>
+                            <i class="fa fa-star-o gold rating-input--star" aria-hidden="true"></i>
                         </div>
+                        <span class="rating-input--text"><?= round($race->rating, 2);?></span>
                     </div>
-                    <?= $race->rating;?>
+
                 </h4>
             </div>
 

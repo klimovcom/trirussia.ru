@@ -197,7 +197,7 @@ class DefaultController extends Controller
         }
         $raceRaiting->rate = $rate;
         $raceRaiting->save();
-        return true;
+        return round($race->rating, 2);
     }
 
     public function renderDistanceList($id) {
