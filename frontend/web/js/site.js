@@ -370,7 +370,7 @@ $(document).ready(function(){
                     rate : index,
                     race : race
                 },
-                dataType: "json",
+                dataType: "html",
                 cache: false,
                 success: function (data)
                 {
