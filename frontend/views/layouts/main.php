@@ -103,9 +103,7 @@ if (Yii::$app->controller->action->id !== 'error' || Yii::$app->controller->acti
     </div>
 </div>
 
-
 <?= $content; ?>
-
 
 <?= \frontend\widgets\allRaces\AllRaces::widget(['leftView' => true, ]);?>
 
