@@ -42,12 +42,28 @@ if (Yii::$app->controller->action->id !== 'error' || Yii::$app->controller->acti
 <body>
 <?php $this->beginBody() ?>
 <a href="#0" class="cd-top">Top</a>
+<div class="collapse" id="navbarMenu">
+	<div class="bg-inverse p-t-1">
+		<div class="container">
+			<h3 class="text-white">Это TriRussia.ru</h3>
+			<ul class="list-unstyled">
+				<li><a href="/triathlon" class="nav-link">Триатлон</a></li>
+				<li><a href="/run" class="nav-link">Бег</a></li>
+				<li><a href="/swim" class="nav-link">Плавание</a></li>
+				<li><a href="/bike" class="nav-link">Велоспорт</a></li>
+				<li><a href="/ski" class="nav-link">Лыжи</a></li>
+				<li><a href="/magazine" class="nav-link">Журнал</a></li>
+				<li><a href="/shop" class="nav-link">Магазин</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
 <nav class="nav nav-inline c-nav">
 	<div class="container">
-		<div class="pull-left hidden-xs-down">
+		<div class="pull-left">
 			<?= \frontend\widgets\sportsMenu\SportsMenu::widget() ?>
 		</div>
-        <div class="pull-right">
+        <div class="pull-right hidden-sm-down">
             <ul class="list-inline m-t-1">
                 <?php if (Yii::$app->user->isGuest) { ?>
                 <li class="list-inline-item">
