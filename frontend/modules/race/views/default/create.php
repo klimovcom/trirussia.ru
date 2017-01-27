@@ -153,8 +153,11 @@ use \kartik\select2\Select2;
             </div>
         </div>
     <?php else:?>
-        <h1 class="m-t-3 m-b-3">Добавьте соревнование бесплатно</h1>
-        <p>Это займёт у вас не более 3 минут и после проверки появится на сайте. Для того, чтобы добавить соревнование, вам необходимо зарегистрироваться.</p>
-        <button class="btn btn-primary m-t-1" id="login-button" data-toggle="modal" data-target="#openUser">Зарегистрироваться</button>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+		        <h1 class="m-t-3 m-b-3">Добавьте соревнование бесплатно</h1>
+		        <p>Это займёт у вас не более 3 минут и после проверки появится на сайте. Для того, чтобы добавить соревнование, вам необходимо зарегистрироваться.</p>
+		        <button class="btn btn-primary btn-lg m-t-1" id="login-button" data-toggle="modal" data-target="#openUser">Зарегистрироваться</button>
+			</div>
     <?php endif;?>
 </div>

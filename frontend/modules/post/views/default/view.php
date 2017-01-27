@@ -109,7 +109,7 @@ use \yii\helpers\Url;
             <div class="col-xs-12">
                 <div class="card">
                     <div class="card-block border-gold">
-                        <h4 class="PTSerif">Вам также может понравиться</h4>
+                        <h4 class="PTSerif"><i>Вам также может понравиться</i></h4>
                         <div class="row">
                             <ul class="flex-container">
                                 <?php for ($i=0; $i<3; $i++) {
