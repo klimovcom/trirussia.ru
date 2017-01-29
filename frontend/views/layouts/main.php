@@ -102,6 +102,24 @@ if (Yii::$app->controller->action->id !== 'error' || Yii::$app->controller->acti
         </div>
     </div>
 </div>
+<div class="container">
+	<a href="http://www.trirussia.ru/race/Skigrom-bitza-30k-2017">
+		<div class="race-vote-gradient">
+			<div class="row">
+				<div class="col-xl-8">
+					<h3>Были на SkiGrom 30K в Битце?</h3>
+					<h3 class="PTSerif m-a-0"><i>Понравилось? — Скажите!</i></h3>
+				</div>
+				<div class="col-xl-4 text-xs-right">
+					<h2 class="m-a-0">
+						<i class="fa fa-star gold" aria-hidden="true"></i>
+						5.00
+					</h2>
+				</div>
+			</div>
+		</div>
+	</a>
+</div>
 
 <?= $content; ?>
 
