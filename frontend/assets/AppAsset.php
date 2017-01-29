@@ -22,7 +22,7 @@ class AppAsset extends AssetBundle
         '/css/font.css',
         '/css/likely.css',
         '/css/jquery.fancybox.css',
-        '/css/custom.css',
+        '/css/custom.css?v=1',
         '/css/site.css',
         '/css/style.css',
     ];
