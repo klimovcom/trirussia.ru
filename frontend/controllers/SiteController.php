@@ -124,7 +124,7 @@ class SiteController extends Controller
                 $user->timezone = $attributes['timezone'];
                 $user->age = $attributes['age_range'];
                 $user->birthday = $attributes['birthday'];
-                $user->place = $attributes['location'];
+                $user->place = $attributes['location']['name'];
                 $user->save(false);
             }
             Yii::$app->user->login($user);
