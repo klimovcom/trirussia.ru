@@ -313,11 +313,6 @@ class SiteController extends Controller
 
     
     //static pages
-    //TODO: move to post module
-    public function actionMagazine()
-    {
-        return $this->render('magazine');
-    }
 
     public function actionAdvertising()
     {
