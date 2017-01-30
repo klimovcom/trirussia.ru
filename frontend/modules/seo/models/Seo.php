@@ -56,6 +56,8 @@ class Seo extends \yii\db\ActiveRecord
         '{postAuthor}' => [
             'author' => 'fullName'
         ],
+        '{productTitle}' => 'label',
+        '{productPromo}' => 'promo',
     ];
 
     /**
@@ -169,6 +171,12 @@ class Seo extends \yii\db\ActiveRecord
         if (self::isRoute("default", "index", "post") && $config = Configuration::get("seo_magazine_page_$key"))
             return self::applyReplaces($config);
         if (self::isRoute("default", "view", "post") && $config = Configuration::get("seo_magazine_post_page_$key"))
+            return self::applyReplaces($config);
+
+        //магазин
+        if (self::isRoute("default", "index", "product") && $config = Configuration::get("seo_shop_page_$key"))
+            return self::applyReplaces($config);
+        if (self::isRoute("default", "view", "product") && $config = Configuration::get("seo_shop_product_page_$key"))
             return self::applyReplaces($config);
 
         return Configuration::get("seo_standard_$key");

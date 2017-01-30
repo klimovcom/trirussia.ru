@@ -9,6 +9,7 @@ use product\models\ProductCategory;
 use product\models\ProductOrder;
 use product\models\ProductOrderItem;
 use product\models\ProductProductAttrValue;
+use seo\models\Seo;
 use Yii;
 use product\models\Product;
 use yii\helpers\ArrayHelper;
@@ -68,6 +69,8 @@ class DefaultController extends Controller
         $attrValues = ProductProductAttrValue::find()->where(['product_id' => $model->id])->joinWith('value')->joinWith('attr')->orderBy(['product_attr.position' => SORT_ASC, 'product_attr_value.position' => SORT_ASC])->all();
         $attrArray = ArrayHelper::index(ProductAttr::find()->where(['id' => ArrayHelper::getColumn($attrValues, 'attr_id')])->all(), 'id');
         $attrValuesArray = ArrayHelper::index($attrValues, null, 'attr_id');
+
+        Seo::registerModel($model);
 
         return $this->render('view', [
             'model' => $model,
