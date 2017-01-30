@@ -119,6 +119,12 @@ class SiteController extends Controller
                 $user->fb_id = $attributes['id'];
                 $user->first_name = explode(' ', $attributes['name'])[0];
                 $user->last_name = explode(' ', $attributes['name'])[1];
+                $user->sex = $attributes['gender'];
+                $user->locale = $attributes['locale'];
+                $user->timezone = $attributes['timezone'];
+                $user->age = $attributes['age_range'];
+                $user->birthday = $attributes['birthday'];
+                $user->place = $attributes['location'];
                 $user->save(false);
             }
             Yii::$app->user->login($user);
