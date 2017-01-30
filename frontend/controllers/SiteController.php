@@ -108,7 +108,6 @@ class SiteController extends Controller
         }
 
         $attributes = $client->getUserAttributes();
-        Yii::info(json_encode($attributes));
         //$client->setReturnUrl(\Yii::$app->request->url);
 
         if (!empty($attributes['email'])){
