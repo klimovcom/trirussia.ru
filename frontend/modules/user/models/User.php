@@ -48,6 +48,7 @@ class User extends \common\models\User
             [['status', 'created_at', 'updated_at'], 'integer'],
             [['birthday'], 'safe'],
             [['username', 'password_hash', 'password_reset_token', 'email', 'fb_id', 'first_name', 'last_name', 'sex', 'locale', 'timezone', 'age', 'place'], 'string', 'max' => 255],
+            [['photo_url'], 'string', 'max' => 1024],
             [['auth_key'], 'string', 'max' => 32],
             [['username'], 'unique'],
             [['email'], 'unique'],
