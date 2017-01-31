@@ -32,9 +32,7 @@ use yii\widgets\ActiveForm;
         <?php if ($model->photo_url):?>
             <div class="form-group">
                 <label class="control-label">Фото</label>
-                <div class="row">
-                    <?= Html::img($model->photo_url, ['class' => 'img-responsive form-control-with-margin']);?>
-                </div>
+                <?= Html::img($model->photo_url, ['class' => 'img-responsive form-control-with-margin']);?>
             </div>
         <?php endif;?>
 
