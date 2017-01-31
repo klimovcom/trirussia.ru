@@ -81,6 +81,10 @@ class DefaultController extends Controller
 
         $posts = Post::find()->where("tags LIKE('%$tag%')")->all();
 
+        $model = new Post();
+        $model->tags = $tag;
+        Seo::registerModel($model);
+
 
         return $this->render('search', ['posts' => $posts, ]);
     }

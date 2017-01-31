@@ -58,6 +58,8 @@ class Seo extends \yii\db\ActiveRecord
         ],
         '{productTitle}' => 'label',
         '{productPromo}' => 'promo',
+
+        '{tag}' => 'tags',
     ];
 
     /**
@@ -171,6 +173,8 @@ class Seo extends \yii\db\ActiveRecord
         if (self::isRoute("default", "index", "post") && $config = Configuration::get("seo_magazine_page_$key"))
             return self::applyReplaces($config);
         if (self::isRoute("default", "view", "post") && $config = Configuration::get("seo_magazine_post_page_$key"))
+            return self::applyReplaces($config);
+        if (self::isRoute("default", "search", "post") && $config = Configuration::get("seo_magazine_search_tag_page_$key"))
             return self::applyReplaces($config);
 
         //магазин
