@@ -127,11 +127,11 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                 <?= $race->content; ?>
                 <div class="register">
                     <h5 class="PTSerif m-b-2"><i>Регистрация на <?= $race->label;?></i></h5>
-                    <button type="button" class="btn btn-secondary" id="register" <?= $quest; ?>>Зарегистрироваться</button>
+                    <button type="button" class="btn btn-secondary" id="register" <?= $quest; ?> onclick="yaCounter26019216.reachGoal('register'); return true;">Зарегистрироваться</button>
                     <div id="register-question">
                         <p>Вам было бы удобно в будущем регистрироваться на соревнование здесь же без перехода на сайт организатора?</p>
-                        <button type="button" class="btn btn-secondary register-button" id="register-yes">Да</button>
-                        <button type="button" class="btn btn-secondary register-button" id="register-no">Нет</button>
+                        <button type="button" class="btn btn-secondary register-button" id="register-yes" onclick="yaCounter26019216.reachGoal('registerYes'); return true;">Да</button>
+                        <button type="button" class="btn btn-secondary register-button" id="register-no" onclick="yaCounter26019216.reachGoal('registerNo'); return true;">Нет</button>
                     </div>
                     <div id="register-link">
                         <p>Спасибо! Мы учтём ваш ответ в нашей работе.</p>
