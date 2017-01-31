@@ -76,7 +76,6 @@
                             </div>
                         </div>
                         <div class=" m-t-3">
-
                             <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 m-t-2 m-b-2">
@@ -100,17 +99,17 @@
                                                 <label>Выберите сумму оплаты</label>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="sum" checked value="1000"> 1000 ₽
+                                                        <input type="radio" name="sum" checked value="1000">&nbsp;&nbsp;1000 ₽
                                                     </label>
                                                 </div>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="sum" value="3000"> 3000 ₽
+                                                        <input type="radio" name="sum" value="3000">&nbsp;&nbsp;3000 ₽
                                                     </label>
                                                 </div>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="sum" value="5000"> 5000 ₽
+                                                        <input type="radio" name="sum" value="5000">&nbsp;&nbsp;5000 ₽
                                                     </label>
                                                 </div>
                                             </fieldset>
