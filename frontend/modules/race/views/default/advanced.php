@@ -75,8 +75,70 @@
                                 5 000 показов баннера при покупке любой дополнительной опции.
                             </div>
                         </div>
-                        <div class="m-t-3">
-                            <iframe frameborder="0" allowtransparency="true" scrolling="no" src="https://money.yandex.ru/embed/shop.xml?account=41001650080726&quickpay=shop&payment-type-choice=on&writer=buyer&targets-hint=%D0%92%D0%B0%D0%B6%D0%BD%D0%BE%3A+%D1%83%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5+%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5+%D1%81%D0%BE%D1%80%D0%B5%D0%B2%D0%BD%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F&default-sum=1000&button-text=01&comment=on&hint=&mail=on&phone=on&successURL=" width="450" height="264"></iframe>
+                        <div class=" m-t-3">
+
+                            <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 m-t-2 m-b-2">
+                                        <div class="payment-form">
+
+                                            <fieldset class="form-group">
+                                                <label>Выберите способ оплаты</label>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="paymentType" checked value="AC">&nbsp;&nbsp;Банковской картой
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="paymentType" value="PC">&nbsp;&nbsp;Через Яндекс.Кошелек
+                                                    </label>
+                                                </div>
+                                            </fieldset>
+
+                                            <fieldset class="form-group">
+                                                <label>Выберите сумму оплаты</label>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="sum" checked value="1000"> 1000 ₽
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="sum" value="3000"> 3000 ₽
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="sum" value="5000"> 5000 ₽
+                                                    </label>
+                                                </div>
+                                            </fieldset>
+
+                                            <input type="hidden" name="receiver" value="<?= $yandexMoney;?>">
+                                            <input type="hidden" name="quickpay-form" value="shop">
+                                            <input type="hidden" name="formcomment" value="Trirussia.ru, оплата гонки: <?= $race->label?>">
+                                            <input type="hidden" name="short-dest" value="Trirussia.ru, оплата гонки: <?= $race->label?>">
+                                            <input type="hidden" name="label" value="<?= $race->label;?>">
+                                            <input type="hidden" name="targets" value="Trirussia.ru, оплата гонки: <?= $race->label?>">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 m-t-2 m-b-2">
+                                        <h5>Безопасно</h5>
+                                        <p>Платеж совершается на сайте лучшей эквайринговой системы в России — Яндекс.Денег. Мы не знаем и не храним данные вашей карты.</p>
+                                        <h5>Без комиссии</h5>
+                                        <p>Все комиссионные затраты мы берем на себя. С вашего счета спишется столько денег, сколько указано в платежной форме.</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                        <button type="submit" class="btn btn-danger btn-lg">Оплатить</button><span class="m-l-2 text-muted">После клика вы будете перенаправлены на сайт Яндекс.Денег</span>
+                                    </div>
+                                </div>
+                            </form>
+
                         </div>
                     </div>
                 </div>

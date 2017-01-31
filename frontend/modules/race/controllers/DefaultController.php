@@ -159,6 +159,7 @@ class DefaultController extends Controller
         $countryList = (new CountryList())->getCountryDropDown();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('created_race', $model->id);
             return $this->redirect(['advanced']);
         } else {
             $model->sport_id = null;
@@ -180,7 +181,17 @@ class DefaultController extends Controller
     }
 
     public function actionAdvanced() {
+        $yandexMoney = '41001650080726';
+        $id = Yii::$app->session->getFlash('created_race');
+        if (!$id) {
+            return $this->redirect('add');
+        }
+
+        $race = Race::find()->where(['id' => $id])->one();
+
         return $this->render('advanced', [
+            'yandexMoney' => $yandexMoney,
+            'race' => $race,
         ]);
     }
 
