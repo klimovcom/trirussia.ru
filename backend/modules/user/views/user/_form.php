@@ -21,6 +21,23 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
+        <?= $form->field($model, 'fb_id')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'sex')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'locale')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'age')->textInput(['maxlength' => true]) ?>
+
+        <?php if ($model->photo_url):?>
+            <div class="form-group">
+                <label class="control-label">Фото</label>
+                <div class="row">
+                    <?= Html::img($model->photo_url, ['class' => 'img-responsive form-control-with-margin']);?>
+                </div>
+            </div>
+        <?php endif;?>
+
         <?= $form->field($model, 'status')->textInput() ?>
 
         <?= $form->field($model, 'created_at')->textInput() ?>

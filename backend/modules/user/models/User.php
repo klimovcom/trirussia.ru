@@ -64,6 +64,7 @@ class User extends \yii\db\ActiveRecord
                 'max' => 255
             ],
             [['auth_key'], 'string', 'max' => 32],
+            [['photo_url'], 'string', 'max' => 1024],
             [['username'], 'unique'],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique']
@@ -94,6 +95,7 @@ class User extends \yii\db\ActiveRecord
             'age' => 'Возраст',
             'birthday' => 'Дата рождения',
             'place' => 'Местонахождение',
+            'photo_url' => 'Фото',
 
         ];
     }

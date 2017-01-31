@@ -111,6 +111,8 @@ class SiteController extends Controller
         //$token = $client->getAccessToken()->getToken();
         //$client->setReturnUrl(\Yii::$app->request->url);
 
+        Yii::info(json_encode($attributes));
+
         if (!empty($attributes['email'])){
             $user = User::find()->where(['email'=>$attributes['email']])->one();
             if (!$user){
