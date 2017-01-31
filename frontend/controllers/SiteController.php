@@ -111,7 +111,7 @@ class SiteController extends Controller
         //$token = $client->getAccessToken()->getToken();
         //$client->setReturnUrl(\Yii::$app->request->url);
 
-        Yii::info(json_encode($attributes));
+        //Yii::info(json_encode($attributes));
 
         if (!empty($attributes['email'])){
             $user = User::find()->where(['email'=>$attributes['email']])->one();
@@ -127,7 +127,7 @@ class SiteController extends Controller
             $user->locale = $attributes['locale'];
             $user->timezone = $attributes['timezone'];
             $user->age = $attributes['age_range']['min'] . '|' . $attributes['age_range']['max'];
-            $user->photo_url = $attributes['picture']['url'];
+            $user->photo_url = $attributes['picture']['data']['url'];
             $user->save(false);
 
             Yii::$app->user->login($user);
