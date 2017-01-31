@@ -36,6 +36,7 @@ class AppAsset extends AssetBundle
         '/js/leftside-top-menu.js',
         '/js/modalfix.js',
         '/js/ad-sidebar.js',
+        '/js/pace.min.js',
         '/js/site.js',
     ];
     public $depends = [
