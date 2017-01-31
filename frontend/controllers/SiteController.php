@@ -108,6 +108,7 @@ class SiteController extends Controller
         }
 
         $attributes = $client->getUserAttributes();
+        //$token = $client->getAccessToken()->getToken();
         //$client->setReturnUrl(\Yii::$app->request->url);
 
         if (!empty($attributes['email'])){
@@ -119,14 +120,13 @@ class SiteController extends Controller
                 $user->fb_id = $attributes['id'];
                 $user->first_name = explode(' ', $attributes['name'])[0];
                 $user->last_name = explode(' ', $attributes['name'])[1];
-                $user->sex = $attributes['gender'];
-                $user->locale = $attributes['locale'];
-                $user->timezone = $attributes['timezone'];
-                $user->age = $attributes['age_range'];
-                $user->birthday = $attributes['birthday'];
-                $user->place = $attributes['location']['name'];
-                $user->save(false);
             }
+            $user->sex = $attributes['gender'];
+            $user->locale = $attributes['locale'];
+            $user->timezone = $attributes['timezone'];
+            $user->birthday = $attributes['birthday'];
+            $user->save(false);
+
             Yii::$app->user->login($user);
         }
     }

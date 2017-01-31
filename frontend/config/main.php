@@ -212,6 +212,7 @@ return [
                     'clientSecret' => 'd9fe46df955d39c1962aa9925b609a5b',*/
                     'clientId' => '597412183700544',
                     'clientSecret' => 'ae62e4a11fbd879e9394ae8001088253',
+                    'attributeNames' => ['name', 'email', 'age_range', 'gender', 'locale', 'timezone'],
                 ],
             ],
         ],
