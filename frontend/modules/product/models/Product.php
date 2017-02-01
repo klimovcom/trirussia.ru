@@ -111,6 +111,6 @@ class Product extends \yii\db\ActiveRecord
     }
 
     public function getViewUrl() {
-        return Url::to(['product/default/view', 'url' => $this->url]);
+        return Url::to(['/product/default/view', 'url' => $this->url]);
     }
 }

@@ -152,7 +152,7 @@ class Sport extends \yii\db\ActiveRecord
 
     public function getViewUrl()
     {
-        return Url::to(['site/sport', 'sport' => $this->url]);
+        return Url::to(['/site/sport', 'sport' => $this->url]);
     }
 
     public function getLabelModified()

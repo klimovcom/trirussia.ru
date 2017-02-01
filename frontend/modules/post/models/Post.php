@@ -119,6 +119,6 @@ class Post extends \yii\db\ActiveRecord
     }
 
     public function getViewUrl() {
-        return Url::to(['post/default/view', 'url' => $this->url]);
+        return Url::to(['/post/default/view', 'url' => $this->url]);
     }
 }
