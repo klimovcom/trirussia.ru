@@ -5,7 +5,15 @@ use \metalguardian\fileProcessor\helpers\FPM;
 use yii\helpers\Html;
 use willGo\models\WillGo;
 
-$guest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"' : '';
+if (Yii::$app->user->isGuest) {
+    $guest = 'data-toggle="modal" data-target="#openUser"';
+    $joinedClass = '';
+    $notJoinedClass = '';
+}else {
+    $guest = '';
+    $joinedClass = 'already-joined';
+    $notJoinedClass = 'will-join';
+}
 
 /**
  * @var $race \race\models\Race
@@ -36,11 +44,11 @@ $organizerLabel = $race->organizer->image_id ?
                             <div class="pull-right">
                                 <div class="card-participant">
                                     <?php if ($race->isJoined()):?>
-                                        <a href="javascript:;" type="button" class="btn btn-white-outline btn-sm already-joined" <?= $guest;?> data-id="<?= $race->id; ?>" data-url="<?= WillGo::dismissUrl(); ?>"><img src="img/join_race.png" class="join-race" > <?= $race->attendance;?></a>
-                                        <a href="javascript:;" type="button" class="btn btn-white-outline btn-sm hidden will-join" <?= $guest;?> data-id="<?= $race->id; ?>" data-url="<?= WillGo::joinUrl(); ?>"><img src="img/join_race.png" class="join-race"> <?= $race->attendance-1;?></a>
+                                        <a href="javascript:;" type="button" class="btn btn-white-outline btn-sm <?= $joinedClass;?>" <?= $guest;?> data-id="<?= $race->id; ?>" data-url="<?= WillGo::dismissUrl(); ?>"><img src="img/join_race.png" class="join-race" > <?= $race->attendance;?></a>
+                                        <a href="javascript:;" type="button" class="btn btn-white-outline btn-sm hidden <?= $notJoinedClass;?>" <?= $guest;?> data-id="<?= $race->id; ?>" data-url="<?= WillGo::joinUrl(); ?>"><img src="img/join_race.png" class="join-race"> <?= $race->attendance-1;?></a>
                                     <?php else:?>
-                                        <a href="javascript:;" type="button" class="btn btn-white-outline btn-sm already-joined hidden" <?= $guest;?> data-id="<?= $race->id; ?>" data-url="<?= WillGo::dismissUrl(); ?>"><img src="img/join_race.png" class="join-race"> <?= $race->attendance+1;?></a>
-                                        <a href="javascript:;" type="button" class="btn btn-white-outline btn-sm will-join" <?= $guest;?> data-id="<?= $race->id; ?>" data-url="<?= WillGo::joinUrl(); ?>"><img src="img/join_race.png" class="join-race"> <?= $race->attendance;?></a>
+                                        <a href="javascript:;" type="button" class="btn btn-white-outline btn-sm hidden <?= $joinedClass;?>" <?= $guest;?> data-id="<?= $race->id; ?>" data-url="<?= WillGo::dismissUrl(); ?>"><img src="img/join_race.png" class="join-race"> <?= $race->attendance+1;?></a>
+                                        <a href="javascript:;" type="button" class="btn btn-white-outline btn-sm <?= $notJoinedClass;?>" <?= $guest;?> data-id="<?= $race->id; ?>" data-url="<?= WillGo::joinUrl(); ?>"><img src="img/join_race.png" class="join-race"> <?= $race->attendance;?></a>
                                     <?php endif;?>
                                 </div>
                             </div>
