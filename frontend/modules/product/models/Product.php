@@ -3,7 +3,7 @@
 namespace product\models;
 
 use Yii;
-
+use yii\helpers\Url;
 
 
 class ProductQuery extends \yii\db\ActiveQuery {
@@ -108,5 +108,9 @@ class Product extends \yii\db\ActiveRecord
 
     public function addStatisticsView() {
         $this->updateCounters(['popularity' => 1]);
+    }
+
+    public function getViewUrl() {
+        return Url::to(['product/default/view', 'url' => $this->url]);
     }
 }

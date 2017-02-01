@@ -3,6 +3,7 @@
 namespace sport\models;
 
 use Yii;
+use yii\helpers\Url;
 use yii\helpers\VarDumper;
 use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
@@ -15,6 +16,15 @@ use yii\web\NotFoundHttpException;
  *
  * @property Race[] $races
  */
+
+class SportQuery extends \yii\db\ActiveQuery {
+
+    public function published() {
+        return $this;
+    }
+
+}
+
 class Sport extends \yii\db\ActiveRecord
 {
     public static $currentSportModel = false;
@@ -85,6 +95,10 @@ class Sport extends \yii\db\ActiveRecord
         ];
     }
 
+    public static function find() {
+        return new SportQuery(get_called_class());
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -138,7 +152,7 @@ class Sport extends \yii\db\ActiveRecord
 
     public function getViewUrl()
     {
-        return \yii\helpers\Url::to('/' . $this->url);
+        return Url::to(['site/sport', 'sport' => $this->url]);
     }
 
     public function getLabelModified()

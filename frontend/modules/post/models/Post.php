@@ -117,4 +117,8 @@ class Post extends \yii\db\ActiveRecord
     public function addStatisticsView(){
         $this->updateCounters(['popularity' => 1]);
     }
+
+    public function getViewUrl() {
+        return Url::to(['post/default/view', 'url' => $this->url]);
+    }
 }

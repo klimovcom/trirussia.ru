@@ -57,6 +57,7 @@ class SiteController extends Controller
                             'convert',
                             'search-races',
                             'sport',
+                            'sitemap',
                         ],
                         'allow'   => true,
                     ],
@@ -328,5 +329,40 @@ class SiteController extends Controller
 
     public function actionLogin() {
         return $this->render('login');
+    }
+
+    public function actionSitemap() {
+        //static
+        $routes = [
+            ['site/index'],
+            ['site/advertising'],
+            ['site/domains'],
+            ['site/bmi'],
+            ['site/convert'],
+            ['site/calendar'],
+            ['site/search-races'],
+            ['post/default/index'],
+            ['organizer/default/index'],
+            ['race/default/create'],
+            ['product/default/index'],
+        ];
+        $items = [];
+        $models = [
+            '\sport\models\Sport',
+            '\race\models\Race',
+            '\post\models\Post',
+            '\product\models\Product',
+        ];
+        foreach ($models as $model) {
+            $items = array_merge($items, $model::find()->published()->all());
+        }
+
+        Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+        Yii::$app->response->headers->set('Content-type', 'text/xml');
+
+        return $this->renderPartial('sitemap', [
+            'routes' => $routes,
+            'items' => $items,
+        ]);
     }
 }
