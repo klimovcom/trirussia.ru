@@ -21,6 +21,15 @@ use Yii;
  *
  * @property Race[] $races
  */
+
+class OrganizerQuery extends \yii\db\ActiveQuery {
+
+    public function published() {
+        return $this->andWhere(['published' => 1]);
+    }
+
+}
+
 class Organizer extends \yii\db\ActiveRecord
 {
     /**
@@ -63,6 +72,10 @@ class Organizer extends \yii\db\ActiveRecord
             'content' => 'Content',
             'published' => 'Published',
         ];
+    }
+
+    public static function find() {
+        return new OrganizerQuery(get_called_class());
     }
 
     /**

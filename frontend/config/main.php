@@ -175,6 +175,7 @@ return [
                 '/calendar' => '/site/calendar',
                 '/bmi' => '/site/bmi',
                 '/convert' => '/site/convert',
+                'organizer' => 'organizer/default/index',
 
                 '/magazine/search' => '/post/default/search',
 

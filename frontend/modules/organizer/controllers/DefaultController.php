@@ -1,7 +1,8 @@
 <?php
 
-namespace app\modules\organizer\controllers;
+namespace organizer\controllers;
 
+use organizer\models\Organizer;
 use yii\web\Controller;
 
 /**
@@ -15,6 +16,10 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+
+        $organizers = Organizer::find()->where(['is not', 'image_id', null])->andWhere(['not', ['image_id' => 0]])->published()->all();
+        return $this->render('index', [
+            'organizers' => $organizers,
+        ]);
     }
 }
