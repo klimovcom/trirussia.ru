@@ -288,11 +288,10 @@ class SiteController extends Controller
     }
 
     public function actionCalendar(){
-        $user_id = 2;
         $startDate = date('Y-m-d', time());
         $endDate = date('Y-m-d', strtotime('+1year'));
 
-        $joinedRaces = Race::find()->joinWith('willGo')->where(['user_id' => $user_id])->andWhere(['>', 'start_date', $startDate])->andWhere(['<', 'start_date', $endDate])->all();
+        $joinedRaces = Race::find()->joinWith('willGo')->where(['user_id' => Yii::$app->user->identity->id])->andWhere(['>', 'start_date', $startDate])->andWhere(['<', 'start_date', $endDate])->all();
         $notJoinedRaces = Race::find()->where(['not in', 'id', ArrayHelper::getColumn($joinedRaces, 'id')])->andWhere(['>', 'start_date', $startDate])->andWhere(['<', 'start_date', $endDate])->all();
 
         $joinedRacesArray = ArrayHelper::index($joinedRaces, null, 'start_date');
