@@ -18,7 +18,7 @@
                     <?= $race->label; ?>
                 </a>
                 <?php if ($race->rating):?>
-                    <i class="fa fa-star gold" aria-hidden="true"></i> <span class="small"><sup><?= round($race->rating, 2);?></sup></span>
+                    <i class="fa fa-star gold" aria-hidden="true"></i> <span class="small"><sup><?= number_format(round($race->rating), 2, '.', '');?></sup></span>
                 <?php endif;?>
             </h5>
             <p><?= $race->promo ?></p>
