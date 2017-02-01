@@ -67,7 +67,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                         </div>
                     <?php } ?>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <p class="m-b-0"><strong><?= $race->attendace;?>/strong></p>
+                        <p class="m-b-0"><strong><?= $race->attendance;?>/strong></p>
                         <p class="small m-b-0">Участников</p>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
