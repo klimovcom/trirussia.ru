@@ -213,7 +213,7 @@ class DefaultController extends Controller
         }
         $raceRaiting->rate = $rate;
         $raceRaiting->save();
-        return round($race->rating, 2);
+        return number_format(round($race->rating, 2), 2, '.', '');
     }
 
     public function renderDistanceList($id) {
