@@ -340,6 +340,7 @@ class SiteController extends Controller
             ['site/bmi'],
             ['site/convert'],
             ['site/calendar'],
+            ['site/about'],
             ['site/search-races'],
             ['post/default/index'],
             ['organizer/default/index'],
