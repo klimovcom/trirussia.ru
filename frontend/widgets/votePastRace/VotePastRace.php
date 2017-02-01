@@ -10,12 +10,13 @@ use race\models\Race;
 class VotePastRace extends \yii\base\Widget{
 
     public $race;
+    public $minPopularity = 300;
 
     public function run(){
         $this->race = Race::find()
             ->where(['>=', 'start_date', date('Y-m-d', strtotime('-7day'))])
             ->andWhere(['<', 'start_date', date('Y-m-d', time())])
-            ->andWhere(['>', 'popularity', '500'])
+            ->andWhere(['>', 'popularity', $this->minPopularity])
             ->published()
             ->orderBy('popularity DESC')
             ->one();
