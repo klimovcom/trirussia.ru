@@ -364,4 +364,20 @@ class Race extends \yii\db\ActiveRecord
         }
         return parent::afterSave($insert, $changedAttributes);
     }
+
+    public function getRating() {
+        $raceRating = RaceRating::find()->where(['race_id' => $this->id])->all();
+
+        $rating = 0;
+        if (count($raceRating)) {
+            $rateArr = ArrayHelper::getColumn($raceRating, 'rate');
+            $rating = array_sum($rateArr) / count($raceRating);
+        }
+
+        return $rating;
+    }
+
+    public function getVotersCount() {
+        return RaceRating::find()->where(['race_id' => $this->id])->count();
+    }
 }

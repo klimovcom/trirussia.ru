@@ -251,6 +251,13 @@ google.maps.event.addDomListener(window, 'load', initialize);
                         ],
                     ])->label(); ?>
             </div>
+            <?php if ($model->getVotersCount()):?>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Рейтинг: <?= number_format(round($model->getRating()), 2, '.', '');?>, количество проголосовавших: <?= $model->getVotersCount();?></label>
+                    </div>
+                </div>
+            <?php endif;?>
         </div>
 
         <input id="autocomplete" class="form-control google-input" onFocus="geolocate()" type="text" placeholder="Начните вводить адрес..">
