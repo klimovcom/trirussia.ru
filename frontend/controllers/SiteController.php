@@ -132,7 +132,7 @@ class SiteController extends Controller
             $user->photo_url = $attributes['picture']['data']['url'];
             $user->save(false);
 
-            Yii::$app->user->login($user);
+            Yii::$app->user->login($user, 3600 * 24 * 30);
         }
     }
 
