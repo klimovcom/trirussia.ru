@@ -13,7 +13,7 @@ use \yii\helpers\Url;
 $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"' : '';
 AppAsset::register($this);
 
-if (Yii::$app->controller->action->id !== 'error' || Yii::$app->controller->action->id !== 'auth' || Yii::$app->controller->action->id !== 'login') {
+if (Yii::$app->controller->action->id !== 'error' && Yii::$app->controller->action->id !== 'auth' && Yii::$app->controller->action->id !== 'login') {
     Yii::$app->getUser()->setReturnUrl(Url::to());
 }
 ?>
