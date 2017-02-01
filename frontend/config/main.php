@@ -165,19 +165,20 @@ return [
             'rules' => [
 
                 '/races.php?id=<url>' => '/race/<url>',
-
+                'sitemap.xml' => 'site/sitemap',
                 //static pages
                 //TODO: move to page module
                 '/domains' => '/site/domains',
                 '/advertising' => '/site/advertising',
                 '/about' => '/site/about',
-                '/magazine' => '/post/default/index',
                 '/calendar' => '/site/calendar',
                 '/bmi' => '/site/bmi',
                 '/convert' => '/site/convert',
-                'organizer' => 'organizer/default/index',
 
+                '/magazine' => '/post/default/index',
                 '/magazine/search' => '/post/default/search',
+
+                'organizer' => 'organizer/default/index',
 
                 'magazine/<url>' => 'post/default/view',
 
