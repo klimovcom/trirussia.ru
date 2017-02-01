@@ -184,7 +184,7 @@ class DefaultController extends Controller
         $yandexMoney = '41001650080726';
         $id = Yii::$app->session->get('created_race');
         if (!$id) {
-            return $this->redirect('create');
+            return $this->redirect(['create']);
         }
         Yii::$app->session->remove('created_race');
 
