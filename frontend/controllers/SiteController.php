@@ -45,6 +45,7 @@ class SiteController extends Controller
                 'rules' => [
                     [
                         'actions' => [
+                            'login',
                             'error',
                             'auth',
                             'index',
@@ -287,37 +288,20 @@ class SiteController extends Controller
     }
 
     public function actionCalendar(){
-        $joins = ArrayHelper::map(WillGo::find()->where(['user_id' => Yii::$app->user->identity->id])->all(), 'race_id', 'race_id');
-        $idArray = array_values($joins);
+        $user_id = 2;
+        $startDate = date('Y-m-d', time());
+        $endDate = date('Y-m-d', strtotime('+1year'));
 
-        $races = Race::find()->where(['in', 'id', $idArray])->all();
-        $racesArrayImproved = [];
-        /** @var Race $race */
-        foreach ($races as $race){
-            if (!isset($racesArrayImproved[strtotime($race->start_date)])){
-                $racesArrayImproved[strtotime($race->start_date)] = [$race];
-            } else {
-                $racesArrayImproved[strtotime($race->start_date)][] = $race;
-            }
+        $joinedRaces = Race::find()->joinWith('willGo')->where(['user_id' => $user_id])->andWhere(['>', 'start_date', $startDate])->andWhere(['<', 'start_date', $endDate])->all();
+        $notJoinedRaces = Race::find()->where(['not in', 'id', ArrayHelper::getColumn($joinedRaces, 'id')])->andWhere(['>', 'start_date', $startDate])->andWhere(['<', 'start_date', $endDate])->all();
 
-        }
+        $joinedRacesArray = ArrayHelper::index($joinedRaces, null, 'start_date');
+        $notJoinedRacesArray = ArrayHelper::index($notJoinedRaces, null, 'start_date');
 
-        $notJoinedRaces = Race::find()
-            ->where(['not in', 'id', $idArray])
-            ->andWhere(['between', 'start_date', date('Y-m-d'), date('Y-m-d', time()+92*24*60*60)])
-            ->all();
-        $notJoinedRacesArrayImproved = [];
-        /** @var Race $race */
-        foreach ($notJoinedRaces as $race){
-            if (!isset($notJoinedRacesArrayImproved[strtotime($race->start_date)])){
-                $notJoinedRacesArrayImproved[strtotime($race->start_date)] = [$race];
-            } else {
-                $notJoinedRacesArrayImproved[strtotime($race->start_date)][] = $race;
-            }
-
-        }
-
-        return $this->render('calendar', ['races'=>$racesArrayImproved, 'notJoinedRaces'=>$notJoinedRacesArrayImproved,]);
+        return $this->render('calendar', [
+            'joinedRacesArray' => $joinedRacesArray,
+            'notJoinedRacesArray' => $notJoinedRacesArray,
+        ]);
     }
 
     
@@ -341,5 +325,9 @@ class SiteController extends Controller
     public function actionConvert()
     {
         return $this->render('convert');
+    }
+
+    public function actionLogin() {
+        return $this->render('login');
     }
 }

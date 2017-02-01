@@ -2,6 +2,7 @@
 
 namespace willGo\models;
 
+use race\models\Race;
 use Yii;
 use yii\helpers\Url;
 
@@ -57,5 +58,9 @@ class WillGo extends \yii\db\ActiveRecord
 
     public static function joinUrl(){
         return Url::to('/willGo/default/add-will-go');
+    }
+
+    public function getRace() {
+        return $this->hasOne(Race::className(), ['id' => 'race_id']);
     }
 }

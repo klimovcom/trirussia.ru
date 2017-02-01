@@ -1,13 +1,15 @@
 <?php
 use yii\helpers\Url;
+use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 
 /**
  * Created by PhpStorm.
  * User: alfred
  * Date: 5/30/16
  * Time: 9:03 PM
- * @var array $races
- * @var array $notJoinedRaces
+ * @var array $joinedRacesArray
+ * @var array $notJoinedRacesArray
  */
 
 ?>
@@ -21,41 +23,43 @@ use yii\helpers\Url;
                     сможете скорректировать план на сезон.</p>
                 <hr>
                 <ul class="list-unstyled">
-                    <?php for (
-                        $i = time();
-                        $i <= strtotime(date("Y-m-t", time())) + (60*60*24-1) + strtotime('+2month')-strtotime('now');
-                        $i+=60*60*24
-                    ) { ?>
-                        <?php if (isset($races[strtotime(date('Y-m-d', $i))])) { ?>
-                            <?php /** @var \race\models\Race $race */?>
-                            <?php foreach ($races[strtotime(date('Y-m-d', $i))] as $race) { ?>
-                                <li class="border-r-<?= $race->getSportClass();?>">
-                                    <h4 class="m-l-1"><span class="small"><?= $race->getDateRepresentation()?>, Вс&nbsp;&nbsp;</span>
-                                        <a href="<?= $race->getViewUrl(); ?>" class="underline-black"><?= $race->label; ?></a>
-                                    </h4>
-                                    <p class="m-l-1 small"><?= $race->getDistancesRepresentation()?></p>
-                                </li>
-                            <?php }  ?>
-                        <?php } else { ?>
-                            <li class="border small text-muted">
-                            <span class="m-l-1">
-                                <?= Yii::$app->formatter->asDate(date('Y-m-d', $i), 'd MMMM yyyy') . ' г.'; ?>
-                            </span>
-                            <?php if (isset($notJoinedRaces[strtotime(date('Y-m-d', $i))])) { ?>
-                                <?php $count = count($notJoinedRaces[strtotime(date('Y-m-d', $i))]); ?>
-                                <?php /** @var \race\models\Race $race */?>
-                                <?php foreach ($notJoinedRaces[strtotime(date('Y-m-d', $i))] as $race) { ?>
-                                    <a href="<?= $race->getViewUrl(); ?>" class="underline">
-                                        <?php if (--$count > 0) $label = $race->label . ','; else $label =  $race->label; ?>
-                                        <?= $label; ?>
-                                    </a>
-                                <?php }  ?>
-                            <?php } ?>
-                            </li>
-                        <?php }  ?>
-                    <?php } ?>
+                    <?php
+                    for($i = time(); $i < strtotime('+1 year 1 day'); $i+= 60*60*24){
+
+                        $isJoinedToday = false;
+                        if ($joinedRacesToday = ArrayHelper::getValue($joinedRacesArray, date('Y-m-d', $i))) {
+                            $isJoinedToday = true;
+                            foreach ($joinedRacesToday as $race) {
+                                echo Html::beginTag('li', ['class' => 'border-r-' . $race->getSportClass()]);
+                                echo Html::beginTag('h4', ['class' => 'm-l-1']);
+                                echo Html::tag('span', Yii::$app->formatter->asDate($i, 'd MMMM yyyy') . ' г., ' . Yii::$app->formatter->asDate($i, 'EEE') . '&nbsp;&nbsp;', ['class' => 'small']);
+                                echo Html::a($race->label, $race->getViewUrl(), ['class' => 'underline-black']);
+                                echo Html::endTag('h4');
+                                echo Html::tag('p', $race->getDistancesRepresentation(), ['class' => 'm-l-1 small']);
+                                echo Html::endTag('li');
+                            }
+                        }
 
 
+                        $notJoinedToday = '';
+                        if ($notJoinedRacesToday = ArrayHelper::getValue($notJoinedRacesArray, date('Y-m-d', $i))) {
+                            $notJoinedToday = implode(', ', ArrayHelper::getColumn($notJoinedRacesToday, function($el) {
+                                return Html::a($el->label, $el->getViewUrl(), ['class' => 'underline']);
+                            }));
+                        }
+
+                        echo Html::beginTag('li', ['class' => 'border small text-muted']);
+                        if ($isJoinedToday) {
+                            echo $notJoinedToday ? Html::tag('p', 'Еще в этот день: ' . $notJoinedToday, ['class' => 'm-l-1 m-t-0']) : '';
+                        }else {
+                            echo Html::tag('span', Yii::$app->formatter->asDate($i, 'd MMMM yyyy') . ' г. ', ['class' => 'm-l-1 m-r-1']);
+                            echo $notJoinedToday;
+                        }
+                        echo Html::endTag('li');
+
+
+                    }
+                    ?>
                 </ul>
             </div>
         </div>

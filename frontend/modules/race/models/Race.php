@@ -264,6 +264,13 @@ class Race extends \yii\db\ActiveRecord
         return RaceDistanceRef::find()->where(['race_id' => $this->id])->all() ;
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getWillGo() {
+        return $this->hasMany(WillGo::className(), ['race_id' => 'id']);
+    }
+
     public function getDistancesData()
     {
         $values = [];
