@@ -2,6 +2,7 @@
 
 namespace race\models;
 
+use common\components\Facebook;
 use common\components\GoogleGeocoding;
 use distance\models\Distance;
 use distance\models\DistanceCategory;
@@ -612,7 +613,7 @@ class Race extends \yii\db\ActiveRecord
 
     public function getViewUrl()
     {
-        return Url::to(['race/default/view', 'url' => $this->url]);
+        return Url::to(['/race/default/view', 'url' => $this->url]);
     }
 
     public static function getMoreRacesUrl()
@@ -1049,5 +1050,25 @@ class Race extends \yii\db\ActiveRecord
         }
 
         return $rating;
+    }
+
+    public function getAttendance() {
+        $attendance = WillGo::find()->where(['race_id' => $this->id])->count() + $this->getFacebookAttendance();
+        return $attendance;
+    }
+
+    public function getFacebookAttendance() {
+        if ($this->facebook_event_id) {
+            $cacheKey = 'RaceFacebookAttendance[' . $this->id . ']';
+            if (!Yii::$app->cache->exists($cacheKey)) {
+                $event = (new Facebook())->getEvent($this->facebook_event_id);
+                $attendance = ArrayHelper::getValue($event, $this->facebook_event_id . '.attending_count');
+
+                Yii::$app->cache->set($cacheKey, $attendance, 10*60);
+            }
+            return Yii::$app->cache->get($cacheKey);
+        }else {
+            return 0;
+        }
     }
 }
