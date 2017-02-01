@@ -35,7 +35,7 @@ class DefaultController extends Controller
             $model->user_id = \Yii::$app->user->identity->id;
             $model->race_id = $_POST['raceId'];
             $model->save();
-            return 1;
+            return $model->race->attendance;
         }
         return 0;
     }
@@ -46,8 +46,9 @@ class DefaultController extends Controller
                 ->where(['race_id' => $_POST['raceId'], 'user_id'=> \Yii::$app->user->identity->id])
                 ->one();
             if ($model){
+                $attendance = $model->race->attendance - 1;
                 $model->delete();
-                return 1;
+                return $attendance;
             }
         }
         return 0;

@@ -7,6 +7,7 @@
  * @var $race \race\models\Race
  */
 use \willGo\models\WillGo;
+use yii\helpers\Html;
 $this->registerCssFile('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
 $this->registerJsFile("https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places");
 $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"' : '';
@@ -67,7 +68,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                         </div>
                     <?php } ?>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <p class="m-b-0"><strong><?= $race->attendance;?></strong></p>
+                        <p class="m-b-0"><strong><?= Html::tag('span', $race->attendance, ['id' => 'race_attendance_counter_' . $race->id]);?></strong></p>
                         <p class="small m-b-0">Участников</p>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">

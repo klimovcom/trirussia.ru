@@ -109,6 +109,7 @@ $(document).ready(function(){
         $.post(url, {raceId: raceId}, function(response){
             $(that).parent().parent().find('.will-join,.already-joined').removeClass('hidden');
             $(that).addClass('hidden');
+            $('#race_attendance_counter_' + raceId).html(response);
             if ($('i.gold').length > 0){
                 console.log($(that));
                 var dataMessage = $(that).data('message');
