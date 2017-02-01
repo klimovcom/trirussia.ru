@@ -100,7 +100,7 @@ use \kartik\select2\Select2;
                     </div>
 
                     <?= $form->field($model, 'organizer_id')->dropDownList(
-                        \yii\helpers\ArrayHelper::map(\organizer\models\Organizer::find()->orderBy(['label' => SORT_ASC])->all(), 'id', 'label'),
+                        \yii\helpers\ArrayHelper::map(\organizer\models\Organizer::find()->published()->orderBy(['label' => SORT_ASC])->all(), 'id', 'label'),
                         [
                             'class' => 'c-select select2',
                         ]
