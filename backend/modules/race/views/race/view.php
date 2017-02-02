@@ -85,6 +85,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'value' => $model->getType()
                             ],
                             'popularity',
+                            [
+                                'label' => 'Рейтинг',
+                                'format' => 'raw',
+                                'value' => number_format(round($model->getRating()), 2, '.', ''),
+                            ],
+                            [
+                                'label' => 'Проголосовало',
+                                'format' => 'raw',
+                                'value' => $model->getVotersCount(),
+                            ],
                         ],
                     ]) ?>
                 </div>
