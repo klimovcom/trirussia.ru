@@ -7,7 +7,7 @@ use metalguardian\fileProcessor\helpers\FPM;
  */
 ?>
 
-<h4 class="PTSerif"><i>Самые ожидаемые соревнования по <?= \sport\models\Sport::getCurrentSportLabel('дательный');?></i></h4>
+<h4 class="PTSerif"><i>Самые ожидаемые соревнования <?= $sport ? 'по ' . \sport\models\Sport::getCurrentSportLabel('дательный') : '';?></i></h4>
 <div class="row">
     <?php /** @var $race \race\models\Race */?>
    <?php foreach ($races as $race) {?>
