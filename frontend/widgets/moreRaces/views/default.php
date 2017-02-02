@@ -23,10 +23,10 @@ use yii\helpers\Url;
 
     <ul class="list-inline m-t-1 m-b-0">
         <li class="list-inline-item m-r-2">
-            <a href="<?= Url::to('/'. $this->context->model->sport->url . '?country=Россия' /*, 'sport' => $this->context->model->sport->url, 'country' => 'Россия'*/); ?>" class="underline small">Все соревнования в стране <?= $race->country; ?> в категории <?= $this->context->model->sport->label; ?></a>
+            <a href="<?= Url::to(['/site/sport', 'sport' => $model->sport->url, 'country' =>  $model->country]); ?>" class="underline small">Все соревнования в стране <?= $model->country; ?> в категории <?= $model->sport->label; ?></a>
         </li>
         <li class="list-inline-item m-r-2">
-            <a href="<?= Url::to('/' . $this->context->model->sport->url/*, 'sport' => $this->context->model->sport->url*/)?>" class="underline small">Все соревнования в мире в категории <?= $this->context->model->sport->label; ?></a>
+            <a href="<?= Url::to(['/site/sport', 'sport' => $model->sport->url])?>" class="underline small">Все соревнования в мире в категории <?= $model->sport->label; ?></a>
         </li>
     </ul>
 </div>

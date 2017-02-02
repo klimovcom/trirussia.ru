@@ -26,6 +26,9 @@ class MoreRaces extends \yii\base\Widget{
             ->orderBy('start_date')
             ->limit(6)
             ->all();
-        return $this->render('default', ['races' => $this->models, ]);
+        return $this->render('default', [
+            'races' => $this->models,
+            'model' => $this->model,
+        ]);
     }
 }
