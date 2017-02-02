@@ -94,6 +94,9 @@ use yii\widgets\ActiveForm;
                     ],
                 ]); ?>
             </div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'price')->textInput(['maxlength' => true, 'class' => 'form-control w850 ']) ?>
+            </div>
         </div>
 
         <?= $form->field($model, 'content')->widget(

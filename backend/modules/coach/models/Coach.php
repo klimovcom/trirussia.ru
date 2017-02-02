@@ -82,7 +82,7 @@ class Coach extends \yii\db\ActiveRecord
         return [
             [['created', 'label', 'country'], 'required'],
             [['created', 'specializationArray', ], 'safe'],
-            [[/*'image_id'*/], 'integer'],
+            [['price'], 'integer'],
             [['label', 'country', 'site', 'phone', 'email', 'fb_link', 'vk_link', 'ig_link'], 'string', 'max' => 255]
         ];
     }
@@ -107,6 +107,7 @@ class Coach extends \yii\db\ActiveRecord
             'vk_link' => 'Ссылка vkontakte',
             'ig_link' => 'Ссылка instagram',
             'specializationArray' => 'Cпециализации',
+            'price' => 'Стоимость',
         ];
     }
 
