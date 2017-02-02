@@ -60,6 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'site',
                             'phone',
                             'email',
+                            'price',
                             'fb_link',
                             'vk_link',
                             'ig_link',
