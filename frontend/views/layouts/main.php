@@ -113,8 +113,8 @@ if (Yii::$app->controller->action->id !== 'error' && Yii::$app->controller->acti
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                 <h6>TriRussia.ru</h6>
                 <ul class="list-unstyled">
-                    <li><a href="<?= Url::toRoute('/site/magazine'); ?>" class="underline-white">Журнал</a></li>
-                    <li><a href="<?= Url::toRoute('/site/shop'); ?>" class="underline-white">Магазин</a></li>
+                    <li><a href="<?= Url::toRoute('/post/default/index'); ?>" class="underline-white">Журнал</a></li>
+                    <li><a href="<?= Url::toRoute('/product/default/index'); ?>" class="underline-white">Магазин</a></li>
                     <li><a href="<?= Url::toRoute('/site/about'); ?>" class="underline-white">О проекте</a></li>
                     <li><a href="<?= Url::toRoute('/site/advertising'); ?>" class="underline-white">Реклама</a></li>
                     <li><a href="<?= Url::toRoute('/site/calendar'); ?>" class="underline-white" <?= $quest;?>>Мой календарь</a></li>

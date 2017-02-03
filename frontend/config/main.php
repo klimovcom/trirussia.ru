@@ -221,7 +221,7 @@ return [
                 'yandex-money-check' => 'product/default/yandex-money-check',
 
                 'promocodes' => 'promocode/default/index',
-                
+
                 'training' => 'coach/default/index',
                 'training/<url>' => 'coach/default/view',
 
