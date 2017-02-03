@@ -3,6 +3,7 @@
 namespace coach\controllers;
 
 use coach\models\Coach;
+use seo\models\Seo;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -21,6 +22,8 @@ class DefaultController extends Controller
     public function actionView($url) {
         $model = $this->loadModel($url);
         $otherCoaches = Coach::find()->where(['not', ['id' => $model->id]])->all();
+
+        Seo::registerModel($model);
 
         return $this->render('view', [
             'model' => $model,

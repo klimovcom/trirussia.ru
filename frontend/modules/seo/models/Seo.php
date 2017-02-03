@@ -60,6 +60,7 @@ class Seo extends \yii\db\ActiveRecord
         '{productPromo}' => 'promo',
 
         '{tag}' => 'tags',
+        '{label}' => 'label',
     ];
 
     /**
@@ -181,6 +182,16 @@ class Seo extends \yii\db\ActiveRecord
         if (self::isRoute("default", "index", "product") && $config = Configuration::get("seo_shop_page_$key"))
             return self::applyReplaces($config);
         if (self::isRoute("default", "view", "product") && $config = Configuration::get("seo_shop_product_page_$key"))
+            return self::applyReplaces($config);
+
+        //промокоды
+        if (self::isRoute("default", "index", "promocode") && $config = Configuration::get("seo_promocodes_$key"))
+            return self::applyReplaces($config);
+
+        //тренеры
+        if (self::isRoute("default", "index", "coach") && $config = Configuration::get("seo_coach_index_$key"))
+            return self::applyReplaces($config);
+        if (self::isRoute("default", "view", "coach") && $config = Configuration::get("seo_coach_view_$key"))
             return self::applyReplaces($config);
 
         return Configuration::get("seo_standard_$key");
