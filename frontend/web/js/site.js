@@ -400,6 +400,12 @@ $(document).ready(function(){
         });
     });
 
+
+    $('.coach-item--bg').each(function() {
+        var label = $(this).attr('data-label');
+        var pattern = GeoPattern.generate(label);
+        $(this).css('background-image', pattern.toDataUrl());
+    })
 });
 
 jQuery(document).ready(function($){

@@ -77,6 +77,11 @@ return [
             DIRECTORY_SEPARATOR . 'modules' .
             DIRECTORY_SEPARATOR . 'promocode'
         ),
+        'coach' => realpath(
+            __DIR__ . DIRECTORY_SEPARATOR . '..' .
+            DIRECTORY_SEPARATOR . 'modules' .
+            DIRECTORY_SEPARATOR . 'coach'
+        ),
     ],
     'modules' => [
         'race' => [
@@ -126,6 +131,9 @@ return [
         ],
         'promocode' => [
             'class' => 'promocode\PromocodeModule',
+        ],
+        'coach' => [
+            'class' => 'coach\CoachModule',
         ],
 
     ],
@@ -203,6 +211,8 @@ return [
                 'shop/<url>' => 'product/default/view',
 
                 'promocodes' => 'promocode/default/index',
+                'training' => 'coach/default/index',
+                'training/<url>' => 'coach/default/view',
 
                 'yandex-money-check' => 'product/default/yandex-money-check',
                 '/<sport:\w+>' => '/site/sport',

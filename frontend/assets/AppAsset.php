@@ -37,6 +37,7 @@ class AppAsset extends AssetBundle
         '/js/modalfix.js',
         '/js/ad-sidebar.js',
         '/js/pace.min.js',
+        '/js/geopattern-1.2.3.min.js',
         '/js/site.js',
     ];
     public $depends = [
