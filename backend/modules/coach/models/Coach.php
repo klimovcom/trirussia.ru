@@ -80,10 +80,10 @@ class Coach extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created', 'label', 'country'], 'required'],
-            [['created', 'specializationArray', ], 'safe'],
-            [['price'], 'integer'],
-            [['label', 'country', 'site', 'phone', 'email', 'fb_link', 'vk_link', 'ig_link'], 'string', 'max' => 255]
+            [['created', 'label', 'country', 'url'], 'required'],
+            [['created', 'specializationArray'], 'safe'],
+            [['price', 'promo', 'content'], 'string'],
+            [['label', 'country', 'site', 'phone', 'email', 'fb_link', 'vk_link', 'ig_link', 'url'], 'string', 'max' => 255]
         ];
     }
 
@@ -108,6 +108,7 @@ class Coach extends \yii\db\ActiveRecord
             'ig_link' => 'Ссылка instagram',
             'specializationArray' => 'Cпециализации',
             'price' => 'Стоимость',
+            'url' => 'Url',
         ];
     }
 

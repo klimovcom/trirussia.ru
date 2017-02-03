@@ -30,7 +30,14 @@ use yii\widgets\ActiveForm;
         </div>
 
 
-        <?= $form->field($model, 'label')->textInput(['maxlength' => true, 'class' => 'form-control w850 ']) ?>
+        <div class="row">
+            <div class="col-md-6">
+                <?= $form->field($model, 'label')->textInput(['maxlength' => true, 'class' => 'form-control w850 ']) ?>
+            </div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'url')->textInput(['maxlength' => true, 'class' => 'form-control w850 ']) ?>
+            </div>
+        </div>
 
         <?php
         $image = $model->image_id ? Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($model->image_id)) : false;
@@ -95,7 +102,7 @@ use yii\widgets\ActiveForm;
                 ]); ?>
             </div>
             <div class="col-md-6">
-                <?= $form->field($model, 'price')->textInput(['maxlength' => true, 'class' => 'form-control w850 ']) ?>
+
             </div>
         </div>
 
@@ -114,6 +121,8 @@ use yii\widgets\ActiveForm;
         )->label(); ?>
 
         <?= $form->field($model, 'promo')->textarea([ 'maxlength' => true, 'class' => 'form-control w850 ']) ?>
+
+        <?= $form->field($model, 'price')->textarea([ 'maxlength' => true, 'class' => 'form-control w850 ']) ?>
 
         <div class="row">
             <div class="col-md-6">
