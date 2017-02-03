@@ -14,7 +14,6 @@ use \yii\helpers\Html;
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
             <div class="ad-sidebar text-xs-center">
 				<!--  AdRiver code START. Type:300x250 Site: trirussia PZ: 0 BN: 1 -->
-<!--
 				<script type="text/javascript">
 				var RndNum4NoCash = Math.round(Math.random() * 1000000000);
 				var ar_Tail='unknown'; if (document.referrer) ar_Tail = escape(document.referrer);
@@ -28,11 +27,7 @@ use \yii\helpers\Html;
 				<a href="//ad.adriver.ru/cgi-bin/click.cgi?sid=201788&bn=1&bt=40&pz=0&rnd=335117872" target=_blank>
 				<img src="//ad.adriver.ru/cgi-bin/rle.cgi?sid=201788&bn=1&bt=40&pz=0&rnd=335117872" alt="-AdRiver-" border=0 width=300 height=600></a>
 				</noscript>
--->
 				<!--  AdRiver code END  -->
-				<a href="https://www.titan-race.ru" target="_blank">
-					<img src="/img/300x600.jpg">
-				</a>
             </div>
         </div>
         <?php if ($featured) { ?>

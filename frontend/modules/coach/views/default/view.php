@@ -98,7 +98,6 @@ use metalguardian\fileProcessor\helpers\FPM;
                         </ul>
                     </div>
                 <?php endforeach;?>
-
                 <div class="card card-block">
                     <h4>Добавить в справочник</h4>
                     <p>Если по какой-то причине вас или вашей компании нет в справочнике, это можно легко исправить. Просто напишите о себе на электронную почту <a href="mailto:artem@klimov.com" class="underline">artem@klimov.com</a>.</p>
