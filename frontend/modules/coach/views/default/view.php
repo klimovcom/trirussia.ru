@@ -47,7 +47,7 @@ use metalguardian\fileProcessor\helpers\FPM;
                             ];
                             foreach ($contacts as $contact) {
                                 if ($model->$contact) {
-                                    echo Html::tag('li', Html::a($model->$contact, $model->$contact, ['class' => 'underline']));
+                                    echo Html::tag('li', Html::a($model->$contact, $model->$contact, ['class' => 'underline', 'target' => '_blank']));
                                 }
                             }
 
