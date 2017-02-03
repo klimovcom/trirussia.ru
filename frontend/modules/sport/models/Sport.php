@@ -81,6 +81,7 @@ class Sport extends \yii\db\ActiveRecord
     {
         return [
             [['label'], 'string', 'max' => 255],
+            [['icon_id'], 'integer'],
         ];
     }
 
