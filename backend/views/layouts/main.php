@@ -102,6 +102,7 @@ $this->registerCssFile('/css/site.css');
                 <li><a href="<?= Url::to('/promo/promo/index'); ?>"><span>Промо-блоки</span></a></li>
                 <li><a href="<?= Url::to('/banner/banner/index'); ?>"><span>Баннеры</span></a></li>
                 <li><a href="<?= Url::to('/configuration/configuration/index'); ?>"><span>Конфигурация</span></a></li>
+                <li><a href="<?= Url::to('/promocode/promocode/index'); ?>"><span>Промокоды</span></a></li>
             </ul>
         </section>
     </aside>

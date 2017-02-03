@@ -77,6 +77,11 @@ return [
             DIRECTORY_SEPARATOR . 'modules' .
             DIRECTORY_SEPARATOR . 'promo'
         ),
+        'promocode' => realpath(
+            __DIR__ . DIRECTORY_SEPARATOR . '..' .
+            DIRECTORY_SEPARATOR . 'modules' .
+            DIRECTORY_SEPARATOR . 'promocode'
+        ),
     ],
     'modules' => [
         'race' => [
@@ -126,6 +131,9 @@ return [
         ],
         'promo' => [
             'class' => 'promo\PromoModule'
+        ],
+        'promocode' => [
+            'class' => 'promocode\PromocodeModule',
         ],
     ],
     'components' => [
