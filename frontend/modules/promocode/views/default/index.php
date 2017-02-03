@@ -31,7 +31,7 @@ use yii\helpers\Html;
                                     </div>
                                     <div class="promocode-item--promocode  m-t-1 text-xs-center">
                                         <button class="btn btn-secondary btn-block promocode-item--promocode--button">Получить промокод</button>
-                                        <span class="hidden promocode-item--promocode--text"><?= $promocode->promocode;?></span>
+                                        <span class="hidden promocode-item--promocode--text"><strong><?= $promocode->promocode;?></strong></span>
                                     </div>
                                 </div>
                             </li>

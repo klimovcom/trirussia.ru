@@ -117,8 +117,8 @@ if (Yii::$app->controller->action->id !== 'error' && Yii::$app->controller->acti
                     <li><a href="<?= Url::toRoute('/product/default/index'); ?>" class="underline-white">Магазин</a></li>
                     <li><a href="<?= Url::toRoute('/site/about'); ?>" class="underline-white">О проекте</a></li>
                     <li><a href="<?= Url::toRoute('/site/advertising'); ?>" class="underline-white">Реклама</a></li>
-                    <li><a href="<?= Url::toRoute('/site/calendar'); ?>" class="underline-white" <?= $quest;?>>Мой календарь</a></li>
                     <li><a href="<?= Url::toRoute('/site/domains'); ?>" class="underline-white">Домены</a></li>
+                    <li><a href="<?= Url::toRoute('/site/calendar'); ?>" class="underline-white" <?= $quest;?>>Мой календарь</a></li>
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
@@ -136,11 +136,11 @@ if (Yii::$app->controller->action->id !== 'error' && Yii::$app->controller->acti
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                 <h6>Справочник</h6>
                 <ul class="list-unstyled">
-                    <!--<li><a href="/training.php" class="underline-white">Тренеры</a></li>
-                    <li><a href="/org.php" class="underline-white">Организаторы</a></li>-->
+                    <li><a href="/training" class="underline-white">Тренеры</a></li>
+                    <li><a href="/organizer" class="underline-white">Организаторы</a></li>
                     <li><a href="<?= Url::toRoute('/site/bmi'); ?>" class="underline-white">Калькулятор BMI</a></li>
                     <li><a href="<?= Url::toRoute('/site/convert'); ?>" class="underline-white">Калькулятор темпа</a></li>
-                    <!--<li><a href="/shop.php" class="underline-white">Скидки</a></li>-->
+                    <li><a href="/shop" class="underline-white">Скидки</a></li>
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
@@ -156,7 +156,7 @@ if (Yii::$app->controller->action->id !== 'error' && Yii::$app->controller->acti
                         </div>
                     </div>
                 </form>
-                <p class="small m-t-1">Никакого спама. Не чаще одного раза в две недели. Бонусом для тех, кто ещё не ездил на Uber: промокод на 400 рублей.</p>
+<!-- 				<p class="small m-t-1">Никакого спама. Не чаще одного раза в две недели. Бонусом для тех, кто ещё не ездил на Uber: промокод на 400 рублей.</p> -->
             </div>
         </div>
         <p class="text-xs-center m-t-3">Сделано c <i class="fa fa-heart fa-lg text-danger"></i> триатлетами для триатлетов. В перерывах между  <i class="fa fa-bicycle fa-lg"></i></p>
