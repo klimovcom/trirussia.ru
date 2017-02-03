@@ -177,6 +177,7 @@ return [
         'urlManager' => [
             'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
+            'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
 
@@ -190,17 +191,22 @@ return [
                 '/calendar' => '/site/calendar',
                 '/bmi' => '/site/bmi',
                 '/convert' => '/site/convert',
+                'site/auth' => 'site/auth',
+                'site/logout' => 'site/logout',
 
                 '/magazine' => '/post/default/index',
                 '/magazine/search' => '/post/default/search',
+                'magazine/<url>' => 'post/default/view',
 
                 'organizer' => 'organizer/default/index',
-
-                'magazine/<url>' => 'post/default/view',
 
                 'race/add' => 'race/default/create',
                 'race/advanced' => 'race/default/advanced',
                 'race/<url>' => 'race/default/view',
+                'race/default/render-distance-list' => 'race/default/render-distance-list',
+                'race/default/set-rating' => 'race/default/set-rating',
+                'race/default/update-search-distance' => 'race/default/update-search-distance',
+                'race/default/update-url' => 'race/default/update-url',
 
                 '/search-races' => '/site/search-races',
 
@@ -209,20 +215,22 @@ return [
                 'shop/delivery' => 'product/default/delivery',
                 'shop/payment/<label>' => 'product/default/payment',
                 'shop/<url>' => 'product/default/view',
+                'product/default/add-product-to-cart' => 'product/default/add-product-to-cart',
+                'product/default/change-cart-position-count' => 'product/default/change-cart-position-count',
+                'product/default/remove-cart-position' => 'product/default/remove-cart-position',
+                'yandex-money-check' => 'product/default/yandex-money-check',
 
                 'promocodes' => 'promocode/default/index',
+                
                 'training' => 'coach/default/index',
                 'training/<url>' => 'coach/default/view',
 
-                'yandex-money-check' => 'product/default/yandex-money-check',
-                '/<sport:\w+>' => '/site/sport',
+                'willGo/default/remove-will-go' => 'willGo/default/remove-will-go',
+                'willGo/default/add-will-go' => 'willGo/default/add-will-go',
+
+                '<sport:\w+>' => '/site/sport',
 
                 '/' => '/site/index',
-
-
-                '<module:\w+>/<controller:\w+>/<id:\d+>' => '<module>/<controller>/view',
-                '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
-                '<module:\w+>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
             ],
         ],
         'authClientCollection' => [
