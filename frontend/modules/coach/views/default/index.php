@@ -30,7 +30,6 @@ use metalguardian\fileProcessor\helpers\FPM;
                 </p>
             </div>
         </div>
-
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
             <div class="ad-sidebar text-xs-center">
 				<!--  AdRiver code START. Type:300x250 Site: trirussia PZ: 0 BN: 1 -->

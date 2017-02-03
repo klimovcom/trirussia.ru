@@ -140,7 +140,7 @@ if (Yii::$app->controller->action->id !== 'error' && Yii::$app->controller->acti
                     <li><a href="/organizer" class="underline-white">Организаторы</a></li>
                     <li><a href="<?= Url::toRoute('/site/bmi'); ?>" class="underline-white">Калькулятор BMI</a></li>
                     <li><a href="<?= Url::toRoute('/site/convert'); ?>" class="underline-white">Калькулятор темпа</a></li>
-                    <li><a href="/shop" class="underline-white">Скидки</a></li>
+                    <li><a href="/promocodes" class="underline-white">Скидки в магазинах</a></li>
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
