@@ -54,6 +54,9 @@ use metalguardian\fileProcessor\helpers\FPM;
                             ?>
                         </ul>
                     </div>
+                    <div class="col-xs-12 m-t-1">
+                        <?= $model->content;?>
+                    </div>
                 </div>
             </div>
         </div>
