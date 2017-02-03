@@ -72,6 +72,11 @@ return [
             DIRECTORY_SEPARATOR . 'modules' .
             DIRECTORY_SEPARATOR . 'product'
         ),
+        'promocode' => realpath(
+            __DIR__ . DIRECTORY_SEPARATOR . '..' .
+            DIRECTORY_SEPARATOR . 'modules' .
+            DIRECTORY_SEPARATOR . 'promocode'
+        ),
     ],
     'modules' => [
         'race' => [
@@ -118,7 +123,10 @@ return [
         ],
         'product' => [
             'class' => 'product\ProductModule',
-        ]
+        ],
+        'promocode' => [
+            'class' => 'promocode\PromocodeModule',
+        ],
 
     ],
     'controllerNamespace' => 'frontend\controllers',
@@ -193,6 +201,8 @@ return [
                 'shop/delivery' => 'product/default/delivery',
                 'shop/payment/<label>' => 'product/default/payment',
                 'shop/<url>' => 'product/default/view',
+
+                'promocodes' => 'promocode/default/index',
 
                 'yandex-money-check' => 'product/default/yandex-money-check',
                 '/<sport:\w+>' => '/site/sport',

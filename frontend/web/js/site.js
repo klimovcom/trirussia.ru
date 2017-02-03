@@ -393,6 +393,13 @@ $(document).ready(function(){
         $(this).attr('data-rate', index);
     });
 
+    $(document).on('click', '.promocode-item--promocode--button', function(e) {
+        $text = $(this).parent().find('.promocode-item--promocode--text');
+        $(this).fadeOut(300, function() {
+            $text.fadeIn(300);
+        });
+    });
+
 });
 
 jQuery(document).ready(function($){
