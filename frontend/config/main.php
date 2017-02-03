@@ -100,13 +100,14 @@ return [
             'class' => 'organizer\OrganizerModule',
         ],
         'fileProcessor' => [
-            'class' => 'metalguardian\fileProcessor\Module',
+            'class' => '\metalguardian\fileProcessor\Module',
             'imageSections' => [
-                'news' => [
-                    'preview' => [
+
+                'profile' => [
+                    'view' => [
                         'action' => 'adaptiveThumbnail',
-                        'width' => 100,
-                        'height' => 100,
+                        'width' => 120,
+                        'height' => 120,
                     ],
                 ],
             ],

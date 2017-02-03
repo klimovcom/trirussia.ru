@@ -346,6 +346,8 @@ class SiteController extends Controller
             ['organizer/default/index'],
             ['race/default/create'],
             ['product/default/index'],
+            ['promocode/default/index'],
+            ['coach/default/index'],
         ];
         $items = [];
         $models = [
@@ -353,6 +355,7 @@ class SiteController extends Controller
             '\race\models\Race',
             '\post\models\Post',
             '\product\models\Product',
+            '\coach\models\Coach',
         ];
         foreach ($models as $model) {
             $items = array_merge($items, $model::find()->published()->all());

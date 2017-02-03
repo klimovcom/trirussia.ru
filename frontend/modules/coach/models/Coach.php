@@ -7,7 +7,15 @@ use metalguardian\fileProcessor\helpers\FPM;
 use sport\models\Sport;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
+class CoachQuery extends \yii\db\ActiveQuery {
+
+    public function published() {
+        return $this;
+    }
+
+}
 /**
  * This is the model class for table "coach".
  *
@@ -72,6 +80,10 @@ class Coach extends \yii\db\ActiveRecord
         ];
     }
 
+    public static function find() {
+        return new CoachQuery(get_called_class());
+    }
+
 
     public function getCoachSport() {
         return $this->hasMany(CoachSportRef::className(), ['coach_id' => 'id']);
@@ -79,5 +91,9 @@ class Coach extends \yii\db\ActiveRecord
 
     public function getSports() {
         return $this->hasMany(Sport::className(), ['id' => 'sport_id'])->via('coachSport');
+    }
+
+    public function getViewUrl() {
+        return Url::to(['/coach/default/view', 'url' => $this->url]);
     }
 }
