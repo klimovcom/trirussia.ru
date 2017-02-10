@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model post\models\Post */
@@ -58,7 +59,8 @@ use yii\widgets\ActiveForm;
                         'clips',
                         'fullscreen'
                     ]
-                ]
+                ],
+                'imageUpload' => Url::to(['/race/race/image-upload']),
             ]
         )->label(); ?>
 
