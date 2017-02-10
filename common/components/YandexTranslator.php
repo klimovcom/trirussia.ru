@@ -8,10 +8,17 @@ class YandexTranslator {
     private $key = 'trnsl.1.1.20170120T124503Z.7b086902f22a0140.967b70898f2c90416c65b9d10e56194d64cb43d2';
     private $url = 'https://translate.yandex.net/api/v1.5/tr.json/translate';
     private $lang = 'ru-en';
+    private $format = 'plain';
     private $texts = [];
 
-    public function __construct($texts) {
+    public function __construct($texts, $lang = null, $format = null) {
         $this->texts = $texts;
+        if ($lang) {
+            $this->lang = $lang;
+        }
+        if ($format) {
+            $this->format = $format;
+        }
     }
 
     public function translate() {
@@ -56,7 +63,7 @@ class YandexTranslator {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $this->url);
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(['key' => $this->key, 'lang' => $this->lang, 'text' => $text]));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(['key' => $this->key, 'lang' => $this->lang, 'format' => $this->format, 'text' => $text]));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch,CURLOPT_SSL_VERIFYPEER, false);
         $result = curl_exec ($ch);
