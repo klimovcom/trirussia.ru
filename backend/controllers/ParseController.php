@@ -1,4 +1,5 @@
 <?php
+/*
 namespace backend\controllers;
 
 use common\components\GoogleGeocoding;
@@ -19,7 +20,7 @@ use phpQuery;
 /**
  * Site controller
  */
-class ParseController extends Controller {
+/*class ParseController extends Controller {
 
     public function actionIndex($number) {
         set_time_limit(0);
@@ -199,4 +200,4 @@ class ParseController extends Controller {
         fwrite($fp, $rawdata);
         fclose($fp);
     }
-}
+}*/
