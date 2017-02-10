@@ -38,7 +38,7 @@ class RaceController extends BackController
             'image-upload' => [
                 'class' => 'backend\extensions\UploadAction',
                 'url' => '/uploads/misc/', // Directory URL address, where files are stored.
-                'path' => Yii::getAlias('@backend/web/upload/misc/'), // Or absolute path to directory where files are stored.
+                'path' => Yii::getAlias('@backend/web/uploads/misc/'), // Or absolute path to directory where files are stored.
                 'width' => 800,
                 'height' => 450,
             ],
