@@ -21,8 +21,11 @@ use phpQuery;
  */
 class ParseController extends Controller {
 
-    public function actionIndex() {
+    public function actionIndex($number) {
         set_time_limit(0);
+
+        $countTo = $number*30;
+        $countFrom = $countTo-30;
 
         //json with all needed races;
         $url = 'http://eu.ironman.com/handlers/searchraces.aspx?s=all%20events&d=27e93193-000b-434d-a2b8-8bb226043d4c|b5bb2639-fa51-4eb7-aaca-3cc65d72fdc3|&rs=&t=&l=undefined&m=';
@@ -39,14 +42,20 @@ class ParseController extends Controller {
         $pq = \phpQuery::newDocument($html);
 
         $items = $pq->find('article');
+        $i=0;
         foreach ($items as $item) {
             $pqItem = pq($item);
             $a = $pqItem->find('header:first a:first');
             $name = $a->find('h2:first')->text();
             $link = $a->attr('href');
             $pos = $pqItem->find('header:first span:first')->text();
-            echo $name . '<br>';
-            $this->createProduct($link, $name, $pos, $organizer, $sport);
+
+            if ($i >= $countFrom && $i< $countTo) {
+                echo $name . '<br>';
+                $this->createProduct($link, $name, $pos, $organizer, $sport);
+            }
+            $i++;
+
         }
 
     }
