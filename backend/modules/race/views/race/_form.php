@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\datetime\DateTimePicker;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model race\models\Race */
@@ -412,7 +413,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
                     'plugins' => [
                         'clips',
                         'fullscreen'
-                    ]
+                    ],
+                    'imageUpload' => Url::to(['/race/race/image-upload']),
                 ]
             ]
         )->label(); ?>
@@ -426,7 +428,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
                     'plugins' => [
                         'clips',
                         'fullscreen'
-                    ]
+                    ],
+                    'imageUpload' => Url::to(['/race/race/image-upload']),
                 ]
             ]
         )->label(); ?>

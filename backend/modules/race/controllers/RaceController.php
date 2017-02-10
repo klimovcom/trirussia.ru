@@ -33,6 +33,18 @@ class RaceController extends BackController
         ];
     }
 
+    public function actions() {
+        return [
+            'image-upload' => [
+                'class' => 'backend\extensions\UploadAction',
+                'url' => '/upload/misc/', // Directory URL address, where files are stored.
+                'path' => Yii::getAlias('@backend/web/upload/misc/'), // Or absolute path to directory where files are stored.
+                'width' => 800,
+                'height' => 450,
+            ],
+        ];
+    }
+
     /**
      * Lists all Race models.
      * @return mixed
