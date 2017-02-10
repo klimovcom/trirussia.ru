@@ -22,6 +22,7 @@ use phpQuery;
 class ParseController extends Controller {
 
     public function actionIndex() {
+        set_time_limit(0);
 
         //json with all needed races;
         $url = 'http://eu.ironman.com/handlers/searchraces.aspx?s=all%20events&d=27e93193-000b-434d-a2b8-8bb226043d4c|b5bb2639-fa51-4eb7-aaca-3cc65d72fdc3|&rs=&t=&l=undefined&m=';
