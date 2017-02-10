@@ -45,6 +45,7 @@ class ParseController extends Controller {
             $name = $a->find('h2:first')->text();
             $link = $a->attr('href');
             $pos = $pqItem->find('header:first span:first')->text();
+            echo $name . '<br>';
             $this->createProduct($link, $name, $pos, $organizer, $sport);
         }
 
