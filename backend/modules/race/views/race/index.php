@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     return Html::a($label, \yii\helpers\Url::to('/race/race/view/' . $model->id));
                                 }
                             ],
-                            'sport_id' => [
+                            /*'sport_id' => [
                                 'attribute' => 'sport_id',
                                 'value' => function ($model) {
                                     $sport = \sport\models\Sport::findOne($model->sport_id);
@@ -57,6 +57,20 @@ $this->params['breadcrumbs'][] = $this->title;
                                     return null;
                                 },
                                 'filter' => \yii\helpers\ArrayHelper::map(\sport\models\Sport::find()->all(), 'id', 'label'),
+                            ],*/
+                            [
+                                'label' => 'Рейтинг',
+                                'format' => 'raw',
+                                'value' => function($model) {
+                                    return number_format(round($model->getRating()), 2, '.', '');
+                                }
+                            ],
+                            [
+                                'label' => 'Проголосовало',
+                                'format' => 'raw',
+                                'value' => function($model) {
+                                    return $model->getVotersCount();
+                                }
                             ],
                             'organizer_id' => [
                                 'attribute' => 'organizer_id',
