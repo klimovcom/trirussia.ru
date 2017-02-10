@@ -5,7 +5,7 @@ use yii\helpers\ArrayHelper;
 
 class YandexTranslator {
 
-    private $key = 'trnsl.1.1.20170210T153653Z.1584ea53c2171441.55bdb94c432c6648c462c4fcca70a2c81dba72ce';
+    private $key = 'trnsl.1.1.20170210T153909Z.b64b89f64f77f9ec.4f96b0f39a6d08118f547dc662c49c511e62c55e';
     private $url = 'https://translate.yandex.net/api/v1.5/tr.json/translate';
     private $lang = 'ru-en';
     private $format = 'plain';
