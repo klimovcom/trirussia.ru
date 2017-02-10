@@ -49,7 +49,7 @@ class UploadAction extends \vova07\imperavi\actions\UploadAction {
                 ];
             } else {
                 if ($this->unique === true && $model->file->extension) {
-                    $model->file->name = uniqid(true) . '.' . $model->file->extension;
+                    $model->file->name = uniqid('', true) . '.' . $model->file->extension;
                 }
                 if ($model->file->saveAs($this->path . $model->file->name)) {
 
