@@ -405,7 +405,11 @@ $(document).ready(function(){
         var label = $(this).attr('data-label');
         var pattern = GeoPattern.generate(label);
         $(this).css('background-image', pattern.toDataUrl());
-    })
+    });
+
+    $("img.lazy").lazyload({
+        effect : "fadeIn"
+    });
 });
 
 jQuery(document).ready(function($){

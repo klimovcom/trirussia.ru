@@ -33,12 +33,10 @@ use \yii\helpers\Html;
         <?php if ($featured) { ?>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
                 <div class="card">
-                    <?php if ($featured->image_id) { ?>
-						<?= Html::a(
-							Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($featured->image_id), ['class' => 'img-fluid card-img-top']),
-							['/magazine/'.$featured->url, ]
-						);?>
-                    <?php } ?>
+                    <?= $featured->image_id ? Html::a(
+                        Html::tag('div', Html::img(false, ['class' => 'embed-responsive-item lazy', 'data-original' => \metalguardian\fileProcessor\helpers\FPM::originalSrc($featured->image_id)]), ['class' => 'embed-responsive embed-responsive-16by9']),
+                        ['/post/default/view', 'url' => $featured->url]
+                    ) : '';?>
                     <div class="card-block">
                         <h6 class="magazine-caption report"><?= $featured->getType(); ?></h6>
                         <h4 class="card-title">
@@ -66,8 +64,8 @@ use \yii\helpers\Html;
                     <li class="flex-item">
                         <div class="card">
 							<?= Html::a(
-								Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($post->image_id), ['class' => 'img-fluid card-img-top']),
-								['/magazine/'.$post->url, ]
+                                Html::tag('div', Html::img(false, ['class' => 'embed-responsive-item lazy card-img-top', 'data-original' => \metalguardian\fileProcessor\helpers\FPM::originalSrc($post->image_id)]), ['class' => 'embed-responsive embed-responsive-16by9']),
+                                ['/post/default/view', 'url' => $featured->url]
 							);?>
                             <div class="card-block">
                                 <h6 class="magazine-caption news"><?= $post->getType(); ?></h6>

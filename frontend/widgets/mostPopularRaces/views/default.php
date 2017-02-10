@@ -14,7 +14,9 @@ use metalguardian\fileProcessor\helpers\FPM;
    <?php foreach ($races as $race) {?>
        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 m-t-1">
            <a href="<?= $race->getViewUrl(); ?>">
-               <img src="<?= FPM::originalSrc($race->main_image_id);?>" class="img-fluid most-wanted">
+               <div class="embed-responsive embed-responsive-16by9">
+                   <img alt="<?= $race->label; ?>" class="most-wanted embed-responsive-item lazy" data-original="<?= FPM::originalSrc($race->main_image_id); ?>">
+               </div>
            </a>
            <h5 class="m-t-1">
                <a href="<?= $race->getViewUrl(); ?>" class="underline-black">

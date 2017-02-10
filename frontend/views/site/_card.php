@@ -32,9 +32,9 @@ $organizerLabel = $race->organizer->image_id ?
                 <div class="card-img-caption-container">
                     <?php if ($race->main_image_id && $race->isShowImage()) { ?>
                         <a href="<?= $race->getViewUrl(); ?>">
-                            <img class="card-img-top img-fluid"
-                                 src="<?= FPM::originalSrc($race->main_image_id); ?>"
-                                 alt="<?= $race->label; ?>">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <img alt="<?= $race->label; ?>" class="card-img-top embed-responsive-item lazy" data-original="<?= FPM::originalSrc($race->main_image_id); ?>">
+                            </div>
                         </a>
                         <div class="card-img-caption bg-<?= $race->getSportClass(); ?>">
                             <small>

@@ -10,16 +10,15 @@ use \yii\helpers\Html;
     <div class="card-block border-gold">
         <h4 class="PTSerif"><i>Самое популярное</i></h4>
     </div>
-    <?php if ($post->image_id) { ?>
-        <?= Html::a(
-            Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($post->image_id), ['class' => 'img-fluid most-popular-post']),
-            ['/magazine/'.$post->url, ]
-        );?>
-    <?php } ?>
+    <?= $post->image_id ? Html::a(
+        Html::tag('div', Html::img(false, ['class' => 'embed-responsive-item lazy most-popular-post', 'data-original' => \metalguardian\fileProcessor\helpers\FPM::originalSrc($post->image_id)]), ['class' => 'embed-responsive embed-responsive-16by9']),
+        ['/post/default/view', 'url' => $post->url]
+    ) : '';?>
+
     <div class="card-block">
         <h6 class="magazine-caption report"><?= $post->getType(); ?></h6>
         <h4 class="card-title">
-	        <?= Html::a($post->label, ['/magazine/'.$post->url, ], ['class'=>'underline-black'])?>
+	        <?= Html::a($post->label, ['/post/default/view', 'url' => $post->url], ['class'=>'underline-black'])?>
         </h4>
         <p><?= $post->promo; ?></p>
     </div>
