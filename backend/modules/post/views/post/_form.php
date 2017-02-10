@@ -58,9 +58,9 @@ use yii\helpers\Url;
                     'plugins' => [
                         'clips',
                         'fullscreen'
-                    ]
-                ],
-                'imageUpload' => Url::to(['/race/race/image-upload']),
+                    ],
+                    'imageUpload' => Url::to(['/race/race/image-upload']),
+                ]
             ]
         )->label(); ?>
 
