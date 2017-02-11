@@ -35,6 +35,7 @@ class Post extends \yii\db\ActiveRecord
     {
         $this->created = date("Y-m-d H:i", time());
         $this->author_id = Yii::$app->user->id;
+        $this->popularity = 0;
         return parent::__construct($config);
     }
 
