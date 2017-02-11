@@ -783,6 +783,7 @@ class Race extends \yii\db\ActiveRecord
         $races = Race::find()
             ->select('id, country')
             ->where(['>=', 'start_date', date('Y-m-d')])
+            ->published()
             ->all();
 
 
@@ -828,6 +829,7 @@ class Race extends \yii\db\ActiveRecord
             ->select('id, country')
             ->where(['>=', 'start_date', date('Y-m-d')])
             ->andWhere(['sport_id'=>$sport->id])
+            ->published()
             ->all();
 
 
