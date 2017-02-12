@@ -131,4 +131,17 @@ class Post extends \yii\db\ActiveRecord
 
         return true;
     }
+
+    public function beforeSave($insert) {
+        parent::beforeSave($insert);
+        $this->addClassToImg();
+        return true;
+    }
+
+    public function addClassToImg() {
+        $content = \phpQuery::newDocument($this->content);
+        $imgs = $content->find('img');
+        $imgs->addClass('img-fluid');
+        $this->content = $content->html();
+    }
 }
