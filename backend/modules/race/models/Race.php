@@ -326,6 +326,20 @@ class Race extends \yii\db\ActiveRecord
         return new MultilingualQuery(get_called_class());
     }
 
+    public function beforeSave($insert) {
+        parent::beforeSave($insert);
+        $this->addClassToImg('content');
+        $this->addClassToImg('content_en');
+        return true;
+    }
+
+    public function addClassToImg($field) {
+        $content = \phpQuery::newDocument($this->$field);
+        $imgs = $content->find('img');
+        $imgs->addClass('img-fluid');
+        $this->$field = $content->html();
+    }
+
     public function beforeDelete()
     {
         parent::beforeDelete();
