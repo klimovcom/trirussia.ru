@@ -125,7 +125,9 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
         <div class="card">
             <div class="card-block">
                 <h2>Описание</h2>
-                <?= $race->content; ?>
+                <div class="fancybox_container">
+                    <?= $race->content; ?>
+                </div>
                 <div class="register">
                     <h5 class="PTSerif m-b-2"><i>Регистрация на <?= $race->label;?></i></h5>
                     <button type="button" class="btn btn-secondary" id="register" <?= $quest; ?> onclick="yaCounter26019216.reachGoal('register'); return true;">Зарегистрироваться</button>
