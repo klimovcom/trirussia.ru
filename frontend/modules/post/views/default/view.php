@@ -31,7 +31,7 @@ use \yii\helpers\Url;
                     <div class="clearfix"></div>
                     <p class="card-text PTSerif lead"><i><?= $post->promo; ?></i></p>
                     <hr>
-                    <article>
+                    <article class="fancybox_container">
                         <?= $content; ?>
                     </article>
                     <?php foreach (explode(',', $post->tags) as $tag) { ?>

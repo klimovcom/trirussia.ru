@@ -410,6 +410,9 @@ $(document).ready(function(){
     $("img.lazy").lazyload({
         effect : "fadeIn"
     });
+
+    initFancybox();
+
 });
 
 jQuery(document).ready(function($){
@@ -566,4 +569,17 @@ function stickIt() {
         $('.cloned').hide();
         $('.original').css('visibility','visible');
     }
+}
+function initFancybox() {
+    var $imgs = $('.fancybox_container img').not('.lazy');
+    var srcArray = [];
+    $imgs.each(function() {
+        srcArray.push({src : $(this).attr('src')});
+    });
+
+    $imgs.click(function() {
+        var index = $imgs.index($(this));
+        $.fancybox.open(srcArray, {
+        }, index);
+    });
 }
