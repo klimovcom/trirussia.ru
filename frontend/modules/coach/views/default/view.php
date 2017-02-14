@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use metalguardian\fileProcessor\helpers\FPM;
 ?>
 <div class="container">
-    <h1 class="m-t-3 m-b-3"><?= $model->label;?></h1>
+    <h1 class="m-t-3 m-b-3"><a href="/training" class="underline-black">Тренеры</a> — <?= $model->label;?></h1>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
             <div class="card card-block">
