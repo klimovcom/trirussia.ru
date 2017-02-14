@@ -3,6 +3,10 @@
 namespace user\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
+use yii\web\IdentityInterface;
+use developeruz\db_rbac\interfaces\UserRbacInterface;
+use yii\base\NotSupportedException;
 
 /**
  * This is the model class for table "user".
@@ -26,8 +30,11 @@ use Yii;
  * @property string $birthday
  * @property string $place
  */
-class User extends \yii\db\ActiveRecord
+class User extends \yii\db\ActiveRecord implements IdentityInterface, UserRbacInterface
 {
+
+    public $role;
+
     /**
      * @inheritdoc
      */
@@ -67,7 +74,8 @@ class User extends \yii\db\ActiveRecord
             [['photo_url'], 'string', 'max' => 1024],
             [['username'], 'unique'],
             [['email'], 'unique'],
-            [['password_reset_token'], 'unique']
+            [['password_reset_token'], 'unique'],
+            [['role'], 'safe'],
         ];
     }
 
@@ -96,8 +104,64 @@ class User extends \yii\db\ActiveRecord
             'birthday' => 'Дата рождения',
             'place' => 'Местонахождение',
             'photo_url' => 'Фото',
+            'role' => 'Роль',
 
         ];
+    }
+
+    public function afterSave($insert, $changedAttributes) {
+        parent::afterSave($insert, $changedAttributes);
+
+        $this->updateRoles();
+
+        return true;
+    }
+
+    public function getUserName() {
+        return $this->username;
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function findIdentity($id) {
+        return static::findOne(['id' => $id]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getAuthKey() {
+        return $this->auth_key;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function validateAuthKey($authKey) {
+        return $this->getAuthKey() === $authKey;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function findIdentityByAccessToken($token, $type = null) {
+        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+    }
+
+    public function updateRoles() {
+        $oldRoleName = ArrayHelper::getValue(array_keys(Yii::$app->authManager->getRolesByUser($this->id)), 0);
+        $role = Yii::$app->authManager->getRole($this->role);
+        if ($role && $oldRoleName !== $role->name) {
+            Yii::$app->authManager->revokeAll($this->id);
+            Yii::$app->authManager->assign($role, $this->id);
+        }
+
+        return true;
     }
 
     public static function getAuthorData()

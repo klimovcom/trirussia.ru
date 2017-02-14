@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model user\models\User */
@@ -41,6 +42,14 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'created_at')->textInput() ?>
 
         <?= $form->field($model, 'updated_at')->textInput() ?>
+
+        <?=
+        $form->field($model, 'role')->listBox(
+            ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'description'), [
+                'multiple' => false
+            ]
+        )
+        ?>
 
     </div>
     <div class="box-footer">

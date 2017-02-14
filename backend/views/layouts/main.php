@@ -75,34 +75,52 @@ $this->registerCssFile('/css/site.css');
         <section class="sidebar">
             <ul class="sidebar-menu">
                 <li class="header">Главное меню</li>
-                <li><a href="<?= Url::to('/user/user/index'); ?>"><span>Пользователи</span></a></li>
-                <li><a href="<?= Url::to('/race/race/index'); ?>"><span>Соревнования</span></a></li>
-                <li><a href="<?= Url::to('/sport/sport/index'); ?>"><span>Виды спорта</span></a></li>
-                <li class="treeview <?= $this->context->module->id == 'distance' ? 'active' : '';?>">
-                    <a href="#"><span>Дистанции</span> <i class="fa fa-angle-left pull-right"></i></a>
-                    <ul class="treeview-menu">
-                        <li><a href="<?= Url::to('/distance/distance/index'); ?>">Дистанции</a></li>
-                        <li><a href="<?= Url::to('/distance/distance-category/index'); ?>">Категории</a></li>
-                    </ul>
-                </li>
-                <li><a href="<?= Url::to('/organizer/organizer/index'); ?>"><span>Организаторы</span></a></li>
-                <li><a href="<?= Url::to('/coach/coach/index'); ?>"><span>Тренеры</span></a></li>
-                <li><a href="<?= Url::to('/page/page/index'); ?>"><span>Страницы</span></a></li>
-                <li><a href="<?= Url::to('/post/post/index'); ?>"><span>Журнал</span></a></li>
-                <li class="treeview <?= $this->context->module->id == 'product' ? 'active' : '';?>">
-                    <a href="#"><span>Магазин</span> <i class="fa fa-angle-left pull-right"></i></a>
-                    <ul class="treeview-menu">
-                        <li><a href="<?= Url::to('/product/product/index'); ?>"><span>Продукты</span></a></li>
-                        <li><a href="<?= Url::to('/product/product-category/index'); ?>"><span>Категории</span></a></li>
-                        <li><a href="<?= Url::to('/product/product-attr/index'); ?>"><span>Атрибуты</span></a></li>
-                        <li><a href="<?= Url::to('/product/product-order/index'); ?>"><span>Заказы</span></a></li>
-                        <li><a href="<?= Url::to('/product/product-banner/index'); ?>"><span>Баннеры</span></a></li>
-                    </ul>
-                </li>
-                <li><a href="<?= Url::to('/promo/promo/index'); ?>"><span>Промо-блоки</span></a></li>
-                <li><a href="<?= Url::to('/banner/banner/index'); ?>"><span>Баннеры</span></a></li>
-                <li><a href="<?= Url::to('/configuration/configuration/index'); ?>"><span>Конфигурация</span></a></li>
-                <li><a href="<?= Url::to('/promocode/promocode/index'); ?>"><span>Промокоды</span></a></li>
+                <?php if (Yii::$app->user->can('user')):?>
+                    <li class="treeview <?= $this->context->module->id == 'user' ? 'active' : '';?>">
+                        <a href="#"><span>Пользователи</span> <i class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <?= Html::tag('li', Html::a('Пользователи', ['/user/user/index']));?>
+
+                            <?= Yii::$app->user->can('permit') ? Html::tag('li', Html::a('Роли', ['/permit/access/role']))  : '';?>
+                            <?= Yii::$app->user->can('permit') ? Html::tag('li', Html::a('Правила', ['/permit/access/permission']))  : '';?>
+                        </ul>
+                    </li>
+                <?php endif;?>
+                <?= Yii::$app->user->can('race') ? Html::tag('li', Html::a('Соревнования', ['/race/race/index']))  : '';?>
+                <?= Yii::$app->user->can('sport') ? Html::tag('li', Html::a('Виды спорта', ['/sport/sport/index']))  : '';?>
+
+                <?php if (Yii::$app->user->can('distance')):?>
+                    <li class="treeview <?= $this->context->module->id == 'distance' ? 'active' : '';?>">
+                        <a href="#"><span>Дистанции</span> <i class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="<?= Url::to('/distance/distance/index'); ?>">Дистанции</a></li>
+                            <li><a href="<?= Url::to('/distance/distance-category/index'); ?>">Категории</a></li>
+                        </ul>
+                    </li>
+                <?php endif;?>
+
+                <?= Yii::$app->user->can('organizer') ? Html::tag('li', Html::a('Организаторы', ['/organizer/organizer/index']))  : '';?>
+                <?= Yii::$app->user->can('coach') ? Html::tag('li', Html::a('Тренеры', ['/coach/coach/index']))  : '';?>
+                <?= Yii::$app->user->can('page') ? Html::tag('li', Html::a('Страницы', ['/page/page/index']))  : '';?>
+                <?= Yii::$app->user->can('post') ? Html::tag('li', Html::a('Журнал', ['/post/post/index']))  : '';?>
+
+                <?php if (Yii::$app->user->can('product')):?>
+                    <li class="treeview <?= $this->context->module->id == 'product' ? 'active' : '';?>">
+                        <a href="#"><span>Магазин</span> <i class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="<?= Url::to('/product/product/index'); ?>"><span>Продукты</span></a></li>
+                            <li><a href="<?= Url::to('/product/product-category/index'); ?>"><span>Категории</span></a></li>
+                            <li><a href="<?= Url::to('/product/product-attr/index'); ?>"><span>Атрибуты</span></a></li>
+                            <li><a href="<?= Url::to('/product/product-order/index'); ?>"><span>Заказы</span></a></li>
+                            <li><a href="<?= Url::to('/product/product-banner/index'); ?>"><span>Баннеры</span></a></li>
+                        </ul>
+                    </li>
+                <?php endif;?>
+
+                <?= Yii::$app->user->can('promo') ? Html::tag('li', Html::a('Промо-блоки', ['/promo/promo/index']))  : '';?>
+                <?= Yii::$app->user->can('configuration') ? Html::tag('li', Html::a('Конфигурация', ['/configuration/configuration/index']))  : '';?>
+                <?= Yii::$app->user->can('promocode') ? Html::tag('li', Html::a('Промокоды', ['/promocode/promocode/index']))  : '';?>
+
             </ul>
         </section>
     </aside>

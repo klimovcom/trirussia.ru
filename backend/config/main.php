@@ -135,6 +135,12 @@ return [
         'promocode' => [
             'class' => 'promocode\PromocodeModule',
         ],
+        'permit' => [
+            'class' => 'developeruz\db_rbac\Yii2DbRbac',
+            'theme' => [
+                'pathMap' => ['@vendor/developeruz/yii2-db-rbac/views/access' => '@backend/views/access'],
+            ],
+        ],
     ],
     'components' => [
         'user' => [
@@ -182,6 +188,31 @@ return [
             ),
         ],
 
+    ],
+    'as AccessBehavior' => [
+        'class' => developeruz\db_rbac\behaviors\AccessBehavior::className(),
+        'rules' =>
+            [
+                'site' =>
+                    [
+                        [
+                            'actions' => ['error', 'login', 'logout'],
+                            'allow' => true,
+                        ],
+                        [
+                            'actions' => ['index'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                'debug/default' =>
+                    [
+                        [
+                            'actions' => [],
+                            'allow' => true,
+                        ],
+                    ]
+            ],
     ],
     'params' => $params,
 ];

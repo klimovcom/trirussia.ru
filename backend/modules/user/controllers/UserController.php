@@ -98,6 +98,7 @@ class UserController extends BackController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->role = array_keys(Yii::$app->authManager->getRolesByUser($id));
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

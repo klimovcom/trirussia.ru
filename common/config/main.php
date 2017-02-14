@@ -13,6 +13,9 @@ return [
             'password' => '',
             'charset' => 'utf8',
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
 
     ],
 ];
