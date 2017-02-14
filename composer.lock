@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2c1f652154f48d48870225c0b725dbdd",
-    "content-hash": "d82e0ff166038ec5ce390ba85a020ad2",
+    "hash": "f88751a6d64b509726bb0c79948debca",
+    "content-hash": "f4b2dd75d2a22ef529c6a98ecf5eed45",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -477,6 +477,47 @@
             ],
             "description": "BDD assertion library for PHPUnit",
             "time": "2016-07-13 09:34:15"
+        },
+        {
+            "name": "developeruz/yii2-db-rbac",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/developeruz/yii2-db-rbac.git",
+                "reference": "ef181cbb2d80a9a68d65c42d54bcd113260729ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/developeruz/yii2-db-rbac/zipball/ef181cbb2d80a9a68d65c42d54bcd113260729ec",
+                "reference": "ef181cbb2d80a9a68d65c42d54bcd113260729ec",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "developeruz\\db_rbac\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Elvira Sheina",
+                    "email": "elleuz@gmail.com",
+                    "homepage": "http://developer.uz"
+                }
+            ],
+            "description": "Dynamic control of access rights in YII2",
+            "keywords": [
+                "rbac",
+                "yii"
+            ],
+            "time": "2016-12-09 13:28:47"
         },
         {
             "name": "doctrine/instantiator",
