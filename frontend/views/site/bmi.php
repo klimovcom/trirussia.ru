@@ -78,12 +78,6 @@
                         </tr>
                         </tbody>
                     </table>
-                    <hr>
-                    <div class="likely">
-                        <div class="facebook">Поделиться</div>
-                        <div class="twitter">Твитнуть</div>
-                        <div class="vkontakte">Поделиться</div>
-                    </div>
                 </div>
                 <hr>
                 <div class="likely">
