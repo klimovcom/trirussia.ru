@@ -251,10 +251,12 @@ class SiteController extends Controller
             $raceCondition->andWhere(['organizer.label' => $_GET['organizer']]);
         }
 
+        $raceCondition->andWhere(['race.published' => 1]);
+        
         if (!empty($_GET['sort']) && $_GET['sort'] == 'popular'){
-            $races = $raceCondition->published()->orderBy('popularity DESC, start_date ASC, id DESC')->limit(13)->all();
+            $races = $raceCondition->orderBy('popularity DESC, start_date ASC, id DESC')->limit(13)->all();
         } else {
-            $races = $raceCondition->published()->orderBy('start_date ASC, id DESC')->limit(13)->all();
+            $races = $raceCondition->orderBy('start_date ASC, id DESC')->limit(13)->all();
         }
         $showMore = false;
         if (count($races) > 12){
