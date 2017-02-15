@@ -20,7 +20,6 @@ use Yii;
 class UploadAction extends \vova07\imperavi\actions\UploadAction {
 
     public $width;
-    public $height;
 
     /**
      * @var string Model validator name
@@ -30,7 +29,7 @@ class UploadAction extends \vova07\imperavi\actions\UploadAction {
     public function init() {
         parent::init();
 
-        if (!$this->width || !$this->height) {
+        if (!$this->width) {
             throw new InvalidCallException("Image size must be set");
         }
 
@@ -79,16 +78,11 @@ class UploadAction extends \vova07\imperavi\actions\UploadAction {
         $image->interlace(ImageInterface::INTERLACE_PLANE);
 
         //resize
-        $size = $image->getSize()->widen($this->width);
-        $image->resize($size, ImageInterface::FILTER_SINC);
-
-        //crop to needed height
-
-        if ($image->getSize()->getHeight() > $this->height) {
-            $cropBox = new Box($this->width, $this->height);
-            $cropPoint = new Point(0, ($image->getSize()->getHeight() - $this->height)/2);
-            $image->crop($cropPoint, $cropBox);
+        if ($image->getSize()->getWidth() > $this->width) {
+            $size = $image->getSize()->widen($this->width);
+            $image->resize($size, ImageInterface::FILTER_SINC);
         }
+
         $image->getImagick()->setImageCompressionQuality(70);
         $image->getImagick()->setImageFormat('jpg');
         $image->getImagick()->stripImage();

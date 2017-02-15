@@ -34,8 +34,7 @@ class PostController extends BackController
                 'class' => 'backend\extensions\UploadAction',
                 'url' => '/uploads/misc/', // Directory URL address, where files are stored.
                 'path' => Yii::getAlias('@backend/web/uploads/misc/'), // Or absolute path to directory where files are stored.
-                'width' => 800,
-                'height' => 450,
+                'width' => 1200,
             ],
         ];
     }
