@@ -191,6 +191,7 @@ return [
                 '/calendar' => '/site/calendar',
                 '/bmi' => '/site/bmi',
                 '/convert' => '/site/convert',
+                '/privacy' => '/site/privacy',
                 'site/auth' => 'site/auth',
                 'site/logout' => 'site/logout',
 

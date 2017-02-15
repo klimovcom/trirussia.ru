@@ -55,6 +55,7 @@ class SiteController extends Controller
                             'domains',
                             'bmi',
                             'convert',
+                            'privacy',
                             'search-races',
                             'sport',
                             'sitemap',
@@ -327,6 +328,10 @@ class SiteController extends Controller
         return $this->render('convert');
     }
 
+    public function actionPrivacy() {
+        return $this->render('privacy');
+    }
+
     public function actionLogin() {
         return $this->render('login');
     }
@@ -341,6 +346,7 @@ class SiteController extends Controller
             ['site/convert'],
             ['site/calendar'],
             ['site/about'],
+            ['site/privacy'],
             ['site/search-races'],
             ['post/default/index'],
             ['organizer/default/index'],
