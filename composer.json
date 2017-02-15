@@ -35,7 +35,8 @@
 	"codeception/notifier": "@dev",
         "omnilight/yii2-shopping-cart": "*",
         "electrolinux/phpquery": "^0.9.6",
-        "developeruz/yii2-db-rbac": "*"
+        "developeruz/yii2-db-rbac": "*",
+        "rmrevin/yii2-minify-view": "~1.14"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "*",
