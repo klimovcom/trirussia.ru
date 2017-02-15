@@ -49,6 +49,7 @@ class SearchRacesPanel extends \yii\base\Widget{
             ->select(['country',])
             ->from(Race::tableName())
             ->where($dateCondition)
+            ->andWhere(['published' => 1])
             ->groupBy('country')
             ->createCommand()
             ->queryAll();
@@ -59,6 +60,7 @@ class SearchRacesPanel extends \yii\base\Widget{
             ->from(Race::tableName())
             ->where($dateCondition)
             ->andWhere( $model->sport > 0 ? ['sport_id' => $model->sport, ] : [])
+            ->andWhere(['published' => 1])
             ->groupBy('organizer_id')
             ->createCommand()
             ->queryAll();

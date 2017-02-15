@@ -252,9 +252,9 @@ class SiteController extends Controller
         }
 
         if (!empty($_GET['sort']) && $_GET['sort'] == 'popular'){
-            $races = $raceCondition->orderBy('popularity DESC, start_date ASC, id DESC')->limit(13)->all();
+            $races = $raceCondition->published()->orderBy('popularity DESC, start_date ASC, id DESC')->limit(13)->all();
         } else {
-            $races = $raceCondition->orderBy('start_date ASC, id DESC')->limit(13)->all();
+            $races = $raceCondition->published()->orderBy('start_date ASC, id DESC')->limit(13)->all();
         }
         $showMore = false;
         if (count($races) > 12){
