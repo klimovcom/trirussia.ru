@@ -156,7 +156,7 @@ if (Yii::$app->controller->action->id !== 'error' && Yii::$app->controller->acti
                         </div>
                     </div>
                 </form>
-<!-- 				<p class="small m-t-1">Никакого спама. Не чаще одного раза в две недели. Бонусом для тех, кто ещё не ездил на Uber: промокод на 400 рублей.</p> -->
+				<p class="small m-t-1">Никакого спама. Не чаще одного раза в две недели. Бонусом для тех, кто ещё не ездил на Uber: промокод на 300 рублей.</p>
             </div>
         </div>
         <p class="text-xs-center m-t-3">Сделано c <i class="fa fa-heart fa-lg text-danger"></i> триатлетами для триатлетов. В перерывах между  <i class="fa fa-bicycle fa-lg"></i></p>
