@@ -131,6 +131,8 @@ class DefaultController extends Controller
             $raceCondition->andWhere([Organizer::tableName().'.label' => $_POST['organizer']]);
         }
 
+        $raceCondition->andWhere(['race.published' => 1]);
+
         if (!empty($_POST['sort']) && $_POST['sort'] == 'popular'){
             $races = $raceCondition->orderBy('popularity DESC, start_date ASC, id DESC')->limit(12)->offset($page*12)->all();
         } else {
