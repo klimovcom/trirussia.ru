@@ -163,12 +163,16 @@ class Seo extends \yii\db\ActiveRecord
         if (self::isRoute("site", "convert") && $config = Configuration::get("seo_convert_page_$key"))
             return self::applyReplaces($config);
 
+
         if (self::isRoute("default", "view", "race") && $config = Configuration::get("seo_race_view_page_$key"))
             return self::applyReplaces($config);
         if (self::isRoute("site", "search-races") && $config = Configuration::get("seo_race_search_page_$key"))
             return self::applyReplaces($config);
         if (self::isRoute("site", "sport") && $config = Configuration::get("seo_race_sport_page_$key"))
             return self::applyReplaces($config);
+        if (self::isRoute("default", "create", "race") && $config = Configuration::get("seo_race_create_page_$key"))
+            return self::applyReplaces($config);
+
         if (self::isRoute("site", "index") && $config = Configuration::get("seo_main_page_$key"))
             return self::applyReplaces($config);
         if (self::isRoute("default", "index", "post") && $config = Configuration::get("seo_magazine_page_$key"))
