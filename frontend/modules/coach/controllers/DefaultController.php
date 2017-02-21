@@ -24,7 +24,7 @@ class DefaultController extends Controller
 
     public function actionView($url) {
         $model = $this->loadModel($url);
-        $otherCoaches = Coach::find()->where(['not', ['id' => $model->id]])->all();
+        $otherCoaches = Coach::find()->where(['not', ['id' => $model->id]])->published()->all();
 
         Seo::registerModel($model);
 
