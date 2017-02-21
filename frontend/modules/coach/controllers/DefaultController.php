@@ -15,7 +15,7 @@ use common\components\CountryList;
 class DefaultController extends Controller
 {
     public function actionIndex() {
-        $models = Coach::find()->all();
+        $models = Coach::find()->published()->all();
 
         return $this->render('index', [
             'models' => $models,
@@ -54,7 +54,7 @@ class DefaultController extends Controller
     }
 
     public function loadModel($url) {
-        $model = Coach::find()->where(['url' => $url])->one();
+        $model = Coach::find()->where(['url' => $url])->published()->one();
         if ($model === null) {
             throw new NotFoundHttpException();
         }
