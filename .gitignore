@@ -45,3 +45,4 @@ Vagrantfile
 /tests
 
 tests/_output/*
+frontend/web/minify/
