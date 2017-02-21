@@ -225,6 +225,7 @@ return [
                 'promocodes' => 'promocode/default/index',
 
                 'training' => 'coach/default/index',
+                'training/add' => 'coach/default/create',
                 'training/<url>' => 'coach/default/view',
 
                 'willGo/default/remove-will-go' => 'willGo/default/remove-will-go',

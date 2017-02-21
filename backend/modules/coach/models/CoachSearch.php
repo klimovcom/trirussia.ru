@@ -24,9 +24,17 @@ class CoachSearch extends Coach
     public function rules()
     {
         return [
-            [['id', 'image_id'], 'integer'],
+            [['id', 'image_id', 'published', 'is_on_moderation'], 'integer'],
             [['created', 'label', 'country', 'site', 'phone', 'email', 'fb_link', 'vk_link', 'ig_link'], 'safe'],
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [];
     }
 
     /**
@@ -71,6 +79,8 @@ class CoachSearch extends Coach
             'id' => $this->id,
             'created' => $this->created,
             'image_id' => $this->image_id,
+            'published' => $this->published,
+            'is_on_moderation' => $this->is_on_moderation,
         ]);
 
         $query->andFilterWhere(['like', 'label', $this->label])

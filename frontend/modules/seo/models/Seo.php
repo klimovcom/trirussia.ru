@@ -197,6 +197,8 @@ class Seo extends \yii\db\ActiveRecord
             return self::applyReplaces($config);
         if (self::isRoute("default", "view", "coach") && $config = Configuration::get("seo_coach_view_$key"))
             return self::applyReplaces($config);
+        if (self::isRoute("default", "create", "coach") && $config = Configuration::get("seo_coach_create_$key"))
+            return self::applyReplaces($config);
 
         return Configuration::get("seo_standard_$key");
     }

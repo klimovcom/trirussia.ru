@@ -40,6 +40,20 @@ $this->params['breadcrumbs'][] = $this->title;
                             'id',
                             'label',
                             'site',
+                            [
+                                'attribute' => 'published',
+                                'value' => function($model) {
+                                    return $model->published ? 'Да' : 'Нет';
+                                },
+                                'filter' => [0 => 'Нет', 1 => 'Да']
+                            ],
+                            [
+                                'attribute' => 'is_on_moderation',
+                                'value' => function($model) {
+                                    return $model->is_on_moderation ? 'Да' : 'Нет';
+                                },
+                                'filter' => [0 => 'Нет', 1 => 'Да']
+                            ],
                             ['class' => 'yii\grid\ActionColumn'],
                         ],
                     ]); ?>

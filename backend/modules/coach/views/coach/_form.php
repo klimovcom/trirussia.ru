@@ -149,11 +149,18 @@ use yii\widgets\ActiveForm;
             </div>
         </div>
 
+        <?= $form->field($model, 'published')->hiddenInput(['id' => 'published-field'])->label(false); ?>
+
+        <?= $form->field($model, 'is_on_moderation')->hiddenInput(['id' => 'published-field', 'value' => 0])->label(false); ?>
+
     </div>
     <div class="box-footer">
         <div class="form-group">
             <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Обновить',
                 ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+
+            <input type="submit" class="btn btn-default toggle-publication" value="<?= $model->published ? 'Снять с публикации' : 'Опубликовать'; ?>">
+
             <?= $model->isNewRecord ? '' : Html::a('Удалить', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger pull-right',
                 'data' => [
