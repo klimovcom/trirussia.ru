@@ -99,7 +99,7 @@ if (Yii::$app->controller->action->id !== 'error' && Yii::$app->controller->acti
                 <p>Для того, чтобы в полной мере использовать функционал сервиса, вам необходимо зарегистрироваться. Для этого просто кликните по кнопке ниже:</p>
 
                 <?php
-                $authAuthChoice = AuthChoice::begin(['baseAuthUrl' => ['site/auth'], 'autoRender' => false]);
+                $authAuthChoice = AuthChoice::begin(['baseAuthUrl' => ['/site/auth'], 'autoRender' => false]);
                 echo Html::beginTag('ul', ['class' => 'list-unstyled']);
                 foreach ($authAuthChoice->getClients() as $client) {
                     $onClick = '';
