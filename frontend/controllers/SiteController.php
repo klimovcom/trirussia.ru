@@ -143,10 +143,7 @@ class SiteController extends Controller
                 break;
         }
 
-        Yii::info($email);
-        Yii::info($client->name);
-
-        if (!empty($attributes['email'])){
+        if (!empty($email)){
             $user = User::find()->where(['email'=> $email])->one();
             if (!$user){
                 $user = new User();
