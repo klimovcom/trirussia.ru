@@ -97,14 +97,16 @@ if (Yii::$app->controller->action->id !== 'error' && Yii::$app->controller->acti
             </div>
             <div class="modal-body">
                 <p>Для того, чтобы в полной мере использовать функционал сервиса, вам необходимо зарегистрироваться. Для этого просто кликните по кнопке ниже:</p>
-                
+
                 <?php
                 $authAuthChoice = AuthChoice::begin(['baseAuthUrl' => ['site/auth'], 'autoRender' => false]);
                 echo Html::beginTag('ul', ['class' => 'list-unstyled']);
                 foreach ($authAuthChoice->getClients() as $client) {
+                    $onClick = '';
                     switch ($client->name) {
                         case 'facebook' :
                             $iconClass = 'fa-facebook-square';
+                            $onClick .=  "yaCounter26019216.reachGoal('facebookSignIn');";
                             break;
                         case 'google' :
                             $iconClass = 'fa-google';
@@ -113,10 +115,11 @@ if (Yii::$app->controller->action->id !== 'error' && Yii::$app->controller->acti
                             $iconClass = 'fa-facebook-square';
                             break;
                     }
+                    $onClick .= 'return true;';
                     echo Html::tag('li', Html::a(
                         '<i class="fa '. $iconClass . ' fa-lg"></i>&nbsp;&nbsp;Войти через '. $client->title,
                         ['site/auth', 'authclient'=> $client->name],
-                        ['class' => 'btn btn-secondary btn-lg']
+                        ['class' => 'btn btn-secondary btn-lg', 'onclick' => $onClick]
                     ));
                 }
                 echo Html::endTag('ul');
