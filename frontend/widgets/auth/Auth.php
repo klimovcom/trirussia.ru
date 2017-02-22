@@ -29,14 +29,6 @@ class Auth extends AuthChoice {
             ]
         );
 
-        $text.= Html::tag('button',
-            '<i class="fa fa-google fa-lg"></i>&nbsp;&nbsp;Войти через Google',
-            [
-                'class' => 'btn btn-secondary btn-lg ' . $client->getName(),
-                //'onclick' => "yaCounter26019216.reachGoal('facebookSignIn'); return true;",
-            ]
-        );
-
         $viewOptions = $client->getViewOptions();
         if (empty($viewOptions['widget'])) {
             if ($this->popupMode) {
