@@ -119,7 +119,7 @@ if (Yii::$app->controller->action->id !== 'error' && Yii::$app->controller->acti
                     echo Html::tag('li', Html::a(
                         '<i class="fa '. $iconClass . ' fa-lg"></i>&nbsp;&nbsp;Войти через '. $client->title,
                         ['/site/auth', 'authclient'=> $client->name],
-                        ['class' => 'btn btn-secondary btn-lg', 'onclick' => $onClick]
+                        ['class' => 'btn btn-secondary btn-lg m-b-1', 'onclick' => $onClick]
                     ));
                 }
                 echo Html::endTag('ul');
