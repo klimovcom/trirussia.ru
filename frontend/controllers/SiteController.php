@@ -111,27 +111,53 @@ class SiteController extends Controller
         }
 
         $attributes = $client->getUserAttributes();
-        Yii::info(json_encode($attributes));
         //$token = $client->getAccessToken()->getToken();
         //$client->setReturnUrl(\Yii::$app->request->url);
 
         //Yii::info(json_encode($attributes));
 
+        switch ($client->name) {
+            case 'facebook' :
+                $email = $attributes['email'];
+                $username = $attributes['email'];
+                $fb_id = $attributes['id'];
+                $first_name = explode(' ', $attributes['name'])[0];
+                $last_name = explode(' ', $attributes['name'])[1];
+                $sex = $attributes['gender'];
+                $locale = $attributes['locale'];
+                $timezone = $attributes['timezone'];
+                $age = $attributes['age_range']['min'] . '|' . $attributes['age_range']['max'];
+                $photo_url = $attributes['picture']['data']['url'];
+                break;
+            case 'google' :
+                $email = $attributes['emails'][0]['value'];
+                $username = $attributes['emails'][0]['value'];
+                $fb_id = '';
+                $first_name = $attributes['name']['givenName'];
+                $last_name = $attributes['name']['familyName'];
+                $sex = $attributes['gender'];
+                $locale = '';
+                $timezone = '';
+                $age = $attributes['ageRange']['min'] . '|' . $attributes['ageRange']['max'];
+                $photo_url = $attributes['image']['url'];
+                break;
+        }
+
         if (!empty($attributes['email'])){
-            $user = User::find()->where(['email'=>$attributes['email']])->one();
+            $user = User::find()->where(['email'=> $email])->one();
             if (!$user){
                 $user = new User();
-                $user->email = $attributes['email'];
-                $user->username = $attributes['email'];
-                $user->fb_id = $attributes['id'];
-                $user->first_name = explode(' ', $attributes['name'])[0];
-                $user->last_name = explode(' ', $attributes['name'])[1];
+                $user->email = $email;
+                $user->username = $email;
+                $user->fb_id = $fb_id;
+                $user->first_name = $first_name;
+                $user->last_name = $last_name;
             }
-            $user->sex = $attributes['gender'];
-            $user->locale = $attributes['locale'];
-            $user->timezone = $attributes['timezone'];
-            $user->age = $attributes['age_range']['min'] . '|' . $attributes['age_range']['max'];
-            $user->photo_url = $attributes['picture']['data']['url'];
+            $user->sex = $user->sex ? $user->sex : $sex;
+            $user->locale = $user->locale ? $user->locale : $locale;
+            $user->timezone = $timezone ? $timezone : $user->timezone;
+            $user->age = $age ? $age : $user->age;
+            $user->photo_url = $photo_url ? $photo_url : $user->photo_url;
             $user->save(false);
 
             Yii::$app->user->login($user, 3600 * 24 * 30);
