@@ -247,12 +247,13 @@ return [
                     'clientSecret' => 'ae62e4a11fbd879e9394ae8001088253',
                     'attributeNames' => ['name', 'email', 'age_range', 'gender', 'locale', 'timezone', 'picture'],
                 ],
-                /*'google' => [
+                'google' => [
                     'class' => 'yii\authclient\clients\Google',
                     'clientId' => '531809485675-s2td3bcjutqi1tkm7fi63k79an0a19hp.apps.googleusercontent.com',
                     'clientSecret' => 'UD-DnDofPvOIeyZStW2uthJw',
                     'scope' => 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email',
-                ],*/
+                    'returnUrl' => 'http://www.trirussia.ru/site/auth?authclient=google',
+                ],
             ],
         ],
         'cart' => [
