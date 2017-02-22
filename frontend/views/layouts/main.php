@@ -10,6 +10,8 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use \yii\helpers\Url;
+use yii\authclient\widgets\AuthChoice;
+
 $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"' : '';
 AppAsset::register($this);
 
@@ -95,9 +97,31 @@ if (Yii::$app->controller->action->id !== 'error' && Yii::$app->controller->acti
             </div>
             <div class="modal-body">
                 <p>Для того, чтобы в полной мере использовать функционал сервиса, вам необходимо зарегистрироваться. Для этого просто кликните по кнопке ниже:</p>
-                <?= \frontend\widgets\auth\Auth::widget([
-                    'baseAuthUrl' => ['/site/auth']
-                ]) ?>
+                
+                <?php
+                $authAuthChoice = AuthChoice::begin(['baseAuthUrl' => ['site/auth'], 'autoRender' => false]);
+                echo Html::beginTag('ul', ['class' => 'list-unstyled']);
+                foreach ($authAuthChoice->getClients() as $client) {
+                    switch ($client->name) {
+                        case 'facebook' :
+                            $iconClass = 'fa-facebook-square';
+                            break;
+                        case 'google' :
+                            $iconClass = 'fa-google';
+                            break;
+                        case 'vkontakte' :
+                            $iconClass = 'fa-facebook-square';
+                            break;
+                    }
+                    echo Html::tag('li', Html::a(
+                        '<i class="fa '. $iconClass . ' fa-lg"></i>&nbsp;&nbsp;Войти через '. $client->title,
+                        ['site/auth', 'authclient'=> $client->name],
+                        ['class' => 'btn btn-secondary btn-lg']
+                    ));
+                }
+                echo Html::endTag('ul');
+                AuthChoice::end();
+                ?>
             </div>
         </div>
     </div>
