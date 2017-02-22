@@ -111,6 +111,7 @@ class SiteController extends Controller
         }
 
         $attributes = $client->getUserAttributes();
+        Yii::info(json_encode($attributes));
         //$token = $client->getAccessToken()->getToken();
         //$client->setReturnUrl(\Yii::$app->request->url);
 
