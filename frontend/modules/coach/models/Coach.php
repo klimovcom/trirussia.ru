@@ -81,7 +81,7 @@ class Coach extends \yii\db\ActiveRecord
             'created' => 'Дата создания',
             'label' => 'Имя',
             'image_id' => 'Изображение',
-            'image' => 'Изображение',
+            'image' => 'Изображение (будет отмаштабированно до 125х125',
             'country' => 'Страна',
             'site' => 'Сайт',
             'phone' => 'Телефон',
@@ -161,6 +161,44 @@ class Coach extends \yii\db\ActiveRecord
     public function uploadImage() {
         if ($this->image instanceof UploadedFile) {
             $this->image_id = FPM::transfer()->saveUploadedFile($this->image);
+
+            $neededWidth = 125;
+            $neededHeight = 125;
+
+            $neededAspectRatio = $neededWidth/$neededHeight;
+            $imagine = new \Imagine\Imagick\Imagine();
+            $imageModel = FPM::transfer()->getData($this->main_image_id);
+            if ($imageModel->extension == 'png') {
+                $imgFormat = 'png';
+            }else {
+                $imgFormat = 'jpg';
+            }
+
+            $imagePath = FPM::getOriginalDirectory($imageModel->id) . DIRECTORY_SEPARATOR .FPM::getOriginalFileName($imageModel->id, $imageModel->base_name, $imageModel->extension);
+            $image = $imagine->open($imagePath);
+            $image->interlace(ImageInterface::INTERLACE_PLANE);
+
+            $imageAspectRatio = $image->getSize()->getWidth()/$image->getSize()->getHeight();
+
+            if ($imageAspectRatio >= $neededAspectRatio) {
+                $size = $image->getSize()->heighten($neededHeight);
+            }else {
+                $size = $image->getSize()->widen($neededWidth);
+            }
+            $image->resize($size, ImageInterface::FILTER_SINC);
+
+            //crop
+
+            if ($image->getSize()->getHeight() != $neededHeight || $image->getSize()->getWidth() != $neededWidth) {
+                $cropBox = new Box($neededWidth, $neededHeight);
+                $cropPoint = new Point(($image->getSize()->getWidth() - $neededWidth)/2, ($image->getSize()->getHeight() - $neededHeight)/2);
+                $image->crop($cropPoint, $cropBox);
+            }
+            $image->getImagick()->setImageCompressionQuality(70);
+            $image->getImagick()->setImageFormat($imgFormat);
+            $image->getImagick()->stripImage();
+
+            $image->save($imagePath);
         }
         return true;
     }
