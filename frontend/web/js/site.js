@@ -30,7 +30,7 @@ $(document).ready(function(){
         additionalMarginTop: 30
     });
 
-   $(function () {
+    $(function () {
         $("[data-toggle='tooltip']").tooltip()
     });
 
@@ -83,24 +83,24 @@ $(document).ready(function(){
 
     //pagination
     /*  var page = 1;
-   $(window).scroll(function() {
-        if($(window).scrollTop() + $(window).height() >= ( $(document).height() - 350 )) {
-            console.log('request to:');
-            console.log(window.location.href);
-            if (page == 1){
-                $.post(window.location.href, {page: page}, function (response) {
-                    $('.grid').last().html($('.grid').last().html() + response);
-                });
-                $(".grid").masonry({
-                    itemSelector: ".grid-item",
-                    columnWidth: ".grid-sizer",
-                    percentPosition: true
-                });
-            }
+     $(window).scroll(function() {
+     if($(window).scrollTop() + $(window).height() >= ( $(document).height() - 350 )) {
+     console.log('request to:');
+     console.log(window.location.href);
+     if (page == 1){
+     $.post(window.location.href, {page: page}, function (response) {
+     $('.grid').last().html($('.grid').last().html() + response);
+     });
+     $(".grid").masonry({
+     itemSelector: ".grid-item",
+     columnWidth: ".grid-sizer",
+     percentPosition: true
+     });
+     }
 
-            page++;
-        }
-    });*/
+     page++;
+     }
+     });*/
 
     $('.will-join,.already-joined').on('click', function(){
         var url = $(this).data('url');
@@ -284,6 +284,8 @@ $(document).ready(function(){
                             columnWidth: ".grid-sizer",
                             percentPosition: true
                         });
+
+                        initLazy();
                     }
                 }
             );
@@ -346,7 +348,7 @@ $(document).ready(function(){
                 alert('Ошибка сервера, повторите позднее');
             }
         });
-    })
+    });
 
     $(document).on('mouseenter', '.rating-input--star', function(e) {
         var $container = $(this).parents('.rating-input');
@@ -407,9 +409,7 @@ $(document).ready(function(){
         $(this).css('background-image', pattern.toDataUrl());
     });
 
-    $("img.lazy").lazyload({
-        effect : "fadeIn"
-    });
+    initLazy();
 
     initFancybox();
 
@@ -418,9 +418,9 @@ $(document).ready(function(){
 jQuery(document).ready(function($){
     // browser window scroll (in pixels) after which the "back to top" link is shown
     var offset = 300,
-        //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
+    //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
         offset_opacity = 300,
-        //duration of the top scrolling animation (in ms)
+    //duration of the top scrolling animation (in ms)
         scroll_top_duration = 900;
 
     console.log('init');
@@ -569,6 +569,11 @@ function stickIt() {
         $('.cloned').hide();
         $('.original').css('visibility','visible');
     }
+}
+function initLazy() {
+    $("img.lazy").lazyload({
+        effect : "fadeIn"
+    });
 }
 function initFancybox() {
     var $imgs = $('.fancybox_container img').not('.lazy');
