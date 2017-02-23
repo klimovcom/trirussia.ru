@@ -9,6 +9,9 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\UploadedFile;
+use Imagine\Image\Box;
+use Imagine\Image\ImageInterface;
+use Imagine\Image\Point;
 
 class CoachQuery extends \yii\db\ActiveQuery {
 
