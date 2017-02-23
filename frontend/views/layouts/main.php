@@ -105,21 +105,24 @@ if (Yii::$app->controller->action->id !== 'error' && Yii::$app->controller->acti
                     $onClick = '';
                     switch ($client->name) {
                         case 'facebook' :
+                            $name = 'Facebook';
                             $iconClass = 'fa-facebook-square';
                             $onClick .=  "yaCounter26019216.reachGoal('facebookSignIn');";
                             break;
                         case 'google' :
+                            $name = 'Google';
                             $iconClass = 'fa-google-plus-square';
                             $onClick .=  "yaCounter26019216.reachGoal('googleSignIn');";
                             break;
                         case 'vkontakte' :
+                            $name = 'VK';
                             $iconClass = 'fa-vk';
                             $onClick .=  "yaCounter26019216.reachGoal('vkSignIn');";
                             break;
                     }
                     $onClick .= 'return true;';
                     echo Html::tag('li', Html::a(
-                        '<i class="fa '. $iconClass . ' fa-lg"></i>&nbsp;&nbsp;Войти через '. $client->title,
+                        '<i class="fa '. $iconClass . ' fa-lg"></i>&nbsp;&nbsp;Войти через '. $name,
                         ['/site/auth', 'authclient'=> $client->name],
                         ['class' => 'btn btn-secondary btn-lg m-b-1', 'onclick' => $onClick]
                     ));
