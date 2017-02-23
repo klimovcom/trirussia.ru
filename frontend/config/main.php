@@ -236,26 +236,6 @@ return [
                 '/' => '/site/index',
             ],
         ],
-        'authClientCollection' => [
-            'class' => 'yii\authclient\Collection',
-            'clients' => [
-                'facebook' => [
-                    'class' => 'yii\authclient\clients\Facebook',
-                    /*'clientId' => '1178666168819901',
-                    'clientSecret' => 'd9fe46df955d39c1962aa9925b609a5b',*/
-                    'clientId' => '597412183700544',
-                    'clientSecret' => 'ae62e4a11fbd879e9394ae8001088253',
-                    'attributeNames' => ['name', 'email', 'age_range', 'gender', 'locale', 'timezone', 'picture'],
-                ],
-                'google' => [
-                    'class' => 'yii\authclient\clients\Google',
-                    'clientId' => '531809485675-s2td3bcjutqi1tkm7fi63k79an0a19hp.apps.googleusercontent.com',
-                    'clientSecret' => 'UD-DnDofPvOIeyZStW2uthJw',
-                    'scope' => 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email',
-                    'returnUrl' => 'http://www.trirussia.ru/site/auth?authclient=google',
-                ],
-            ],
-        ],
         'cart' => [
             'class' => 'yz\shoppingcart\ShoppingCart',
             'cartId' => 'trirussia_cart',
