@@ -21,6 +21,8 @@ if ($model->coord_lat && $model->coord_lon) {
     $lon = $model->coord_lon;
 }
 
+$yandexTranslateSecret = Yii::$app->params['yandexTranslateSecret'];
+
 $this->registerCssFile('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
 $this->registerJsFile("https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places");
 $this->registerJs("
@@ -37,7 +39,7 @@ window.componentForm = {
 
 function translate(content, selector){
     $.post(
-            \"https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20160425T082450Z.90d7aff4044133c5.4d85cd55dd28eab8e83ad6dbfdfc6dcbe8f6263f&text=\" +
+            \"https://translate.yandex.net/api/v1.5/tr.json/translate?key=" . $yandexTranslateSecret . "&text=\" +
             content
             + \"&lang=en\",
             {},
