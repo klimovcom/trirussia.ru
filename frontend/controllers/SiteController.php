@@ -114,7 +114,7 @@ class SiteController extends Controller
         //$token = $client->getAccessToken()->getToken();
         //$client->setReturnUrl(\Yii::$app->request->url);
 
-        Yii::info(json_encode($attributes));
+        //Yii::info(json_encode($attributes));
 
         switch ($client->name) {
             case 'facebook' :
@@ -127,6 +127,7 @@ class SiteController extends Controller
                 $locale = $attributes['locale'];
                 $timezone = $attributes['timezone'];
                 $age = $attributes['age_range']['min'] . '|' . $attributes['age_range']['max'];
+                $birthday = '';
                 $photo_url = $attributes['picture']['data']['url'];
                 break;
             case 'google' :
@@ -139,7 +140,25 @@ class SiteController extends Controller
                 $locale = '';
                 $timezone = '';
                 $age = $attributes['ageRange']['min'] . '|' . $attributes['ageRange']['max'];
+                $birthday = '';
                 $photo_url = $attributes['image']['url'];
+                break;
+            case 'vkontakte' :
+                $email = $attributes['email'];
+                $username = $attributes['email'];
+                $fb_id = '';
+                $first_name = $attributes['first_name'];
+                $last_name = $attributes['last_name'];
+                if ($attributes['sex'] == 1) {
+                    $sex = 'female';
+                }else {
+                    $sex = 'male';
+                }
+                $locale = '';
+                $timezone = $attributes['timezone'];
+                $age = '';
+                $birthday = date("Y-m-d H:i", strtotime($attributes['bdate']));
+                $photo_url = $attributes['photo'];
                 break;
         }
 
@@ -158,6 +177,7 @@ class SiteController extends Controller
             $user->timezone = $timezone ? $timezone : $user->timezone;
             $user->age = $age ? $age : $user->age;
             $user->photo_url = $photo_url ? $photo_url : $user->photo_url;
+            $user->birthday = $user->birthday ? $user->birthday : $birthday;
             $user->save(false);
 
             Yii::$app->user->login($user, 3600 * 24 * 30);
