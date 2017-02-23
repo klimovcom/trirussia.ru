@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </section>
 <section class="content  user-index">
+    <p><a href="<?= \yii\helpers\Url::to(['create']); ?>" class="btn btn-primary">Добавить пользователя</a></p>
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-primary">
@@ -48,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     $fullName = $model->first_name . ' ' . $model->last_name;
                                     if (empty($model->first_name) && empty($model->last_name))
                                         $fullName = '(не задано)';
-                                    return Html::a($fullName, \yii\helpers\Url::to('/user/user/view', ['id' => $model->id]));
+                                    return Html::a($fullName, \yii\helpers\Url::to(['view', 'id' => $model->id]));
                                 }
                             ],
                             'email',

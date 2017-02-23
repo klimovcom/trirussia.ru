@@ -58,15 +58,20 @@ $this->registerCssFile('/css/site.css');
             <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <li class="dropdown user user-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="/images/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs">Artem Klimov</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                    </li>
+                    <?php if (!Yii::$app->user->isGuest):?>
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <!--<img src="/images/user2-160x160.jpg" class="user-image" alt="User Image">-->
+                                <span class="hidden-xs"><?= Yii::$app->user->identity->username;?></span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:;" data-toggle="dropdown"><i class="fa fa-gears"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><?= Html::a('Выйти', ['/site/logout']);?></li>
+                            </ul>
+                        </li>
+                    <?php endif;?>
                 </ul>
             </div>
         </nav>

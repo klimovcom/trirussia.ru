@@ -30,10 +30,10 @@ use yii\base\NotSupportedException;
  * @property string $birthday
  * @property string $place
  */
-class User extends \yii\db\ActiveRecord implements IdentityInterface, UserRbacInterface
+class User extends \common\models\User
 {
-
     public $role;
+    public $password;
 
     /**
      * @inheritdoc
@@ -49,8 +49,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface, UserRbacIn
     public function rules()
     {
         return [
-            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
-            [['status', 'created_at', 'updated_at',], 'integer'],
+            [['username', 'email'], 'required'],
+            [['status'], 'integer'],
             [
                 [
                     'username',
@@ -66,6 +66,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface, UserRbacIn
                     'age',
                     'birthday',
                     'place',
+                    'password',
                 ],
                 'string',
                 'max' => 255
@@ -75,7 +76,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface, UserRbacIn
             [['username'], 'unique'],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
-            [['role'], 'safe'],
+            [['role', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -105,8 +106,23 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface, UserRbacIn
             'place' => 'Местонахождение',
             'photo_url' => 'Фото',
             'role' => 'Роль',
+            'password' => 'Пароль (задание нового)',
 
         ];
+    }
+
+    public function beforeSave($insert) {
+
+        if ($this->isNewRecord) {
+            $this->generateAuthKey();
+            $this->status = User::STATUS_ACTIVE;
+        }
+
+        if ($this->password) {
+            $this->setPassword($this->password);
+        }
+
+        return parent::beforeSave($insert);
     }
 
     public function afterSave($insert, $changedAttributes) {
@@ -123,34 +139,6 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface, UserRbacIn
 
     public function getId() {
         return $this->id;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function findIdentity($id) {
-        return static::findOne(['id' => $id]);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getAuthKey() {
-        return $this->auth_key;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function validateAuthKey($authKey) {
-        return $this->getAuthKey() === $authKey;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function findIdentityByAccessToken($token, $type = null) {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
     }
 
     public function updateRoles() {

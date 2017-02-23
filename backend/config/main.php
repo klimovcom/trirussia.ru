@@ -196,13 +196,8 @@ return [
                 'site' =>
                     [
                         [
-                            'actions' => ['error', 'login', 'logout'],
+                            'actions' => ['error', 'login', 'logout', 'index'],
                             'allow' => true,
-                        ],
-                        [
-                            'actions' => ['index'],
-                            'allow' => true,
-                            'roles' => ['@'],
                         ],
                     ],
                 'debug/default' =>

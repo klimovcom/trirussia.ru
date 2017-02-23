@@ -10,7 +10,6 @@ use yii\helpers\ArrayHelper;
 ?>
 
 <div class="user-form">
-
     <div class="box-body">
         <?php $form = ActiveForm::begin(); ?>
 
@@ -43,13 +42,23 @@ use yii\helpers\ArrayHelper;
 
         <?= $form->field($model, 'updated_at')->textInput() ?>
 
-        <?=
-        $form->field($model, 'role')->listBox(
-            ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'description'), [
-                'multiple' => false
-            ]
-        )
-        ?>
+        <hr>
+
+        <h3>Данные параметры используются для входа в админку</h3>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <?= $form->field($model, 'role')->listBox(
+                    ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'description'), [
+                        'multiple' => false
+                    ]
+                );
+                ?>
+            </div>
+            <div class="col-xs-6">
+                <?= $form->field($model, 'password')->textInput();?>
+            </div>
+        </div>
 
     </div>
     <div class="box-footer">
