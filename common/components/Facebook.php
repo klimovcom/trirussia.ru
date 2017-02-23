@@ -1,15 +1,19 @@
 <?php
 namespace common\components;
 
+use Yii;
 use yii\helpers\ArrayHelper;
 
 class Facebook {
 
     private $appId = '597412183700544';
-    private $appSecret = 'ae62e4a11fbd879e9394ae8001088253';
+    private $appSecret;
     private $url = 'https://graph.facebook.com/';
     private $appToken;
 
+    public function __construct() {
+        $this->appSecret = Yii::$app->params['facebookSecret'];
+    }
 
     public function getEvent($events) {
         if (is_array($events)) {

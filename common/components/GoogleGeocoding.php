@@ -1,16 +1,18 @@
 <?php
 namespace common\components;
 
+use Yii;
 use yii\helpers\ArrayHelper;
 
 class GoogleGeocoding {
 
-    private $key = 'AIzaSyA_c5kL9gG1aeXBl4XDzyqAU3oH9jIUzKo';
+    private $key;
     private $url = 'https://maps.googleapis.com/maps/api/geocode/json';
     private $address;
 
     public function __construct($address) {
         $this->address = $address;
+        $this->key = Yii::$app->params['googleSecret'];
     }
 
     public function locate() {

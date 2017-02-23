@@ -1,17 +1,19 @@
 <?php
 namespace common\components;
 
+use Yii;
 use yii\helpers\ArrayHelper;
 
 class YandexTranslator {
 
-    private $key = 'trnsl.1.1.20170210T153909Z.b64b89f64f77f9ec.4f96b0f39a6d08118f547dc662c49c511e62c55e';
+    private $key;
     private $url = 'https://translate.yandex.net/api/v1.5/tr.json/translate';
     private $lang = 'ru-en';
     private $format = 'plain';
     private $texts = [];
 
     public function __construct($texts, $lang = null, $format = null) {
+        $this->key = Yii::$app->params['yandexTranslateSecret'];
         $this->texts = $texts;
         if ($lang) {
             $this->lang = $lang;
