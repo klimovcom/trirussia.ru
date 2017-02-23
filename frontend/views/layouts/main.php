@@ -109,10 +109,12 @@ if (Yii::$app->controller->action->id !== 'error' && Yii::$app->controller->acti
                             $onClick .=  "yaCounter26019216.reachGoal('facebookSignIn');";
                             break;
                         case 'google' :
-                            $iconClass = 'fa-google';
+                            $iconClass = 'fa-google-plus-square';
+                            $onClick .=  "yaCounter26019216.reachGoal('googleSignIn');";
                             break;
                         case 'vkontakte' :
-                            $iconClass = 'fa-facebook-square';
+                            $iconClass = 'fa-vk';
+                            $onClick .=  "yaCounter26019216.reachGoal('vkSignIn');";
                             break;
                     }
                     $onClick .= 'return true;';
