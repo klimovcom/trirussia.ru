@@ -58,7 +58,7 @@ class Coach extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created', 'label', 'country', 'url', 'published', 'is_on_moderation'], 'required'],
+            [['created', 'label', 'country', 'url', 'published', 'is_on_moderation', 'promo',], 'required'],
             [['created', 'specializationArray', 'is_new', 'image_id'], 'safe'],
             [['content', 'promo', 'price'], 'string'],
             [['email'], 'email'],
