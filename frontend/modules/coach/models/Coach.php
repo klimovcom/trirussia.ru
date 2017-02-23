@@ -167,7 +167,7 @@ class Coach extends \yii\db\ActiveRecord
 
             $neededAspectRatio = $neededWidth/$neededHeight;
             $imagine = new \Imagine\Imagick\Imagine();
-            $imageModel = FPM::transfer()->getData($this->main_image_id);
+            $imageModel = FPM::transfer()->getData($this->image_id);
             if ($imageModel->extension == 'png') {
                 $imgFormat = 'png';
             }else {
