@@ -114,7 +114,7 @@ class SiteController extends Controller
         //$token = $client->getAccessToken()->getToken();
         //$client->setReturnUrl(\Yii::$app->request->url);
 
-        //Yii::info(json_encode($attributes));
+        Yii::info(json_encode($attributes));
 
         switch ($client->name) {
             case 'facebook' :
