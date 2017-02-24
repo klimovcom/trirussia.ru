@@ -59,7 +59,7 @@ if (Yii::$app->user->isGuest) {
                         'alt' => $race->label,
                     ]); ?>
                 <?php } ?>
-                <div class="card-block border-run">
+                <div class="card-block border-<?= $race->getSportClass();?>">
                     <div class="pull-left">
                         <h6 class="sport-caption run"><?= $race->sport->label; ?></h6>
                     </div>
