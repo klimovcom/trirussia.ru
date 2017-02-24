@@ -29,6 +29,7 @@ class AppAsset extends AssetBundle
     public $js = [
 
         '/js/modernizr.js',
+        '/js/tilt.jquery.js',
         '/js/jquery.lazyload.min.js',
         '/js/jquery.smooth-scroll.js',
         '/js/jquery.fancybox.min.js',

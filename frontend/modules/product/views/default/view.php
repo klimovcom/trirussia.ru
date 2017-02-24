@@ -11,7 +11,7 @@ $mainImage = array_shift($imageArray);
     <div class="row m-t-3">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
             <div class="card card-block">
-                <?= Html::img(FPM::originalSrc($mainImage->image_id), ['class' => 'img-fluid']);?>
+                <?= Html::tag('div', Html::img(FPM::originalSrc($mainImage->image_id), ['class' => 'img-fluid']), ['class' => 'js-tilt']);?>
                 <?php if(count($imageArray)):?>
                     <div class="row m-t-1">
                         <?php foreach($imageArray as $img):?>

@@ -413,6 +413,11 @@ $(document).ready(function(){
 
     initFancybox();
 
+    $('.js-tilt').tilt({
+        glare: true,
+        maxGlare: .5,
+        perspective: 1000
+    })
 });
 
 jQuery(document).ready(function($){
