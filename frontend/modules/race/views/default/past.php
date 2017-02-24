@@ -61,7 +61,7 @@ if (Yii::$app->user->isGuest) {
                 <?php } ?>
                 <div class="card-block border-<?= $race->getSportClass();?>">
                     <div class="pull-left">
-                        <h6 class="sport-caption run"><?= $race->sport->label; ?></h6>
+                        <h6 class="sport-caption <?= $race->getSportClass();?>"><?= $race->sport->label; ?></h6>
                     </div>
                     <div class="clearfix"></div>
                     <p class="card-text PTSerif lead"><i><?= $race->promo; ?></i></p>
