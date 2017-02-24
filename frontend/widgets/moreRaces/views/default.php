@@ -5,7 +5,7 @@ use yii\helpers\Url;
  * @var $races []
  */
 ?>
-<div class="card-block border-run">
+<div class="card-block border-<?= $model->getSportClass();?>">
     <h4>
 	    Посмотрите другие соревнования в категории <?= $this->context->model->sport->label; ?>:
     </h4>
