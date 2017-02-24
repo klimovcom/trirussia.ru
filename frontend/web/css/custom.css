@@ -293,6 +293,43 @@ a:hover.highlight-yellow-sm {
 	border-top: 4px solid #413D65!important;
 }
 
+.bg-news {
+	background-color: rgba(184,59,94,0.9)!important;
+}
+
+.border-news {
+	border-top: 4px solid #B83B5E!important;
+}
+.bg-report {
+	background-color: rgba(106,44,112,0.9)!important;
+}
+
+.border-report {
+	border-top: 4px solid #6A2C70!important;
+}
+.bg-review {
+	background-color: rgba(255,97,56,0.9)!important;
+}
+
+.border-review {
+	border-top: 4px solid #FF6138!important;
+}
+
+.bg-interview {
+	background-color: rgba(169,197,47,0.9)!important;
+}
+
+.border-interview {
+	border-top: 4px solid #A9C52F!important;
+}
+.bg-gold {
+	background-color: rgba(255,215,0,0.9)!important;
+}
+
+.border-gold {
+	border-top: 4px solid gold!important;
+}
+
 /* Фон для карточек */
 
 .bg-orange {
