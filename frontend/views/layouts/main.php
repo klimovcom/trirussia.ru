@@ -73,7 +73,7 @@ if (Yii::$app->controller->action->id !== 'error' && Yii::$app->controller->acti
                 </li>
                 <?php } else { ?>
 				<li class="list-inline-item">
-					<?= Yii::$app->user->identity->first_name . ' ' . Yii::$app->user->identity->last_name; ?>
+					<?= Html::a(Yii::$app->user->identity->first_name . ' ' . Yii::$app->user->identity->last_name, ['/site/calendar'], ['class' => 'underline-white']); ?>
 				</li>
 				<li class="list-inline-item">
                     <a class="btn btn-secondary-outline btn-sm" id="logout-button" href="<?= Url::to('/site/logout'); ?>">Выйти</a>
