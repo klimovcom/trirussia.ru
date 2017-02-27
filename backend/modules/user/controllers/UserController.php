@@ -130,9 +130,22 @@ class UserController extends BackController
         $mailChimp = new \DrewM\MailChimp\MailChimp(Yii::$app->params['MailChimpApiKey']);
         $mailChimp->verify_ssl = true;
 
-        $lists = $mailChimp->get('lists');
-        $listsArray = ArrayHelper::map($lists['lists'], 'name', 'id');
-        $listId = $listsArray['TriRussia.ru'];
-        echo $listId;
+        $listId = '4a7ae4d6e6';
+
+        $mailChimpUsers = $mailChimp->get('lists/' . $listId . '/members', ['count' => 320]);
+        $mailChimpUsersEmails = ArrayHelper::getColumn($mailChimpUsers['members'], 'email_address');
+
+        $users = ArrayHelper::getColumn(User::find()->where(['not', ['id' => [1, 1263]]])->all(), 'email');
+
+        $i=0;
+        foreach ($users as $user) {
+            if (!in_array($user, $mailChimpUsersEmails)) {
+                $mailChimp->post('lists/' . $listId . '/members', ['email_address' => $user, 'status' => 'subscribed']);
+                $i++;
+            }
+        }
+        echo $i;
+
+
     }
 }
