@@ -128,7 +128,7 @@ class UserController extends BackController
 
     public function actionMailchimp() {
         $mailChimp = new \DrewM\MailChimp\MailChimp(Yii::$app->params['MailChimpApiKey']);
-        $mailChimp->verify_ssl = true;
+        $mailChimp->verify_ssl = false;
 
         $lists = $mailChimp->get('lists');
         $listsArray = ArrayHelper::map($lists, 'name', 'id');
