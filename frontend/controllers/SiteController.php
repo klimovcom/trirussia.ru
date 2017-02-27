@@ -175,6 +175,7 @@ class SiteController extends Controller
                 $listId = '4a7ae4d6e6';
                 $mailChimp = new \DrewM\MailChimp\MailChimp(Yii::$app->params['MailChimpApiKey']);
                 $mailChimp->post('lists/' . $listId . '/members', ['email_address' => $email, 'status' => 'subscribed']);
+                $mailChimp->post('automations/d4a4f4b73a/emails/ee56dcd3af/queue', ['email_address' => $email]);
             }
             $user->sex = $user->sex ? $user->sex : $sex;
             $user->locale = $user->locale ? $user->locale : $locale;
