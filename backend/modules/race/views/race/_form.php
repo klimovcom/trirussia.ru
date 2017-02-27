@@ -467,8 +467,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
                 'multiple' => false,
             ],
             'pluginOptions' => [
-                'tags' => true,
-                'maximumInputLength' => 10
+                'allowClear' => true
             ],
         ]); ?>
 
