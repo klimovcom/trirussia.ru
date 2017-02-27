@@ -7,6 +7,11 @@
  * @var $race \race\models\Race
  */
 use \willGo\models\WillGo;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\data\ArrayDataProvider;
+use yii\grid\GridView;
+
 $this->registerCssFile('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
 $this->registerJsFile("https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places");
 if (Yii::$app->user->isGuest) {
@@ -14,6 +19,7 @@ if (Yii::$app->user->isGuest) {
 }else {
     $ratingInputClass = 'rating-input rating-input-active';
 }
+$winners = $race->tristatsRace->tristatsWinners;
 ?>
 
 <div class="container">
@@ -89,7 +95,50 @@ if (Yii::$app->user->isGuest) {
                     <div class="clearfix"></div>
                 </div>
             </div>
+
+            <?php if (count($winners)):?>
+                <div class="card card-block">
+                    <h4>Результаты гонки</h4>
+                    <?php
+                    $divisionsArray = ArrayHelper::index($winners, null, 'division');
+
+                    foreach ($divisionsArray as $division => $racers) {
+                        echo Html::tag('h5', $division);
+
+                        $dataProvider = new ArrayDataProvider([
+                            'allModels' => $racers,
+                            /*'sort' => [
+                                'defaultOrder' => ['division' => SORT_ASC, 'division_rank' => SORT_ASC],
+                            ],*/
+                            'pagination' => false,
+                        ]);
+                        echo GridView::widget([
+                            'dataProvider' => $dataProvider,
+                            'tableOptions' => ['class' => 'table table-hover',],
+                            'layout' => "{items}",
+                            'columns' => [
+                                [
+                                    'attribute' => 'division_rank',
+                                    'label' => false,
+
+                                ],
+                                'name',
+                                'country',
+                                'swim',
+                                'run',
+                                'bike',
+                                'finish',
+                            ]
+                        ]);
+                    }
+
+
+                    ?>
+                </div>
+            <?php endif;?>
+
         </div>
+
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 sidebar">
             <div class="theiaStickySidebar">
                 <div class="ad-sidebar text-xs-center">

@@ -453,6 +453,25 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
         <?= $form->field($model, 'display_type')->dropDownList(\race\models\Race::getTypes()); ?>
 
+        <?= $form->field($model, 'tristats_race_id')->widget(\kartik\select2\Select2::className(), [
+            'attribute' => 'tristats_race_id',
+            'model' => $model,
+            'data' => \yii\helpers\ArrayHelper::map(
+                \common\models\TristatsRaces::find()->all(),
+                'id',
+                'name'
+            ),
+            'value' => $model->getCategoriesArrayValues(),
+            'options' => [
+                'placeholder' => 'Выберите гонку',
+                'multiple' => false,
+            ],
+            'pluginOptions' => [
+                'tags' => true,
+                'maximumInputLength' => 10
+            ],
+        ]); ?>
+
         <?= $form->field($model, 'published')->hiddenInput(['id' => 'published-field'])->label(false); ?>
 
     </div>

@@ -216,6 +216,7 @@ class Race extends \yii\db\ActiveRecord
                     'sport_id',
                     'display_type',
                     'popularity',
+                    'tristats_race_id',
                 ],
                 'integer'
             ],
@@ -276,6 +277,7 @@ class Race extends \yii\db\ActiveRecord
             'distancesArray' => 'Дистанции',
             'display_type' => 'Тип отображения',
             'popularity' => 'Популярность',
+            'tristats_race_id' => 'Гонка Tristats.ru'
         ];
     }
 

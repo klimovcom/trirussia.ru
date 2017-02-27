@@ -4,6 +4,7 @@ namespace race\models;
 
 use common\components\Facebook;
 use common\components\GoogleGeocoding;
+use common\models\TristatsRaces;
 use distance\models\Distance;
 use distance\models\DistanceCategory;
 use distance\models\DistanceDistanceCategoryRef;
@@ -116,7 +117,7 @@ class Race extends \yii\db\ActiveRecord
         return [
             [['created', 'author_id', 'start_date', 'start_time', 'country', 'region', 'place', 'label', 'promo', 'content'], 'required'],
             [['created', 'start_date', 'finish_date', 'categoriesArray', 'distancesArray', 'is_new'], 'safe'],
-            [['author_id', 'organizer_id', 'published', 'sport_id', 'display_type'], 'integer'],
+            [['author_id', 'organizer_id', 'published', 'sport_id', 'display_type', 'tristats_race_id'], 'integer'],
             [['price', 'coord_lon', 'coord_lat', 'popularity'], 'number'],
             [['promo', 'content'], 'string'],
             [['start_time'], 'string', 'max' => 5],
@@ -270,6 +271,10 @@ class Race extends \yii\db\ActiveRecord
      */
     public function getWillGo() {
         return $this->hasMany(WillGo::className(), ['race_id' => 'id']);
+    }
+
+    public function getTristatsRace() {
+        return $this->hasOne(TristatsRaces::className(), ['id' => 'tristats_race_id']);
     }
 
     public function getDistancesData()
