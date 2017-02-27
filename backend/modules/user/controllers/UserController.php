@@ -7,6 +7,7 @@ use Faker\Factory;
 use Yii;
 use user\models\User;
 use user\models\UserSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -127,9 +128,11 @@ class UserController extends BackController
 
     public function actionMailchimp() {
         $mailChimp = new \DrewM\MailChimp\MailChimp(Yii::$app->params['MailChimpApiKey']);
-        $mailChimp->verify_ssl = false;
+        $mailChimp->verify_ssl = true;
 
         $lists = $mailChimp->get('lists');
-        var_dump($lists);
+        $listsArray = ArrayHelper::map($lists, 'name', 'id');
+        $listId = $listsArray['TriRussia.ru'];
+        echo $listId;
     }
 }
