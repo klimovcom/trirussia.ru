@@ -171,6 +171,10 @@ class SiteController extends Controller
                 $user->fb_id = $fb_id;
                 $user->first_name = $first_name;
                 $user->last_name = $last_name;
+
+                $listId = '4a7ae4d6e6';
+                $mailChimp = new \DrewM\MailChimp\MailChimp(Yii::$app->params['MailChimpApiKey']);
+                $mailChimp->post('lists/' . $listId . '/members', ['email_address' => $email, 'status' => 'subscribed']);
             }
             $user->sex = $user->sex ? $user->sex : $sex;
             $user->locale = $user->locale ? $user->locale : $locale;
