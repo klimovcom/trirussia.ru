@@ -36,7 +36,8 @@
         "omnilight/yii2-shopping-cart": "*",
         "electrolinux/phpquery": "^0.9.6",
         "developeruz/yii2-db-rbac": "*",
-        "rmrevin/yii2-minify-view": "~1.14"
+        "rmrevin/yii2-minify-view": "~1.14",
+        "drewm/mailchimp-api": "^2.4"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "*",

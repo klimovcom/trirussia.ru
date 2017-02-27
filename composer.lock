@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9a3536e4aa9c740d812d7fbce3e9daf3",
-    "content-hash": "7cebaf47830427f0ef1431a33a2b8a20",
+    "hash": "088b706ada02bbf2699a1691e146f76e",
+    "content-hash": "f2ad2643852caad6bc019955193a8b91",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -572,6 +572,49 @@
                 "instantiate"
             ],
             "time": "2015-06-14 21:17:01"
+        },
+        {
+            "name": "drewm/mailchimp-api",
+            "version": "v2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/drewm/mailchimp-api.git",
+                "reference": "fe480bb652f85270227bf6d639b0026a531f21fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/drewm/mailchimp-api/zipball/fe480bb652f85270227bf6d639b0026a531f21fc",
+                "reference": "fe480bb652f85270227bf6d639b0026a531f21fc",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.0.*",
+                "vlucas/phpdotenv": "^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DrewM\\MailChimp\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Drew McLellan",
+                    "email": "drew.mclellan@gmail.com",
+                    "homepage": "http://allinthehead.com/"
+                }
+            ],
+            "description": "Super-simple, minimum abstraction MailChimp API v3 wrapper",
+            "homepage": "https://github.com/drewm/mailchimp-api",
+            "time": "2017-02-16 13:24:20"
         },
         {
             "name": "electrolinux/phpquery",

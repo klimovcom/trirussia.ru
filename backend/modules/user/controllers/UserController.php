@@ -124,4 +124,12 @@ class UserController extends BackController
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actionMailchimp() {
+        $mailChimp = new \DrewM\MailChimp\MailChimp(Yii::$app->params['MailChimpApiKey']);
+        $mailChimp->verify_ssl = false;
+
+        $lists = $mailChimp->get('lists');
+        var_dump($lists);
+    }
 }
