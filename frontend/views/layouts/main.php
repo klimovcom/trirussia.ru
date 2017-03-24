@@ -42,6 +42,12 @@ if (Yii::$app->controller->action->id !== 'error' && Yii::$app->controller->acti
 
 	<!-- ManyChat -->
 	<script src="//widget.manychat.com/582913601812625.js" async="async"></script>
+
+	<!-- BEGIN PRIVY WIDGET CODE -->
+	<script type='text/javascript'> var _d_site = _d_site || '18FD89EA328DB6FE64C10981'; </script>
+	<script src='//widget.privy.com/assets/widget.js'></script>
+	<!-- END PRIVY WIDGET CODE -->
+
 </head>
 
 <body>
