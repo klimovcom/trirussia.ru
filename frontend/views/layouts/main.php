@@ -39,6 +39,9 @@ if (Yii::$app->controller->action->id !== 'error' && Yii::$app->controller->acti
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
     <?php $this->head() ?>
+
+	<!-- ManyChat -->
+	<script src="//widget.manychat.com/582913601812625.js" async="async"></script>
 </head>
 
 <body>
