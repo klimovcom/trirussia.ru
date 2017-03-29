@@ -232,9 +232,9 @@ $(document).ready(function(){
         var dates = jQuery("#userChart").data('days');
         var users = jQuery("#userChart").data('users');
         // This will get the first returned node in the jQuery collection.
-        var salesChart = new Chart(salesChartCanvas);
+        var Chart = new Chart(salesChartCanvas);
 
-        var salesChartData = {
+        var ChartData = {
             labels: dates,//["January", "February", "March", "April", "May", "June", "July"],
             datasets: [
                 {
@@ -250,7 +250,7 @@ $(document).ready(function(){
             ]
         };
 
-        var salesChartOptions = {
+        var ChartOptions = {
             //Boolean - If we should show the scale at all
             showScale: true,
             //Boolean - Whether grid lines are shown across the chart
@@ -286,11 +286,19 @@ $(document).ready(function(){
             //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
             maintainAspectRatio: true,
             //Boolean - whether to make the chart responsive to window resizing
-            responsive: true
+            responsive: true,
+
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
         };
 
         //Create the line chart
-        salesChart.Line(salesChartData, salesChartOptions);
+        Chart.Line(ChartData, ChartOptions);
     })();
 
     setTimeout(function () {
