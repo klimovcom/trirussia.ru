@@ -86,3 +86,8 @@ th a.desc:after{
 .img-responsive {
 	max-width: 100%!important;
 }
+.chart {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+}

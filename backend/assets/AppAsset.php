@@ -25,6 +25,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         /*'/plugins/jQuery/jQuery-2.1.4.min.js',*/
+        '/plugins/chartjs/Chart.min.js',
         '/js/jquery-ui.min.js',
         '/js/bootstrap.min.js',
         '/plugins/datatables/jquery.dataTables.min.js',
@@ -34,6 +35,7 @@ class AppAsset extends AssetBundle
         '/plugins/timepicker/bootstrap-timepicker.min.js',
         '/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js',
         '/plugins/tag-it/js/tag-it.js',
+
         '/js/site.js',
     ];
     public $jsOptions = [

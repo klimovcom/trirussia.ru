@@ -71,6 +71,18 @@ class SiteController extends Controller
         $raceCount = Race::find()->count();
         $productCount = Product::find()->count();
 
+        $daysArray = [];
+        $usersArray = [];
+        $startDate = strtotime('-6 day');
+        for ($i = 0; $i < 7; $i++) {
+            $date = strtotime('+' . $i . ' day', $startDate);
+            $daysArray[$i] = date('Y-m-d', $date);
+            $usersArray[$i] = User::find()->where(['>=', 'created_at', $date])->andWhere(['<', 'created_at', strtotime('+ 1 day', $date)])->count();
+        }
+        $days = json_encode($daysArray);
+        $users = json_encode($usersArray);
+
+
 
 
         return $this->render('index', [
@@ -78,6 +90,8 @@ class SiteController extends Controller
             'postCount' => $postCount,
             'raceCount' => $raceCount,
             'productCount' => $productCount,
+            'days' => $days,
+            'users' => $users,
 
         ]);
     }

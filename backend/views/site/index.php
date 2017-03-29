@@ -78,4 +78,26 @@ $this->title = 'Triatrussia admin panel';
             </div>
         <?php endif;?>
     </div>
+    <?php if (Yii::$app->user->can('user')):?>
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Зарегистрировавшиеся пользователи по дням</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="chart">
+                            <canvas id="userChart" data-days='<?= $days;?>' data-users='<?= $users;?>' style="height: 180px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endif;?>
 </section>
