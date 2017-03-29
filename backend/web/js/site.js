@@ -232,7 +232,7 @@ $(document).ready(function(){
         var dates = jQuery("#userChart").data('days');
         var users = jQuery("#userChart").data('users');
         // This will get the first returned node in the jQuery collection.
-        var Chart = new Chart(salesChartCanvas);
+        var chart = new Chart(salesChartCanvas);
 
         var ChartData = {
             labels: dates,//["January", "February", "March", "April", "May", "June", "July"],
@@ -298,7 +298,7 @@ $(document).ready(function(){
         };
 
         //Create the line chart
-        Chart.Line(ChartData, ChartOptions);
+        chart.Line(ChartData, ChartOptions);
     })();
 
     setTimeout(function () {
