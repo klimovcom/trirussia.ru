@@ -73,7 +73,7 @@ class SiteController extends Controller
 
         $daysArray = [];
         $usersArray = [];
-        $startDate = strtotime('-6 day');
+        $startDate = mktime(0, 0, 0, date('n'), date('j') - 6);
         for ($i = 0; $i < 7; $i++) {
             $date = strtotime('+' . $i . ' day', $startDate);
             $daysArray[$i] = date('Y-m-d', $date);
