@@ -15,7 +15,10 @@ use yii\authclient\widgets\AuthChoice;
 $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"' : '';
 AppAsset::register($this);
 
-if (Yii::$app->controller->action->id !== 'error' && Yii::$app->controller->action->id !== 'auth' && Yii::$app->controller->action->id !== 'login') {
+if (Yii::$app->controller->action->id !== 'error'
+    && Yii::$app->controller->action->id !== 'auth'
+    && Yii::$app->controller->action->id !== 'login'
+    && Yii::$app->controller->action->id !== 'signup') {
     Yii::$app->getUser()->setReturnUrl(Url::to());
 }
 ?>
@@ -82,7 +85,13 @@ if (Yii::$app->controller->action->id !== 'error' && Yii::$app->controller->acti
                 </li>
                 <?php } else { ?>
 				<li class="list-inline-item">
-					<?= Html::a(Yii::$app->user->identity->first_name . ' ' . Yii::$app->user->identity->last_name, ['/site/calendar'], ['class' => 'underline-white']); ?>
+                    <?php if (Yii::$app->user->identity->first_name || Yii::$app->user->identity->last_name) {
+                        $username = implode(' ', [Yii::$app->user->identity->first_name, Yii::$app->user->identity->last_name]);
+                    }else {
+                        $username = Yii::$app->user->identity->username;
+                    }
+                    echo Html::a($username, ['/site/calendar'], ['class' => 'underline-white']);
+                    ?>
 				</li>
 				<li class="list-inline-item">
                     <a class="btn btn-secondary-outline btn-sm" id="logout-button" href="<?= Url::to('/site/logout'); ?>">Выйти</a>
@@ -136,6 +145,7 @@ if (Yii::$app->controller->action->id !== 'error' && Yii::$app->controller->acti
                         ['class' => 'btn btn-secondary btn-lg m-b-1', 'onclick' => $onClick]
                     ));
                 }
+                echo Html::tag('li', Html::a('Войти через email', ['site/login'], ['class' => 'btn btn-secondary btn-lg m-b-1']));
                 echo Html::endTag('ul');
                 AuthChoice::end();
                 ?>

@@ -192,8 +192,12 @@ return [
                 '/bmi' => '/site/bmi',
                 '/convert' => '/site/convert',
                 '/privacy' => '/site/privacy',
+                'site/login' => 'site/login',
+                'site/signup' => 'site/signup',
                 'site/auth' => 'site/auth',
                 'site/logout' => 'site/logout',
+                'site/request-password-reset' => 'site/request-password-reset',
+                'site/reset-password' => 'site/reset-password',
 
                 '/magazine' => '/post/default/index',
                 '/magazine/search' => '/post/default/search',

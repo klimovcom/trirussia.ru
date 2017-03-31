@@ -46,8 +46,11 @@ class SiteController extends Controller
                     [
                         'actions' => [
                             'login',
+                            'signup',
+                            'request-password-reset',
                             'error',
                             'auth',
+                            'reset-password',
                             'index',
                             'magazine',
                             'about',
@@ -387,7 +390,63 @@ class SiteController extends Controller
     }
 
     public function actionLogin() {
-        return $this->render('login');
+        if (!\Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->goBack();
+        } else {
+            return $this->render('login', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    public function actionSignup() {
+        if (!\Yii::$app->user->isGuest) {
+            return $this->goBack();
+        }
+
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                return $this->goHome();
+            }
+        }
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionRequestPasswordReset() {
+        $model = new PasswordResetRequestForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->sendEmail()) {
+                Yii::$app->getSession()->setFlash('success', 'Письмо для сброса пароля успешно отправлено');
+            }
+        }
+
+        return $this->render('request_password_reset-token', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionResetPassword($token) {
+        try {
+            $model = new ResetPasswordForm($token);
+        } catch (InvalidParamException $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+            Yii::$app->getSession()->setFlash('success', 'Новый пароль успешно сохранен.');
+        }
+
+        return $this->render('reset-password', [
+            'model' => $model,
+        ]);
     }
 
     public function actionSitemap() {
