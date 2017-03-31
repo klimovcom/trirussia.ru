@@ -227,10 +227,12 @@ $(document).ready(function(){
     });
 
     (function createUserCanvas() {
-        'use strict';
-        var salesChartCanvas = jQuery("#userChart").get(0).getContext("2d");
-        var dates = jQuery("#userChart").data('days');
-        var users = jQuery("#userChart").data('users');
+        if (!$("#userChart").length) {
+            return false;
+        }
+        var salesChartCanvas = $("#userChart").get(0).getContext("2d");
+        var dates = $("#userChart").data('days');
+        var users = $("#userChart").data('users');
         // This will get the first returned node in the jQuery collection.
         var chart = new Chart(salesChartCanvas);
 
