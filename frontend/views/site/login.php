@@ -14,7 +14,7 @@ use yii\helpers\Html;
             echo $form->field($model, 'password')->passwordInput();
             ?>
             <p>
-                <?= Html::a('Забыли пароль?', ['site/request-password-reset']) ?>
+                <?= Html::a('Забыли пароль?', ['site/request-password-reset'], ['class' => 'underline']) ?>
             </p>
             <?= $form->field($model, 'rememberMe')->checkbox() ?>
             <div class="form-group">
