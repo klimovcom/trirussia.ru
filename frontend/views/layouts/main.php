@@ -18,6 +18,8 @@ AppAsset::register($this);
 if (Yii::$app->controller->action->id !== 'error'
     && Yii::$app->controller->action->id !== 'auth'
     && Yii::$app->controller->action->id !== 'login'
+    && Yii::$app->controller->action->id !== 'request-password-reset'
+    && Yii::$app->controller->action->id !== 'reset-password'
     && Yii::$app->controller->action->id !== 'signup') {
     Yii::$app->getUser()->setReturnUrl(Url::to());
 }
@@ -145,7 +147,7 @@ if (Yii::$app->controller->action->id !== 'error'
                         ['class' => 'btn btn-secondary btn-lg m-b-1', 'onclick' => $onClick]
                     ));
                 }
-                echo Html::tag('li', Html::a('Войти через email', ['site/login'], ['class' => 'btn btn-secondary btn-lg m-b-1']));
+                echo Html::tag('li', Html::a('Войти через email', ['/site/login'], ['class' => 'btn btn-secondary btn-lg m-b-1']));
                 echo Html::endTag('ul');
                 AuthChoice::end();
                 ?>

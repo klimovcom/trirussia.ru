@@ -14,12 +14,12 @@ use yii\helpers\Html;
             echo $form->field($model, 'password')->passwordInput();
             ?>
             <p>
-                <?= Html::a('Забыли пароль?', ['site/request-password-reset'], ['class' => 'underline']) ?>
+                <?= Html::a('Забыли пароль?', ['/site/request-password-reset'], ['class' => 'underline']) ?>
             </p>
             <?= $form->field($model, 'rememberMe')->checkbox() ?>
             <div class="form-group">
                 <?= Html::submitButton('Войти', ['class' => 'btn btn-secondary']) ?>
-                <?= Html::a('Регистрация', ['site/signup'], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('Регистрация', ['/site/signup'], ['class' => 'btn btn-primary']) ?>
             </div>
             <?php ActiveForm::end(); ?>
         </div>
