@@ -61,6 +61,7 @@ class SignupForm extends Model
 
         if ($user->save()) {
             Yii::$app->user->login($user, 3600 * 24 * 30);
+            Yii::$app->authManager->assign('user_role', $user->id);
             return $user;
         }else {
             return null;
