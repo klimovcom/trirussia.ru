@@ -166,6 +166,7 @@ class SiteController extends Controller
         }
 
         if (!empty($email)){
+            $isNewUser = false;
             $user = User::find()->where(['email'=> $email])->one();
             if (!$user){
                 $user = new User();
@@ -179,6 +180,7 @@ class SiteController extends Controller
                 $mailChimp = new \DrewM\MailChimp\MailChimp(Yii::$app->params['MailChimpApiKey']);
                 $mailChimp->post('lists/' . $listId . '/members', ['email_address' => $email, 'status' => 'subscribed']);
                 $mailChimp->post('automations/d4a4f4b73a/emails/ee56dcd3af/queue', ['email_address' => $email]);
+                $isNewUser = true;
             }
             $user->sex = $user->sex ? $user->sex : $sex;
             $user->locale = $user->locale ? $user->locale : $locale;
@@ -187,6 +189,10 @@ class SiteController extends Controller
             $user->photo_url = $photo_url ? $photo_url : $user->photo_url;
             $user->birthday = $user->birthday ? $user->birthday : $birthday;
             $user->save(false);
+
+            if ($isNewUser) {
+                Yii::$app->authManager->assign(Yii::$app->authManager->getRole('user_role'), $user->id);
+            }
 
             Yii::$app->user->login($user, 3600 * 24 * 30);
         }
