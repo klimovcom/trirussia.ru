@@ -54,7 +54,7 @@ class RaceQuery extends \yii\db\ActiveQuery {
         if (Yii::$app->user->isGuest) {
             return null;
         }
-        $role_name = ArrayHelper::getValue(array_keys(Yii::$app->authManager->getRolesByUser($this->id)), 0);
+        $role_name = ArrayHelper::getValue(array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->identity->id)), 0);
         if ($role_name == 'user_role') {
             return $this->andWhere(['author_id' => Yii::$app->user->identity->id]);
         }
