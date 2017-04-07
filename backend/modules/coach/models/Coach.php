@@ -131,6 +131,7 @@ class Coach extends \yii\db\ActiveRecord
             'url' => 'Url',
             'published' => 'Опубликован',
             'is_on_moderation' => 'На модерации',
+            'author_id' => 'Автор',
         ];
     }
 
