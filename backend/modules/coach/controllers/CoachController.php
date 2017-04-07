@@ -62,6 +62,7 @@ class CoachController extends BackController
     public function actionCreate()
     {
         $model = new Coach();
+        $model->published = 0;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
