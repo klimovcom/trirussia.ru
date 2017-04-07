@@ -104,8 +104,7 @@ class RaceSearch extends Race
 
         $author_id = $this->author_id;
         if (!Yii::$app->user->isGuest) {
-            $role_name = ArrayHelper::getValue(array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->identity->id)), 0);
-            if ($role_name == 'user_role') {
+            if (Yii::$app->user->identity->getRole() == 'user_role') {
                 $author_id = Yii::$app->user->identity->id;
             }
         }
