@@ -100,7 +100,7 @@ class CoachController extends BackController
      */
     protected function findModel($id)
     {
-        if (($model = Coach::findOne($id)) !== null) {
+        if (($model = Coach::find()->where(['id' => $id])->forUser()->one()) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

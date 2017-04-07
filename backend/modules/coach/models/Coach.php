@@ -25,10 +25,28 @@ use yii\helpers\ArrayHelper;
  * @property string $promo
  * @property string $content
  */
+
+class CoachQuery extends \yii\db\ActiveQuery {
+
+    public function forUser() {
+        if (Yii::$app->user->isGuest) {
+            return null;
+        }
+        if (Yii::$app->user->identity->getRole() == 'user_role') {
+            return $this->andWhere(['author_id' => Yii::$app->user->identity->id]);
+        }
+        return $this;
+    }
+}
+
 class Coach extends \yii\db\ActiveRecord
 {
     protected $specializationArray;
     public $coachSportRefs;
+
+    public static function find() {
+        return new CoachQuery(get_called_class());
+    }
 
     public function getCoachSportRefs()
     {
@@ -80,7 +98,8 @@ class Coach extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created', 'label', 'country', 'url', 'published', 'is_on_moderation'], 'required'],
+            [['created', 'label', 'country', 'url', 'published', 'is_on_moderation', 'author_id'], 'required'],
+            [['author_id'], 'integer'],
             [['created', 'specializationArray'], 'safe'],
             [['price', 'promo', 'content'], 'string'],
             [['label', 'country', 'site', 'phone', 'email', 'fb_link', 'vk_link', 'ig_link', 'url'], 'string', 'max' => 255]

@@ -83,6 +83,14 @@ class CoachSearch extends Coach
             'is_on_moderation' => $this->is_on_moderation,
         ]);
 
+        $author_id = $this->author_id;
+        if (!Yii::$app->user->isGuest) {
+            if (Yii::$app->user->identity->getRole() == 'user_role') {
+                $author_id = Yii::$app->user->identity->id;
+            }
+        }
+        $query->andFilterWhere(['author_id' => $author_id]);
+
         $query->andFilterWhere(['like', 'label', $this->label])
             ->andFilterWhere(['like', 'country', $this->country])
             ->andFilterWhere(['like', 'site', $this->site])
