@@ -124,11 +124,11 @@ class RaceController extends BackController
     protected function findModel($id, $ml = true)
     {
         if ($ml){
-            if (($model = Race::find()->multilingual()->where(['id' => $id, ])->one()) !== null) {
+            if (($model = Race::find()->multilingual()->where(['id' => $id, ])->forUser()->one()) !== null) {
                 return $model;
             }
         } else {
-            if (($model = Race::findOne($id)) !== null) {
+            if (($model = Race::find()->where(['id' => $id])->forUser()->one()) !== null) {
                 return $model;
             }
         }

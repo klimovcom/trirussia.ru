@@ -7,6 +7,7 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use race\models\Race;
 use yii\helpers\VarDumper;
+use yii\helpers\ArrayHelper;
 
 /**
  * RaceSearch represents the model behind the search form about `race\models\Race`.
@@ -92,7 +93,6 @@ class RaceSearch extends Race
         $query->andFilterWhere([
             'id' => $this->id,
             'created' => $this->created,
-            'author_id' => $this->author_id,
             'start_date' => $this->start_date,
             'finish_date' => $this->finish_date,
             'price' => $this->price,
@@ -101,6 +101,16 @@ class RaceSearch extends Race
             'published' => $this->published,
             'sport_id' => $this->sport_id,
         ]);
+
+        $author_id = $this->author_id;
+        if (!Yii::$app->user->isGuest) {
+            $role_name = ArrayHelper::getValue(array_keys(Yii::$app->authManager->getRolesByUser($this->id)), 0);
+            if ($role_name == 'user_role') {
+                $author_id = Yii::$app->user->identity->id;
+            }
+        }
+
+        $query->andFilterWhere(['author_id' => $author_id]);
 
         $query->andFilterWhere(['like', 'start_time', $this->start_time])
             ->andFilterWhere(['like', 'country', $this->country])

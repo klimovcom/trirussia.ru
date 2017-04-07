@@ -12,6 +12,7 @@ use omgdef\multilingual\MultilingualQuery;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
+use omgdef\multilingual\MultilingualTrait;
 
 /**
  * This is the model class for table "race".
@@ -44,6 +45,23 @@ use yii\helpers\VarDumper;
  * @property integer $display_type
  * @property integer $popularity
  */
+
+class RaceQuery extends \yii\db\ActiveQuery {
+
+    use MultilingualTrait;
+
+    public function forUser() {
+        if (Yii::$app->user->isGuest) {
+            return null;
+        }
+        $role_name = ArrayHelper::getValue(array_keys(Yii::$app->authManager->getRolesByUser($this->id)), 0);
+        if ($role_name == 'user_role') {
+            return $this->andWhere(['author_id' => Yii::$app->user->identity->id]);
+        }
+        return $this;
+    }
+}
+
 class Race extends \yii\db\ActiveRecord
 {
     const DISPLAY_TYPE_HIDE_IMAGE = 0;
@@ -55,6 +73,10 @@ class Race extends \yii\db\ActiveRecord
 
     protected $categoriesArray;
     public $distanceCategoriesRefs;
+
+    public static function find() {
+        return new RaceQuery(get_called_class());
+    }
     
     static function getTypes()
     {
@@ -321,11 +343,6 @@ class Race extends \yii\db\ActiveRecord
                 ],
             ]
         );
-    }
-
-    public static function find()
-    {
-        return new MultilingualQuery(get_called_class());
     }
 
     public function beforeSave($insert) {
