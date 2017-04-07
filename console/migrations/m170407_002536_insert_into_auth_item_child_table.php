@@ -9,12 +9,12 @@ class m170407_002536_insert_into_auth_item_child_table extends Migration
     public function up()
     {
         $this->insert($this->tableName, [
-            'parent' => 'user',
+            'parent' => 'user_role',
             'child' => 'coach',
         ]);
 
         $this->insert($this->tableName, [
-            'parent' => 'user',
+            'parent' => 'user_role',
             'child' => 'race',
         ]);
     }
