@@ -68,7 +68,7 @@ class SiteController extends Controller
     {
         $userCount = User::find()->count();
         $postCount = Post::find()->count();
-        $raceCount = Race::find()->count();
+        $raceCount = Race::find()->forUser()->count();
         $productCount = Product::find()->count();
 
         $daysArray = [];
