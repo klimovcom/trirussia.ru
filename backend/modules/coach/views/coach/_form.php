@@ -27,6 +27,23 @@ use yii\widgets\ActiveForm;
                     ]
                 ]) ?>
             </div>
+            <div class="col-md-6">
+                <?php
+                if (!Yii::$app->user->isGuest && Yii::$app->user->identity->getRole() == 'user_role') {
+                    $authorData = [Yii::$app->user->identity->id => Yii::$app->user->identity->email];
+                }else {
+                    $authorData = \user\models\User::getAuthorData();
+                }
+                echo $form->field($model, 'author_id')->widget(\kartik\select2\Select2::classname(), [
+                    'data' => $authorData,
+                    'language' => 'ru',
+                    'options' => ['placeholder' => 'Выберите пользователя'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]);
+                ?>
+            </div>
         </div>
 
 

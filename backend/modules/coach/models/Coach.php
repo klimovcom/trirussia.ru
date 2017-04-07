@@ -81,6 +81,7 @@ class Coach extends \yii\db\ActiveRecord
     public function __construct(array $config = [])
     {
         $this->created = date("Y-m-d H:i", time());
+        $this->author_id = Yii::$app->user->id;
         return parent::__construct($config);
     }
 
