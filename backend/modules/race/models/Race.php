@@ -165,7 +165,6 @@ class Race extends \yii\db\ActiveRecord
             [['contact_email'], 'email', 'when' => function($model) {
                 return $model->with_registration == 1;
             }, 'whenClient' => "function(attribute, value) {
-            alert($('#registration-field').val());
                 return $('#registration-field').val() == 1;
             }"],
             [['instagram_tag'], 'string', 'max' => 50],
