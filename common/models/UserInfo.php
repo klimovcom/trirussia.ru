@@ -108,17 +108,14 @@ class UserInfo extends \yii\db\ActiveRecord
         $this->birthdate = $this->user->birthday;
         $this->city = $this->getCityFromDadata();
         $this->email = $this->user->email;
-
-
     }
 
     public function getCityFromDadata() {
         $data = $this->sendDadataRequest(self::DADATA_GEOIP_URL . Yii::$app->request->userIP, false);
-
         if ($data === false) {
             return null;
         }else {
-            return ArrayHelper::getValue(json_encode($data), 'location.data.region');
+            return ArrayHelper::getValue(json_decode($data), 'location.data.region');
         }
     }
 

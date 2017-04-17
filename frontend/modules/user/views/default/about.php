@@ -61,6 +61,9 @@ $alertArray = [
                     'todayHighlight' => true,
                     'weekStart' => '1',
                 ],
+                'pickerButton' => '<span class="input-group-addon kv-date-calendar" title="Выбрать дату"><i class="fa fa-calendar" aria-hidden="true"></i></span>',
+                'removeButton' => '<span class="input-group-addon kv-date-remove" title="Очистить поле"><i class="fa fa-trash" aria-hidden="true"></i></span>',
+
             ])->label(); ?>
 
             <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
