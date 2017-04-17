@@ -10,7 +10,7 @@ class UserModule extends \yii\base\Module
     /**
      * @inheritdoc
      */
-    public $controllerNamespace = 'app\modules\user\controllers';
+    public $controllerNamespace = 'user\controllers';
 
     /**
      * @inheritdoc

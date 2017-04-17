@@ -95,8 +95,8 @@ class UserInfo extends \yii\db\ActiveRecord
         $this->first_name = $this->user->first_name;
         $this->last_name = $this->user->last_name;
 
-        if ($this->user->gender) {
-            if ($this->user->gender === 'female') {
+        if ($this->user->sex) {
+            if ($this->user->sex === 'female') {
                 $this->gender = self::GENDER_FEMALE;
             }else {
                 $this->gender = self::GENDER_MALE;
