@@ -23,12 +23,6 @@ class DefaultController extends Controller
                 'rules' => [
                     [
                         'actions' => [
-
-                        ],
-                        'allow'   => false,
-                    ],
-                    [
-                        'actions' => [
                             'about',
                         ],
                         'allow'   => true,
