@@ -27,7 +27,7 @@ class DefaultController extends Controller
 {
     public function actionView($url){
         /** @var Race $race */
-        $race = Race::find()->where(['url' => $url])->published()->one();
+        $race = Race::find()->where(['url' => $url])->forUser()->one();
         if (!$race){
             throw new NotFoundHttpException();
         }

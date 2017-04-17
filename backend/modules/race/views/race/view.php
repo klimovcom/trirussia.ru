@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Просмотр', 'http://www.trirussia.ru/race/' . $model->url, ['class' => 'btn btn-info', 'target' => '_blank']);?>
     </p>
     <div class="row">
         <div class="col-xs-9">

@@ -71,6 +71,13 @@ class RaceQuery extends \yii\db\ActiveQuery {
         return $this->andWhere(['published' => 1]);
     }
 
+    public function forUser() {
+        if (Yii::$app->user->isGuest) {
+            return $this->andWhere(['published' => 1]);
+        }
+        return $this->andWhere(['or', ['published' => 1], ['and', ['published' => 0], ['author_id' => Yii::$app->user->id]]]);
+    }
+
 }
 
 
