@@ -162,7 +162,12 @@ class Race extends \yii\db\ActiveRecord
             ],
             [['country', 'region'], 'string', 'max' => 100],
             [['place', 'label', 'url', 'currency', 'site', 'facebook_event_id', 'contact_phone', 'contact_email'], 'string', 'max' => 255],
-            [['contact_email'], 'email'],
+            [['contact_email'], 'email', 'when' => function($model) {
+                return $model->with_registration == 1;
+            }, 'whenClient' => "function(attribute, value) {
+            alert($('#registration-field').val());
+                return $('#registration-field').val() == 1;
+            }"],
             [['instagram_tag'], 'string', 'max' => 50],
             [['url'], 'unique']
         ];
