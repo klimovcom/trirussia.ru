@@ -166,7 +166,26 @@ $(document).ready(function(){
             val = 1;
         }
 
-        $('#published-field').val(val)
+        $('#published-field').val(val);
+        return false;
+    });
+
+    $(document).on('click', '.toggle-registration', function(e){
+        e.preventDefault();
+        var val = $('#registration-field').val();
+        var $registrationBlock = $('#registration');
+
+        if (val == 1) {
+            $('.toggle-registration').val('Добавить регистрацию');
+            val = 0;
+            $registrationBlock.hide();
+        } else {
+            $('.toggle-registration').val('Убрать регистрацию');
+            val = 1;
+            $registrationBlock.show();
+        }
+
+        $('#registration-field').val(val);
         return false;
     });
 
@@ -336,6 +355,27 @@ function deleteProductImage(id) {
         success: function (data)
         {
             $('#product-images-' + id).remove();
+        },
+        error: function (data)
+        {
+            alert('Ошибка сервера, повторите позднее');
+        }
+    });
+}
+
+function deleteRaceFile(race_id, file_id) {
+    $.ajax({
+        type: "POST",
+        url: '/race/race/delete-file',
+        data: {
+            race_id: race_id,
+            file_id : file_id
+        },
+        dataType: "html",
+        cache: false,
+        success: function (data)
+        {
+            $('#race-file-' + file_id).remove();
         },
         error: function (data)
         {

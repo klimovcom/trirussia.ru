@@ -51,6 +51,34 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+            [['username', 'email'], 'required'],
+            [['status'], 'integer'],
+            [
+                [
+                    'username',
+                    'password_hash',
+                    'password_reset_token',
+                    'email',
+                    'fb_id',
+                    'first_name',
+                    'last_name',
+                    'sex',
+                    'locale',
+                    'timezone',
+                    'age',
+                    'birthday',
+                    'place',
+                    'password',
+                ],
+                'string',
+                'max' => 255
+            ],
+            [['auth_key'], 'string', 'max' => 32],
+            [['photo_url'], 'string', 'max' => 1024],
+            [['username'], 'unique'],
+            [['email'], 'unique'],
+            [['password_reset_token'], 'unique'],
+            [['role', 'created_at', 'updated_at'], 'safe'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
         ];
@@ -192,5 +220,13 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getRole() {
         return ArrayHelper::getValue(array_keys(Yii::$app->authManager->getRolesByUser($this->id)), 0);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserInfo()
+    {
+        return $this->hasMany(UserInfo::className(), ['user_id' => 'id']);
     }
 }

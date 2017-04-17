@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\user;
+namespace user;
 
 /**
  * user module definition class

@@ -201,6 +201,8 @@ return [
 
                 'organizer' => 'organizer/default/index',
 
+                'user-info' => 'user/default/about',
+
                 'race/add' => 'race/default/create',
                 'race/advanced' => 'race/default/advanced',
                 'race/<url>' => 'race/default/view',

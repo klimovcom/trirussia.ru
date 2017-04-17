@@ -7,6 +7,7 @@ use distance\models\Distance;
 use distance\models\DistanceCategory;
 use distance\models\DistanceDistanceCategoryRef;
 use Faker\Factory;
+use race\models\RaceFpmFile;
 use Yii;
 use race\models\Race;
 use race\models\RaceSearch;
@@ -159,5 +160,12 @@ class RaceController extends BackController
             $options[] = $model;
         }
         return $this->renderAjax('_categories-widget', ['options' => $options, ]);
+    }
+
+    public function actionDeleteFile() {
+        $race_id = Yii::$app->request->post('race_id');
+        $file_id = Yii::$app->request->post('file_id');
+        $file = RaceFpmFile::find()->where(['race_id' => $race_id, 'fpm_file_id' => $file_id])->one();
+        $file->delete();
     }
 }

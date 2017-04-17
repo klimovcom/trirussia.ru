@@ -202,6 +202,13 @@ return [
                             'actions' => [],
                             'allow' => true,
                         ],
+                    ],
+                'gii/default' =>
+                    [
+                        [
+                            'actions' => [],
+                            'allow' => true,
+                        ],
                     ]
             ],
     ],

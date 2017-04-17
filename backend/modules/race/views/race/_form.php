@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\datetime\DateTimePicker;
 use yii\helpers\Url;
+use metalguardian\fileProcessor\helpers\FPM;
 
 /* @var $this yii\web\View */
 /* @var $model race\models\Race */
@@ -477,7 +478,141 @@ google.maps.event.addDomListener(window, 'load', initialize);
             ],
         ]); ?>
 
+        <div id="registration" style="<?= $model->with_registration ? '' : 'display:none;'?>">
+            <div class="row">
+                <div class="col-md-6">
+                    <?= $form->field($model, 'contact_phone')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'contact_email')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <?= $form->field($model, 'date_register_begin')->widget(DateTimePicker::classname(), [
+                        'options' => [
+                            'placeholder' => 'Введите дату начала регистрации ...',
+                            'value' => date('d-m-Y H:i', $model->date_register_begin),
+                        ],
+                        'pluginOptions' => [
+                            'autoclose' => true,
+                            'todayHighlight' => true,
+                            'weekStart' => '1',
+                            'format' => 'dd-mm-yyyy hh:ii'
+                        ]
+                    ]); ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'date_register_end')->widget(DateTimePicker::classname(), [
+                        'options' => [
+                            'placeholder' => 'Введите дату окончания регистрации ...',
+                            'value' => date('d-m-Y H:i', $model->date_register_end),
+                        ],
+                        'pluginOptions' => [
+                            'autoclose' => true,
+                            'todayHighlight' => true,
+                            'weekStart' => '1',
+                            'format' => 'dd-mm-yyyy hh:ii'
+                        ]
+                    ]); ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <?= $form->field($model, 'racers_limit')->textInput(['maxlength' => true])->label('Лимит участников (0 - без лимита)') ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'show_racers_list')->dropDownList([
+                        0 => 'Нет',
+                        1 => 'Да',
+                    ]) ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+
+                    <?php if (count($model->raceRegulations)) : ?>
+                        <div class="form-group">
+                            <label class="control-label">Загруженные положения</label>
+                            <ul class="list-unstyled">
+                                <?php
+                                foreach ($model->raceRegulations as $file) {
+                                    echo Html::tag(
+                                        'li',
+                                        Html::a('<i class="fa fa-trash" aria-hidden="true"></i>', 'javascript:;', ['class' => 'text-danger', 'onClick' => 'deleteRaceFile(' . $model->id .', ' . $file->fpm_file_id . ')']) .
+                                        ' - ' .
+                                        Html::a($file->file->base_name, FPM::originalSrc($file->fpm_file_id), ['target' => '_blank']),
+                                        ['id' => 'race-file-' . $file->fpm_file_id]
+                                    );
+                                }
+                                ?>
+                            </ul>
+                        </div>
+                    <?php endif ?>
+
+
+                    <?= $form->field($model, 'regulations[]')->widget(
+                        \kartik\file\FileInput::classname(),
+                        [
+                            'pluginOptions' => [
+                                'showCaption' => false,
+                                'showRemove' => false,
+                                'showUpload' => false,
+                                'browseClass' => 'btn btn-blue btn-primary',
+                                'browseIcon' => '',
+                                'browseLabel' => 'Загрузить изображение'
+                            ],
+                            'options' => ['accept' => 'application/pdf', 'multiple'=>true],
+                        ]
+                    )->label(); ?>
+                </div>
+                <div class="col-md-6">
+                    <?php if (count($model->raceTraces)) : ?>
+                        <div class="form-group">
+                            <label class="control-label">Загруженные схемы трасс</label>
+                            <ul class="list-unstyled">
+                                <?php
+                                foreach ($model->raceTraces as $file) {
+                                    echo Html::tag(
+                                        'li',
+                                        Html::a('<i class="fa fa-trash" aria-hidden="true"></i>', 'javascript:;', ['class' => 'text-danger', 'onClick' => 'deleteRaceFile(' . $model->id .', ' . $file->fpm_file_id . ')']) .
+                                        ' - ' .
+                                        Html::a($file->file->base_name, FPM::originalSrc($file->fpm_file_id), ['target' => '_blank']),
+                                        ['id' => 'race-file-' . $file->fpm_file_id]
+                                    );
+                                }
+                                ?>
+                            </ul>
+                        </div>
+                    <?php endif ?>
+
+                    <?= $form->field($model, 'traces[]')->widget(
+                        \kartik\file\FileInput::classname(),
+                        [
+                            'pluginOptions' => [
+                                'showCaption' => false,
+                                'showRemove' => false,
+                                'showUpload' => false,
+                                'browseClass' => 'btn btn-blue btn-primary',
+                                'browseIcon' => '',
+                                'browseLabel' => 'Загрузить изображение'
+                            ],
+                            'options' => ['accept' => 'image/*,application/pdf', 'multiple'=>true],
+                        ]
+                    )->label(); ?>
+                </div>
+            </div>
+
+            <?= $form->field($model, 'register_status')->dropDownList(\race\models\Race::getRegisterStatus()) ?>
+
+        </div>
+
         <?= $form->field($model, 'published')->hiddenInput(['id' => 'published-field'])->label(false); ?>
+
+        <?= $form->field($model, 'with_registration')->hiddenInput(['id' => 'registration-field'])->label(false); ?>
 
     </div>
     <div class="box-footer">
@@ -485,6 +620,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
             <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Обновить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
 
             <input type="submit" class="btn btn-default toggle-publication" value="<?= $model->published ? 'Снять с публикации' : 'Опубликовать'; ?>">
+
+            <input type="submit" class="btn btn-default toggle-registration" value="<?= $model->with_registration ? 'Убрать регистрацию' : 'Добавить регистрацию'; ?>">
 
             <?= $model->isNewRecord ? '' : Html::a('Удалить', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger pull-right',

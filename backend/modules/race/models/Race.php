@@ -13,6 +13,7 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
 use omgdef\multilingual\MultilingualTrait;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "race".
@@ -67,29 +68,319 @@ class Race extends \yii\db\ActiveRecord
     const DISPLAY_TYPE_BLACK_HIDE_IMAGE = 1;
     const DISPLAY_TYPE_BOTH_SIDES = 2;
 
+    const REGISTER_STATUS_OPEN = 0;
+    const REGISTER_STATUS_PAUSED = 1;
+    const REGISTER_STATUS_CLOSED = 2;
+    const REGISTER_STATUS_CANCELED = 3;
+
     protected $distancesArray;
     public $distancesRefs;
 
     protected $categoriesArray;
     public $distanceCategoriesRefs;
 
+    public $regulations = [];
+    public $traces = [];
+
     public static function find() {
         return new RaceQuery(get_called_class());
     }
-    
+
+    public function __construct(array $config = [])
+    {
+        $this->created = date("Y-m-d H:i", time());
+        $this->date_register_begin = mktime(10, 0, 0, date('n'), date('j') + 2);
+        $this->date_register_end = mktime(14, 0, 0, date('n'), date('j') + 2);
+        $this->author_id = Yii::$app->user->id;
+        $this->popularity = 0;
+        $this->with_registration = 0;
+        $this->racers_limit = 0;
+        return parent::__construct($config);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'race';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [
+                [
+                    'created',
+                    'author_id',
+                    'country',
+                    'region',
+                    'label',
+                    'url',
+                    'content',
+                    'organizer_id',
+                    'sport_id',
+                    'start_date',
+                ],
+                'required'
+            ],
+            [
+                [
+                    'author_id',
+                    'organizer_id',
+                    'published',
+                    'sport_id',
+                    'display_type',
+                    'popularity',
+                    'tristats_race_id',
+                    'with_registration', 'register_status', 'racers_limit', 'show_racers_list',
+                ],
+                'integer'
+            ],
+            [['date_register_begin', 'date_register_end'], 'safe'],
+            [['price', 'coord_lat', 'coord_lon',], 'number'],
+            [['promo', 'content', 'special_distance',], 'string'],
+            [
+                [
+                    'start_time',
+                    'categoriesArray',
+                    'distancesArray',
+                    'created',
+                    'start_date',
+                    'finish_date',
+                    'country',
+                    'region',
+                    'place',
+                    'coord_lat',
+                    'coord_lon',
+                    'regulations',
+                    'traces'
+                ], 'safe',
+            ],
+            [['country', 'region'], 'string', 'max' => 100],
+            [['place', 'label', 'url', 'currency', 'site', 'facebook_event_id', 'contact_phone', 'contact_email'], 'string', 'max' => 255],
+            [['contact_email'], 'email'],
+            [['instagram_tag'], 'string', 'max' => 50],
+            [['url'], 'unique']
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'created' => 'Дата создания',
+            'author_id' => 'Автор',
+            'sport_id' => 'Вид спорта',
+            'start_date' => 'Дата старта',
+            'finish_date' => 'Дата финиша',
+            'start_time' => 'Время старта',
+            'country' => 'Страна',
+            'region' => 'Регион',
+            'place' => 'Место',
+            'label' => 'Название',
+            'url' => 'URL',
+            'price' => 'Цена',
+            'currency' => 'Валюта',
+            'organizer_id' => 'Организатор',
+            'site' => 'Сайт',
+            'main_image_id' => 'Главное изображение',
+            'promo' => 'Промо',
+            'content' => 'Содержание',
+            'instagram_tag' => 'Instagram тег',
+            'facebook_event_id' => 'FB Event ID',
+            'published' => 'Опубликовано',
+            'special_distance' => 'Нестандартная дистанция',
+            'categoriesArray' => 'Категории дистанций',
+            'distancesArray' => 'Дистанции',
+            'display_type' => 'Тип отображения',
+            'popularity' => 'Популярность',
+            'tristats_race_id' => 'Гонка Tristats.ru',
+            'with_registration' => 'Разрешить регистрацию',
+            'contact_phone' => 'Контактный телефон',
+            'contact_email' => 'Контакный email',
+            'date_register_begin' => 'Начало регистрации',
+            'date_register_end' => 'Конец регистрации',
+            'register_status' => 'Статус регистрации',
+            'racers_limit' => 'Лимит участников',
+            'show_racers_list' => 'Показывать список участников',
+            'regulations' => 'Положения о соревновании',
+            'traces' => 'Схемы трасс',
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return ArrayHelper::merge(
+            parent::behaviors(),
+            [
+                'main_image_id' => [
+                    'class' => UploadBehavior::className(),
+                    'attribute' => 'main_image_id',
+                    'image' => true,
+                    'required' => true,
+                ],
+                'ml' => [
+                    'class' => MultilingualBehavior::className(),
+                    'languages' => [
+                        'ru' => 'Russian',
+                        'en-US' => 'English',
+                    ],
+                    //'languageField' => 'language',
+                    //'localizedPrefix' => '',
+                    //'requireTranslations' => false',
+                    //'dynamicLangClass' => true',
+                    //'langClassName' => RaceLang::className(),
+                    'defaultLanguage' => 'ru',
+                    'langForeignKey' => 'race_id',
+                    'tableName' => "{{%race_lang}}",
+                    'attributes' => [
+                        'label',
+                        'content',
+                        'promo',
+                        'country',
+                        'region',
+                        'place',
+                        'currency',
+                    ]
+                ],
+            ]
+        );
+    }
+
+    public function beforeSave($insert) {
+        parent::beforeSave($insert);
+        $this->addClassToImg('content');
+        $this->addClassToImg('content_en');
+
+        $this->date_register_begin = strtotime($this->date_register_begin);
+        $this->date_register_end = strtotime($this->date_register_end);
+        return true;
+    }
+
+    public function addClassToImg($field) {
+        $content = \phpQuery::newDocument($this->$field);
+        $imgs = $content->find('img');
+        $imgs->addClass('img-fluid');
+        $this->$field = $content->html();
+    }
+
+    public function beforeDelete()
+    {
+        parent::beforeDelete();
+        FPM::deleteFile($this->main_image_id);
+        $refs = $this->getDistanceCategoriesRefs();
+        foreach ($refs as $ref) {
+            $ref->delete();
+        }
+        $refs = $this->getDistancesRefs();
+        foreach ($refs as $ref) {
+            $ref->delete();
+        }
+
+        foreach ($this->raceRegulations as $file) {
+            $file->delete();
+        }
+
+        foreach ($this->raceTraces as $file) {
+            $file->delete();
+        }
+
+        return true; // TODO: Change the autogenerated stub
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        $refs = $this->getDistanceCategoriesRefs();
+        foreach ($refs as $ref) {
+            $ref->delete();
+        }
+        if (is_array($this->categoriesArray)) {
+            foreach ($this->categoriesArray as $categoryId) {
+                $newRef = new RaceDistanceCategoryRef();
+                $newRef->race_id = $this->id;
+                $newRef->distance_category_id = $categoryId;
+                $newRef->save();
+            }
+        }
+        if (is_array($this->distancesArray)) {
+            foreach ($this->distancesArray as $distanceId) {
+                $newRef = new RaceDistanceRef();
+                $newRef->race_id = $this->id;
+                $newRef->distance_id = $distanceId;
+                $newRef->save();
+            }
+        }
+
+        $this->uploadFiles();
+
+        return true;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRaceRegulations()
+    {
+        return $this->hasMany(RaceFpmFile::className(), ['race_id' => 'id'])->andWhere(['type' => RaceFpmFile::TYPE_REGULATION]);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRaceTraces()
+    {
+        return $this->hasMany(RaceFpmFile::className(), ['race_id' => 'id'])->andWhere(['type' => RaceFpmFile::TYPE_TRACE]);
+    }
+
+    public function getRating() {
+        $raceRating = RaceRating::find()->where(['race_id' => $this->id])->all();
+
+        $rating = 0;
+        if (count($raceRating)) {
+            $rateArr = ArrayHelper::getColumn($raceRating, 'rate');
+            $rating = array_sum($rateArr) / count($raceRating);
+        }
+
+        return $rating;
+    }
+
+    public function getVotersCount() {
+        return RaceRating::find()->where(['race_id' => $this->id])->count();
+    }
+
     static function getTypes()
     {
         return [
             self::DISPLAY_TYPE_HIDE_IMAGE => 'Стандартный',
             self::DISPLAY_TYPE_BLACK_HIDE_IMAGE => 'Стандартный на черном фоне',
             self::DISPLAY_TYPE_BOTH_SIDES => 'Двустороннее',
-        ];   
+        ];
     }
-    
+
+    static function getRegisterStatus() {
+        return [
+            self::REGISTER_STATUS_OPEN => 'Открыта',
+            self::REGISTER_STATUS_PAUSED => 'Приостановлена',
+            self::REGISTER_STATUS_CLOSED => 'Закрыта',
+            self::REGISTER_STATUS_CANCELED => 'Отменена',
+        ];
+    }
+
     public function getType()
     {
-        return isset(self::getTypes()[$this->display_type]) ? self::getTypes()[$this->display_type] : null; 
-    }    
+        return isset(self::getTypes()[$this->display_type]) ? self::getTypes()[$this->display_type] : null;
+    }
 
     public function setCategoriesArray($value)
     {
@@ -192,225 +483,22 @@ class Race extends \yii\db\ActiveRecord
         return $values;
     }
 
-    public function __construct(array $config = [])
-    {
-        $this->created = date("Y-m-d H:i", time());
-        $this->author_id = Yii::$app->user->id;
-        $this->popularity = 0;
-        return parent::__construct($config);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'race';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [
-                [
-                    'created',
-                    'author_id',
-                    'country',
-                    'region',
-                    'label',
-                    'url',
-                    'content',
-                    'organizer_id',
-                    'sport_id',
-                    'start_date'
-                ],
-                'required'
-            ],
-            [
-                [
-                    'author_id',
-                    'organizer_id',
-                    'published',
-                    'sport_id',
-                    'display_type',
-                    'popularity',
-                    'tristats_race_id',
-                ],
-                'integer'
-            ],
-            [['price', 'coord_lat', 'coord_lon',], 'number'],
-            [['promo', 'content', 'special_distance',], 'string'],
-            [
-                [
-                    'start_time',
-                    'categoriesArray',
-                    'distancesArray',
-                    'created',
-                    'start_date',
-                    'finish_date',
-                    'country',
-                    'region',
-                    'place',
-                    'coord_lat',
-                    'coord_lon',
-                ], 'safe',
-            ],
-            [['country', 'region'], 'string', 'max' => 100],
-            [['place', 'label', 'url', 'currency', 'site', 'facebook_event_id'], 'string', 'max' => 255],
-            [['instagram_tag'], 'string', 'max' => 50],
-            [['url'], 'unique']
+    public function uploadFiles() {
+        $attrs = [
+            'regulations' => RaceFpmFile::TYPE_REGULATION,
+            'traces' => RaceFpmFile::TYPE_TRACE,
         ];
-    }
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'created' => 'Дата создания',
-            'author_id' => 'Автор',
-            'sport_id' => 'Вид спорта',
-            'start_date' => 'Дата старта',
-            'finish_date' => 'Дата финиша',
-            'start_time' => 'Время старта',
-            'country' => 'Страна',
-            'region' => 'Регион',
-            'place' => 'Место',
-            'label' => 'Название',
-            'url' => 'URL',
-            'price' => 'Цена',
-            'currency' => 'Валюта',
-            'organizer_id' => 'Организатор',
-            'site' => 'Сайт',
-            'main_image_id' => 'Главное изображение',
-            'promo' => 'Промо',
-            'content' => 'Содержание',
-            'instagram_tag' => 'Instagram тег',
-            'facebook_event_id' => 'FB Event ID',
-            'published' => 'Опубликовано',
-            'special_distance' => 'Нестандартная дистанция',
-            'categoriesArray' => 'Категории дистанций',
-            'distancesArray' => 'Дистанции',
-            'display_type' => 'Тип отображения',
-            'popularity' => 'Популярность',
-            'tristats_race_id' => 'Гонка Tristats.ru'
-        ];
-    }
+        foreach ($attrs as $attr => $type) {
+            $this->$attr = UploadedFile::getInstances($this, $attr);
 
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return ArrayHelper::merge(
-            parent::behaviors(),
-            [
-                'main_image_id' => [
-                    'class' => UploadBehavior::className(),
-                    'attribute' => 'main_image_id',
-                    'image' => true,
-                    'required' => true,
-                ],
-                'ml' => [
-                    'class' => MultilingualBehavior::className(),
-                    'languages' => [
-                        'ru' => 'Russian',
-                        'en-US' => 'English',
-                    ],
-                    //'languageField' => 'language',
-                    //'localizedPrefix' => '',
-                    //'requireTranslations' => false',
-                    //'dynamicLangClass' => true',
-                    //'langClassName' => RaceLang::className(),
-                    'defaultLanguage' => 'ru',
-                    'langForeignKey' => 'race_id',
-                    'tableName' => "{{%race_lang}}",
-                    'attributes' => [
-                        'label',
-                        'content',
-                        'promo',
-                        'country',
-                        'region',
-                        'place',
-                        'currency',
-                    ]
-                ],
-            ]
-        );
-    }
-
-    public function beforeSave($insert) {
-        parent::beforeSave($insert);
-        $this->addClassToImg('content');
-        $this->addClassToImg('content_en');
-        return true;
-    }
-
-    public function addClassToImg($field) {
-        $content = \phpQuery::newDocument($this->$field);
-        $imgs = $content->find('img');
-        $imgs->addClass('img-fluid');
-        $this->$field = $content->html();
-    }
-
-    public function beforeDelete()
-    {
-        parent::beforeDelete();
-        FPM::deleteFile($this->main_image_id);
-        $refs = $this->getDistanceCategoriesRefs();
-        foreach ($refs as $ref) {
-            $ref->delete();
-        }
-        $refs = $this->getDistancesRefs();
-        foreach ($refs as $ref) {
-            $ref->delete();
-        }
-        return true; // TODO: Change the autogenerated stub
-    }
-
-    public function afterSave($insert, $changedAttributes)
-    {
-        $refs = $this->getDistanceCategoriesRefs();
-        foreach ($refs as $ref) {
-            $ref->delete();
-        }
-        if (is_array($this->categoriesArray)) {
-            foreach ($this->categoriesArray as $categoryId) {
-                $newRef = new RaceDistanceCategoryRef();
-                $newRef->race_id = $this->id;
-                $newRef->distance_category_id = $categoryId;
-                $newRef->save();
+            foreach ($this->$attr as $file) {
+                $model = new RaceFpmFile();
+                $model->race_id = $this->id;
+                $model->fpm_file_id = FPM::transfer()->saveUploadedFile($file);
+                $model->type = $type;
+                $model->save();
             }
         }
-        if (is_array($this->distancesArray)) {
-            foreach ($this->distancesArray as $distanceId) {
-                $newRef = new RaceDistanceRef();
-                $newRef->race_id = $this->id;
-                $newRef->distance_id = $distanceId;
-                $newRef->save();
-            }
-        }
-        return parent::afterSave($insert, $changedAttributes);
-    }
-
-    public function getRating() {
-        $raceRating = RaceRating::find()->where(['race_id' => $this->id])->all();
-
-        $rating = 0;
-        if (count($raceRating)) {
-            $rateArr = ArrayHelper::getColumn($raceRating, 'rate');
-            $rating = array_sum($rateArr) / count($raceRating);
-        }
-
-        return $rating;
-    }
-
-    public function getVotersCount() {
-        return RaceRating::find()->where(['race_id' => $this->id])->count();
     }
 }
