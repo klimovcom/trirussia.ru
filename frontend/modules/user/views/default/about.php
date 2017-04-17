@@ -12,18 +12,18 @@ $alertArray = [
 
 <div class="container">
     <h1 class="m-t-3 m-b-3">Личная информация для регистрации в гонках</h1>
-    <?php
-    foreach ($alertArray as $alert) {
-        echo Yii::$app->session->getFlash($alert) ? yii\bootstrap\Alert::widget([
-            'options' => [
-                'class' => 'alert-' . $alert,
-            ],
-            'body' => Yii::$app->session->getFlash($alert),
-        ]) : '';
-    }
-    ?>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+            <?php
+            foreach ($alertArray as $alert) {
+                echo Yii::$app->session->getFlash($alert) ? yii\bootstrap\Alert::widget([
+                    'options' => [
+                        'class' => 'alert-' . $alert,
+                    ],
+                    'body' => Yii::$app->session->getFlash($alert),
+                ]) : '';
+            }
+            ?>
             <?php $form = ActiveForm::begin([
                 'class' => 'm-t-3',
                 'enableClientValidation' => true,
