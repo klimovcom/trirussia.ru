@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use kartik\datetime\DateTimePicker;
+use kartik\date\DatePicker;
 use common\models\UserInfo;
 
 $alertArray = [
@@ -56,10 +56,16 @@ $alertArray = [
                     'class' => 'c-select',
                 ]);?>
 
-                <?= $form->field($model, 'birthdate')->textInput([
-                    'maxlength' => true,
-                    'class' => 'form-control form-control-danger datepicker',
-                ]) ?>
+                <?= $form->field($model, 'birthdate')->widget(DatePicker::className(), [
+                    'name' => 'check_issue_date',
+                    'options' => ['placeholder' => 'Выберите дату '],
+                    'pluginOptions' => [
+                        'format' => 'yyyy-mm-dd',
+                        'todayHighlight' => true,
+                        'weekStart' => '1',
+                    ],
+                    'type' => DatePicker::TYPE_INPUT,
+                ])->label(); ?>
 
                 <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
 
