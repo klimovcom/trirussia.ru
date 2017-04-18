@@ -21,6 +21,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\Controller;
+use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
@@ -245,11 +246,15 @@ class DefaultController extends Controller
         if (Yii::$app->user->isGuest) {
             return false;
         }
+        $race_id = Yii::$app->request->post('race_id');
         $userInfo = UserInfo::find()->where(['user_id' => Yii::$app->user->id])->one();
         if (!$userInfo) {
+            Yii::$app->response->cookies->add(new Cookie([
+                'name' => 'register-to-race',
+                'value' => $race_id,
+            ]));
             return ['redirect' => Url::to(['/user/default/about'])];
         }
-        $race_id = Yii::$app->request->post('race_id');
         $raceRegistration = RaceRegistration::find()->where(['race_id' => $race_id, 'user_id' => Yii::$app->user->id])->one();
         if (!$raceRegistration) {
             $raceRegistration = new RaceRegistration();

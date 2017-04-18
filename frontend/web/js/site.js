@@ -434,9 +434,10 @@ $(document).ready(function(){
             {
                 if (data.redirect) {
                     window.location.href = data.redirect;
+                }else {
+                    $this.after('<span>Вы успешно зарегистрированны</span>');
+                    $this.remove();
                 }
-                $this.after('<span>Вы успешно зарегистрированны</span>');
-                $this.remove();
             },
             error: function (data)
             {

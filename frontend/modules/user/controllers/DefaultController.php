@@ -3,6 +3,7 @@
 namespace user\controllers;
 
 use common\models\UserInfo;
+use race\models\Race;
 use Yii;
 use yii\web\Controller;
 use yii\filters\AccessControl;
@@ -52,6 +53,14 @@ class DefaultController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
+                $race_id = Yii::$app->request->cookies->get('register-to-race');
+                if ($race_id) {
+                    Yii::$app->response->cookies->remove('register-to-race');
+                    $race = Race::find()->where(['id' => $race_id])->forUser()->one();
+                    if ($race) {
+                        return $this->redirect(['/race/default/view', 'url' => $race->url]);
+                    }
+                }
                 Yii::$app->session->setFlash('success', 'Данные успешно обновленны');
             }else {
                 Yii::$app->session->setFlash('danger', 'Не удалось сохранить данные, попробуйте позднее');
