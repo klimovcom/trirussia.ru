@@ -167,10 +167,10 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                                 echo Html::tag('span', 'Регистрация отменена');
                                 break;
                             case Race::REGISTER_STATUS_CLOSED :
-                                echo Html::tag('span', 'Регистрация окончена');
+                                echo $race->isUserRegister() ? Html::tag('span', 'Вы уже зарегистрированны') : Html::tag('span', 'Регистрация окончена');
                                 break;
                             case Race::REGISTER_STATUS_PAUSED :
-                                echo Html::tag('span', 'Регистрация временно приостановлена');
+                                echo $race->isUserRegister() ? Html::tag('span', 'Вы уже зарегистрированны') : Html::tag('span', 'Регистрация временно приостановлена');
                                 break;
 
                         }
