@@ -146,6 +146,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                         foreach ($race->raceTraces as $document) {
                             echo $this->render('_race_document', [
                                 'model' => $document,
+                                'counter' => $counter,
                             ]);
                             $counter++;
                         }
