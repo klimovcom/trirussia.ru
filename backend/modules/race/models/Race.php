@@ -265,25 +265,35 @@ class Race extends \yii\db\ActiveRecord
     }
 
     public function validateMainImageId($attribute, $params) {
-        $this->$attribute = UploadedFile::getInstance($this, $attribute);
-
-        $validator = new FileValidator();
-        $validator->extensions = ['png', 'jpg'];
-        $validator->maxFiles = 1;
-
-        if (empty(ArrayHelper::getValue($this->oldAttributes, $attribute))) {
-            $validator->skipOnEmpty = false;
+        if ($this->$attribute instanceof UploadedFile) {
+            $validator = new FileValidator();
+            $validator->extensions = ['png', 'jpg'];
+            $validator->maxFiles = 1;
+            if (!$validator->validate($this->$attribute, $error)) {
+                $this->addError($attribute, $error);
+            }
+        }elseif (empty(ArrayHelper::getValue($this->oldAttributes, $attribute))) {
+            $this->addError($attribute, 'Загрузите файл');
         }
-
-        $validator->validateAttributes($this, [$attribute]);
     }
 
     public function beforeValidate() {
         $this->date_register_begin = strtotime($this->date_register_begin);
         $this->date_register_end = strtotime($this->date_register_end);
 
+        $this->main_image_id = UploadedFile::getInstance($this, 'main_image_id');
+
         return parent::beforeValidate();
     }
+
+    public function afterValidate() {
+        parent::afterValidate();
+
+        if ($this->hasErrors()) {
+            $this->main_image_id = ArrayHelper::getValue($this->oldAttributes, 'main_image_id');
+        }
+    }
+
 
     public function beforeSave($insert) {
         parent::beforeSave($insert);
