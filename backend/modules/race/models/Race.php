@@ -263,6 +263,11 @@ class Race extends \yii\db\ActiveRecord
         );
     }
 
+    public function beforeValidate() {
+        $this->main_image_id = UploadedFile::getInstance($this, 'main_image_id');
+        return parent::beforeValidate();
+    }
+
     public function beforeSave($insert) {
         parent::beforeSave($insert);
         $this->addClassToImg('content');
@@ -511,7 +516,6 @@ class Race extends \yii\db\ActiveRecord
     }
 
     public function uploadImage() {
-        $this->main_image_id = UploadedFile::getInstance($this, 'main_image_id');
         if ($this->main_image_id instanceof UploadedFile) {
             $this->main_image_id = FPM::transfer()->saveUploadedFile($this->main_image_id);
 
