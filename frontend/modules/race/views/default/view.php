@@ -134,15 +134,20 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                     <div class="row fancybox_container">
                         <h6 class="partner-caption m-y-3 text-xs-center">Документы</h6>
                         <?php
+                        $counter = 1;
                         foreach ($race->raceRegulations as $document) {
                             echo $this->render('_race_document', [
                                 'model' => $document,
+                                'counter' => $counter,
                             ]);
+                            $counter++;
                         }
+                        $counter = 1;
                         foreach ($race->raceTraces as $document) {
                             echo $this->render('_race_document', [
                                 'model' => $document,
                             ]);
+                            $counter++;
                         }
                         ?>
                     </div>
