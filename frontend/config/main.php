@@ -211,6 +211,7 @@ return [
                 'race/default/update-search-distance' => 'race/default/update-search-distance',
                 'race/default/update-url' => 'race/default/update-url',
                 'race/default/get-more-races' => 'race/default/get-more-races',
+                'race/default/register' => 'race/default/register',
 
                 '/search-races' => '/site/search-races',
 
