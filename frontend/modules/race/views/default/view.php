@@ -136,7 +136,11 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                         <?php if ($race->isUserRegister()) {
                             echo Html::tag('span', 'Вы уже зарегистрированны');
                         }else {
-                            echo Html::button('Зарегистрироваться',['class' => 'btn btn-secondary race-register', $quest, 'data-race-id' => $race->id]);
+                            if (Yii::$app->user->isGuest) {
+                                echo Html::button('Зарегистрироваться',['class' => 'btn btn-secondary', 'data-toggle' => 'modal', 'data-target' => '#openUser']);
+                            }else {
+                                echo Html::button('Зарегистрироваться',['class' => 'btn btn-secondary race-register', $quest, 'data-race-id' => $race->id]);
+                            }
                         } ?>
                     <?php else:?>
                     <button type="button" class="btn btn-secondary" id="register" <?= $quest; ?> onclick="yaCounter26019216.reachGoal('register'); return true;">Зарегистрироваться</button>
