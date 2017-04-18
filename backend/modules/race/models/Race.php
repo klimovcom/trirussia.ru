@@ -5,6 +5,10 @@ namespace race\models;
 use distance\models\Distance;
 use distance\models\DistanceCategory;
 use distance\models\DistanceDistanceCategoryRef;
+use Imagine\Image\Box;
+use Imagine\Image\ImageInterface;
+use Imagine\Image\Point;
+use Imagine\Imagick\Imagine;
 use metalguardian\fileProcessor\behaviors\UploadBehavior;
 use metalguardian\fileProcessor\helpers\FPM;
 use omgdef\multilingual\MultilingualBehavior;
@@ -72,6 +76,9 @@ class Race extends \yii\db\ActiveRecord
     const REGISTER_STATUS_PAUSED = 1;
     const REGISTER_STATUS_CLOSED = 2;
     const REGISTER_STATUS_CANCELED = 3;
+
+    const MAIN_IMG_WIDTH = 800;
+    const MAIN_IMG_HEIGHT = 450;
 
     protected $distancesArray;
     public $distancesRefs;
@@ -168,7 +175,8 @@ class Race extends \yii\db\ActiveRecord
                 return $('#registration-field').val() == 1;
             }"],
             [['instagram_tag'], 'string', 'max' => 50],
-            [['url'], 'unique']
+            [['url'], 'unique'],
+            [['main_image_id'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg', 'maxFiles' => 1],
         ];
     }
 
@@ -227,12 +235,6 @@ class Race extends \yii\db\ActiveRecord
         return ArrayHelper::merge(
             parent::behaviors(),
             [
-                'main_image_id' => [
-                    'class' => UploadBehavior::className(),
-                    'attribute' => 'main_image_id',
-                    'image' => true,
-                    'required' => true,
-                ],
                 'ml' => [
                     'class' => MultilingualBehavior::className(),
                     'languages' => [
@@ -268,6 +270,8 @@ class Race extends \yii\db\ActiveRecord
 
         $this->date_register_begin = strtotime($this->date_register_begin);
         $this->date_register_end = strtotime($this->date_register_end);
+
+        $this->uploadImage();
         return true;
     }
 
@@ -504,5 +508,43 @@ class Race extends \yii\db\ActiveRecord
                 $model->save();
             }
         }
+    }
+
+    public function uploadImage() {
+        $this->main_image_id = UploadedFile::getInstance($this, 'main_image_id');
+        if ($this->main_image_id instanceof UploadedFile) {
+            $this->main_image_id = FPM::transfer()->saveUploadedFile($this->main_image_id);
+
+            $imagine = new Imagine();
+            $imageModel = FPM::transfer()->getData($this->main_image_id);
+            $imagePath = FPM::getOriginalDirectory($imageModel->id) . DIRECTORY_SEPARATOR .FPM::getOriginalFileName($imageModel->id, $imageModel->base_name, $imageModel->extension);
+
+            $image = $imagine->open($imagePath);
+            $image->interlace(ImageInterface::INTERLACE_PLANE);
+
+            $neededAspectRatio = self::MAIN_IMG_WIDTH / self::MAIN_IMG_HEIGHT;
+            $imageAspectRatio = $image->getSize()->getWidth() / $image->getSize()->getHeight();
+
+            if ($neededAspectRatio > $imageAspectRatio) {
+                $size = $image->getSize()->widen(self::MAIN_IMG_WIDTH);
+            }else {
+                $size = $image->getSize()->heighten(self::MAIN_IMG_HEIGHT);
+            }
+            $image->resize($size, ImageInterface::FILTER_SINC);
+
+
+            if ($image->getSize()->getWidth() > self::MAIN_IMG_WIDTH || $image->getSize()->getHeight() > self::MAIN_IMG_HEIGHT) {
+                $cropBox = new Box(self::MAIN_IMG_WIDTH, self::MAIN_IMG_HEIGHT);
+                $cropPoint = new Point(($image->getSize()->getWidth() - self::MAIN_IMG_WIDTH) / 2, ($image->getSize()->getHeight() - self::MAIN_IMG_HEIGHT) / 2);
+                $image->crop($cropPoint, $cropBox);
+            }
+
+            $image->getImagick()->setImageCompressionQuality(70);
+            $image->getImagick()->setImageFormat('jpg');
+            $image->getImagick()->stripImage();
+
+            $image->save($imagePath);
+        }
+        return true;
     }
 }
