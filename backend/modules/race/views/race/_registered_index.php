@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel race\models\RaceSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Зарегистрированные пользователи на гонку' . $model->label;
+$this->title = 'Зарегистрированные пользователи на гонку: ' . $model->label;
 $this->params['breadcrumbs'][] = ['label' => 'Гонки', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
-                            'id',
+                            ['class' => 'yii\grid\SerialColumn'],
                             //'user_id',
                             'first_name',
                             'last_name',
@@ -52,10 +52,15 @@ $this->params['breadcrumbs'][] = $this->title;
                             'city',
                             'email:email',
                             'phone',
-                            'emergency_first_name',
-                            'emergency_last_name',
-                            'emergency_phone',
-                            'emergency_relation',
+                            [
+                                'format' => 'raw',
+                                'label' => 'Экстренный контакт',
+                                'value' => function($model) {
+                                    return $model->emergency_first_name . ' ' . $model->emergency_last_name . '<br>' .
+                                    'Тел: ' . $model->emergency_phone . '<br>' .
+                                    'Родство: ' . $model->emergency_relation;
+                                }
+                            ],
                             'team',
                             'shirt_size',
                         ],
