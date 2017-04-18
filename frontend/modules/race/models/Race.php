@@ -360,6 +360,22 @@ class Race extends \yii\db\ActiveRecord
 
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRaceRegulations()
+    {
+        return $this->hasMany(RaceFpmFile::className(), ['race_id' => 'id'])->andWhere(['type' => RaceFpmFile::TYPE_REGULATION]);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRaceTraces()
+    {
+        return $this->hasMany(RaceFpmFile::className(), ['race_id' => 'id'])->andWhere(['type' => RaceFpmFile::TYPE_TRACE]);
+    }
+
     public function sendMessage() {
         Yii::$app->mailer->compose(['text' => 'race-create'], [
             'model' => $this

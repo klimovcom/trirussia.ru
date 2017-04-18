@@ -130,6 +130,17 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                 <div class="fancybox_container">
                     <?= $race->content; ?>
                 </div>
+                <?php if ($race->raceRegulations || $race->raceTraces):?>
+                    <div class="row">
+                        <?php
+                        foreach ($race->raceRegulations as $document) {
+                            $this->render('_race_document', [
+                                'model' => $document,
+                            ]);
+                        }
+                        ?>
+                    </div>
+                <?php endif;?>
                 <div class="register">
                     <h5 class="PTSerif m-b-2"><i>Регистрация на <?= $race->label;?></i></h5>
                     <?php if ($race->with_registration):?>
