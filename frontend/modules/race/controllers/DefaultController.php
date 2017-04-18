@@ -255,13 +255,12 @@ class DefaultController extends Controller
             ]));
             return ['redirect' => Url::to(['/user/default/about'])];
         }
-        $raceRegistration = RaceRegistration::find()->where(['race_id' => $race_id, 'user_id' => Yii::$app->user->id])->one();
-        if (!$raceRegistration) {
-            $raceRegistration = new RaceRegistration();
-            $raceRegistration->race_id = $race_id;
-            $raceRegistration->user_id = Yii::$app->user->id;
-            $raceRegistration->save();
+
+        $race = Race::find()->where(['id' => $race_id])->forUser()->one();
+        if ($race) {
+            $race->registerUser();
         }
+
         return true;
 
     }

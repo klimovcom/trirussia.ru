@@ -58,6 +58,7 @@ class DefaultController extends Controller
                     Yii::$app->response->cookies->remove('register-to-race');
                     $race = Race::find()->where(['id' => $race_id])->forUser()->one();
                     if ($race) {
+                        $race->registerUser();
                         return $this->redirect(['/race/default/view', 'url' => $race->url]);
                     }
                 }

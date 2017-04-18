@@ -1096,4 +1096,18 @@ class Race extends \yii\db\ActiveRecord
         }
         return false;
     }
+
+    public function registerUser() {
+        if (Yii::$app->user->isGuest) {
+            return false;
+        }
+        $raceRegistration = RaceRegistration::find()->where(['race_id' => $this->id, 'user_id' => Yii::$app->user->id])->one();
+        if (!$raceRegistration) {
+            $raceRegistration = new RaceRegistration();
+            $raceRegistration->race_id = $this->id;
+            $raceRegistration->user_id = Yii::$app->user->id;
+            $raceRegistration->save();
+        }
+        return true;
+    }
 }
