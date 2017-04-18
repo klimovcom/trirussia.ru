@@ -17,6 +17,7 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
 use omgdef\multilingual\MultilingualTrait;
+use yii\validators\FileValidator;
 use yii\web\UploadedFile;
 
 /**
@@ -176,7 +177,7 @@ class Race extends \yii\db\ActiveRecord
             }"],
             [['instagram_tag'], 'string', 'max' => 50],
             [['url'], 'unique'],
-            [['main_image_id'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg', 'maxFiles' => 1],
+            [['main_image_id'], 'validateMainImageId', 'skipOnEmpty' => false, 'skipOnError' => false],
         ];
     }
 
@@ -261,6 +262,20 @@ class Race extends \yii\db\ActiveRecord
                 ],
             ]
         );
+    }
+
+    public function validateMainImageId($attribute, $params) {
+        $validator = new FileValidator();
+        $validator->extensions = 'png, jpg';
+        $validator->maxFiles = 1;
+
+        if (empty(ArrayHelper::getValue($this->oldAttributes, $attribute))) {
+            $validator->skipOnEmpty = false;
+        }
+
+        if (!$validator->validate($attribute, $error)) {
+            $this->addError($attribute, $error);
+        };
     }
 
     public function beforeValidate() {
@@ -548,6 +563,12 @@ class Race extends \yii\db\ActiveRecord
             $image->getImagick()->stripImage();
 
             $image->save($imagePath);
+
+            if (!empty(ArrayHelper::getValue($this->oldAttributes, 'main_image_id'))) {
+                FPM::deleteFile($this->oldAttributes['main_image_id']);
+            }
+        }else {
+            $this->main_image_id = ArrayHelper::getValue($this->oldAttributes, 'main_image_id');
         }
         return true;
     }
