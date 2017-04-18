@@ -132,9 +132,10 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                 </div>
                 <?php if ($race->raceRegulations || $race->raceTraces):?>
                     <div class="row">
+                        <h6 class="partner-caption m-y-3 text-xs-center">Документы</h6>
                         <?php
                         foreach ($race->raceRegulations as $document) {
-                            $this->render('_race_document', [
+                            echo $this->render('_race_document', [
                                 'model' => $document,
                             ]);
                         }

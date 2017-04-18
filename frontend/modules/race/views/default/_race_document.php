@@ -10,5 +10,5 @@ if ($model->file->extension === 'pdf') {
 
 echo Html::tag('div',
     Html::img($src, ['class' => 'img-fluid m-b-1']) .
-    Html::tag('p', ['class' => 'small text-xs-center']),
+    Html::tag('p', Html::a($model->file->base_name, FPM::originalSrc($model->fpm_file_id), ['class' => 'underline']),['class' => 'small text-xs-center']),
     ['class' => 'col-xl-4']);
