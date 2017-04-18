@@ -3,6 +3,7 @@
 namespace race\controllers;
 
 use common\components\CountryList;
+use common\models\UserInfo;
 use race\models\RaceRating;
 use race\models\RaceRegistration;
 use Yii;
@@ -240,6 +241,10 @@ class DefaultController extends Controller
     public function actionRegister() {
         if (Yii::$app->user->isGuest) {
             return false;
+        }
+        $userInfo = UserInfo::find()->where(['user_id' => Yii::$app->user->id])->one();
+        if (!$userInfo) {
+            return $this->redirect(['user/default/about']);
         }
         $race_id = Yii::$app->request->post('race_id');
         $raceRegistration = RaceRegistration::find()->where(['race_id' => $race_id, 'user_id' => Yii::$app->user->id])->one();
