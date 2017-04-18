@@ -19,8 +19,10 @@ use seo\models\Seo;
 use sport\models\Sport;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * Default controller for the `race` module
@@ -239,12 +241,13 @@ class DefaultController extends Controller
     }
 
     public function actionRegister() {
+        Yii::$app->response->format = Response::FORMAT_JSON;
         if (Yii::$app->user->isGuest) {
             return false;
         }
         $userInfo = UserInfo::find()->where(['user_id' => Yii::$app->user->id])->one();
         if (!$userInfo) {
-            return $this->redirect(['user/default/about']);
+            return ['redirect' => Url::to(['/user/default/about'])];
         }
         $race_id = Yii::$app->request->post('race_id');
         $raceRegistration = RaceRegistration::find()->where(['race_id' => $race_id, 'user_id' => Yii::$app->user->id])->one();

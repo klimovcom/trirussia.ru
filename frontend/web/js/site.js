@@ -428,10 +428,13 @@ $(document).ready(function(){
             data: {
                 race_id : race_id
             },
-            dataType: "html",
+            dataType: "json",
             cache: false,
             success: function (data)
             {
+                if (data.redirect) {
+                    window.location.href = data.redirect;
+                }
                 $this.after('<span>Вы успешно зарегистрированны</span>');
                 $this.remove();
             },
