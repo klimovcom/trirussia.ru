@@ -493,13 +493,13 @@ google.maps.event.addDomListener(window, 'load', initialize);
                     <?= $form->field($model, 'date_register_begin')->widget(DateTimePicker::classname(), [
                         'options' => [
                             'placeholder' => 'Введите дату начала регистрации ...',
-                            'value' => date('d-m-Y H:i', $model->date_register_begin),
+                            'value' => date('Y-m-d H:i', $model->date_register_begin),
                         ],
                         'pluginOptions' => [
                             'autoclose' => true,
                             'todayHighlight' => true,
                             'weekStart' => '1',
-                            'format' => 'dd-mm-yyyy hh:ii'
+                            'format' => 'yyyy-mm-dd hh:ii'
                         ]
                     ]); ?>
                 </div>
@@ -507,13 +507,13 @@ google.maps.event.addDomListener(window, 'load', initialize);
                     <?= $form->field($model, 'date_register_end')->widget(DateTimePicker::classname(), [
                         'options' => [
                             'placeholder' => 'Введите дату окончания регистрации ...',
-                            'value' => date('d-m-Y H:i', $model->date_register_end),
+                            'value' => date('Y-m-d H:i', $model->date_register_end),
                         ],
                         'pluginOptions' => [
                             'autoclose' => true,
                             'todayHighlight' => true,
                             'weekStart' => '1',
-                            'format' => 'dd-mm-yyyy hh:ii'
+                            'format' => 'yyyy-mm-dd hh:ii'
                         ]
                     ]); ?>
                 </div>

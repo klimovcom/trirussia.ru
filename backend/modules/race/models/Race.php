@@ -265,22 +265,20 @@ class Race extends \yii\db\ActiveRecord
     }
 
     public function validateMainImageId($attribute, $params) {
+        $this->$attribute = UploadedFile::getInstance($this, $attribute);
+
         $validator = new FileValidator();
-        $validator->extensions = 'png, jpg';
+        $validator->extensions = ['png', 'jpg'];
         $validator->maxFiles = 1;
 
         if (empty(ArrayHelper::getValue($this->oldAttributes, $attribute))) {
             $validator->skipOnEmpty = false;
         }
 
-        if (!$validator->validate($attribute, $error)) {
+        if (!$validator->validate($this->$attribute, $error)) {
             $this->addError($attribute, $error);
+            $this->$attribute = ArrayHelper::getValue($this->oldAttributes, $attribute);
         };
-    }
-
-    public function beforeValidate() {
-        $this->main_image_id = UploadedFile::getInstance($this, 'main_image_id');
-        return parent::beforeValidate();
     }
 
     public function beforeSave($insert) {
