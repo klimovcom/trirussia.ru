@@ -2,6 +2,7 @@
 
 namespace race\models;
 
+use common\models\User;
 use distance\models\Distance;
 use distance\models\DistanceCategory;
 use distance\models\DistanceDistanceCategoryRef;
@@ -362,6 +363,22 @@ class Race extends \yii\db\ActiveRecord
         $this->uploadFiles();
 
         return true;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRaceRegistrations()
+    {
+        return $this->hasMany(RaceRegistration::className(), ['race_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRegisteredUsers()
+    {
+        return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('race_registration', ['race_id' => 'id']);
     }
 
     /**

@@ -3,14 +3,18 @@
 namespace race\controllers;
 
 use backend\components\BackController;
+use common\models\UserInfo;
 use distance\models\Distance;
 use distance\models\DistanceCategory;
 use distance\models\DistanceDistanceCategoryRef;
 use Faker\Factory;
 use race\models\RaceFpmFile;
+use race\models\RaceRegistration;
 use Yii;
 use race\models\Race;
 use race\models\RaceSearch;
+use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
@@ -167,5 +171,18 @@ class RaceController extends BackController
         $file_id = Yii::$app->request->post('file_id');
         $file = RaceFpmFile::find()->where(['race_id' => $race_id, 'fpm_file_id' => $file_id])->one();
         $file->delete();
+    }
+
+    public function actionRegistered($id) {
+        $model = $this->findModel($id);
+        $users = $model->registeredUsers;
+        $dataProvider = new ActiveDataProvider([
+            'query' => UserInfo::find()->where(['user_id' => ArrayHelper::getColumn($users, 'id')]),
+            'pagination' => false,
+        ]);
+        return $this->render('registered_index', [
+            'model' => $model,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 }
