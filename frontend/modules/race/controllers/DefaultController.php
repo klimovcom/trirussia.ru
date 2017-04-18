@@ -4,6 +4,7 @@ namespace race\controllers;
 
 use common\components\CountryList;
 use race\models\RaceRating;
+use race\models\RaceRegistration;
 use Yii;
 use distance\models\Distance;
 use distance\models\DistanceCategory;
@@ -234,5 +235,21 @@ class DefaultController extends Controller
             'distancesArray' => $distancesArray,
             'categoriesArray' => $categoriesArray,
         ]);
+    }
+
+    public function actionRegister() {
+        if (Yii::$app->user->isGuest) {
+            return false;
+        }
+        $race_id = Yii::$app->request->post('race_id');
+        $raceRegistration = RaceRegistration::find()->where(['race_id' => $race_id, 'user_id' => Yii::$app->user->id])->one();
+        if (!$raceRegistration) {
+            $raceRegistration = new RaceRegistration();
+            $raceRegistration->race_id = $race_id;
+            $raceRegistration->user_id = Yii::$app->user->id;
+            $raceRegistration->save();
+        }
+        return true;
+
     }
 }

@@ -417,6 +417,28 @@ $(document).ready(function(){
         glare: true,
         maxGlare: .5,
         perspective: 1000
+    });
+
+    $(document).on('click', '.race-register', function(e) {
+        var race_id = $(this).attr('data-race-id');
+        $.ajax({
+            type: "POST",
+            url: '/race/default/register',
+            data: {
+                race_id : race_id
+            },
+            dataType: "html",
+            cache: false,
+            success: function (data)
+            {
+                $(this).after('<span>Вы уже зарегистрированны</span>');
+                $(this).remove();
+            },
+            error: function (data)
+            {
+                alert('Ошибка сервера, повторите позднее');
+            }
+        });
     })
 });
 
