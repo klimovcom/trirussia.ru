@@ -608,7 +608,7 @@ function initLazy() {
     });
 }
 function initFancybox() {
-    var $imgs = $('.fancybox_container img').not('.lazy');
+    var $imgs = $('.fancybox_container img').not('.lazy').not('.not-fancy');
     var srcArray = [];
     $imgs.each(function() {
         srcArray.push({src : $(this).attr('src')});
