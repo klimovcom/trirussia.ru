@@ -8,6 +8,8 @@
  */
 use \willGo\models\WillGo;
 use yii\helpers\Html;
+use yii\helpers\Url;
+
 $this->registerCssFile('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
 $this->registerJsFile("https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places");
 $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"' : '';
@@ -130,6 +132,13 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                 </div>
                 <div class="register">
                     <h5 class="PTSerif m-b-2"><i>Регистрация на <?= $race->label;?></i></h5>
+                    <?php if ($race->with_registration):?>
+                        <?php if ($race->isUserRegister()) {
+                            echo Html::tag('span', 'Вы уже зарегистрированны');
+                        }else {
+                            echo Html::button('Зарегистрироваться',['class' => 'btn btn-secondary race-register', $quest, 'data-race-id' => $race->id]);
+                        } ?>
+                    <?php else:?>
                     <button type="button" class="btn btn-secondary" id="register" <?= $quest; ?> onclick="yaCounter26019216.reachGoal('register'); return true;">Зарегистрироваться</button>
                     <div id="register-question">
                         <p>Вам было бы удобно в будущем регистрироваться на соревнование здесь же без перехода на сайт организатора?</p>
@@ -140,6 +149,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                         <p>Спасибо! Мы учтём ваш ответ в нашей работе.</p>
                         <a href="<?= $race->site; ?>" type="button" class="btn btn-secondary" target="_blank">Перейти на сайт</a>
                     </div>
+                    <?php endif;?>
                 </div>
             </div>
         </div>

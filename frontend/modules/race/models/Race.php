@@ -1085,4 +1085,15 @@ class Race extends \yii\db\ActiveRecord
             return 0;
         }
     }
+
+    public function isUserRegister() {
+        if (Yii::$app->user->isGuest) {
+            return false;
+        }
+        $raceRegistration = RaceRegistration::find()->where(['race_id' => $this->id, 'user_id' => Yii::$app->user->id])->one();
+        if ($raceRegistration) {
+            return true;
+        }
+        return false;
+    }
 }
