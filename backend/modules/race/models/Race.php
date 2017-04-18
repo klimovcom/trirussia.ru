@@ -275,19 +275,20 @@ class Race extends \yii\db\ActiveRecord
             $validator->skipOnEmpty = false;
         }
 
-        if (!$validator->validate($this->$attribute, $error)) {
-            $this->addError($attribute, $error);
-            $this->$attribute = ArrayHelper::getValue($this->oldAttributes, $attribute);
-        };
+        $validator->validateAttributes($this, [$attribute]);
+    }
+
+    public function beforeValidate() {
+        $this->date_register_begin = strtotime($this->date_register_begin);
+        $this->date_register_end = strtotime($this->date_register_end);
+
+        return parent::beforeValidate();
     }
 
     public function beforeSave($insert) {
         parent::beforeSave($insert);
         $this->addClassToImg('content');
         $this->addClassToImg('content_en');
-
-        $this->date_register_begin = strtotime($this->date_register_begin);
-        $this->date_register_end = strtotime($this->date_register_end);
 
         $this->uploadImage();
         return true;
