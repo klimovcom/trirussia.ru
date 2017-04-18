@@ -5,10 +5,10 @@ use race\models\RaceFpmFile;
 
 if ($model->file->extension === 'pdf') {
     $src = '/img/download_file.png';
-    $img_class = 'embed-responsive-item img-fluid m-b-1 not-fancy';
+    $img_class = 'embed-responsive-item m-b-1 not-fancy';
 }else {
     $src = FPM::originalSrc($model->fpm_file_id);
-    $img_class = 'embed-responsive-item img-fluid m-b-1';
+    $img_class = 'embed-responsive-item m-b-1';
 }
 
 if ($model->type === RaceFpmFile::TYPE_REGULATION) {
