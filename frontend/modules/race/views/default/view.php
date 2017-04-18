@@ -8,7 +8,7 @@
  */
 use \willGo\models\WillGo;
 use yii\helpers\Html;
-use yii\helpers\Url;
+use race\models\Race;
 
 $this->registerCssFile('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
 $this->registerJsFile("https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places");
@@ -133,15 +133,31 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                 <div class="register">
                     <h5 class="PTSerif m-b-2"><i>Регистрация на <?= $race->label;?></i></h5>
                     <?php if ($race->with_registration):?>
-                        <?php if ($race->isUserRegister()) {
-                            echo Html::tag('span', 'Вы уже зарегистрированны');
-                        }else {
-                            if (Yii::$app->user->isGuest) {
-                                echo Html::button('Зарегистрироваться',['class' => 'btn btn-secondary', 'data-toggle' => 'modal', 'data-target' => '#openUser']);
-                            }else {
-                                echo Html::button('Зарегистрироваться',['class' => 'btn btn-secondary race-register', $quest, 'data-race-id' => $race->id]);
-                            }
-                        } ?>
+                        <?php
+                        switch ($race->register_status) {
+                            case Race::REGISTER_STATUS_OPEN :
+                                if ($race->isUserRegister()) {
+                                    echo Html::tag('span', 'Вы уже зарегистрированны');
+                                }else {
+                                    if (Yii::$app->user->isGuest) {
+                                        echo Html::button('Зарегистрироваться',['class' => 'btn btn-secondary', 'data-toggle' => 'modal', 'data-target' => '#openUser']);
+                                    }else {
+                                        echo Html::button('Зарегистрироваться',['class' => 'btn btn-secondary race-register', $quest, 'data-race-id' => $race->id]);
+                                    }
+                                }
+                                break;
+                            case Race::REGISTER_STATUS_CANCELED :
+                                echo Html::tag('span', 'Регистрация отменена');
+                                break;
+                            case Race::REGISTER_STATUS_CLOSED :
+                                echo Html::tag('span', 'Регистрация окончена');
+                                break;
+                            case Race::REGISTER_STATUS_PAUSED :
+                                echo Html::tag('span', 'Регистрация временно приостановлена');
+                                break;
+
+                        }
+                        ?>
                     <?php else:?>
                     <button type="button" class="btn btn-secondary" id="register" <?= $quest; ?> onclick="yaCounter26019216.reachGoal('register'); return true;">Зарегистрироваться</button>
                     <div id="register-question">

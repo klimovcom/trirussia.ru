@@ -87,6 +87,11 @@ class Race extends \yii\db\ActiveRecord
     const DISPLAY_TYPE_BLACK_HIDE_IMAGE = 1;
     const DISPLAY_TYPE_BOTH_SIDES = 2;
 
+    const REGISTER_STATUS_OPEN = 0;
+    const REGISTER_STATUS_PAUSED = 1;
+    const REGISTER_STATUS_CLOSED = 2;
+    const REGISTER_STATUS_CANCELED = 3;
+
     public $distancesArray;
     public $distancesRefs;
 
