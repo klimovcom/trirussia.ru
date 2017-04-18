@@ -180,7 +180,7 @@ class RaceController extends BackController
             'query' => UserInfo::find()->where(['user_id' => ArrayHelper::getColumn($users, 'id')]),
             'pagination' => false,
         ]);
-        return $this->render('registered_index', [
+        return $this->render('_registered_index', [
             'model' => $model,
             'dataProvider' => $dataProvider,
         ]);
