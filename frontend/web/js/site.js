@@ -421,6 +421,7 @@ $(document).ready(function(){
 
     $(document).on('click', '.race-register', function(e) {
         var race_id = $(this).attr('data-race-id');
+        var $this = $(this);
         $.ajax({
             type: "POST",
             url: '/race/default/register',
@@ -431,8 +432,8 @@ $(document).ready(function(){
             cache: false,
             success: function (data)
             {
-                $(this).after('<span>Вы уже зарегистрированны</span>');
-                $(this).remove();
+                $this.after('<span>Вы успешно зарегистрированны</span>');
+                $this.remove();
             },
             error: function (data)
             {
