@@ -189,30 +189,31 @@ class Race extends \yii\db\ActiveRecord
         return ArrayHelper::merge(
             parent::behaviors(),
             [
-                'ml' => [
-                    'class' => MultilingualBehavior::className(),
-                    'languages' => [
-                        'ru' => 'Russian',
-                        'en-US' => 'English',
-                    ],
-                    //'languageField' => 'language',
-                    //'localizedPrefix' => '',
-                    //'requireTranslations' => false',
-                    //'dynamicLangClass' => true',
-                    //'langClassName' => RaceLang::className(),
-                    'defaultLanguage' => 'ru',
-                    'langForeignKey' => 'race_id',
-                    'tableName' => "{{%race_lang}}",
-                    'attributes' => [
-                        'label',
-                        'content',
-                        'promo',
-                        'country',
-                        'region',
-                        'place',
-                        'currency',
-                    ]
-                ],
+                //TODO: enable when needed,
+                    /*'ml' => [
+                        'class' => MultilingualBehavior::className(),
+                        'languages' => [
+                            'ru' => 'Russian',
+                            'en-US' => 'English',
+                        ],
+                        //'languageField' => 'language',
+                        //'localizedPrefix' => '',
+                        //'requireTranslations' => false',
+                        //'dynamicLangClass' => true',
+                        //'langClassName' => RaceLang::className(),
+                        'defaultLanguage' => 'ru',
+                        'langForeignKey' => 'race_id',
+                        'tableName' => "{{%race_lang}}",
+                        'attributes' => [
+                            'label',
+                            'content',
+                            'promo',
+                            'country',
+                            'region',
+                            'place',
+                            'currency',
+                        ]
+                    ],*/
             ]
         );
     }
@@ -457,12 +458,12 @@ class Race extends \yii\db\ActiveRecord
 
         $translated = (new \common\components\YandexTranslator($texts))->translate();
         if ($translated) {
-            $this->country_en = array_shift($translated);
+            /*$this->country_en = array_shift($translated);
             $this->region_en = array_shift($translated);
             $this->place_en = array_shift($translated);
             $this->label_en = array_shift($translated);
             $this->promo_en = array_shift($translated);
-            $this->content_en = array_shift($translated);
+            $this->content_en = array_shift($translated);*/
 
             return true;
         }else {

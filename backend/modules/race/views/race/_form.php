@@ -271,16 +271,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
                 <?= $form->field($model, 'country')->textInput(['maxlength' => true]) ?>
             </div>
             <div class="col-md-6">
-                <?= $form->field($model, 'country_en')->textInput(['maxlength' => true]) ?>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
                 <?= $form->field($model, 'region')->textInput(['maxlength' => true]) ?>
-            </div>
-            <div class="col-md-6">
-                <?= $form->field($model, 'region_en')->textInput(['maxlength' => true]) ?>
             </div>
         </div>
 
@@ -289,7 +280,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
                 <?= $form->field($model, 'place')->textInput(['maxlength' => true]) ?>
             </div>
             <div class="col-md-6">
-                <?= $form->field($model, 'place_en')->textInput(['maxlength' => true]) ?>
+
             </div>
         </div>
 
@@ -301,43 +292,61 @@ google.maps.event.addDomListener(window, 'load', initialize);
                 ]) ?>
             </div>
             <div class="col-md-6">
-                <?= $form->field($model, 'label_en')->textInput(['maxlength' => true, 'class' => 'form-control w850 ']) ?>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <?= $form->field($model, 'currency')->dropDownList(
-                    ['рубли' => 'Рубли', 'доллары' => 'Доллары', 'евро' => 'Евро',],
-                    ['class' => 'w130 form-control',]
-                ) ?>
-            </div>
-            <div class="col-md-6">
-                <?= $form->field($model, 'currency_en')->dropDownList(
-                    ['рубли' => 'RUR', 'доллары' => 'USD', 'евро' => 'EUR',],
-                    ['class' => 'w130 form-control',]
-                ) ?>
+                <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-6">
                 <?= $form->field($model, 'price')->textInput() ?>
+
+            </div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'currency')->dropDownList(
+                    ['рубли' => 'Рубли', 'доллары' => 'Доллары', 'евро' => 'Евро',],
+                    ['class' => 'w130 form-control',]
+                ) ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <?= $form->field($model, 'sport_id')->dropDownList(
+                    \yii\helpers\ArrayHelper::map(\sport\models\Sport::find()->all(), 'id', 'label'),
+                    ['prompt' => '-- Выберите вид спорта --',]
+                ) ?>
             </div>
             <div class="col-md-6">
                 <?= $form->field($model, 'organizer_id')->dropDownList(
                     \yii\helpers\ArrayHelper::map(\organizer\models\Organizer::find()->orderBy(['label' => SORT_ASC])->all(), 'id', 'label'),
                     ['prompt' => '-- Выберите организатора --',]
-                    ) ?>
+                ) ?>
             </div>
         </div>
 
-        <?= $form->field($model, 'sport_id')->dropDownList(
-            \yii\helpers\ArrayHelper::map(\sport\models\Sport::find()->all(), 'id', 'label'),
-            ['prompt' => '-- Выберите вид спорта --',]
-        ) ?>
-
         <div class="row">
+            <div class="col-md-6 categories-widget">
+                <?= $form->field($model, 'categoriesArray')->widget(\kartik\select2\Select2::className(), [
+                    'attribute' => 'categoriesArray',
+                    'model' => $model,
+                    'data' => \yii\helpers\ArrayHelper::map(
+                        \distance\models\DistanceCategory::find()
+                            ->where(['sport_id' => $model->sport_id, ])
+                            ->all(),
+                        'id',
+                        'label'
+                    ),
+                    'value' => $model->getCategoriesArrayValues(),
+                    'options' => [
+                        'placeholder' => 'Выберите категории',
+                        'multiple' => true,
+                    ],
+                    'pluginOptions' => [
+                        'tags' => true,
+                        'maximumInputLength' => 10
+                    ],
+                ]); ?>
+            </div>
             <div class="col-md-6">
                 <?= $form->field($model, 'distancesArray')->widget(\kartik\select2\Select2::className(), [
                     'attribute' => 'distancesArray',
@@ -353,28 +362,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
                     ],
                 ]); ?>
             </div>
-            <div class="col-md-6 categories-widget">
-                <?= $form->field($model, 'categoriesArray')->widget(\kartik\select2\Select2::className(), [
-                    'attribute' => 'categoriesArray',
-                    'model' => $model,
-                    'data' => \yii\helpers\ArrayHelper::map(
-                            \distance\models\DistanceCategory::find()
-                            ->where(['sport_id' => $model->sport_id, ])
-                            ->all(),
-                            'id',
-                            'label'
-                        ),
-                    'value' => $model->getCategoriesArrayValues(),
-                    'options' => [
-                        'placeholder' => 'Выберите категории',
-                        'multiple' => true,
-                    ],
-                    'pluginOptions' => [
-                        'tags' => true,
-                        'maximumInputLength' => 10
-                    ],
-                ]); ?>
-            </div>
         </div>
 
         <div class="row">
@@ -382,7 +369,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
         </div>
 
 
-        <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'site')->textInput(['maxlength' => true]) ?>
 
@@ -428,33 +414,17 @@ google.maps.event.addDomListener(window, 'load', initialize);
             ]
         )->label(); ?>
 
-        <?= $form->field($model, 'content_en')->widget(
-            \vova07\imperavi\Widget::className(),
-            [
-                'settings' => [
-                    'lang' => 'ru',
-                    'minHeight' => 200,
-                    'plugins' => [
-                        'clips',
-                        'fullscreen'
-                    ],
-                    'imageUpload' => Url::to(['/race/race/image-upload']),
-                ]
-            ]
-        )->label(); ?>
+        <?= $form->field($model, 'promo')->textarea()->label(); ?>
 
         <div class="row">
             <div class="col-md-6">
-                <?= $form->field($model, 'promo')->textarea()->label(); ?>
+                <?= $form->field($model, 'instagram_tag')->textInput(['maxlength' => true]) ?>
             </div>
             <div class="col-md-6">
-                <?= $form->field($model, 'promo_en')->textarea()->label(); ?>
+                <?= $form->field($model, 'facebook_event_id')->textInput(['maxlength' => true]) ?>
             </div>
         </div>
 
-        <?= $form->field($model, 'instagram_tag')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'facebook_event_id')->textInput(['maxlength' => true]) ?>
         
         <?= $form->field($model, 'popularity')->textInput(['maxlength' => true]) ?>
 
@@ -613,6 +583,20 @@ google.maps.event.addDomListener(window, 'load', initialize);
         <?= $form->field($model, 'published')->hiddenInput(['id' => 'published-field'])->label(false); ?>
 
         <?= $form->field($model, 'with_registration')->hiddenInput(['id' => 'registration-field'])->label(false); ?>
+
+        <?= $form->field($model, 'country_en')->hiddenInput()->label(false) ?>
+
+        <?= $form->field($model, 'region_en')->hiddenInput()->label(false) ?>
+
+        <?= $form->field($model, 'place_en')->hiddenInput()->label(false) ?>
+
+        <?= $form->field($model, 'label_en')->hiddenInput()->label(false) ?>
+
+        <?= $form->field($model, 'currency_en')->hiddenInput()->label(false) ?>
+
+        <?= $form->field($model, 'promo_en')->hiddenInput()->label(false); ?>
+
+        <?= $form->field($model, 'content_en')->hiddenInput()->label(false)->hiddenInput()->label(false); ?>
 
     </div>
     <div class="box-footer">

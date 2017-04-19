@@ -203,7 +203,7 @@ class Race extends \yii\db\ActiveRecord
             'price' => 'Цена',
             'currency' => 'Валюта',
             'organizer_id' => 'Организатор',
-            'site' => 'Сайт',
+            'site' => 'Сайт гонки',
             'main_image_id' => 'Главное изображение',
             'promo' => 'Промо',
             'content' => 'Содержание',
