@@ -9,11 +9,16 @@ use yii\helpers\Url;
 $this->title = 'TriRussia.ru — Главный сайт о триатлоне';
 ?>
 <div class="container">
+	
+    <?= frontend\widgets\news\News::widget(); ?>
+	
+<!--
     <div class="race-block-container">
         <?= frontend\widgets\pastRaces\PastRaces::widget(); ?>
     </div>
 
     <?= \frontend\widgets\votePastRace\VotePastRace::widget();?>
+-->
 
     <div class="row m-t-3 m-b-3">
         <div class="col-lg-4 col-xl-4">
@@ -58,7 +63,7 @@ $this->title = 'TriRussia.ru — Главный сайт о триатлоне';
         </div>
     </div>
 
-    <?= frontend\widgets\news\News::widget(); ?>
+
 
     <div class="row">
         <div class="grid">
