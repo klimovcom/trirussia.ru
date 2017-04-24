@@ -68,7 +68,6 @@ class User extends ActiveRecord implements IdentityInterface
                     'age',
                     'birthday',
                     'place',
-                    'password',
                 ],
                 'string',
                 'max' => 255
