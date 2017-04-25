@@ -9,6 +9,7 @@ use yii\helpers\Url;
 $this->title = 'TriRussia.ru — Главный сайт о триатлоне';
 ?>
 
+<!--
 <div class="alert alert-info alert-dismissible m-b-0" role="alert">
 	<div class="container">
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -19,6 +20,7 @@ $this->title = 'TriRussia.ru — Главный сайт о триатлоне';
 		</div>
 	</div>
 </div>
+-->
 
 <div class="container">
 	
