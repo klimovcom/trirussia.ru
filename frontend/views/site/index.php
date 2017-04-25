@@ -8,6 +8,18 @@ use yii\helpers\Url;
 
 $this->title = 'TriRussia.ru — Главный сайт о триатлоне';
 ?>
+
+<div class="alert alert-info alert-dismissible m-b-0" role="alert">
+	<div class="container">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<div class="text-xs-center">
+			<strong>Мы ищем таланты!</strong> Если вы любите писать про спорт или кодить, <a href="/wanted" class="underline">вам сюда</a>.
+		</div>
+	</div>
+</div>
+
 <div class="container">
 	
     <?= frontend\widgets\news\News::widget(); ?>
