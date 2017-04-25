@@ -175,8 +175,8 @@ if (Yii::$app->controller->action->id !== 'error'
                     <li><a href="<?= Url::toRoute('/site/about'); ?>" class="underline-white">О проекте</a></li>
                     <li><a href="<?= Url::toRoute('/site/advertising'); ?>" class="underline-white">Реклама</a></li>
                     <li><a href="<?= Url::toRoute('/site/domains'); ?>" class="underline-white">Домены</a></li>
-                    <li><a href="<?= Url::toRoute('/wanted'); ?>" class="underline-white">Работа</a></li>
-                    <li><a href="<?= Url::toRoute('/investor'); ?>" class="underline-white">Инвесторам</a></li>
+                    <li><a href="<?= Url::toRoute('/site/wanted'); ?>" class="underline-white">Работа</a></li>
+                    <li><a href="<?= Url::toRoute('/site/investor'); ?>" class="underline-white">Инвесторам</a></li>
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">

@@ -62,6 +62,8 @@ class SiteController extends Controller
                             'search-races',
                             'sport',
                             'sitemap',
+                            'investor',
+                            'wanted',
                         ],
                         'allow'   => true,
                     ],
@@ -376,6 +378,16 @@ class SiteController extends Controller
         return $this->render('advertising');
     }
 
+    public function actionInvestor()
+    {
+        return $this->render('investor');
+    }
+
+    public function actionWanted()
+    {
+        return $this->render('wanted');
+    }
+
     public function actionDomains()
     {
         return $this->render('domains');
@@ -460,6 +472,8 @@ class SiteController extends Controller
         $routes = [
             ['site/index'],
             ['site/advertising'],
+            ['site/investor'],
+            ['site/wanted'],
             ['site/domains'],
             ['site/bmi'],
             ['site/convert'],
