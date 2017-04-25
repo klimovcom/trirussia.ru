@@ -445,7 +445,7 @@ class Race extends \yii\db\ActiveRecord
     }
 
     public function translateFields() {
-        $this->currency_en = $this->currency;
+        //$this->currency_en = $this->currency;
 
         $texts = [
             $this->country,
