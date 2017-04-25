@@ -164,14 +164,19 @@ if (Yii::$app->controller->action->id !== 'error'
     <div class="container">
         <div class="row m-b-2">
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-                <h6>TriRussia.ru</h6>
+                <h6>Интересное</h6>
                 <ul class="list-unstyled">
                     <li><a href="<?= Url::toRoute('/post/default/index'); ?>" class="underline-white">Журнал</a></li>
                     <li><a href="<?= Url::toRoute('/product/default/index'); ?>" class="underline-white">Магазин</a></li>
+                    <li><a href="<?= Url::toRoute('/site/calendar'); ?>" class="underline-white" <?= $quest;?>>Мой календарь</a></li>
+                </ul>
+                <h6 class="m-t-2">TriRussia.ru</h6>
+                <ul class="list-unstyled">
                     <li><a href="<?= Url::toRoute('/site/about'); ?>" class="underline-white">О проекте</a></li>
                     <li><a href="<?= Url::toRoute('/site/advertising'); ?>" class="underline-white">Реклама</a></li>
                     <li><a href="<?= Url::toRoute('/site/domains'); ?>" class="underline-white">Домены</a></li>
-                    <li><a href="<?= Url::toRoute('/site/calendar'); ?>" class="underline-white" <?= $quest;?>>Мой календарь</a></li>
+                    <li><a href="<?= Url::toRoute('/site/wanted'); ?>" class="underline-white">Работа</a></li>
+                    <li><a href="<?= Url::toRoute('/site/investor'); ?>" class="underline-white">Инвесторам</a></li>
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">

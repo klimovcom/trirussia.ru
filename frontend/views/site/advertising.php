@@ -26,7 +26,7 @@
                     <li>Сквозной баннер поменьше 300х250, находится под большим</li>
                     <li>Перетяжка 1110х200 на главных страницах <a href="/" class="underline">сайта</a> и <a href="/magazine" class="underline">журнала</a></li>
                     <li>Брендированная карточка на <a href="/" class="underline">главной странице</a></li>
-                    <li>Спонсорство рубрики. Например: <a href="/races.php" class="underline">триатлон</a> или <a href="/training.php" class="underline">тренеры</a></li>
+                    <li>Спонсорство рубрики. Например: <a href="/triathlon" class="underline">триатлон</a> или <a href="/training" class="underline">тренеры</a></li>
                     <li>Сквозной текстово-графический блок 300х150, находится под большим баннером</li>
                     <li>Брендирование сайта</li>
                 </ul>
