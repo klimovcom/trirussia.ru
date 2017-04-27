@@ -43,7 +43,6 @@ if (Yii::$app->controller->action->id !== 'error'
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css">
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
-    <script type="text/javascript" src="/js/adriver.core.2.js">
     <?php $this->head() ?>
 
 	<!-- ManyChat -->
