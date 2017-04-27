@@ -7,7 +7,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
  */
 ?>
 <?php if ($sport == 'run') {
-    echo $this->render('_includes/_sport_run_adriver');
+    echo $this->render('includes/_sport_run_adriver');
 }?>
 <div class="search-container">
     <?= frontend\widgets\searchRacesPanel\SearchRacesPanel::widget(); ?>
