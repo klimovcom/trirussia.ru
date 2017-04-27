@@ -44,6 +44,7 @@ if (Yii::$app->controller->action->id !== 'error'
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
     <?php $this->head() ?>
+    <script type="text/javascript" src="/js/adriver.core.2.js">
 
 	<!-- ManyChat -->
 	<script src="//widget.manychat.com/582913601812625.js" async="async"></script>
