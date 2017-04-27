@@ -6,18 +6,25 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
  * @var $showMore bool
  */
 ?>
+<?php if ($sport == 'run') {
+    echo $this->render('_includes/_sport_run_adriver');
+}?>
 <div class="search-container">
     <?= frontend\widgets\searchRacesPanel\SearchRacesPanel::widget(); ?>
 </div>
 <div class="container">
     <div class="pull-left">
-        <?php  ?>
-        <h1 class="m-t-3 m-b-3">Календарь соревнований по <?= \sport\models\Sport::getCurrentSportLabel('дательный');?>
+        <?php if ($sport == 'run'):  ?>
+        <h1 class="white m-b-3" style="margin-top: 200px;">Календарь соревнований по <?= \sport\models\Sport::getCurrentSportLabel('дательный');?>
             <?= \sport\models\Sport::getCondition()?>
         </h1>
+        <?php else :?>
+            <h1 class="m-t-3 m-b-3">Календарь соревнований по <?= \sport\models\Sport::getCurrentSportLabel('дательный');?>
+                <?= \sport\models\Sport::getCondition()?>
+            </h1>
+        <?php endif;?>
     </div>
     <div class="clearfix"></div>
-    <?php //\yii\helpers\VarDumper::dump($_GET);die();?>
     <?php if (($_GET['sport']=='triathlon')){?>
     <a href="http://tyrrussia.ru/?utm_source=trirussia&utm_medium=banner&utm_term=triathlon&utm_campaign=triathlon-sponsorship" class="no-underline" target="_blank">
         <div class="tyr-wrapper">

@@ -27,7 +27,7 @@ class AppAsset extends AssetBundle
         '/css/style.css',
     ];
     public $js = [
-
+        '/js/adriver.core.2.js',
         '/js/modernizr.js',
         '/js/tilt.jquery.js',
         '/js/jquery.lazyload.min.js',

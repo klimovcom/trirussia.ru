@@ -251,6 +251,7 @@ class SiteController extends Controller
 
 
         return $this->render('races', [
+            'sport' => $sport,
             'races' => $races,
             'showMore' => $showMore,
         ]);
