@@ -5,7 +5,7 @@
 ?>
 <ul class="list-inline">
 
-	<li class="nav-item hidden-sm-down"><i class="fa fa-bars fa-lg nav-hamb menu-trigger" aria-hidden="true"></i></li>
+	<!--<li class="nav-item hidden-sm-down"><i class="fa fa-bars fa-lg nav-hamb menu-trigger" aria-hidden="true"></i></li>-->
 	<button class="navbar-toggler hidden-md-up" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false">
 		<i class="fa fa-bars fa-lg"></i>
 	</button>
