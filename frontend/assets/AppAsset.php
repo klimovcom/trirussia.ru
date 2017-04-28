@@ -34,7 +34,7 @@ class AppAsset extends AssetBundle
         '/js/jquery.fancybox.min.js',
         '/js/theia-sticky-sidebar.js',
         '/js/scotchPanels.min.js',
-        '/js/leftside-top-menu.js',
+        //'/js/leftside-top-menu.js',
         '/js/modalfix.js',
         '/js/ad-sidebar.js',
         '/js/pace.min.js',

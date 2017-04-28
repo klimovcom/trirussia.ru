@@ -159,7 +159,7 @@ if (Yii::$app->controller->action->id !== 'error'
 
 <?= $content; ?>
 
-<?= \frontend\widgets\allRaces\AllRaces::widget(['leftView' => true, ]);?>
+<?php // \frontend\widgets\allRaces\AllRaces::widget(['leftView' => true, ]);?>
 
 <footer class="footer">
     <div class="container">
