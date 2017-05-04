@@ -188,6 +188,8 @@ return [
                 '/bmi' => '/site/bmi',
                 '/convert' => '/site/convert',
                 '/privacy' => '/site/privacy',
+                'investor' => '/site/investor',
+                'wanted' => '/site/wanted',
                 'site/login' => 'site/login',
                 'site/signup' => 'site/signup',
                 'site/auth' => 'site/auth',
