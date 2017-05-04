@@ -193,20 +193,6 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                         <a href="<?= $race->site; ?>" type="button" class="btn btn-secondary" target="_blank">Перейти на сайт</a>
                     </div>
                     <?php endif;?>
-					<hr class="m-y-2">
-					<p><i class="fa fa-exclamation-circle fa-lg" style="margin-right: 8px;" aria-hidden="true"></i><strong>Страховка для соревнований обязательна</strong></p>
-					<p>Для участия в соревнованиях на территории России необходимо иметь страховку от несчастного случая. Для международных стартов — международную медицинскую страховку. Все страховки электронные, принимаются организаторами и визовыми центрами.</p>
-					<div class="row">
-						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-							<p class="small">Для соревнований в России:</p>
-							<a href="https://prosto.insure/sport" class="btn btn-primary-outline" target="_blank">Купить в онлайне от 290 ₽</a>
-						</div>
-						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-							<p class="small">Для соревнований за границей:</p>
-							<a href="https://travel.prosto.insure" class="btn btn-primary-outline" target="_blank">Купить в онлайне от 100 ₽</a>
-						</div>
-					</div>
-					<p class="m-t-2 m-b-0"><img src="https://prosto.insure/img/brand.svg" style="height: 13px; margin-top: -3px;"> — спортивные страховки в онлайне.</p>
                 </div>
             </div>
         </div>
