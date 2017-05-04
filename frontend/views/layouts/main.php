@@ -44,16 +44,7 @@ if (Yii::$app->controller->action->id !== 'error'
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
     <?php $this->head() ?>
-    <script type="text/javascript" src="/js/adriver.core.2.js">
-
-	<!-- ManyChat -->
-	<script src="//widget.manychat.com/582913601812625.js" async="async"></script>
-
-	<!-- BEGIN PRIVY WIDGET CODE -->
-	<script type='text/javascript'> var _d_site = _d_site || '18FD89EA328DB6FE64C10981'; </script>
-	<script src='//widget.privy.com/assets/widget.js'></script>
-	<!-- END PRIVY WIDGET CODE -->
-
+    <script src="/js/adriver.core.2.js">
 </head>
 
 <body>
@@ -176,10 +167,8 @@ if (Yii::$app->controller->action->id !== 'error'
                     <li><a href="<?= Url::toRoute('/site/about'); ?>" class="underline-white">О проекте</a></li>
                     <li><a href="<?= Url::toRoute('/site/advertising'); ?>" class="underline-white">Реклама</a></li>
                     <li><a href="<?= Url::toRoute('/site/domains'); ?>" class="underline-white">Домены</a></li>
-<!--
                     <li><a href="<?= Url::toRoute('/site/wanted'); ?>" class="underline-white">Работа</a></li>
                     <li><a href="<?= Url::toRoute('/site/investor'); ?>" class="underline-white">Инвесторам</a></li>
--->
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
