@@ -291,8 +291,7 @@ class Race extends \yii\db\ActiveRecord
         $this->addClassToImg('content');
         $this->addClassToImg('content_en');
 
-        //$this->uploadImage();
-        $this->main_image_id = 2;
+        $this->uploadImage();
         return true;
     }
 
