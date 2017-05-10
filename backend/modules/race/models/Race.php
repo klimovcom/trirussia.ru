@@ -82,12 +82,6 @@ class Race extends \yii\db\ActiveRecord
     const MAIN_IMG_WIDTH = 800;
     const MAIN_IMG_HEIGHT = 450;
 
-    protected $distancesArray;
-    public $distancesRefs;
-
-    protected $categoriesArray;
-    public $distanceCategoriesRefs;
-
     public $regulations = [];
     public $traces = [];
 
@@ -155,8 +149,6 @@ class Race extends \yii\db\ActiveRecord
             [
                 [
                     'start_time',
-                    'categoriesArray',
-                    'distancesArray',
                     'created',
                     'start_date',
                     'finish_date',
@@ -211,8 +203,6 @@ class Race extends \yii\db\ActiveRecord
             'facebook_event_id' => 'FB Event ID',
             'published' => 'Опубликовано',
             'special_distance' => 'Нестандартная дистанция',
-            'categoriesArray' => 'Категории дистанций',
-            'distancesArray' => 'Дистанции',
             'display_type' => 'Тип отображения',
             'popularity' => 'Популярность',
             'tristats_race_id' => 'Гонка Tristats.ru',
@@ -301,7 +291,8 @@ class Race extends \yii\db\ActiveRecord
         $this->addClassToImg('content');
         $this->addClassToImg('content_en');
 
-        $this->uploadImage();
+        //$this->uploadImage();
+        $this->main_image_id = 2;
         return true;
     }
 
@@ -316,14 +307,9 @@ class Race extends \yii\db\ActiveRecord
     {
         parent::beforeDelete();
         FPM::deleteFile($this->main_image_id);
-        $refs = $this->getDistanceCategoriesRefs();
-        foreach ($refs as $ref) {
-            $ref->delete();
-        }
-        $refs = $this->getDistancesRefs();
-        foreach ($refs as $ref) {
-            $ref->delete();
-        }
+
+        RaceDistanceRef::deleteAll(['race_id' => $this->id]);
+        RaceDistanceCategoryRef::deleteAll(['race_id' => $this->id]);
 
         foreach ($this->raceRegulations as $file) {
             $file->delete();
@@ -339,30 +325,27 @@ class Race extends \yii\db\ActiveRecord
     public function afterSave($insert, $changedAttributes)
     {
         parent::afterSave($insert, $changedAttributes);
-        $refs = $this->getDistanceCategoriesRefs();
-        foreach ($refs as $ref) {
-            $ref->delete();
-        }
-        if (is_array($this->categoriesArray)) {
-            foreach ($this->categoriesArray as $categoryId) {
-                $newRef = new RaceDistanceCategoryRef();
-                $newRef->race_id = $this->id;
-                $newRef->distance_category_id = $categoryId;
-                $newRef->save();
-            }
-        }
-        if (is_array($this->distancesArray)) {
-            foreach ($this->distancesArray as $distanceId) {
-                $newRef = new RaceDistanceRef();
-                $newRef->race_id = $this->id;
-                $newRef->distance_id = $distanceId;
-                $newRef->save();
-            }
-        }
 
+        $this->saveDistances();
         $this->uploadFiles();
 
         return true;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRaceDistanceCategoryRefs()
+    {
+        return $this->hasMany(RaceDistanceCategoryRef::className(), ['race_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRaceDistanceRefs()
+    {
+        return $this->hasMany(RaceDistanceRef::className(), ['race_id' => 'id']);
     }
 
     /**
@@ -436,107 +419,6 @@ class Race extends \yii\db\ActiveRecord
         return isset(self::getTypes()[$this->display_type]) ? self::getTypes()[$this->display_type] : null;
     }
 
-    public function setCategoriesArray($value)
-    {
-        $this->categoriesArray = $value;
-    }
-
-    public function setDistancesArray($value)
-    {
-        $this->distancesArray = $value;
-    }
-
-
-    public function getDistanceCategoriesRefs()
-    {
-        if ($this->isNewRecord) {
-            return [];
-        }
-        if (!$this->distanceCategoriesRefs) {
-            $this->distanceCategoriesRefs = RaceDistanceCategoryRef::findAll(['race_id' => $this->id]);
-        }
-        return $this->distanceCategoriesRefs;
-    }
-
-    public function getDistancesRefs()
-    {
-        if ($this->isNewRecord) {
-            return [];
-        }
-        if (!$this->distancesRefs) {
-            $this->distancesRefs = RaceDistanceRef::findAll(['race_id' => $this->id]);
-        }
-        return $this->distancesRefs;
-    }
-
-    public function getCategoriesArrayValues()
-    {
-        $categories = ArrayHelper::map(DistanceCategory::find()->all(), 'id', 'label');
-        $refs = $this->getDistanceCategoriesRefs();
-        $values = [];
-        foreach ($refs as $ref) {
-            $values[$ref->distance_category_id] = $categories[$ref->distance_category_id];
-        }
-        return $values;
-    }
-
-    public function getCategoriesArray()
-    {
-        if ($this->categoriesArray === null) {
-            $refs = $this->getDistanceCategoriesRefs();
-            foreach ($refs as $ref) {
-                $this->categoriesArray[] = $ref->distance_category_id;
-            }
-        }
-        return is_array($this->categoriesArray) ? $this->categoriesArray : [];
-    }
-
-    public function getDistancesArray()
-    {
-        if ($this->distancesArray === null) {
-            $refs = $this->getDistancesRefs();
-            foreach ($refs as $ref) {
-                $this->distancesArray[] = $ref->distance_id;
-            }
-        }
-        return is_array($this->distancesArray) ? $this->distancesArray : [];
-    }
-
-    public function getDistancesArrayValues()
-    {
-        $values = [];
-        if ($this->isNewRecord) {
-            return $values;
-        }
-        $refs = $this->getDistancesRefs();
-        $distances = ArrayHelper::map(Distance::find()->all(), 'id', 'label');
-        foreach ($refs as $ref) {
-            $values[$ref->distance_id] = $distances[$ref->distance_id];
-        }
-        return $values;
-    }
-
-    public function getDistancesData()
-    {
-        $values = [];
-        if ($this->isNewRecord) {
-            return $values;
-        }
-        $categoriesRefs = $this->getDistanceCategoriesRefs();
-        $categoriesIdArray = [];
-        foreach ($categoriesRefs as $ref) {
-            $categoriesIdArray[] = $ref->distance_category_id;
-        }
-        $distancesRefs = DistanceDistanceCategoryRef::find()
-            ->where(['in', 'distance_category_id', $categoriesIdArray])
-            ->all();
-        $distances = ArrayHelper::map(Distance::find()->all(), 'id', 'label');
-        foreach ($distancesRefs as $ref) {
-            $values[$ref->distance_id] = $distances[$ref->distance_id];
-        }
-        return $values;
-    }
-
     public function uploadFiles() {
         $attrs = [
             'regulations' => RaceFpmFile::TYPE_REGULATION,
@@ -596,6 +478,42 @@ class Race extends \yii\db\ActiveRecord
         }else {
             $this->main_image_id = ArrayHelper::getValue($this->oldAttributes, 'main_image_id');
         }
+        return true;
+    }
+
+    public function saveDistances() {
+        RaceDistanceRef::deleteAll(['race_id' => $this->id]);
+        RaceDistanceCategoryRef::deleteAll(['race_id' => $this->id]);
+        $raceDistancePostName = (new RaceDistanceRef)->formName();
+        $raceDistanceArray = Yii::$app->request->post($raceDistancePostName);
+
+        if (!is_array($raceDistanceArray)) {
+            return false;
+        }
+
+        $distances = Distance::find()->where(['id' => ArrayHelper::getColumn($raceDistanceArray, 'distance_id')])->all();
+        $distanceArray = ArrayHelper::getColumn($distances, 'id');
+
+        $values = [];
+        foreach ($raceDistanceArray as $raceDistance) {
+            if (in_array($raceDistance['distance_id'], $distanceArray)) {
+                $values[] = [
+                    $this->id,
+                    $raceDistance['distance_id'],
+                    (int) $raceDistance['type'],
+                    (int) $raceDistance['price'],
+                ];
+            }
+        }
+        self::getDb()->createCommand()->batchInsert(RaceDistanceRef::tableName(), ['race_id', 'distance_id', 'type', 'price'], $values)->execute();
+
+        $distanceCategoryIds = ArrayHelper::getColumn(DistanceDistanceCategoryRef::find()->where(['distance_id' => $distanceArray])->all(), 'distance_category_id');
+        $values = [];
+        foreach ($distanceCategoryIds as $distance_category_id) {
+            $values[] = [$this->id, $distance_category_id];
+        }
+        self::getDb()->createCommand()->batchInsert(RaceDistanceCategoryRef::tableName(), ['race_id', 'distance_category_id'], $values)->execute();
+
         return true;
     }
 }

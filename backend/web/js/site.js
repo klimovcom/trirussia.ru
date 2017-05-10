@@ -189,62 +189,6 @@ $(document).ready(function(){
         return false;
     });
 
-    $(document).on('change', '#race-sport_id', function(){
-
-        $('.field-race-categoriesarray .select2-search__field')
-            .val(null)
-            .attr('placeholder', 'Выберите категорию')
-            .css('width', '200px');
-        $('.field-race-categoriesarray input[name="Race[categoriesArray]"]').val(null);
-        $('.field-race-categoriesarray .select2-selection__choice').remove();
-
-        $('.field-race-distancesarray .select2-search__field')
-            .val(null)
-            .attr('placeholder', 'Выберите дистанцию')
-            .css('width', '200px');
-        $('.field-race-distancesarray input[name="Race[distancesArray]"]').val(null);
-        $('.field-race-distancesarray .select2-selection__choice').remove();
-
-        $('select#race-categoriesarray').html('');
-        $('select#race-distancesarray').html('');
-        var val = $(this).val();
-        if (val > 0){
-            $.post('/race/race/get-categories-widget', {'sportId': val}, function(response){
-                $('select#race-categoriesarray').removeAttr('disabled').html(response);
-                $('.field-race-categoriesarray .select2-search__field')
-                    .removeAttr('disabled')
-            });
-        }
-    });
-
-
-
-
-    $(document).on('change', '#race-categoriesarray', function(){
-        var val = $(this).val();
-        console.log('changed');
-        $('.field-race-distancesarray .select2-search__field')
-            .val(null)
-            .attr('placeholder', 'Выберите дистанцию')
-            .css('width', '200px');
-        $('.field-race-distancesarray input[name="Race[distancesArray]"]').val(null);
-        $('.field-race-distancesarray .select2-selection__choice').remove();
-
-        $('select#race-distancesarray').html('');
-        console.log('val');
-        console.log(val);
-        if (val.length > 0){
-            console.log("more");
-            $('#race-distancesarray').removeAttr('disabled');
-            $('.field-race-distancesarray .select2-search__field').removeAttr('disabled');
-
-            $.post('/race/race/get-distances-widget', {'distanceCategories': val}, function(response){
-                $('select#race-distancesarray').html(response);
-            });
-
-        }
-    });
-
     (function createUserCanvas() {
         if (!$("#userChart").length) {
             return false;
@@ -316,7 +260,40 @@ $(document).ready(function(){
 
     setTimeout(function () {
         $('.flash').fadeOut('slow');
-    }, 4000)
+    }, 4000);
+
+    $(document).on('click', '.race-distance-list-btn-delete', function() {
+        var id = $(this).data('id');
+        $('#race-distance-list-item-' + id).remove();
+    });
+
+    $(document).on('click', '.race-distance-list-btn-add', function() {
+        var sport_id = $('#race-sport-id').val();
+        if (!sport_id) {
+            alert('Выберите вид спорта');
+            return false;
+        }
+        var $container = $('#race-distance-list');
+        var counter = $container.data('count') + 1;
+        $.post('/race/race/get-distances-widget', {'sport_id': sport_id, 'counter' : counter}, function(response){
+            $container.append(response);
+            $container.data('count', counter);
+        });
+    });
+
+    $(document).on('change', '#race-sport-id', function(e) {
+        if ($(this).data('value')) {
+            if (confirm('Вы уверены что хотите изменить спорт? Все дистанции удалятся.')) {
+                $('#race-distance-list').html('');
+                $('#race-distance-list').data('count', 0);
+                $(this).data('value', $(this).val());
+            }else {
+                $(this).val($(this).data('value'));
+            }
+        }else {
+            $(this).data('value', $(this).val());
+        }
+    });
 });
 
 $(document).ready(function() {

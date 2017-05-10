@@ -104,4 +104,20 @@ class Distance extends \yii\db\ActiveRecord
         }
         return true;
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDistanceDistanceCategoryRefs()
+    {
+        return $this->hasMany(DistanceDistanceCategoryRef::className(), ['distance_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDistanceCategories()
+    {
+        return $this->hasMany(DistanceCategory::className(), ['id' => 'distance_category_id'])->via('distanceDistanceCategoryRefs');
+    }
 }

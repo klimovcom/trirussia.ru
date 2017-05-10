@@ -168,6 +168,10 @@ window.geolocate = function() {
 google.maps.event.addDomListener(window, 'load', initialize);
 
 ");
+
+
+$raceDistanceArray = $model->raceDistanceRefs;
+$raceDistanceCount = count($raceDistanceArray);
 ?>
 
 <div class="race-form">
@@ -313,7 +317,11 @@ google.maps.event.addDomListener(window, 'load', initialize);
             <div class="col-md-6">
                 <?= $form->field($model, 'sport_id')->dropDownList(
                     \yii\helpers\ArrayHelper::map(\sport\models\Sport::find()->all(), 'id', 'label'),
-                    ['prompt' => '-- Выберите вид спорта --',]
+                    [
+                        'prompt' => '-- Выберите вид спорта --',
+                        'id' => 'race-sport-id',
+                        'data-value' => $model->sport_id,
+                    ]
                 ) ?>
             </div>
             <div class="col-md-6">
@@ -324,51 +332,36 @@ google.maps.event.addDomListener(window, 'load', initialize);
             </div>
         </div>
 
+        <hr>
         <div class="row">
-            <div class="col-md-6 categories-widget">
-                <?= $form->field($model, 'categoriesArray')->widget(\kartik\select2\Select2::className(), [
-                    'attribute' => 'categoriesArray',
-                    'model' => $model,
-                    'data' => \yii\helpers\ArrayHelper::map(
-                        \distance\models\DistanceCategory::find()
-                            ->where(['sport_id' => $model->sport_id, ])
-                            ->all(),
-                        'id',
-                        'label'
-                    ),
-                    'value' => $model->getCategoriesArrayValues(),
-                    'options' => [
-                        'placeholder' => 'Выберите категории',
-                        'multiple' => true,
-                    ],
-                    'pluginOptions' => [
-                        'tags' => true,
-                        'maximumInputLength' => 10
-                    ],
-                ]); ?>
+            <div class="col-xs-12">
+                <h4>Дистанции</h4>
+                <div class="row">
+                    <div class="col-md-5">Дистанция</div>
+                    <div class="col-md-3">Тип</div>
+                    <div class="col-md-3">Цена (0 или пустое поле - используем цену гонки)</div>
+                </div>
             </div>
-            <div class="col-md-6">
-                <?= $form->field($model, 'distancesArray')->widget(\kartik\select2\Select2::className(), [
-                    'attribute' => 'distancesArray',
-                    'model' => $model,
-                    'data' => $model->getDistancesData(),
-                    'value' => $model->getDistancesArrayValues(),
-                    'options' => [
-                        'placeholder' => 'Выберите дистанции', 'multiple' => true,
-                    ],
-                    'pluginOptions' => [
-                        'tags' => true,
-                        'maximumInputLength' => 10
-                    ],
-                ]); ?>
+            <div id="race-distance-list" class="col-xs-12" data-count="<?= $raceDistanceCount;?>">
+                <?php
+                $counter = 1;
+                foreach ($raceDistanceArray as $raceDistance) {
+                    echo $this->render('includes/distance', [
+                        'raceDistance' => $raceDistance,
+                        'distanceForSportArray' => $distanceForSportArray,
+                        'counter' => $counter,
+
+                    ]);
+                    $counter++;
+                }
+                ?>
+            </div>
+            <div class="col-xs-12 form-group">
+                <?= Html::button('Добавить дистанцию', ['class' => 'btn btn-success race-distance-list-btn-add']);?>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-md-6"><?= $form->field($model, 'special_distance')->textInput(['maxlength' => true]) ?></div>
-        </div>
-
-
+        <?= $form->field($model, 'special_distance')->textInput(['maxlength' => true, 'id' =>'myTags']) ?>
+        <hr>
 
         <?= $form->field($model, 'site')->textInput(['maxlength' => true]) ?>
 
@@ -438,7 +431,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
                 'id',
                 'name'
             ),
-            'value' => $model->getCategoriesArrayValues(),
+            'value' => $model->tristats_race_id,
             'options' => [
                 'placeholder' => 'Выберите гонку',
                 'multiple' => false,

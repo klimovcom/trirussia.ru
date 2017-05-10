@@ -8,6 +8,7 @@ use distance\models\Distance;
 use distance\models\DistanceCategory;
 use distance\models\DistanceDistanceCategoryRef;
 use Faker\Factory;
+use race\models\RaceDistanceRef;
 use race\models\RaceFpmFile;
 use race\models\RaceRegistration;
 use Yii;
@@ -88,14 +89,15 @@ class RaceController extends BackController
         $model = new Race();
         $model->published = 1;
 
+        $distanceForSportArray = [];
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             $model->sport_id = null;
-            $model->setCategoriesArray(null);
-            $model->setDistancesArray(null);
             return $this->render('create', [
                 'model' => $model,
+                'distanceForSportArray' => $distanceForSportArray,
             ]);
         }
     }
@@ -109,11 +111,15 @@ class RaceController extends BackController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+
+        $distanceForSportArray = ArrayHelper::map(Distance::find()->joinWith('distanceCategories')->where([DistanceCategory::tableName() . '.sport_id' => $model->sport_id])->all(), 'id', 'label');
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'distanceForSportArray' => $distanceForSportArray,
             ]);
         }
     }
@@ -140,30 +146,19 @@ class RaceController extends BackController
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionGetCategoriesWidget()
-    {
-        $this->layout = false;
-        $sportId = $_POST['sportId'];
-        $options = DistanceCategory::find()->where(['sport_id' => $sportId, ])->all();
-        return $this->renderAjax('_categories-widget', ['options' => $options, ]);
-    }
-
     public function actionGetDistancesWidget()
     {
-        $this->layout = false;
-        $categoriesIdArray = $_POST['distanceCategories'];
-        $distancesRefs = DistanceDistanceCategoryRef::find()
-            ->where(['in', 'distance_category_id', $categoriesIdArray])
-            ->all();
-        $distances = ArrayHelper::map(Distance::find()->all(), 'id', 'label');
-        $options = [];
-        foreach($distancesRefs as $ref){
-            $model = new Distance();
-            $model->id = $ref->distance_id;
-            $model->label = $distances[$ref->distance_id];
-            $options[] = $model;
-        }
-        return $this->renderAjax('_categories-widget', ['options' => $options, ]);
+        $raceDistance = new RaceDistanceRef();
+        $sport_id = Yii::$app->request->post('sport_id');
+        $counter = Yii::$app->request->post('counter');
+
+        $distanceForSportArray = ArrayHelper::map(Distance::find()->joinWith('distanceCategories')->where([DistanceCategory::tableName() . '.sport_id' => $sport_id])->all(), 'id', 'label');
+
+        return $this->renderPartial('includes/distance', [
+            'raceDistance' => $raceDistance,
+            'distanceForSportArray' => $distanceForSportArray,
+            'counter' => $counter,
+        ]);
     }
 
     public function actionDeleteFile() {

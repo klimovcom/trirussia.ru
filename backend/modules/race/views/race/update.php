@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = 'Редактирование';
                 <div class="box-body">
                     <?= $this->render('_form', [
                         'model' => $model,
+                        'distanceForSportArray' => $distanceForSportArray,
                     ]) ?>
                 </div>
             </div>

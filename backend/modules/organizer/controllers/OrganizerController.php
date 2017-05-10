@@ -91,6 +91,13 @@ class OrganizerController extends BackController
         }
     }
 
+    public function actionGenerateApiKey($id) {
+        $model = $this->findModel($id);
+        $model->api_key = Yii::$app->security->generateRandomString(32);
+        $model->save();
+        return $this->redirect(['view', 'id' => $model->id]);
+    }
+
     /**
      * Finds the Organizer model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

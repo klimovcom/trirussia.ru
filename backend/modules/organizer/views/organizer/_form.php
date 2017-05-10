@@ -111,7 +111,4 @@ use vova07\imperavi\Widget;
 
         <?php ActiveForm::end(); ?>
     </div>
-
-    <?php $form = ActiveForm::begin(); ?>
-
 </div>
