@@ -58,85 +58,81 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
         <div class="clearfix"></div>
     </div>
     <div class="row" id="card">
-	    <?php if (empty($races)) { ?>
-	        <p class="text-xs-center m-t-2 m-b-2">К сожалению, нет результатов. Посмотрите <a href="/" class="underline">все старты</a>.</p>
-	    <?php } ?>
-        <ul class="flex-container">
-            <?php /** @var $race \race\models\Race */ ?>
-            <?php foreach ($races as $race) {?>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
-                    <li class="flex-item">
-                        <div class="card">
-                            <div class="card-block border-<?= $race->getSportClass(); ?>">
-                                <div class="pull-left">
-                                    <h6 class="sport-caption <?= $race->getSportClass(); ?>"><?= $race->sport->label; ?></h6>
-                                </div>
-                                <div class="pull-right">
-                                    <h6 class="date-caption grey"><?= $race->getDateRepresentation(); ?></h6>
-                                </div>
-                                <div class="clearfix"></div>
-                                <h4 class="card-title">
-                                    <?php if ($race->isJoined()) { ?>
-                                        <span
-                                            class="span-join"
-                                            title="Вы участвуете"
-                                            data-message-joined="Вы участвуете"
-                                            data-message-will="Нажмите, чтобы добавить в календарь"
-                                        >
-                                    <i
-                                        <?= $quest; ?>
-                                        class="fa gold fa-star grey i-will-go already-joined"
-                                        data-message="will"
-                                        aria-hidden="true"
-                                        data-id="<?= $race->id; ?>"
-                                        data-url="<?= WillGo::dismissUrl(); ?>"
-                                    ></i>
-                                    <i
-                                        <?= $quest; ?>
-                                        class="fa fa-star-o grey i-will-go will-join hidden"
-                                        aria-hidden="true"
-                                        data-message="joined"
-                                        data-id="<?= $race->id; ?>"
-                                        data-url="<?= WillGo::joinUrl(); ?>"
-                                    ></i>
-                                </span>
-                                    <?php } else { ?>
-                                        <span
-                                            class="span-join"
-                                            title="Нажмите, чтобы добавить в календарь"
-                                            data-message-joined="Вы участвуете"
-                                            data-message-will="Нажмите, чтобы добавить в календарь"
-                                        >
-                                            <i
-                                                <?= $quest; ?>
-                                                class="fa gold fa-star grey i-will-go already-joined hidden"
-                                                data-message="will"
-                                                aria-hidden="true"
-                                                data-id="<?= $race->id; ?>"
-                                                data-url="<?= WillGo::dismissUrl(); ?>"
-                                            ></i>
-                                            <i
-                                                <?= $quest; ?>
-                                                class="fa fa-star-o grey i-will-go will-join"
-                                                aria-hidden="joined"
-                                                data-message="will"
-                                                data-id="<?= $race->id; ?>"
-                                                data-url="<?= WillGo::joinUrl(); ?>"
-                                            ></i>
-                                        </span>
-                                    <?php } ?>
-                                    <a href="<?= $race->getViewUrl(); ?>" class="underline-black">
-                                        <?= $race->label; ?>
-                                    </a>
-                                </h4>
-                                <p class="card-text"><?= $race->promo; ?></p>
-                                <a href="<?= $race->getViewUrl(); ?>" class="btn btn-secondary btn-sm">Узнайте больше</a>
-                            </div>
-                        </div>
-                    </li>
+    <?php if (empty($races)) { ?>
+        <p class="text-xs-center m-t-2 m-b-2">К сожалению, нет результатов. Посмотрите <a href="/" class="underline">все старты</a>.</p>
+    <?php } ?>
+    <?php /** @var $race \race\models\Race */ ?>
+    <?php foreach ($races as $race) {?>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <div class="card c-card">
+                <div class="card-block border-<?= $race->getSportClass(); ?>">
+                    <div class="pull-left">
+                        <h6 class="sport-caption <?= $race->getSportClass(); ?>"><?= $race->sport->label; ?></h6>
+                    </div>
+                    <div class="pull-right">
+                        <h6 class="date-caption grey"><?= $race->getDateRepresentation(); ?></h6>
+                    </div>
+                    <div class="clearfix"></div>
+                    <h4 class="card-title">
+                        <?php if ($race->isJoined()) { ?>
+                            <span
+                                class="span-join"
+                                title="Вы участвуете"
+                                data-message-joined="Вы участвуете"
+                                data-message-will="Нажмите, чтобы добавить в календарь"
+                            >
+                        <i
+                            <?= $quest; ?>
+                            class="fa gold fa-star grey i-will-go already-joined"
+                            data-message="will"
+                            aria-hidden="true"
+                            data-id="<?= $race->id; ?>"
+                            data-url="<?= WillGo::dismissUrl(); ?>"
+                        ></i>
+                        <i
+                            <?= $quest; ?>
+                            class="fa fa-star-o grey i-will-go will-join hidden"
+                            aria-hidden="true"
+                            data-message="joined"
+                            data-id="<?= $race->id; ?>"
+                            data-url="<?= WillGo::joinUrl(); ?>"
+                        ></i>
+                    </span>
+                        <?php } else { ?>
+                            <span
+                                class="span-join"
+                                title="Нажмите, чтобы добавить в календарь"
+                                data-message-joined="Вы участвуете"
+                                data-message-will="Нажмите, чтобы добавить в календарь"
+                            >
+                                <i
+                                    <?= $quest; ?>
+                                    class="fa gold fa-star grey i-will-go already-joined hidden"
+                                    data-message="will"
+                                    aria-hidden="true"
+                                    data-id="<?= $race->id; ?>"
+                                    data-url="<?= WillGo::dismissUrl(); ?>"
+                                ></i>
+                                <i
+                                    <?= $quest; ?>
+                                    class="fa fa-star-o grey i-will-go will-join"
+                                    aria-hidden="joined"
+                                    data-message="will"
+                                    data-id="<?= $race->id; ?>"
+                                    data-url="<?= WillGo::joinUrl(); ?>"
+                                ></i>
+                            </span>
+                        <?php } ?>
+                        <a href="<?= $race->getViewUrl(); ?>" class="underline-black">
+                            <?= $race->label; ?>
+                        </a>
+                    </h4>
+                    <p class="card-text"><?= $race->promo; ?></p>
+                    <a href="<?= $race->getViewUrl(); ?>" class="btn btn-secondary btn-sm">Узнайте больше</a>
                 </div>
-            <?php } ?>
-        </ul>
+            </div>
+        </div>
+    <?php } ?>
     </div>
 
     <div class="card card-block" id="list">
