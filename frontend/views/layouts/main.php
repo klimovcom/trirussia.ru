@@ -228,12 +228,17 @@ if (Yii::$app->controller->action->id !== 'error'
 <script src="/js/tether.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.1.0/masonry.pkgd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/locales/bootstrap-datepicker.ru.min.js"></script>
 <script src="/js/likely.js"></script>
 <script>
+	$(function() {
+		$(".c-card").matchHeight();
+	});
+
     $(document).ready(function(){
         $(".card", this).hover(function(){
             $(".card-img-caption", this).slideToggle();
