@@ -19,7 +19,7 @@ if (Yii::$app->user->isGuest) {
  * @var $race \race\models\Race
  */
 
-if ($race->$race->display_type == Race::DISPLAY_TYPE_HIDE_IMAGE) {
+if ($race->display_type == Race::DISPLAY_TYPE_HIDE_IMAGE) {
     Html::tag('span', Html::tag('i', $race->organizer->label), ['class' => 'PTSerif']);
 }else {
     $organizerLabel = $race->organizer->image_id ?
