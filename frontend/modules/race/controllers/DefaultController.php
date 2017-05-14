@@ -247,18 +247,25 @@ class DefaultController extends Controller
             return false;
         }
         $race_id = Yii::$app->request->post('race_id');
+        $distance_id = Yii::$app->request->post('distance_id');
+        $type =  Yii::$app->request->post('type');
+
         $userInfo = UserInfo::find()->where(['user_id' => Yii::$app->user->id])->one();
         if (!$userInfo) {
             Yii::$app->response->cookies->add(new Cookie([
                 'name' => 'register-to-race',
-                'value' => $race_id,
+                'value' => json_encode([
+                    'race_id' => $race_id,
+                    'distance_id' => $distance_id,
+                    'type' => $type,
+                ]),
             ]));
             return ['redirect' => Url::to(['/user/default/about'])];
         }
 
         $race = Race::find()->where(['id' => $race_id])->forUser()->one();
         if ($race) {
-            $race->registerUser();
+            $race->registerUser($distance_id, $type);
         }
 
         return true;

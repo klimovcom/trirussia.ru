@@ -50,7 +50,7 @@ class Organizer extends \yii\db\ActiveRecord
             [['created'], 'safe'],
             [['image_id', 'published'], 'integer'],
             [['promo', 'content'], 'string'],
-            [['label', 'country', 'site', 'phone', 'email'], 'string', 'max' => 255],
+            [['label', 'country', 'site', 'phone', 'email', 'api_key'], 'string', 'max' => 255],
         ];
     }
 

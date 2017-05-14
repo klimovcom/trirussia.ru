@@ -17,6 +17,10 @@ use \Yii;
  */
 class RaceDistanceRef extends \yii\db\ActiveRecord
 {
+
+    const TYPE_RACE = 0;
+    const TYPE_RELAY = 1;
+
     /**
      * @inheritdoc
      */
@@ -31,7 +35,8 @@ class RaceDistanceRef extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['race_id', 'distance_id'], 'integer'],
+            [['race_id', 'distance_id', 'type'], 'required'],
+            [['race_id', 'distance_id', 'type', 'price'], 'integer'],
             [['distance_id'], 'exist', 'skipOnError' => true, 'targetClass' => Distance::className(), 'targetAttribute' => ['distance_id' => 'id']],
             [['race_id'], 'exist', 'skipOnError' => true, 'targetClass' => Race::className(), 'targetAttribute' => ['race_id' => 'id']],
         ];
@@ -63,5 +68,12 @@ class RaceDistanceRef extends \yii\db\ActiveRecord
     public function getRace()
     {
         return $this->hasOne(Race::className(), ['id' => 'race_id']);
+    }
+
+    public static function getTypeArray() {
+        return [
+            self::TYPE_RACE => 'забег',
+            self::TYPE_RELAY => 'эстафета',
+        ];
     }
 }

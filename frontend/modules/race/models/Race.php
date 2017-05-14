@@ -276,7 +276,7 @@ class Race extends \yii\db\ActiveRecord
      */
     public function getRaceDistanceRefs()
     {
-        return RaceDistanceRef::find()->where(['race_id' => $this->id])->all() ;
+        return $this->hasMany(RaceDistanceRef::className(), ['race_id' => 'id']);
     }
 
     /**
@@ -317,7 +317,7 @@ class Race extends \yii\db\ActiveRecord
         if ($this->isNewRecord) {
             return $values;
         }
-        $refs = $this->getRaceDistanceRefs();
+        $refs = $this->raceDistanceRefs;
         $distances = ArrayHelper::map(Distance::find()->all(), 'id', 'label');
         foreach ($refs as $ref) {
             $values[$ref->distance_id] = $distances[$ref->distance_id];
@@ -542,7 +542,7 @@ class Race extends \yii\db\ActiveRecord
     
     public function getDistancesRepresentation(){
         $idArr = [];
-        foreach ($this->getRaceDistanceRefs() as $ref){
+        foreach ($this->raceDistanceRefs as $ref){
             $idArr[] = $ref->distance_id;
         }
         $distances = Distance::find()->where(['in', 'id', $idArr])->all();
@@ -553,7 +553,7 @@ class Race extends \yii\db\ActiveRecord
 
     public function getDistancesListRepresentation(){
         $idArr = [];
-        foreach ($this->getRaceDistanceRefs() as $ref){
+        foreach ($this->raceDistanceRefs as $ref){
             $idArr[] = $ref->distance_id;
         }
         $distances = Distance::find()->where(['in', 'id', $idArr])->all();
@@ -578,6 +578,19 @@ class Race extends \yii\db\ActiveRecord
             ];
             if (!empty($currencies[$this->currency]))
                 return $this->price . ' ' . $currencies[$this->currency];
+        }
+        return null;
+    }
+
+    public function getCurrencyRepresentation(){
+        if ($this->currency){
+            $currencies = [
+                'рубли' => 'рублей',
+                'доллары' => 'долларов',
+                'евро' => 'евро',
+            ];
+            if (!empty($currencies[$this->currency]))
+                return $currencies[$this->currency];
         }
         return null;
     }
@@ -1108,26 +1121,28 @@ class Race extends \yii\db\ActiveRecord
         }
     }
 
-    public function isUserRegister() {
+    public function isUserRegister($distance_id) {
         if (Yii::$app->user->isGuest) {
             return false;
         }
-        $raceRegistration = RaceRegistration::find()->where(['race_id' => $this->id, 'user_id' => Yii::$app->user->id])->one();
+        $raceRegistration = RaceRegistration::find()->where(['race_id' => $this->id, 'user_id' => Yii::$app->user->id, 'distance_id' => $distance_id])->one();
         if ($raceRegistration) {
             return true;
         }
         return false;
     }
 
-    public function registerUser() {
+    public function registerUser($distance_id, $type) {
         if (Yii::$app->user->isGuest) {
             return false;
         }
-        $raceRegistration = RaceRegistration::find()->where(['race_id' => $this->id, 'user_id' => Yii::$app->user->id])->one();
+        $raceRegistration = RaceRegistration::find()->where(['race_id' => $this->id, 'user_id' => Yii::$app->user->id, 'distance_id' => $distance_id, 'distance_type' => $type])->one();
         if (!$raceRegistration) {
             $raceRegistration = new RaceRegistration();
             $raceRegistration->race_id = $this->id;
+            $raceRegistration->distance_id = $distance_id;
             $raceRegistration->user_id = Yii::$app->user->id;
+            $raceRegistration->distance_type = $type;
             $raceRegistration->save();
         }
         return true;

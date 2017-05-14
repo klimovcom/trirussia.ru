@@ -30,8 +30,8 @@ class RaceRegistration extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['race_id', 'user_id'], 'required'],
-            [['race_id', 'user_id'], 'integer'],
+            [['race_id', 'user_id', 'distance_id'], 'required'],
+            [['race_id', 'user_id', 'distance_id', 'type'], 'integer'],
             [['race_id'], 'exist', 'skipOnError' => true, 'targetClass' => Race::className(), 'targetAttribute' => ['race_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];

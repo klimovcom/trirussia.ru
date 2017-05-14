@@ -214,6 +214,7 @@ return [
                 'race/default/update-url' => 'race/default/update-url',
                 'race/default/get-more-races' => 'race/default/get-more-races',
                 'race/default/register' => 'race/default/register',
+                'race/api/index' => 'race/api/index',
 
                 '/search-races' => '/site/search-races',
 

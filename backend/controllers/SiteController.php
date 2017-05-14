@@ -82,9 +82,6 @@ class SiteController extends Controller
         $days = json_encode($daysArray);
         $users = json_encode($usersArray);
 
-
-
-
         return $this->render('index', [
             'userCount' => $userCount,
             'postCount' => $postCount,

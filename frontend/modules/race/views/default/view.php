@@ -37,7 +37,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                 <hr>
                 <div class="row">
                     <?php if (!empty($race->place))  { ?>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                             <p class="m-b-0"><strong><?= $race->place; ?></strong></p>
                             <p class="small m-b-0">Место</p>
                         </div>
@@ -46,12 +46,6 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                             <p class="m-b-0"><strong><?= $race->getDateRepresentation(); ?></strong></p>
                             <p class="small m-b-0">Дата</p>
-                        </div>
-                    <?php } ?>
-                    <?php if ($distances = $race->getDistancesRepresentation()) { ?>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                            <p class="m-b-0"><strong><?= $distances; ?></strong></p>
-                            <p class="small m-b-0">Дистанция</p>
                         </div>
                     <?php } ?>
                 </div>
@@ -81,6 +75,82 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                     </div>
                 </div>
                 <hr>
+                <?php
+                $i = 0;
+                foreach ($race->raceDistanceRefs as $raceDistance) {
+                    if ($i == 0) {
+                        echo Html::beginTag('div', ['class' => 'row']);
+                    }
+
+                    echo Html::beginTag('div', ['class' => 'col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3']);
+                    echo Html::tag('p', Html::tag('strong', $raceDistance->distance->label), ['class' => 'm-b-0']);
+                    echo Html::tag('p', $raceDistance->price ? $raceDistance->price  . ' ' . $race->getCurrencyRepresentation() : $race->getPriceRepresentation(), ['class' => 'small m-b-0']);
+                    echo Html::beginTag('p', ['class' => 'small m-b-0']);
+
+                    if ($race->with_registration) {
+                        $is_registered = $race->isUserRegister($raceDistance->distance_id);
+                        switch ($race->register_status) {
+                            case Race::REGISTER_STATUS_OPEN :
+                                if ($is_registered) {
+                                    echo Html::tag('span', 'Вы уже зарегистрированны');
+                                }else {
+                                    if (Yii::$app->user->isGuest) {
+                                        echo Html::a('Зарегистрироваться', 'javascript:;', ['class' => 'underline', 'data-toggle' => 'modal', 'data-target' => '#openUser']);
+                                    }else {
+                                        echo Html::a('Зарегистрироваться', 'javascript:;',['class' => 'underline', 'data-race-id' => $race->id, 'data-distance_id' => $raceDistance->distance_id]);
+                                    }
+                                }
+                                break;
+                            case Race::REGISTER_STATUS_CANCELED :
+                                echo Html::tag('span', 'Регистрация отменена');
+                                break;
+                            case Race::REGISTER_STATUS_CLOSED :
+                                echo $is_registered ? Html::tag('span', 'Вы уже зарегистрированны') : Html::tag('span', 'Регистрация окончена');
+                                break;
+                            case Race::REGISTER_STATUS_PAUSED :
+                                echo $is_registered ? Html::tag('span', 'Вы уже зарегистрированны') : Html::tag('span', 'Регистрация временно приостановлена');
+                                break;
+
+                        }
+                    }
+                    echo Html::endTag('p');
+
+                    echo Html::endTag('div');
+
+                    if ($i == 3) {
+                        echo Html::endTag('div');
+                        echo Html::tag('hr');
+                        $i = 0;
+                    }else {
+                        $i++;
+                    }
+                }
+
+                $specialDistanceArray = explode(',', $race->special_distance);
+                foreach ($specialDistanceArray as $distance) {
+                    if ($i == 0) {
+                        echo Html::beginTag('div', ['class' => 'row']);
+                    }
+
+                    echo Html::beginTag('div', ['class' => 'col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3']);
+                    echo Html::tag('p', Html::tag('strong', $distance), ['class' => 'm-b-0']);
+                    echo Html::tag('p', $race->getPriceRepresentation(), ['class' => 'small m-b-0']);
+                    echo Html::endTag('div');
+
+                    if ($i == 3) {
+                        echo Html::endTag('div');
+                        echo Html::tag('hr');
+                        $i = 0;
+                    }else {
+                        $i++;
+                    }
+                }
+
+                if ($i != 0) {
+                    echo Html::endTag('div');
+                    echo Html::tag('hr');
+                }
+                ?>
                 <div class="pull-left hidden-sm-down">
                     <div class="likely">
                         <div class="facebook">Поделиться</div>
@@ -153,47 +223,22 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                         ?>
                     </div>
                 <?php endif;?>
-                <div class="register">
-                    <h5 class="PTSerif m-b-2"><i>Регистрация на <?= $race->label;?></i></h5>
-                    <?php if ($race->with_registration):?>
-                        <?php
-                        switch ($race->register_status) {
-                            case Race::REGISTER_STATUS_OPEN :
-                                if ($race->isUserRegister()) {
-                                    echo Html::tag('span', 'Вы уже зарегистрированны');
-                                }else {
-                                    if (Yii::$app->user->isGuest) {
-                                        echo Html::button('Зарегистрироваться',['class' => 'btn btn-secondary', 'data-toggle' => 'modal', 'data-target' => '#openUser']);
-                                    }else {
-                                        echo Html::button('Зарегистрироваться',['class' => 'btn btn-secondary race-register', $quest, 'data-race-id' => $race->id]);
-                                    }
-                                }
-                                break;
-                            case Race::REGISTER_STATUS_CANCELED :
-                                echo Html::tag('span', 'Регистрация отменена');
-                                break;
-                            case Race::REGISTER_STATUS_CLOSED :
-                                echo $race->isUserRegister() ? Html::tag('span', 'Вы уже зарегистрированны') : Html::tag('span', 'Регистрация окончена');
-                                break;
-                            case Race::REGISTER_STATUS_PAUSED :
-                                echo $race->isUserRegister() ? Html::tag('span', 'Вы уже зарегистрированны') : Html::tag('span', 'Регистрация временно приостановлена');
-                                break;
 
-                        }
-                        ?>
-                    <?php else:?>
-                    <button type="button" class="btn btn-secondary" id="register" <?= $quest; ?> onclick="yaCounter26019216.reachGoal('register'); return true;">Зарегистрироваться</button>
-                    <div id="register-question">
-                        <p>Вам было бы удобно в будущем регистрироваться на соревнование здесь же без перехода на сайт организатора?</p>
-                        <button type="button" class="btn btn-secondary register-button" id="register-yes" onclick="yaCounter26019216.reachGoal('registerYes'); return true;">Да</button>
-                        <button type="button" class="btn btn-secondary register-button" id="register-no" onclick="yaCounter26019216.reachGoal('registerNo'); return true;">Нет</button>
-                    </div>
-                    <div id="register-link">
-                        <p>Спасибо! Мы учтём ваш ответ в нашей работе.</p>
-                        <a href="<?= $race->site; ?>" type="button" class="btn btn-secondary" target="_blank">Перейти на сайт</a>
-                    </div>
+                <div class="register">
+                    <?php if (!$race->with_registration):?>
+                        <h5 class="PTSerif m-b-2"><i>Регистрация на <?= $race->label;?></i></h5>
+                        <button type="button" class="btn btn-secondary" id="register" <?= $quest; ?> onclick="yaCounter26019216.reachGoal('register'); return true;">Зарегистрироваться</button>
+                        <div id="register-question">
+                            <p>Вам было бы удобно в будущем регистрироваться на соревнование здесь же без перехода на сайт организатора?</p>
+                            <button type="button" class="btn btn-secondary register-button" id="register-yes" onclick="yaCounter26019216.reachGoal('registerYes'); return true;">Да</button>
+                            <button type="button" class="btn btn-secondary register-button" id="register-no" onclick="yaCounter26019216.reachGoal('registerNo'); return true;">Нет</button>
+                        </div>
+                        <div id="register-link">
+                            <p>Спасибо! Мы учтём ваш ответ в нашей работе.</p>
+                            <a href="<?= $race->site; ?>" type="button" class="btn btn-secondary" target="_blank">Перейти на сайт</a>
+                        </div>
+                        <hr class="m-y-2">
                     <?php endif;?>
-					<hr class="m-y-2">
 					<p><i class="fa fa-exclamation-circle fa-lg" style="margin-right: 8px;" aria-hidden="true"></i><strong>Страховка для соревнований обязательна</strong></p>
 					<p>Для участия в соревнованиях на территории России необходимо иметь страховку от несчастного случая. Для международных стартов — международную медицинскую страховку. Все страховки электронные, принимаются организаторами и визовыми центрами.</p>
 					<div class="row">
