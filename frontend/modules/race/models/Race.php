@@ -634,7 +634,7 @@ class Race extends \yii\db\ActiveRecord
 
     public static function getMaxPopularity(){
         if (self::$maxPopularity === null){
-            $maxPopularityModel = Race::find()->orderBy('popularity DESC')->one();
+            $maxPopularityModel = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->orderBy('popularity DESC')->one();
             self::$maxPopularity = $maxPopularityModel->popularity;
         }
         return self::$maxPopularity;
