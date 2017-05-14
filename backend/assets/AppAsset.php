@@ -25,7 +25,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         /*'/plugins/jQuery/jQuery-2.1.4.min.js',*/
-        '/plugins/chartjs/Chart.min.js',
+        '/plugins/chartjs/Chart.js',
         '/js/jquery-ui.min.js',
         '/js/bootstrap.min.js',
         '/plugins/datatables/jquery.dataTables.min.js',
