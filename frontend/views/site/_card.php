@@ -20,7 +20,7 @@ if (Yii::$app->user->isGuest) {
  */
 
 if ($race->display_type == Race::DISPLAY_TYPE_HIDE_IMAGE) {
-    Html::tag('span', Html::tag('i', $race->organizer->label), ['class' => 'PTSerif']);
+    $organizerLabel = Html::tag('span', Html::tag('i', $race->organizer->label), ['class' => 'PTSerif']);
 }else {
     $organizerLabel = $race->organizer->image_id ?
         Html::img(FPM::originalSrc($race->organizer->image_id), ['alt' => $race->organizer->label, 'title' => $race->organizer->label, 'class' => 'card-organizer-logo']) :
