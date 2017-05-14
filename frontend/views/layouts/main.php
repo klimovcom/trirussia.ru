@@ -55,6 +55,9 @@ if (Yii::$app->controller->action->id !== 'error'
 <body>
 <?php $this->beginBody() ?>
 <a href="#0" class="cd-top">Top</a>
+<div class="collapse" id="navbarMenu" aria-expanded="false" style="">
+    <?= \frontend\widgets\allRaces\AllRaces::widget(['mainView' => true, ]);?>
+</div>
 <div class="collapse" id="navbarMenu">
 	<div class="bg-inverse p-t-1">
 		<div class="container">

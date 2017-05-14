@@ -15,6 +15,7 @@ class AllRaces extends \yii\base\Widget{
     public $model;
     public $raceView;
     public $leftView;
+    public $mainView;
     public $sport;
     public $models = [];
 
@@ -51,6 +52,9 @@ class AllRaces extends \yii\base\Widget{
 
         if ($this->leftView)
             return $this->render('left-sidebar', $params);
+
+        if ($this->mainView)
+            return $this->render('main_view', $params);
 
         return $this->render('default', $params);
     }
