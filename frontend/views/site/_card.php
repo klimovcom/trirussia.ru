@@ -29,8 +29,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
         <div class="card-header white bg-gr-<?=$race->getSportClass();?>">
             <div class="pull-left">
                 <p class="m-a-0 small">
-                    <span class="flag-icon flag-icon-<?= strtolower((new CountryList())->getCountryCode($race->country));?>"></span>
-                    <?= $race->country;?>
+                    <span class="flag-icon flag-icon-<?= strtolower((new CountryList())->getCountryCode($race->country));?>"></span>&nbsp;&nbsp;<?= $race->country;?>
                 </p>
             </div>
             <div class="pull-right">
