@@ -18,6 +18,7 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
+        'https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/css/flag-icon.min.css',
         '/css/select2-bootstrap.css',
         '/css/font.css',
         '/css/likely.css',
@@ -27,6 +28,7 @@ class AppAsset extends AssetBundle
         '/css/style.css',
     ];
     public $js = [
+        '/js/jquery-match-height.js',
         '/js/modernizr.js',
         '/js/tilt.jquery.js',
         '/js/jquery.lazyload.min.js',

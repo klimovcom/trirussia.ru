@@ -273,6 +273,7 @@ $(document).ready(function(){
                         if (renderType == 'search'){
                             $(target).append(data);
                             $(targetList).append(dataList);
+                            $('.card').matchHeight();
                         }else{
                             $(target).before(data);
                         }

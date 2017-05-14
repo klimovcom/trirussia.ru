@@ -612,6 +612,15 @@ class Race extends \yii\db\ActiveRecord
     }
 
     public function getPopularityRepresentation($img = 'img/rating.png'){
+        $rank = $this->getPopularityRate();
+        $output = '';
+        for($i = 0; $i<$rank; $i++){
+            $output .= '•';//Html::img($img, ['class'=>'rating']);
+        }
+        return $output;
+    }
+
+    public function getPopularityRate() {
         $maxPopularity = self::getMaxPopularity();
         $rank = 1;
         if ($maxPopularity > 0){
@@ -620,11 +629,7 @@ class Race extends \yii\db\ActiveRecord
                 $rank = $this->popularity/$step;
             }
         }
-        $output = '';
-        for($i = 0; $i<$rank; $i++){
-            $output .= Html::img($img, ['class'=>'rating']);
-        }
-        return $output;
+        return $rank;
     }
 
     public static function getMaxPopularity(){
@@ -675,7 +680,7 @@ class Race extends \yii\db\ActiveRecord
 
     public static function getMoreRacesTarget()
     {
-        return '#card .flex-container';
+        return '#card';
     }
 
     public static function getMoreRacesTargetList()

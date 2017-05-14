@@ -329,6 +329,36 @@ a:hover.highlight-yellow-sm {
 .border-gold {
 	border-top: 4px solid gold!important;
 }
+.bg-gr-tri {
+	background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #eb586f, #dc1a39) repeat scroll 0 0;
+	border-bottom: medium none;
+}
+.bg-gr-run {
+	background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #ff9a00, #cc7b00) repeat scroll 0 0;
+	border-bottom: medium none;
+}
+.bg-gr-bike {
+	background-color: rgba(65,61,101,0.9)!important;
+}
+.bg-gr-swim {
+	background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #3490de, #1c69aa) repeat scroll 0 0;
+	border-bottom: medium none;
+}
+.bg-gr-news {
+	background-color: rgba(184,59,94,0.9)!important;
+}
+.bg-gr-report {
+	background-color: rgba(106,44,112,0.9)!important;
+}
+.bg-gr-review {
+	background-color: rgba(255,97,56,0.9)!important;
+}
+.bg-gr-interview {
+	background-color: rgba(169,197,47,0.9)!important;
+}
+.bg-gr-gold {
+	background-color: rgba(255,215,0,0.9)!important;
+}
 
 /* Фон для карточек */
 

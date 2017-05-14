@@ -4,6 +4,7 @@ use race\models\Race;
 use \metalguardian\fileProcessor\helpers\FPM;
 use yii\helpers\Html;
 use willGo\models\WillGo;
+use common\components\CountryList;
 
 if (Yii::$app->user->isGuest) {
     $guest = 'data-toggle="modal" data-target="#openUser"';
@@ -18,118 +19,140 @@ if (Yii::$app->user->isGuest) {
 /**
  * @var $race \race\models\Race
  */
-
-if ($race->display_type == Race::DISPLAY_TYPE_HIDE_IMAGE) {
-    $organizerLabel = Html::tag('span', Html::tag('i', $race->organizer->label), ['class' => 'PTSerif']);
-}else {
-    $organizerLabel = $race->organizer->image_id ?
-        Html::img(FPM::originalSrc($race->organizer->image_id), ['alt' => $race->organizer->label, 'title' => $race->organizer->label, 'class' => 'card-organizer-logo']) :
-        Html::tag('span', Html::tag('i', $race->organizer->label), ['class' => 'PTSerif']);
-}
+$quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"' : '';
 ?>
-<div class="grid-sizer col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
+<?php if ($showSizer):?>
+    <div class="grid-sizer col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
+<?php endif;?>
 <div class="grid-item col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-    <div class="grid-item-content">
-        <div class="card <?= $race->display_type == Race::DISPLAY_TYPE_BLACK_HIDE_IMAGE ? 'bg-black' : ''; ?>">
-            <?php if (empty($_GET['sport']) && empty($_POST['sport'])) { ?>
-                <div class="card-img-caption-container">
-                    <?php if ($race->main_image_id && $race->isShowImage()) { ?>
-                        <a href="<?= $race->getViewUrl(); ?>">
-                            <div class="embed-responsive embed-responsive-16by9">
-                                <img alt="<?= $race->label; ?>" class="card-img-top embed-responsive-item lazy" data-original="<?= FPM::originalSrc($race->main_image_id); ?>">
-                            </div>
-                        </a>
-                        <div class="card-img-caption bg-<?= $race->getSportClass(); ?>">
-                            <small>
-                                Популярность&nbsp;
-                                <?= $race->getPopularityRepresentation();?>
-                            </small>
-                            <div class="pull-right">
-                                <div class="card-participant">
-                                    <?php if ($race->isJoined()):?>
-                                        <a href="javascript:;" type="button" class="btn btn-white-outline btn-sm <?= $joinedClass;?>" <?= $guest;?> data-id="<?= $race->id; ?>" data-url="<?= WillGo::dismissUrl(); ?>"><img src="img/join_race.png" class="join-race" > <?= $race->attendance;?></a>
-                                        <a href="javascript:;" type="button" class="btn btn-white-outline btn-sm hidden <?= $notJoinedClass;?>" <?= $guest;?> data-id="<?= $race->id; ?>" data-url="<?= WillGo::joinUrl(); ?>"><img src="img/join_race.png" class="join-race"> <?= $race->attendance-1;?></a>
-                                    <?php else:?>
-                                        <a href="javascript:;" type="button" class="btn btn-white-outline btn-sm hidden <?= $joinedClass;?>" <?= $guest;?> data-id="<?= $race->id; ?>" data-url="<?= WillGo::dismissUrl(); ?>"><img src="img/join_race.png" class="join-race"> <?= $race->attendance+1;?></a>
-                                        <a href="javascript:;" type="button" class="btn btn-white-outline btn-sm <?= $notJoinedClass;?>" <?= $guest;?> data-id="<?= $race->id; ?>" data-url="<?= WillGo::joinUrl(); ?>"><img src="img/join_race.png" class="join-race"> <?= $race->attendance;?></a>
-                                    <?php endif;?>
-                                </div>
-                            </div>
-                        </div>
-                    <?php } ?>
-                </div>
-            <?php } ?>
-            <div class="card-block border-<?= $race->getSportClass(); ?>">
-                <div class="pull-left">
-                    <h6 class="sport-caption <?= $race->getSportClass(); ?>"><?= $race->sport->label; ?></h6>
-                </div>
-                <div class="pull-right">
-                    <h6 class="date-caption grey"><?= $race->getDateRepresentation(); ?></h6>
-                </div>
-                <div class="clearfix"></div>
-                <h4 class="card-title">
-                    <a href="<?= $race->getViewUrl(); ?>" class="underline-black">
-                        <?= $race->label; ?>
-                    </a>
-                </h4>
-                <p class="card-text"><?= $race->promo; ?></p>
+    <div class="card">
+        <div class="card-header white bg-gr-<?=$race->getSportClass();?>">
+            <div class="pull-left">
+                <p class="m-a-0 small">
+                    <span class="flag-icon flag-icon-<?= strtolower((new CountryList())->getCountryCode($race->country));?>"></span>
+                    <?= $race->country;?>
+                </p>
             </div>
-            <div style="height: 3rem;"></div>
-            <div class="next-page">
-                <div class="pull-left">
-                    <?= $organizerLabel;?>
-                </div>
-                <?php if ($race->display_type == Race::DISPLAY_TYPE_BOTH_SIDES) : ?>
-                <div class="pull-right">
-                        <span class="next-page-button text-muted"><span class="small">Перевернуть&nbsp;&nbsp;</span><i
-                                class="fa fa-retweet fa-lg" aria-hidden="true"></i></span>
-                </div>
-                <?php endif ?>
+            <div class="pull-right">
+                <p class="m-a-0 small">
+                    <?= $race->getDateRepresentation(); ?>
+                </p>
             </div>
-            <?php if ($race->display_type == Race::DISPLAY_TYPE_BOTH_SIDES) { ?>
-                <div class="card-back">
-                    <div class="card-top bg-<?= $race->getSportClass(); ?>">
-                        <h6 class="sport-caption white text-xs-center m-b-0"><?= $race->sport->label; ?></h6>
-                    </div>
-                    <div class="card-block">
-                        <div class="card-container-no-border bg-light-grey">
-                            <div class="row">
-                                <div class="col-md-4 col-lg-2 col-xl-2 hidden-sm-down">
-                                    <img src="img/distance.png" class="distance">
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-10 col-xl-10">
-                                    <h6>Дистанции</h6>
-                                    <?= $race->getDistancesListRepresentation(); ?>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-4 col-lg-2 col-xl-2 hidden-sm-down">
-                                    <img src="img/map.png" class="map">
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-10 col-xl-10">
-                                    <h6>Место</h6>
-                                    <p><?= $race->getPlaceRepresentation();?></p>
-                                </div>
-                            </div>
-                            <div class="text-xs-center">
-                                <a href="<?= $race->getViewUrl(); ?>" type="button"
-                                   class="btn btn-secondary btn-block m-t-2">Узнать подробнее</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="height: 3rem;"></div>
-                    <div class="next-page">
-                        <div class="pull-left">
-                            <?= $organizerLabel;?>
-                        </div>
-                        <div class="pull-right">
-                            <span class="next-page-button text-muted"><span class="small">Обратно&nbsp;&nbsp;</span><i
-                                    class="fa fa-retweet fa-lg" aria-hidden="true"></i></span>
-                        </div>
-                    </div>
-                </div>
-            <?php } ?>
+            <div class="clearfix"></div>
         </div>
+        <?php if ($showImage && $race->display_type == Race::DISPLAY_TYPE_BOTH_SIDES):?>
+            <a href="<?= $race->getViewUrl(); ?>">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <img alt="<?= $race->label; ?>" class="card-img-top embed-responsive-item lazy" data-original="<?= FPM::originalSrc($race->main_image_id); ?>">
+                </div>
+            </a>
+        <?php endif;?>
+        <div class="card-block">
+            <div class="pull-left">
+                <h6 class="sport-caption <?=$race->getSportClass();?>">
+                    <?= $race->sport->label; ?>
+                    <?= $race->getPopularityRepresentation();?>
+                </h6>
+            </div>
+            <div class="pull-right">
+                <h6 class="date-caption text-muted">
+                    <?php if ($race->isJoined()) { ?>
+                        <span
+                            class="span-join"
+                            title="Вы участвуете"
+                            data-message-joined="Вы участвуете"
+                            data-message-will="Нажмите, чтобы добавить в календарь"
+                            >
+                                    <i
+                                        <?= $quest; ?>
+                                        class="fa fa-bookmark fa-lg gold i-will-go already-joined"
+                                        data-message="will"
+                                        aria-hidden="true"
+                                        data-id="<?= $race->id; ?>"
+                                        data-url="<?= WillGo::dismissUrl(); ?>"
+                                        ></i>
+                                    <i
+                                        <?= $quest; ?>
+                                        class="fa fa-bookmark-o fa-lg grey i-will-go will-join hidden"
+                                        aria-hidden="true"
+                                        data-message="joined"
+                                        data-id="<?= $race->id; ?>"
+                                        data-url="<?= WillGo::joinUrl(); ?>"
+                                        ></i>
+                                </span>
+                    <?php } else { ?>
+                        <span
+                            class="span-join"
+                            title="Нажмите, чтобы добавить в календарь"
+                            data-message-joined="Вы участвуете"
+                            data-message-will="Нажмите, чтобы добавить в календарь"
+                            >
+                                            <i
+                                                <?= $quest; ?>
+                                                class="fa fa-bookmark fa-lg gold i-will-go already-joined hidden"
+                                                data-message="will"
+                                                aria-hidden="true"
+                                                data-id="<?= $race->id; ?>"
+                                                data-url="<?= WillGo::dismissUrl(); ?>"
+                                                ></i>
+                                            <i
+                                                <?= $quest; ?>
+                                                class="fa fa-bookmark-o fa-lg grey i-will-go will-join"
+                                                aria-hidden="joined"
+                                                data-message="will"
+                                                data-id="<?= $race->id; ?>"
+                                                data-url="<?= WillGo::joinUrl(); ?>"
+                                                ></i>
+                                        </span>
+                    <?php } ?>
+                </h6>
+            </div>
+            <div class="clearfix"></div>
+            <h4 class="card-title"><a href="<?= $race->getViewUrl(); ?>" class="underline-black"><?= $race->label; ?></a></h4>
+            <p class="card-text m-a-0"><?= $race->promo; ?></p>
+            <hr>
+            <div class="row small">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-muted">
+                    Организатор:
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                    <?= Html::a($race->organizer->label, ['/site/search-races', 'organizer' => $race->organizer->label], ['class' => 'underline']);?>
+                </div>
+            </div>
+            <div class="row small">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-muted">
+                    Дистанции:
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                    <?php
+                    $distances = [];
+                    foreach ($race->raceDistanceRefs as $raceDistance) {
+                        $distances[] = Html::a($raceDistance->distance->label, ['/site/search-races', 'distance' => $raceDistance->distance->label], ['class' => 'underline']);
+                    }
+                    $special_distances = explode(',', $race->special_distance);
+                    $distances = array_merge($distances, $special_distances);
+                    echo implode(', ', $distances);
+                    ?>
+                </div>
+            </div>
+            <div class="row small">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-muted">
+                    Стоимость:
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                    <?= $race->getPriceRepresentation(); ?>
+                </div>
+            </div>
+        </div>
+        <?php if ($showAdditionalBlocks && $race->popularityRate == 5):?>
+            <div class="card-footer text-xs-center small" style="background: #fff">
+                <i class="fa fa-fire fa-lg" aria-hidden="true" style="color: #cc0000"></i>&nbsp;&nbsp;Очень популярный старт
+            </div>
+        <?php endif;?>
+        <?php if ($showAdditionalBlocks && $race->with_registration):?>
+            <div class="card-footer text-xs-center small" style="background-color: #fff;">
+                <i class="fa fa-bolt fa-lg gold" aria-hidden="true"></i>&nbsp;&nbsp;Доступна <a href="<?= $race->getViewUrl();?>" class="underline">онлайн-регистрация</a>
+            </div>
+        <?php endif;?>
     </div>
 </div>

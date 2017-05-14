@@ -207,6 +207,7 @@ return [
 
                 'race/add' => 'race/default/create',
                 'race/advanced' => 'race/default/advanced',
+                'race/search' => 'race/default/search',
                 'race/<url>' => 'race/default/view',
                 'race/default/render-distance-list' => 'race/default/render-distance-list',
                 'race/default/set-rating' => 'race/default/set-rating',

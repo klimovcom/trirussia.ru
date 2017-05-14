@@ -271,4 +271,16 @@ class DefaultController extends Controller
         return true;
 
     }
+
+    public function actionSearch($q) {
+        if ($q) {
+            $races = Race::find()->where(['like', 'label', $q])->forUser()->all();
+        }else {
+            $races = [];
+        }
+        return $this->render('search', [
+            'q' => $q,
+            'races' => $races
+        ]);
+    }
 }

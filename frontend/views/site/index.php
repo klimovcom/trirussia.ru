@@ -45,12 +45,36 @@ $this->title = 'TriRussia.ru — Главный сайт о триатлоне';
             </h1>
         </div>
     </div>
+    <div class="card card-block">
+        <div class="row"><form action="<?= Url::to(['/race/default/search']); ?>">
+                <div class="col-xl-8">
+                    <div class="input-group">
+
+                        <input class="form-control" placeholder="Укажите название гонки..." type="text" name="q">
+							<span class="input-group-btn">
+								<button class="btn btn-secondary" type="submit">Найти</button>
+							</span>
+
+                    </div>
+                </div>
+            </form>
+            <!--<div class="col-xl-4">
+                <a href="#" class="btn btn-primary-outline">Добавить гонку</a>
+                <span class="text-muted small m-l-1">Бесплатно за 2 минуты</span>
+            </div>-->
+        </div>
+    </div>
     <div class="row">
         <div class="grid">
             <?php $count = 0; ?>
             <?php /** @var $race \race\models\Race */ ?>
             <?php foreach ($mainRaces as $race) { ?>
-                <?= $this->render('_card.php', ['race' => $race, ]); ?>
+                <?= $this->render('_card.php', [
+                    'race' => $race,
+                    'showImage' => true,
+                    'showAdditionalBlocks' => true,
+                    'showSizer' => true,
+                ]); ?>
 
                 <?php if ( ( ++$count % 8 == 0 || $count % 9 == 0 ) && !empty($promos)) { ?>
                     <?= $this->render('_featured.php', ['promo' => array_pop($promos), ]); ?>
@@ -66,7 +90,12 @@ $this->title = 'TriRussia.ru — Главный сайт о триатлоне';
             <?php $count = 0; ?>
             <?php /** @var $race \race\models\Race */ ?>
             <?php foreach ($secondaryRaces as $race) { ?>
-                <?= $this->render('_card.php', ['race' => $race, ]); ?>
+                <?= $this->render('_card.php', [
+                    'race' => $race,
+                    'showImage' => true,
+                    'showAdditionalBlocks' => true,
+                    'showSizer' => true,
+                ]); ?>
 
                 <?php if ( ( ++$count % 8 == 0 || $count % 9 == 0 ) && !empty($promos)) { ?>
                     <?= $this->render('_featured.php', ['promo' => array_pop($promos), ]); ?>
@@ -74,15 +103,17 @@ $this->title = 'TriRussia.ru — Главный сайт о триатлоне';
             <?php } ?>
         </div>
     </div>
-
-
-
     <div class="row">
         <div class="grid">
             <?php $count = 0; ?>
             <?php /** @var $race \race\models\Race */ ?>
             <?php foreach ($lastRaces as $race) { ?>
-                <?= $this->render('_card.php', ['race' => $race, ]); ?>
+                <?= $this->render('_card.php', [
+                    'race' => $race,
+                    'showImage' => true,
+                    'showAdditionalBlocks' => true,
+                    'showSizer' => true,
+                ]); ?>
 
                 <?php if ( ( ++$count % 8 == 0 || $count % 9 == 0 ) && !empty($promos)) { ?>
                     <?= $this->render('_featured.php', ['promo' => array_pop($promos), ]); ?>
