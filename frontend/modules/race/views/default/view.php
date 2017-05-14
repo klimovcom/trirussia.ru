@@ -126,7 +126,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                     }
                 }
 
-                $specialDistanceArray = explode(',', $race->special_distance);
+                $specialDistanceArray = $race->special_distance ? explode(',', $race->special_distance) : [];
                 if (count($specialDistanceArray)) {
                     foreach ($specialDistanceArray as $distance) {
                         if ($i == 0) {
