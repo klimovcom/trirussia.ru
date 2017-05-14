@@ -102,7 +102,7 @@ $(document).ready(function(){
      }
      });*/
 
-    $('.will-join,.already-joined').on('click', function(){
+    $(document).on('click', '.will-join,.already-joined', function(){
         var url = $(this).data('url');
         var raceId = $(this).data('id');
         var that = this;
