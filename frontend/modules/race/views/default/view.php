@@ -32,7 +32,13 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                 <div class="pull-left">
                     <h6 class="sport-caption <?= $race->getSportClass();?>">
                         <?= $race->sport->label; ?>
-                        
+                        <span class="m-l-1">
+                        <?php
+                        for ($i = 0; $i<$race->getPopularityRate(); $i ++) {
+                            echo '<i class="fa fa-circle" aria-hidden="true"></i>';
+                        }
+                        ?>
+                            </span>
                     </h6>
                 </div>
                 <div class="clearfix"></div>
