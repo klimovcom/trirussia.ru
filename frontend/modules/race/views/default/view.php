@@ -30,14 +30,17 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
             <?php } ?>
             <div class="card-block border-<?= $race->getSportClass();?>">
                 <div class="pull-left">
-                    <h6 class="sport-caption <?= $race->getSportClass();?>"><?= $race->sport->label; ?></h6>
+                    <h6 class="sport-caption <?= $race->getSportClass();?>">
+                        <?= $race->sport->label; ?>
+                        
+                    </h6>
                 </div>
                 <div class="clearfix"></div>
                 <p class="card-text PTSerif lead"><i><?= $race->promo; ?></i></p>
                 <hr>
                 <div class="row">
                     <?php if (!empty($race->place))  { ?>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                             <p class="m-b-0"><strong><?= $race->place; ?></strong></p>
                             <p class="small m-b-0">Место</p>
                         </div>
@@ -48,30 +51,15 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                             <p class="small m-b-0">Дата</p>
                         </div>
                     <?php } ?>
-                </div>
-                <hr>
-                <div class="row">
                     <?php if ($race->organizer) { ?>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                             <p class="m-b-0"><strong><?= $race->organizer->label; ?></strong></p>
                             <p class="small m-b-0">Организатор</p>
                         </div>
                     <?php } ?>
-                    <?php if ($race->price) { ?>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <p class="m-b-0"><strong><?= $race->getPriceRepresentation(); ?></strong></p>
-                            <p class="small m-b-0">Цена</p>
-                        </div>
-                    <?php } ?>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                         <p class="m-b-0"><strong><?= Html::tag('span', $race->attendance, ['id' => 'race_attendance_counter_' . $race->id]);?></strong></p>
                         <p class="small m-b-0">Участников</p>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <p class="m-b-0">
-                            <?= $race->getPopularityRepresentation('/img/rating_black.png');?>
-                        </p>
-                        <p class="small m-b-0">Популярность</p>
                     </div>
                 </div>
                 <hr>
