@@ -493,15 +493,20 @@ class Race extends \yii\db\ActiveRecord
         $distances = Distance::find()->where(['id' => ArrayHelper::getColumn($raceDistanceArray, 'distance_id')])->all();
         $distanceArray = ArrayHelper::getColumn($distances, 'id');
 
+        $checkArray = [];
+
         $values = [];
         foreach ($raceDistanceArray as $raceDistance) {
-            if (in_array($raceDistance['distance_id'], $distanceArray)) {
+            $inCheckArray = ArrayHelper::getValue($checkArray, $raceDistance['distance_id'] . '-' . (int) $raceDistance['type']);
+            if (in_array($raceDistance['distance_id'], $distanceArray) && $inCheckArray === null) {
                 $values[] = [
                     $this->id,
                     $raceDistance['distance_id'],
                     (int) $raceDistance['type'],
                     (int) $raceDistance['price'],
                 ];
+
+                $checkArray[$raceDistance['distance_id'] . '-' . (int) $raceDistance['type']] = 1;
             }
         }
         self::getDb()->createCommand()->batchInsert(RaceDistanceRef::tableName(), ['race_id', 'distance_id', 'type', 'price'], $values)->execute();
