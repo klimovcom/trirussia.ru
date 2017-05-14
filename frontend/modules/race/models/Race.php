@@ -715,8 +715,9 @@ class Race extends \yii\db\ActiveRecord
         $result = [];
 
         $races = Race::find()
-            ->select('id, start_date')
+            ->select('id, start_date', 'published')
             ->where(['between', 'start_date', date('Y-m-d'), date('Y-m-d', strtotime($to . ' -1 day')), ])
+            ->published()
             ->all();
 
         /**
@@ -762,6 +763,7 @@ class Race extends \yii\db\ActiveRecord
             ->select('id, start_date')
             ->where(['between', 'start_date', date('Y-m-d'), date('Y-m-d', strtotime($to . ' -1 day')), ])
             ->andWhere(['sport_id' => $sport->id])
+            ->published()
             ->all();
         
         /**
@@ -797,6 +799,7 @@ class Race extends \yii\db\ActiveRecord
         $races = Race::find()
             ->select('id, sport_id')
             ->where(['>=', 'start_date', date('Y-m-d')])
+            ->published()
             ->all();
 
         $sports = ArrayHelper::map(Sport::find()->all(), 'id', 'label');
@@ -918,6 +921,7 @@ class Race extends \yii\db\ActiveRecord
         $races = Race::find()
             ->select('id, organizer_id')
             ->where(['>=', 'start_date', date('Y-m-d')])
+            ->published()
             ->all();
 
         $organizers = ArrayHelper::map(Organizer::find()->all(), 'id', 'label');
@@ -965,6 +969,7 @@ class Race extends \yii\db\ActiveRecord
             ->select('id, organizer_id')
             ->where(['>=', 'start_date', date('Y-m-d')])
             ->andWhere(['sport_id'=>$sport->id])
+            ->published()
             ->all();
 
         $organizers = ArrayHelper::map(Organizer::find()->all(), 'id', 'label');
@@ -1018,6 +1023,7 @@ class Race extends \yii\db\ActiveRecord
             ->select('id')
             ->where(['>=', 'start_date', date('Y-m-d')])
             ->andWhere(['in', 'id', $raceIdArray])
+            ->published()
             ->all();
 
         $racesImproved = [];
