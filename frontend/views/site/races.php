@@ -5,6 +5,10 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
  * @var $races []
  * @var $showMore bool
  */
+
+$this->registerJs("$(function() {
+        $('.card').matchHeight();
+    });");
 ?>
 <?php if ($sport == 'run') {
     echo $this->render('includes/_sport_run_adriver');
