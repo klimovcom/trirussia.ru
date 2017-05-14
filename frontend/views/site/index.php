@@ -58,10 +58,10 @@ $this->title = 'TriRussia.ru — Главный сайт о триатлоне';
                     </div>
                 </div>
             </form>
-            <!--<div class="col-xl-4">
-                <a href="#" class="btn btn-primary-outline">Добавить гонку</a>
+            <div class="col-xl-4">
+                <a href="<?= Url::to(['/race/default/create']);?>" class="btn btn-primary-outline">Добавить гонку</a>
                 <span class="text-muted small m-l-1">Бесплатно за 2 минуты</span>
-            </div>-->
+            </div>
         </div>
     </div>
     <div class="row">
