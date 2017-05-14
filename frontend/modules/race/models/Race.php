@@ -1121,11 +1121,11 @@ class Race extends \yii\db\ActiveRecord
         }
     }
 
-    public function isUserRegister($distance_id) {
+    public function isUserRegister($distance_id, $type) {
         if (Yii::$app->user->isGuest) {
             return false;
         }
-        $raceRegistration = RaceRegistration::find()->where(['race_id' => $this->id, 'user_id' => Yii::$app->user->id, 'distance_id' => $distance_id])->one();
+        $raceRegistration = RaceRegistration::find()->where(['race_id' => $this->id, 'user_id' => Yii::$app->user->id, 'distance_id' => $distance_id, 'distance_type' => $type])->one();
         if ($raceRegistration) {
             return true;
         }

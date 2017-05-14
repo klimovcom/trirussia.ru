@@ -88,7 +88,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                     echo Html::beginTag('p', ['class' => 'small m-b-0']);
 
                     if ($race->with_registration) {
-                        $is_registered = $race->isUserRegister($raceDistance->distance_id);
+                        $is_registered = $race->isUserRegister($raceDistance->distance_id, $raceDistance->type);
                         switch ($race->register_status) {
                             case Race::REGISTER_STATUS_OPEN :
                                 if ($is_registered) {
