@@ -137,14 +137,16 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                     ?>
                 </div>
             </div>
-            <div class="row small">
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-muted">
-                    Стоимость:
+            <?php if ($race->price):?>
+                <div class="row small">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-muted">
+                        Стоимость:
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                        <?= $race->getPriceRepresentation(); ?>
+                    </div>
                 </div>
-                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-                    <?= $race->getPriceRepresentation(); ?>
-                </div>
-            </div>
+            <?php endif;?>
         </div>
         <?php if ($showAdditionalBlocks && $race->popularityRate == 5):?>
             <div class="card-footer text-xs-center small" style="background: #fff">
