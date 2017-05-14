@@ -2,6 +2,7 @@
 
 namespace race\controllers;
 
+use common\models\UserInfo;
 use organizer\models\Organizer;
 use race\models\Race;
 use race\models\RaceDistanceRef;
@@ -35,7 +36,7 @@ class ApiController extends Controller {
                     'id' => $raceDistance->distance_id,
                     'label' => $raceDistance->distance->label,
                     'type' => RaceDistanceRef::getTypeArray()[$raceDistance->type],
-                    'price' => $raceDistance->price,
+                    'price' => $raceDistance->price ? $raceDistance->price : $race->price,
                 ];
             }
 
@@ -55,6 +56,8 @@ class ApiController extends Controller {
     public function actionView($id) {
         $organizer = $this->auth();
         $model = $this->findModel($id, $organizer->id);
+        Yii::info($organizer->id);
+        Yii::info($model->id);
 
         $distances = [];
         foreach ($model->raceDistanceRefs as $raceDistance) {
@@ -65,7 +68,7 @@ class ApiController extends Controller {
                 $racers[] = [
                     'first_name' => $userInfo->first_name,
                     'last_name' => $userInfo->last_name,
-                    'gender' => $userInfo->gender,
+                    'gender' => UserInfo::getGenderArray()[$userInfo->gender],
                     'birthdate' => $userInfo->birthdate,
                     'city' => $userInfo->city,
                     'email' => $userInfo->email,
@@ -83,7 +86,7 @@ class ApiController extends Controller {
                 'id' => $raceDistance->distance_id,
                 'label' => $raceDistance->distance->label,
                 'type' => RaceDistanceRef::getTypeArray()[$raceDistance->type],
-                'price' => $raceDistance->price,
+                'price' => $raceDistance->price ? $raceDistance->price : $model->price,
                 'racers' => $racers,
             ];
         }
@@ -112,7 +115,7 @@ class ApiController extends Controller {
     }
 
     public function findModel($id, $organizer_id) {
-        $model = Race::find()->where(['id' => $id, 'organizer_id' => $organizer_id])->all();
+        $model = Race::find()->where(['id' => $id, 'organizer_id' => $organizer_id])->one();
         if ($model !== null) {
             return $model;
         } else {
