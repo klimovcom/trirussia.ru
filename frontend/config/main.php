@@ -215,6 +215,7 @@ return [
                 'race/default/get-more-races' => 'race/default/get-more-races',
                 'race/default/register' => 'race/default/register',
                 'race/api/index' => 'race/api/index',
+                'race/api/view/<id>' => 'race/api/view',
 
                 '/search-races' => '/site/search-races',
 
