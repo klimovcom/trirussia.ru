@@ -8,7 +8,7 @@ if ($model->file->extension === 'pdf') {
     $img_class = 'img-fluid not-fancy';
 }else {
     $src = FPM::originalSrc($model->fpm_file_id);
-    $img_class = 'img-fluid';
+    $img_class = 'img-fluid pointer';
 }
 
 if ($model->type === RaceFpmFile::TYPE_REGULATION) {

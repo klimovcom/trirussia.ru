@@ -198,3 +198,6 @@ div.auth-clients{
     width: 100%;
     height: 110px;
 }
+.pointer {
+    cursor: pointer;
+}
