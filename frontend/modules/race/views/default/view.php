@@ -14,6 +14,7 @@ $this->registerCssFile('https://fonts.googleapis.com/css?family=Roboto:300,400,5
 $this->registerJsFile("https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places");
 $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"' : '';
 
+$price = $race->getPriceRepresentation() ? $race->getPriceRepresentation() : Html::tag('span', 'Нет цены', ['class' => 'text-muted']);
 ?>
 
 <div class="container">
@@ -78,7 +79,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
 
                     echo Html::beginTag('div', ['class' => 'col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3']);
                     echo Html::tag('p', Html::tag('strong', $raceDistance->distance->label), ['class' => 'm-b-0']);
-                    echo Html::tag('p', $raceDistance->price ? $raceDistance->price  . ' ' . $race->getCurrencyRepresentation() : $race->getPriceRepresentation(), ['class' => 'small m-b-0']);
+                    echo Html::tag('p', $raceDistance->price ? $raceDistance->price  . ' ' . $race->getCurrencyRepresentation() : $price, ['class' => 'small m-b-0']);
                     echo Html::beginTag('p', ['class' => 'small m-b-0']);
 
                     if ($race->with_registration) {
@@ -129,7 +130,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
 
                         echo Html::beginTag('div', ['class' => 'col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3']);
                         echo Html::tag('p', Html::tag('strong', $distance), ['class' => 'm-b-0']);
-                        echo Html::tag('p', $race->getPriceRepresentation(), ['class' => 'small m-b-0']);
+                        echo Html::tag('p', $price, ['class' => 'small m-b-0']);
                         echo Html::endTag('div');
 
                         if ($i == 3) {
