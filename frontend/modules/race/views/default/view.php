@@ -97,7 +97,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                                     if (Yii::$app->user->isGuest) {
                                         echo Html::a('Зарегистрироваться', 'javascript:;', ['class' => 'underline', 'data-toggle' => 'modal', 'data-target' => '#openUser']);
                                     }else {
-                                        echo Html::a('Зарегистрироваться', 'javascript:;',['class' => 'underline', 'data-race-id' => $race->id, 'data-distance_id' => $raceDistance->distance_id]);
+                                        echo Html::a('Зарегистрироваться', 'javascript:;',['class' => 'underline', 'data-race-id' => $race->id, 'data-distance_id' => $raceDistance->distance_id, 'data-type' => $raceDistance->type]);
                                     }
                                 }
                                 break;
