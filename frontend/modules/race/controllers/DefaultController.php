@@ -274,7 +274,7 @@ class DefaultController extends Controller
 
     public function actionSearch($q) {
         if ($q) {
-            $races = Race::find()->where(['like', 'label', $q])->forUser()->all();
+            $races = Race::find()->where(['like', 'label', $q])->andWhere(['>=', 'start_date', date('Y-m-d', time())])->forUser()->all();
         }else {
             $races = [];
         }

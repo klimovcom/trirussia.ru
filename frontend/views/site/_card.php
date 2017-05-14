@@ -129,8 +129,10 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                     foreach ($race->raceDistanceRefs as $raceDistance) {
                         $distances[] = Html::a($raceDistance->distance->label, ['/site/search-races', 'distance' => $raceDistance->distance->label], ['class' => 'underline']);
                     }
-                    $special_distances = explode(',', $race->special_distance);
-                    $distances = array_merge($distances, $special_distances);
+                    $special_distances = $race->special_distance ? explode(',', $race->special_distance) : [];
+                    if (count($special_distances)) {
+                        $distances = array_merge($distances, $special_distances);
+                    }
                     echo implode(', ', $distances);
                     ?>
                 </div>
