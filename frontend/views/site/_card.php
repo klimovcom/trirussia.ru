@@ -19,10 +19,13 @@ if (Yii::$app->user->isGuest) {
  * @var $race \race\models\Race
  */
 
-$organizerLabel = $race->organizer->image_id ?
-    Html::img(FPM::originalSrc($race->organizer->image_id), ['alt' => $race->organizer->label, 'title' => $race->organizer->label, 'class' => 'card-organizer-logo']) :
+if ($race->$race->display_type == Race::DISPLAY_TYPE_HIDE_IMAGE) {
     Html::tag('span', Html::tag('i', $race->organizer->label), ['class' => 'PTSerif']);
-
+}else {
+    $organizerLabel = $race->organizer->image_id ?
+        Html::img(FPM::originalSrc($race->organizer->image_id), ['alt' => $race->organizer->label, 'title' => $race->organizer->label, 'class' => 'card-organizer-logo']) :
+        Html::tag('span', Html::tag('i', $race->organizer->label), ['class' => 'PTSerif']);
+}
 ?>
 <div class="grid-sizer col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
 <div class="grid-item col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
