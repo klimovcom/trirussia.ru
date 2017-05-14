@@ -60,7 +60,7 @@ $alertArray = [
                     'name' => 'check_issue_date',
                     'options' => ['placeholder' => 'Выберите дату '],
                     'pluginOptions' => [
-                        'format' => 'dd-mm-yyyy',
+                        'format' => 'dd.mm.yyyy',
                         'todayHighlight' => true,
                         'weekStart' => '1',
                     ],
