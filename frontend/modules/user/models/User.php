@@ -2,6 +2,7 @@
 
 namespace user\models;
 
+use common\models\UserInfo;
 use Yii;
 
 /**
@@ -93,5 +94,9 @@ class User extends \common\models\User
 
     public function getFullName(){
         return $this->last_name . ' ' . $this->first_name;
+    }
+
+    public function getUserInfo() {
+        return $this->hasOne(UserInfo::className(), ['user_id' => 'id']);
     }
 }

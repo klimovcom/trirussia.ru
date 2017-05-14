@@ -72,7 +72,7 @@ class RaceDistanceRef extends \yii\db\ActiveRecord
 
     public static function getTypeArray() {
         return [
-            self::TYPE_RACE => 'забег',
+            self::TYPE_RACE => 'личная гонка',
             self::TYPE_RELAY => 'эстафета',
         ];
     }
