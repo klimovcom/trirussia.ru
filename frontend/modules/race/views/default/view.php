@@ -127,22 +127,24 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
                 }
 
                 $specialDistanceArray = explode(',', $race->special_distance);
-                foreach ($specialDistanceArray as $distance) {
-                    if ($i == 0) {
-                        echo Html::beginTag('div', ['class' => 'row']);
-                    }
+                if (count($specialDistanceArray)) {
+                    foreach ($specialDistanceArray as $distance) {
+                        if ($i == 0) {
+                            echo Html::beginTag('div', ['class' => 'row']);
+                        }
 
-                    echo Html::beginTag('div', ['class' => 'col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3']);
-                    echo Html::tag('p', Html::tag('strong', $distance), ['class' => 'm-b-0']);
-                    echo Html::tag('p', $race->getPriceRepresentation(), ['class' => 'small m-b-0']);
-                    echo Html::endTag('div');
-
-                    if ($i == 3) {
+                        echo Html::beginTag('div', ['class' => 'col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3']);
+                        echo Html::tag('p', Html::tag('strong', $distance), ['class' => 'm-b-0']);
+                        echo Html::tag('p', $race->getPriceRepresentation(), ['class' => 'small m-b-0']);
                         echo Html::endTag('div');
-                        echo Html::tag('hr');
-                        $i = 0;
-                    }else {
-                        $i++;
+
+                        if ($i == 3) {
+                            echo Html::endTag('div');
+                            echo Html::tag('hr');
+                            $i = 0;
+                        }else {
+                            $i++;
+                        }
                     }
                 }
 
