@@ -31,7 +31,7 @@ class RaceRegistration extends \yii\db\ActiveRecord
     {
         return [
             [['race_id', 'user_id', 'distance_id'], 'required'],
-            [['race_id', 'user_id', 'distance_id', 'type'], 'integer'],
+            [['race_id', 'user_id', 'distance_id', 'distance_type'], 'integer'],
             [['race_id'], 'exist', 'skipOnError' => true, 'targetClass' => Race::className(), 'targetAttribute' => ['race_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
