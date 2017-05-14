@@ -421,7 +421,7 @@ $(document).ready(function(){
 
     $(document).on('click', '.race-register', function(e) {
         var race_id = $(this).attr('data-race-id');
-        var distance_id = $(this).attr('data-distance-id');
+        var distance_id = $(this).attr('data-distance_id');
         var type = $(this).attr('data-type');
         var $this = $(this);
         $.ajax({
