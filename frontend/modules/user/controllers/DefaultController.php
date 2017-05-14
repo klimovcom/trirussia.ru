@@ -60,7 +60,7 @@ class DefaultController extends Controller
                     $race_id = ArrayHelper::getValue($info, 'race_id');
                     $distance_id = ArrayHelper::getValue($info, 'distance_id');
                     $type = ArrayHelper::getValue($info, 'type');
-                    if ($race_id && $distance_id && $type) {
+                    if ($race_id && $distance_id && $type !== null) {
                         Yii::$app->response->cookies->remove('register-to-race');
                         $race = Race::find()->where(['id' => $race_id])->forUser()->one();
                         if ($race) {
