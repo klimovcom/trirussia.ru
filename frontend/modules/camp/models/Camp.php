@@ -160,6 +160,6 @@ class Camp extends \yii\db\ActiveRecord
             return $diff .' день';
         }
 
-        return 'дней';
+        return $diff .' дней';
     }
 }

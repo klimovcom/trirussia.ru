@@ -48,19 +48,19 @@ $price = $model->getPriceRepresentation() ? $model->getPriceRepresentation() : H
                             <p class="small m-b-0">Стоимость</p>
                         </div>
                     </div>
-                </div>
-                <hr>
-                <div class="pull-left hidden-sm-down">
-                    <div class="likely">
-                        <div class="facebook">Поделиться</div>
-                        <div class="twitter">Твитнуть</div>
-                        <div class="vkontakte">Поделиться</div>
+                    <hr>
+                    <div class="pull-left hidden-sm-down">
+                        <div class="likely">
+                            <div class="facebook">Поделиться</div>
+                            <div class="twitter">Твитнуть</div>
+                            <div class="vkontakte">Поделиться</div>
+                        </div>
                     </div>
+                    <div class="pull-right hidden-sm-down i-will-go">
+                        <a class="btn btn-danger btn-sm" href="<?= $model->organizer->site;?>">Купить за <?= $model->getPriceRepresentation(); ?></a>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
-                <div class="pull-right hidden-sm-down i-will-go">
-                    <a class="btn btn-danger btn-sm" href="<?= $model->organizer->site;?>">Купить за <?= $model->getPriceRepresentation(); ?></a>
-                </div>
-                <div class="clearfix"></div>
             </div>
             <div class="card">
                 <div class="card-block">
