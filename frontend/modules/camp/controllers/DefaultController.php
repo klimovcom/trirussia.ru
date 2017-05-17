@@ -34,7 +34,7 @@ class DefaultController extends Controller
     const PAGINATION_LIMIT = 30;
 
     public function actionIndex() {
-        $models = Camp::find()->where(['>=', 'date_start', date('Y-m-d', time())])->orderBy(['date_start' => SORT_ASC])->limit(self::PAGINATION_LIMIT)->all();
+        $models = Camp::find()->where(['>=', 'date_start', date('Y-m-d', time())])->orderBy(['date_start' => SORT_ASC])->published()->limit(self::PAGINATION_LIMIT)->all();
         $showMore = false;
         if (count($models) == self::PAGINATION_LIMIT) {
             $showMore = true;
