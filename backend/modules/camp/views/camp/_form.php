@@ -280,6 +280,15 @@ google.maps.event.addDomListener(window, 'load', initialize);
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-md-6">
+                <?= $form->field($model, 'is_accommodation')->checkbox() ?>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+
         <?= $form->field($model, 'published')->hiddenInput(['id' => 'published-field'])->label(false); ?>
     </div>
 

@@ -67,7 +67,7 @@ class Camp extends \yii\db\ActiveRecord
             [['label', 'url', 'country', 'region', 'place', 'promo', 'description', 'published', 'organizer_id'], 'required'],
             [['coord_lon', 'coord_lat'], 'number'],
             [['date_start', 'date_end', 'sportArray'], 'safe'],
-            [['max_user_count', 'price', 'currency', 'published', 'organizer_id'], 'integer'],
+            [['max_user_count', 'price', 'currency', 'published', 'organizer_id', 'is_accommodation'], 'integer'],
             [['promo', 'description'], 'string'],
             [['label', 'url', 'country', 'region', 'place'], 'string', 'max' => 255],
             [['image_id'], 'validateImageId', 'skipOnEmpty' => false, 'skipOnError' => false],
