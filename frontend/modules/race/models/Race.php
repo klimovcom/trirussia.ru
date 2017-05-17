@@ -1092,9 +1092,9 @@ class Race extends \yii\db\ActiveRecord
         $raceCondition->andWhere(['race.published' => 1]);
 
         if (!empty($_GET['sort']) && $_GET['sort'] == 'popular'){
-            $races = $raceCondition->orderBy('popularity DESC, start_date ASC, race.id DESC')->limit(13)->all();
+            $races = $raceCondition->orderBy('popularity DESC, start_date ASC, race.id DESC')->limit(30)->all();
         } else {
-            $races = $raceCondition->orderBy('start_date ASC, race.id DESC')->limit(13)->all();
+            $races = $raceCondition->orderBy('start_date ASC, race.id DESC')->limit(30)->all();
         }
 
         return $races;

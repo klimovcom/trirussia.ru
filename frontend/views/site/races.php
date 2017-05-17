@@ -174,6 +174,7 @@ $this->registerJs("$(function() {
                 data-sort="<?= isset($_GET['sort']) ? $_GET['sort'] : null; ?>"
                 class="btn btn-primary more-races"
                 data-sport="<?= $_GET['sport']; ?>"
+                data-limit="30"
             >
                 Загрузить еще соревнования
             </button>

@@ -243,7 +243,7 @@ class SiteController extends Controller
         Seo::registerModel(Sport::getCurrentSportModel());
 
         $showMore = false;
-        if (count($races) > 12){
+        if (count($races) == 30){
             $showMore = true;
             array_pop($races);
         }
@@ -318,12 +318,12 @@ class SiteController extends Controller
         $raceCondition->andWhere(['race.published' => 1]);
         
         if (!empty($_GET['sort']) && $_GET['sort'] == 'popular'){
-            $races = $raceCondition->orderBy('popularity DESC, start_date ASC, id DESC')->limit(13)->all();
+            $races = $raceCondition->orderBy('popularity DESC, start_date ASC, id DESC')->limit(30)->all();
         } else {
-            $races = $raceCondition->orderBy('start_date ASC, id DESC')->limit(13)->all();
+            $races = $raceCondition->orderBy('start_date ASC, id DESC')->limit(30)->all();
         }
         $showMore = false;
-        if (count($races) > 12){
+        if (count($races) == 30){
             $showMore = true;
             array_pop($races);
         }
