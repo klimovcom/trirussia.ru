@@ -144,6 +144,22 @@ class Camp extends \yii\db\ActiveRecord
 
     public function getDaysRepresentation() {
         $diff = (strtotime($this->date_end) - strtotime($this->date_start))/(60*60*24);
-        return $diff;
+
+        $n = abs($diff) % 100;
+        $n1 = $n % 10;
+
+        if ($n > 10 && $n < 20) {
+            return $diff .' дней';
+        }
+
+        if ($n1 > 1 && $n1 < 5) {
+            return $diff .' дня';
+        }
+
+        if ($n1 == 1) {
+            return $diff .' день';
+        }
+
+        return 'дней';
     }
 }

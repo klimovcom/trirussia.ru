@@ -14,7 +14,7 @@ use yii\helpers\ArrayHelper;
             </div>
             <div class="pull-right">
                 <p class="m-a-0 small">
-                    <?= Yii::$app->formatter->asDate(strtotime($model->date_start), 'd MMMM yyyy') . ' г. - ' . Yii::$app->formatter->asDate(strtotime($model->date_end), 'd MMMM yyyy');?>
+                    <?= Yii::$app->formatter->asDate(strtotime($model->date_start), 'd MMMM yyyy') . ' - ' . Yii::$app->formatter->asDate(strtotime($model->date_end), 'd MMMM yyyy');?>
                 </p>
             </div>
             <div class="clearfix"></div>
@@ -43,7 +43,7 @@ use yii\helpers\ArrayHelper;
             <?php endif;?>
             <div class="row small">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-muted">
-                    Длительность (дней):
+                    Длительность:
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
                     <?= $model->getDaysRepresentation(); ?>

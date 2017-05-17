@@ -72,6 +72,10 @@ class DefaultController extends Controller
         ]);
     }
 
+    public function actionSearch() {
+
+    }
+
     public function findModel($url) {
         $model = Camp::find()->where(['url' => $url])->published()->one();
         if ($model !== null) {
