@@ -263,6 +263,11 @@ google.maps.event.addDomListener(window, 'load', initialize);
         <?php endif ?>
         <?= $form->field($model, 'image_id')->fileInput() ?>
 
+        <?= $form->field($model,'organizer_id')->dropDownList(
+            \yii\helpers\ArrayHelper::map(\organizer\models\Organizer::find()->orderBy(['label' => SORT_ASC])->all(), 'id', 'label'),
+            ['prompt' => '-- Выберите организатора --',]
+        );?>
+
         <div class="row">
             <div class="col-md-6">
                 <?= $form->field($model, 'price')->textInput() ?>

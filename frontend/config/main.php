@@ -82,6 +82,11 @@ return [
             DIRECTORY_SEPARATOR . 'modules' .
             DIRECTORY_SEPARATOR . 'coach'
         ),
+        'camp' => realpath(
+            __DIR__ . DIRECTORY_SEPARATOR . '..' .
+            DIRECTORY_SEPARATOR . 'modules' .
+            DIRECTORY_SEPARATOR . 'camp'
+        ),
     ],
     'modules' => [
         'race' => [
@@ -134,6 +139,9 @@ return [
         ],
         'coach' => [
             'class' => 'coach\CoachModule',
+        ],
+        'camp' => [
+            'class' => 'camp\CampModule',
         ],
 
     ],
@@ -235,6 +243,9 @@ return [
                 'training' => 'coach/default/index',
                 'training/add' => 'coach/default/create',
                 'training/<url>' => 'coach/default/view',
+
+                'camp' => 'camp/default/index',
+                'camp/<url>' => 'camp/default/view',
 
                 'willGo/default/remove-will-go' => 'willGo/default/remove-will-go',
                 'willGo/default/add-will-go' => 'willGo/default/add-will-go',

@@ -12,6 +12,7 @@ use metalguardian\fileProcessor\helpers\FPM;
 use yii\validators\FileValidator;
 use Imagine\Image\Box;
 use Imagine\Image\Point;
+use organizer\models\Organizer;
 
 /**
  * This is the model class for table "camp".
@@ -63,10 +64,10 @@ class Camp extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['label', 'url', 'country', 'region', 'place', 'promo', 'description', 'published'], 'required'],
+            [['label', 'url', 'country', 'region', 'place', 'promo', 'description', 'published', 'organizer_id'], 'required'],
             [['coord_lon', 'coord_lat'], 'number'],
             [['date_start', 'date_end', 'sportArray'], 'safe'],
-            [['max_user_count', 'price', 'currency', 'published'], 'integer'],
+            [['max_user_count', 'price', 'currency', 'published', 'organizer_id'], 'integer'],
             [['promo', 'description'], 'string'],
             [['label', 'url', 'country', 'region', 'place'], 'string', 'max' => 255],
             [['image_id'], 'validateImageId', 'skipOnEmpty' => false, 'skipOnError' => false],
@@ -89,6 +90,7 @@ class Camp extends \yii\db\ActiveRecord
             'coord_lat' => 'Coord Lat',
             'date_start' => 'Дата начала',
             'date_end' => 'Дата окончания',
+            'organizer_id' => 'Организатор',
             'max_user_count' => 'Количество человек',
             'promo' => 'Промо',
             'description' => 'Описание',
@@ -157,6 +159,14 @@ class Camp extends \yii\db\ActiveRecord
     public function getSports()
     {
         return $this->hasMany(Sport::className(), ['id' => 'sport_id'])->viaTable('camp_sport', ['camp_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOrganizer()
+    {
+        return $this->hasOne(Organizer::className(), ['id' => 'organizer_id']);
     }
 
     public static function getCurrencyArray() {
