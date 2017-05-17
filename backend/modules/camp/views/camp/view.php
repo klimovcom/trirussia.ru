@@ -58,7 +58,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'description:ntext',
                             'image_id',
                             'price',
-                            'currency'
+                            'currency',
+                        ],
                     ]) ?>
                 </div>
             </div>
