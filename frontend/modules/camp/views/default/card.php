@@ -14,7 +14,7 @@ use yii\helpers\ArrayHelper;
             </div>
             <div class="pull-right">
                 <p class="m-a-0 small">
-                    <?= Yii::$app->formatter->asDate(strtotime($date_start), 'd MMMM yyyy') . ' г. - ' . Yii::$app->formatter->asDate(strtotime($date_end), 'd MMMM yyyy');?>
+                    <?= Yii::$app->formatter->asDate(strtotime($model->date_start), 'd MMMM yyyy') . ' г. - ' . Yii::$app->formatter->asDate(strtotime($model->date_end), 'd MMMM yyyy');?>
                 </p>
             </div>
             <div class="clearfix"></div>
@@ -55,7 +55,7 @@ use yii\helpers\ArrayHelper;
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
                     <?php
-                    echo implode(',', ArrayHelper::getColumn($model->sports, 'label'));
+                    echo implode(', ', ArrayHelper::getColumn($model->sports, 'label'));
                     ?>
                 </div>
             </div>
