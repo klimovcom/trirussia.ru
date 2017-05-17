@@ -31,8 +31,10 @@ use yii\web\Response;
  */
 class DefaultController extends Controller
 {
+    const PAGINATION_LIMIT = 1;
+
     public function actionIndex() {
-        $models = Camp::find()->where(['>=', 'date_start', date('Y-m-d', time())])->orderBy(['date_start' => SORT_ASC])->limit(30)->all();
+        $models = Camp::find()->where(['>=', 'date_start', date('Y-m-d', time())])->orderBy(['date_start' => SORT_ASC])->limit(self::PAGINATION_LIMIT)->all();
         return $this->render('index', [
             'models' => $models,
         ]);
@@ -44,6 +46,22 @@ class DefaultController extends Controller
         return $this->render('view', [
             'model' => $model,
         ]);
+    }
+
+    public function actionGetMoreCamps() {
+        $page = Yii::$app->request->post('page');
+        $models = Camp::find()->where(['>=', 'date_start', date('Y-m-d', time())])
+            ->orderBy(['date_start' => SORT_ASC])
+            ->limit(self::PAGINATION_LIMIT)
+            ->offset(self::PAGINATION_LIMIT * $page)
+            ->all();
+        $result = '';
+        foreach ($models as $model) {
+            $result .= $this->renderPartial('card', [
+                'model' => $model,
+            ]);
+        }
+        return $result;
     }
 
     public function findModel($url) {
