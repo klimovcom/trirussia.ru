@@ -131,7 +131,7 @@ class Camp extends \yii\db\ActiveRecord
     }
 
     public function getPriceRepresentation(){
-        if ($this->price && $this->currency){
+        if ($this->price){
             $currencies = [
                 self::CURRENCY_RUBLE => 'рублей',
                 self::CURRENCY_DOLLAR => 'долларов',
