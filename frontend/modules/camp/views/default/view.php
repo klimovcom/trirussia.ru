@@ -62,15 +62,16 @@ $price = $model->getPriceRepresentation() ? $model->getPriceRepresentation() : H
                 </div>
                 <div class="clearfix"></div>
             </div>
-        </div>
-        <div class="card">
-            <div class="card-block">
-                <h2>Описание</h2>
-                <div class="fancybox_container">
-                    <?= $model->description; ?>
+            <div class="card">
+                <div class="card-block">
+                    <h2>Описание</h2>
+                    <div class="fancybox_container">
+                        <?= $model->description; ?>
+                    </div>
                 </div>
             </div>
         </div>
+
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 sidebar">
             <div class="theiaStickySidebar">
                 <div class="ad-sidebar text-xs-center">
