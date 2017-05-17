@@ -14,7 +14,7 @@ use yii\helpers\ArrayHelper;
             </div>
             <div class="pull-right">
                 <p class="m-a-0 small">
-                    <?= Yii::$app->formatter->asDate($this->date_start, 'd MMMM yyyy') . ' г. - ' . Yii::$app->formatter->asDate($this->date_end, 'd MMMM yyyy');?>
+                    <?= Yii::$app->formatter->asDate($date_start, 'd MMMM yyyy') . ' г. - ' . Yii::$app->formatter->asDate($date_end, 'd MMMM yyyy');?>
                 </p>
             </div>
             <div class="clearfix"></div>
