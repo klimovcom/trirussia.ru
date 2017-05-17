@@ -119,19 +119,16 @@ function fillInAddress() {
             if (place.address_components[i].types.indexOf('country') != -1){
                 console.log('here we are 1');
                 $('#camp-country').val(place.address_components[i].long_name);
-                translate(place.address_components[i].long_name, '#camp-country_en');
             }
             if (place.address_components[i].types.indexOf('locality') != -1){
                 console.log('here we are 2');
                 $('#camp-region').val(place.address_components[i].short_name);
-                translate(place.address_components[i].long_name, '#camp-region_en');
             }
         }
         if (place.address_components[i].types.indexOf('point_of_interest') != -1
             && place.address_components[i].types.indexOf('establishment') != -1){
                 console.log('here we are 3');
                 $('#camp-place').val(place.address_components[i].short_name);
-                translate(place.address_components[i].long_name, '#camp-place_en');
         }
     }
 }
