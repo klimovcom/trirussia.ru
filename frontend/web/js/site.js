@@ -239,6 +239,7 @@ $(document).ready(function(){
         var renderType = $(this).data('render-type');
         var sort = $(this).data('sort');
         var append = $(this).data('append');
+        var limit = $(this).data('limit');
 
         if (lock == 0){
             lock = 1;
@@ -256,6 +257,7 @@ $(document).ready(function(){
                     country: country,
                     organizer: organizer,
                     sort: sort,
+                    limit: limit,
                     renderType: renderType
                 },
                 function (response) {
@@ -263,7 +265,7 @@ $(document).ready(function(){
                     var result = JSON.parse(response).result;
                     var data = JSON.parse(response).data;
                     var dataList = JSON.parse(response).list;
-                    if (result*1 < 12){
+                    if (result*1 < limit){
                         $(that).fadeOut();
                     } else {
                         $(that).removeAttr('disabled');

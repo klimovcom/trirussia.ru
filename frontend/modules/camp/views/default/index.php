@@ -21,7 +21,7 @@ $this->registerJs("$(function() {
         ?>
     </div>
     <div class="block block-more-races block-more-races-sport ">
-        <button type="submit" data-lock="0" data-url="/camp/default/get-more-camps" data-target=".camps-block"  data-render-type="search" data-sort="" class="btn btn-primary more-races" >
+        <button type="submit" data-lock="0" data-url="/camp/default/get-more-camps" data-target=".camps-block"  data-render-type="search" data-sort="" data-limit="12" class="btn btn-primary more-races" >
             Загрузить еще кэмпы
         </button>
     </div>

@@ -28,7 +28,7 @@ use yii\helpers\ArrayHelper;
                     Организатор:
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-                    <?= Html::a($model->organizer->label, ['/site/search-races', 'organizer' => $model->organizer->label], ['class' => 'underline']);?>
+                    <?= Html::a($model->organizer->label, ['/camp/search', 'organizer' => $model->organizer->id], ['class' => 'underline']);?>
                 </div>
             </div>
             <?php if ($model->price):?>

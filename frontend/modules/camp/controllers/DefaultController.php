@@ -31,7 +31,7 @@ use yii\web\Response;
  */
 class DefaultController extends Controller
 {
-    const PAGINATION_LIMIT = 1;
+    const PAGINATION_LIMIT = 30;
 
     public function actionIndex() {
         $models = Camp::find()->where(['>=', 'date_start', date('Y-m-d', time())])->orderBy(['date_start' => SORT_ASC])->limit(self::PAGINATION_LIMIT)->all();

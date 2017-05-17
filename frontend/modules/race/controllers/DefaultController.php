@@ -90,6 +90,7 @@ class DefaultController extends Controller
     public function actionGetMoreRaces()
     {
         $this->layout = false;
+        $limit = Yii::$app->request->post('limit') ? Yii::$app->request->post('limit') : 12;
 
         $page = $_POST['page'] + 2;
         if (!empty($_POST['renderType']) && $_POST['renderType'] == 'search' )
@@ -139,9 +140,9 @@ class DefaultController extends Controller
         $raceCondition->andWhere(['race.published' => 1]);
 
         if (!empty($_POST['sort']) && $_POST['sort'] == 'popular'){
-            $races = $raceCondition->orderBy('popularity DESC, start_date ASC, id DESC')->limit(12)->offset($page*12)->all();
+            $races = $raceCondition->orderBy('popularity DESC, start_date ASC, id DESC')->limit($limit)->offset($page*$limit)->all();
         } else {
-            $races = $raceCondition->orderBy('start_date ASC, id DESC')->limit(12)->offset($page*12)->all();
+            $races = $raceCondition->orderBy('start_date ASC, id DESC')->limit($limit)->offset($page*$limit)->all();
         }
 
 

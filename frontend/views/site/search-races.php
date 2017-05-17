@@ -164,6 +164,7 @@ $this->registerJs("$(function() {
                 data-country="<?= isset($_GET['country']) ? $_GET['country'] : null; ?>"
                 data-organizer="<?= isset($_GET['organizer']) ? $_GET['organizer'] : null; ?>"
                 data-sort="<?= isset($_GET['sort']) ? $_GET['sort'] : null; ?>"
+                data-limit="30"
             >
                 Загрузить еще соревнования
             </button>

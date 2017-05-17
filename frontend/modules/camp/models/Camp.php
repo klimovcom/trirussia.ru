@@ -7,6 +7,13 @@ use sport\models\Sport;
 use metalguardian\fileProcessor\helpers\FPM;
 use organizer\models\Organizer;
 
+class CampQuery extends \yii\db\ActiveQuery {
+
+    public function published() {
+        return $this->andWhere(['published' => 1]);
+    }
+
+}
 /**
  * This is the model class for table "camp".
  *
@@ -85,6 +92,11 @@ class Camp extends \yii\db\ActiveRecord
             'currency' => 'Валюта',
         ];
     }
+
+    public static function find() {
+        return new CampQuery(get_called_class());
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
