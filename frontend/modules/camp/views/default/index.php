@@ -1,5 +1,8 @@
 <?php
 use yii\helpers\Html;
+$this->registerJs("$(function() {
+        $('.card').matchHeight();
+    });");
 ?>
 
 <div class="container">
