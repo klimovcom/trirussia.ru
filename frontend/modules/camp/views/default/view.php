@@ -47,6 +47,10 @@ $price = $model->getPriceRepresentation() ? $model->getPriceRepresentation() : H
                             <p class="m-b-0"><strong><?= $model->getPriceRepresentation(); ?></strong></p>
                             <p class="small m-b-0">Стоимость</p>
                         </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <p class="m-b-0"><strong><?= $model->is_accommodation ? 'Включено' : 'Не включено';?></strong></p>
+                            <p class="small m-b-0">Проживание</p>
+                        </div>
                     </div>
                     <hr>
                     <div class="pull-left hidden-sm-down">

@@ -34,6 +34,7 @@ class CampQuery extends \yii\db\ActiveQuery {
  * @property integer $price
  * @property integer $currency
  * @property integer $published
+ * @property integer $is_accommodation
  *
  * @property CampSport[] $campSports
  * @property Sport[] $sports

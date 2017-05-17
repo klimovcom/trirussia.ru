@@ -97,6 +97,7 @@ class Camp extends \yii\db\ActiveRecord
             'image_id' => 'Изображение',
             'price' => 'Цена',
             'currency' => 'Валюта',
+            'is_accommodation' => 'Проживание',
         ];
     }
 
