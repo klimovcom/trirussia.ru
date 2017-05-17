@@ -61,7 +61,10 @@ class DefaultController extends Controller
                 'model' => $model,
             ]);
         }
-        return $result;
+        return Json::encode([
+            'result' => count($models),
+            'data' => $result,
+        ]);
     }
 
     public function findModel($url) {
