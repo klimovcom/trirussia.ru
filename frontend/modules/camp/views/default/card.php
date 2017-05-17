@@ -3,9 +3,11 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use common\components\CountryList;
 use yii\helpers\ArrayHelper;
+
+$blockClass = $blockClass ? $blockClass : 'col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4';
 ?>
-<div class="grid-item col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-    <div class="card">
+<div class="grid-item <?= $blockClass;?>">
+    <div class="card card-match-height">
         <div class="card-header white bg-gray">
             <div class="pull-left">
                 <p class="m-a-0 small">

@@ -7,6 +7,10 @@ $this->registerCssFile('https://fonts.googleapis.com/css?family=Roboto:300,400,5
 $this->registerJsFile("https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places");
 
 $price = $model->getPriceRepresentation() ? $model->getPriceRepresentation() : Html::tag('span', 'Нет цены', ['class' => 'text-muted']);
+
+$this->registerJs("$(function() {
+        $('.card-match-height').matchHeight();
+    });");
 ?>
 
 <div class="container">
@@ -127,6 +131,17 @@ $price = $model->getPriceRepresentation() ? $model->getPriceRepresentation() : H
                     <div id="googleMap" data-lon="<?=$model->coord_lon;?>" data-lat="<?=$model->coord_lat;?>" style="height:455px;"></div>
                 </div>
             <?php } ?>
+            <h3 class="m-y-3">Ещё кэмпы</h3>
+            <div class="row">
+                <?php
+                foreach ($relatedModels as $model) {
+                    echo $this->render('card', [
+                        'model' => $model,
+                        'blockClass' => 'col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6'
+                    ]);
+                }
+                ?>
+            </div>
             <div class="card m-t-1">
                 <div class="card-block">
                     <div id="disqus_thread"></div>

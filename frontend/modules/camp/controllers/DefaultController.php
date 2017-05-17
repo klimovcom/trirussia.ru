@@ -47,9 +47,13 @@ class DefaultController extends Controller
 
     public function actionView($url) {
         $model = $this->findModel($url);
-
+        $relatedModels = Camp::find()->where(['>=', 'date_start', date('Y-m-d', time())])->andWhere(['organizer_id' => $model->organizer_id])->andWhere(['not', ['id' => $model->id]])->published()->limit(4)->all();
+        if (count($relatedModels) != 4) {
+            $relatedModels = Camp::find()->where(['>=', 'date_start', date('Y-m-d', time())])->andWhere(['not', ['id' => $model->id]])->published()->limit(4)->all();
+        }
         return $this->render('view', [
             'model' => $model,
+            'relatedModels' => $relatedModels,
         ]);
     }
 
