@@ -1,6 +1,8 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\Html;
+use common\components\CountryList;
+use yii\helpers\ArrayHelper;
 ?>
 <div class="grid-item col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
     <div class="card">
@@ -53,7 +55,7 @@ use yii\helpers\Html;
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
                     <?php
-                    echo implode(',', \yii\helpers\ArrayHelper::getColumn($model->sports, 'label'));
+                    echo implode(',', ArrayHelper::getColumn($model->sports, 'label'));
                     ?>
                 </div>
             </div>
