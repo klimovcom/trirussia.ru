@@ -10,6 +10,8 @@ use Imagine\Image\ImageInterface;
 use yii\helpers\ArrayHelper;
 use metalguardian\fileProcessor\helpers\FPM;
 use yii\validators\FileValidator;
+use Imagine\Image\Box;
+use Imagine\Image\Point;
 
 /**
  * This is the model class for table "camp".
