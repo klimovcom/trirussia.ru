@@ -100,6 +100,10 @@ $(document).ready(function(){
         $('#product-url').val(cyr2lat($(this).val()));
     });
 
+    $(document).on('input', '#camp-label', function() {
+        $('#camp-url').val(cyr2lat($(this).val()));
+    });
+
     $('#news-header').on('change', function(){
         if (!($('#news-url').val().length > 0)){
             var value = cyr2lat($('#news-header').val());

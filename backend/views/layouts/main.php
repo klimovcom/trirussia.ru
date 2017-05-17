@@ -125,6 +125,7 @@ $this->registerCssFile('/css/site.css');
                 <?= Yii::$app->user->can('promo') ? Html::tag('li', Html::a('Промо-блоки', ['/promo/promo/index']))  : '';?>
                 <?= Yii::$app->user->can('configuration') ? Html::tag('li', Html::a('Конфигурация', ['/configuration/configuration/index']))  : '';?>
                 <?= Yii::$app->user->can('promocode') ? Html::tag('li', Html::a('Промокоды', ['/promocode/promocode/index']))  : '';?>
+                <?= Yii::$app->user->can('camp') ? Html::tag('li', Html::a('Кэмпы', ['/camp/camp/index']))  : '';?>
 
             </ul>
         </section>

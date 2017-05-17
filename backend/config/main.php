@@ -82,6 +82,11 @@ return [
             DIRECTORY_SEPARATOR . 'modules' .
             DIRECTORY_SEPARATOR . 'promocode'
         ),
+        'camp' => realpath(
+            __DIR__ . DIRECTORY_SEPARATOR . '..' .
+            DIRECTORY_SEPARATOR . 'modules' .
+            DIRECTORY_SEPARATOR . 'camp'
+        ),
     ],
     'modules' => [
         'race' => [
@@ -110,6 +115,9 @@ return [
         ],
         'product' => [
             'class' => 'product\ProductModule',
+        ],
+        'camp' => [
+            'class' => 'camp\CampModule',
         ],
         'configuration' => [
             'class' => 'configuration\ConfigurationModule',
