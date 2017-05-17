@@ -23,9 +23,9 @@ $price = $model->getPriceRepresentation() ? $model->getPriceRepresentation() : H
                         'alt' => $model->label,
                     ]); ?>
                 <?php } ?>
-                <div class="card-block border-<?= $model->getSportClass();?>">
+                <div class="card-block border-gray">
                     <div class="pull-left">
-                        <h6 class="sport-caption <?= $model->getSportClass();?>">
+                        <h6 class="sport-caption gray">
                             <?php
                             echo implode(', ', ArrayHelper::getColumn($model->sports, 'label'));
                             ?>

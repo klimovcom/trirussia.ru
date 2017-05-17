@@ -254,7 +254,9 @@ a:hover.highlight-yellow-sm {
 .gold {
 	color: gold!important;
 }
-
+.gray {
+	color: #333;
+}
 .border-gold {
 	border-top: 4px solid gold;
 }
@@ -361,6 +363,9 @@ a:hover.highlight-yellow-sm {
 }
 .bg-gray {
 	background-color: #333;
+}
+.border-gray {
+	border-top: 4px solid #333 !important;
 }
 
 /* Фон для карточек */
