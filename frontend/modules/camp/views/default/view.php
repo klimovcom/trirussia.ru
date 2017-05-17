@@ -16,7 +16,7 @@ $this->registerJs("$(function() {
 <div class="container">
     <h1 class="m-t-3"><?= $model->label ?></h1>
     <h4 class="m-b-3">
-        <?= Yii::$app->formatter->asDate(strtotime($model->date_start), 'd MMMM yyyy') . ' - ' . Yii::$app->formatter->asDate(strtotime($model->date_end), 'd MMMM yyyy') . '. ' . $model->country . ', ' . $model->region;?>
+        <?= Yii::$app->formatter->asDate(strtotime($model->date_start), 'd MMMM yyyy') . ' — ' . Yii::$app->formatter->asDate(strtotime($model->date_end), 'd MMMM yyyy') . '. ' . $model->country . ', ' . $model->region;?>
     </h4>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
@@ -64,9 +64,11 @@ $this->registerJs("$(function() {
                             <div class="vkontakte">Поделиться</div>
                         </div>
                     </div>
-                    <div class="pull-right hidden-sm-down i-will-go">
-                        <a class="btn btn-danger btn-sm" href="<?= $model->organizer->site;?>">Купить за <?= $model->getPriceRepresentation(); ?></a>
-                    </div>
+                    <?php if ($model->organizer->site):?>
+                        <div class="pull-right hidden-sm-down i-will-go">
+                            <a class="btn btn-danger btn-sm" href="<?= $model->organizer->site;?>">Купить за <?= $model->getPriceRepresentation(); ?></a>
+                        </div>
+                    <?php endif;?>
                     <div class="clearfix"></div>
                 </div>
             </div>

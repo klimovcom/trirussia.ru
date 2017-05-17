@@ -5,7 +5,7 @@ $this->registerJs("$(function() {
     });");
 
 if (isset($organizer)) {
-    $header = 'Кэмпы проводимые ' . $organizer->label;
+    $header = 'Кэмпы ' . $organizer->label .' по триатлону, бегу и велоспорту';
     $data = 'data-lock="0" data-url="/camp/default/get-more-camps" data-target=".camps-block"  data-render-type="search" data-sort="" data-limit="30"';
 }else {
     $header = 'Кэмпы по триатлону, велоспорту и бегу';
