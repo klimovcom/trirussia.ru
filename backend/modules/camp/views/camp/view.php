@@ -56,7 +56,15 @@ $this->params['breadcrumbs'][] = $this->title;
                             'max_user_count',
                             'promo:ntext',
                             'description:ntext',
-                            'image_id',
+                            [
+                                'attribute' => 'image_id',
+                                'format' => 'raw',
+                                'value' => $model->image_id
+                                    ? Html::img(
+                                        \metalguardian\fileProcessor\helpers\FPM::originalSrc($model->image_id)
+                                    )
+                                    : null,
+                            ],
                             'price',
                             'currency',
                         ],
