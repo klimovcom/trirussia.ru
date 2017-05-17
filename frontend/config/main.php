@@ -244,8 +244,10 @@ return [
                 'training/add' => 'coach/default/create',
                 'training/<url>' => 'coach/default/view',
 
-                'camp' => 'camp/default/index',
+
                 'camp/default/get-more-camps' => 'camp/default/get-more-camps',
+                'camp/default/search' => 'camp/default/search',
+                'camp' => 'camp/default/index',
                 'camp/<url>' => 'camp/default/view',
 
                 'willGo/default/remove-will-go' => 'willGo/default/remove-will-go',

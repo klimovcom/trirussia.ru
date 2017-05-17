@@ -3,6 +3,14 @@ use yii\helpers\Html;
 $this->registerJs("$(function() {
         $('.card').matchHeight();
     });");
+
+if (isset($organizer)) {
+    $header = 'Кэмпы проводимые ' . $organizer->label;
+    $data = 'data-lock="0" data-url="/camp/default/get-more-camps" data-target=".camps-block"  data-render-type="search" data-sort="" data-limit="30"';
+}else {
+    $header = 'Кэмпы по триатлону, велоспорту и бегу';
+    $data = 'data-lock="0" data-url="/camp/default/get-more-camps" data-target=".camps-block"  data-render-type="search" data-sort="" data-limit="30" data-organizer="' . $organizer->id . '"';
+}
 ?>
 
 <div class="container">
@@ -22,7 +30,7 @@ $this->registerJs("$(function() {
     </div>
     <?php if ($showMore):?>
         <div class="block block-more-races block-more-races-sport ">
-            <button type="submit" data-lock="0" data-url="/camp/default/get-more-camps" data-target=".camps-block"  data-render-type="search" data-sort="" data-limit="12" class="btn btn-primary more-races" >
+            <button type="submit" class="btn btn-primary more-races" <?= $data;?>>
                 Загрузить еще кэмпы
             </button>
         </div>

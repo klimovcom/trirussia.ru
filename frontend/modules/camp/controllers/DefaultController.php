@@ -59,11 +59,16 @@ class DefaultController extends Controller
 
     public function actionGetMoreCamps() {
         $page = Yii::$app->request->post('page');
-        $models = Camp::find()->where(['>=', 'date_start', date('Y-m-d', time())])
-            ->orderBy(['date_start' => SORT_ASC])
-            ->limit(self::PAGINATION_LIMIT)
+        $organizer = Yii::$app->request->post('organizer');
+        $query = Camp::find()->where(['>=', 'date_start', date('Y-m-d', time())])
+            ->orderBy(['date_start' => SORT_ASC]);
+        if ($organizer) {
+            $query->andWhere(['organizer_id' => $organizer]);
+        }
+        $models = $query->limit(self::PAGINATION_LIMIT)
             ->offset(self::PAGINATION_LIMIT * $page)
             ->all();
+
         $result = '';
         foreach ($models as $model) {
             $result .= $this->renderPartial('card', [
@@ -77,7 +82,18 @@ class DefaultController extends Controller
     }
 
     public function actionSearch() {
+        $query = Camp::find()->where(['>=', 'date_start', date('Y-m-d', time())]);
+        $organizer_id = Yii::$app->request->get('organizer_id');
+        $organizer = Organizer::find()->where(['id' => $organizer_id])->one();
+        if ($organizer) {
+            $query->andWhere(['organizer_id' => $organizer_id]);
+        }
+        $models = $query->published()->limit(30)->all();
 
+        return $this->render('index', [
+            'models' => $models,
+            'organizer' => $organizer,
+        ]);
     }
 
     public function findModel($url) {
