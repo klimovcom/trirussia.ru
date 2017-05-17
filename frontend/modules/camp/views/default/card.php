@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use common\components\CountryList;
 use yii\helpers\ArrayHelper;
 
-$blockClass = $blockClass ? $blockClass : 'col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4';
+$blockClass = isset($blockClass) ? $blockClass : 'col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4';
 ?>
 <div class="grid-item <?= $blockClass;?>">
     <div class="card card-match-height">
