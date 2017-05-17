@@ -16,7 +16,7 @@ echo Html::beginTag('div', ['class' => 'row', 'id' => $productBlockId]);
 foreach ($products as $product) {
     echo Html::beginTag('div', ['class' => $itemCssClass]);
     echo Html::beginTag('div', ['class' => 'card card-block']);
-    echo Html::tag('div', Html::a(Html::img(FPM::originalSrc($product->productImages[0]->image_id), ['class' => 'img-fluid']), ['view', 'url' => $product->url], ['class' => 'no-underline']), ['class' => 'js-tilt']);
+    echo Html::a(Html::img(FPM::originalSrc($product->productImages[0]->image_id), ['class' => 'img-fluid']), ['view', 'url' => $product->url], ['class' => 'no-underline']);
     echo Html::tag('h5', Html::a($product->label, ['view', 'url' => $product->url], ['class' => 'no-underline']), ['class' => 'shop-title']);
 
     if ($type == 'normal') {
