@@ -35,8 +35,13 @@ class DefaultController extends Controller
 
     public function actionIndex() {
         $models = Camp::find()->where(['>=', 'date_start', date('Y-m-d', time())])->orderBy(['date_start' => SORT_ASC])->limit(self::PAGINATION_LIMIT)->all();
+        $showMore = false;
+        if (count($models) == self::PAGINATION_LIMIT) {
+            $showMore = true;
+        }
         return $this->render('index', [
             'models' => $models,
+            'showMore' => $showMore,
         ]);
     }
 
