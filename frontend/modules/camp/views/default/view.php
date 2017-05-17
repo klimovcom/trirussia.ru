@@ -128,9 +128,6 @@ $price = $model->getPriceRepresentation() ? $model->getPriceRepresentation() : H
                 </div>
             <?php } ?>
             <div class="card m-t-1">
-                <?= \frontend\widgets\moreRaces\MoreRaces::widget([])?>
-            </div>
-            <div class="card m-t-1">
                 <div class="card-block">
                     <div id="disqus_thread"></div>
                     <script type="text/javascript">
@@ -147,15 +144,6 @@ $price = $model->getPriceRepresentation() ? $model->getPriceRepresentation() : H
                     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
                     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
                 </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 sidebar">
-            <?= \frontend\widgets\allRaces\AllRaces::widget(['raceView' => true, ]); ?>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 hidden new-sidebar">
-            <?= \frontend\widgets\allRaces\AllRaces::widget(['raceView' => true, ]); ?>
-            <div class="ad-sidebar text-xs-center">
-                <a href="https://www.asics.ru/running/products/gel-kayano-men/" target="_blank"><img src="http://files.www.fleetfeetraleigh.com/news/cq5dam.thumbnail.400.400-process-s400x333.png"></a>
             </div>
         </div>
     </div>
