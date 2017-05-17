@@ -47,7 +47,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attributes' => [
                             'id',
                             'created',
-                            'author_id',
+                            [
+                                'attribute' => 'author_id',
+                                'value' => $model->author->email
+                            ],
                             'start_date',
                             'finish_date',
                             'start_time',
@@ -59,7 +62,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'attribute' => 'sport_id',
                                 'value' => \sport\models\Sport::findOne(['id' => $model->sport_id,])->label,
                             ],
-                            'url:url',
+                            [
+                                'attribute' => 'url',
+                                'format' => 'raw',
+                                'value' => Html::a('http://www.trirussia.ru/race/' . $model->url, 'http://www.trirussia.ru/race/' . $model->url),
+                            ],
                             'price',
                             'currency',
                             [

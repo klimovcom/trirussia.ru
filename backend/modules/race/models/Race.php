@@ -334,6 +334,14 @@ class Race extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getAuthor()
+    {
+        return $this->hasOne(User::className(), ['id' => 'author_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getRaceDistanceCategoryRefs()
     {
         return $this->hasMany(RaceDistanceCategoryRef::className(), ['race_id' => 'id']);
