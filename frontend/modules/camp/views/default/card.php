@@ -16,7 +16,7 @@ $blockClass = isset($blockClass) ? $blockClass : 'col-xs-12 col-sm-12 col-md-6 c
             </div>
             <div class="pull-right">
                 <p class="m-a-0 small">
-                    <?= Yii::$app->formatter->asDate(strtotime($model->date_start), 'd MMMM yyyy') . ' - ' . Yii::$app->formatter->asDate(strtotime($model->date_end), 'd MMMM yyyy');?>
+                    <?= Yii::$app->formatter->asDate(strtotime($model->date_start), 'd MMMM yyyy') . ' — ' . Yii::$app->formatter->asDate(strtotime($model->date_end), 'd MMMM yyyy');?>
                 </p>
             </div>
             <div class="clearfix"></div>
@@ -30,7 +30,7 @@ $blockClass = isset($blockClass) ? $blockClass : 'col-xs-12 col-sm-12 col-md-6 c
                     Организатор:
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-                    <?= Html::a($model->organizer->label, ['/camp/search', 'organizer' => $model->organizer->id], ['class' => 'underline']);?>
+                    <?= Html::a($model->organizer->label, ['/camp/search', 'organizer' => $model->organizer->label], ['class' => 'underline']);?>
                 </div>
             </div>
             <?php if ($model->price):?>
@@ -43,6 +43,14 @@ $blockClass = isset($blockClass) ? $blockClass : 'col-xs-12 col-sm-12 col-md-6 c
                     </div>
                 </div>
             <?php endif;?>
+            <div class="row small">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-muted">
+                    Проживание:
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                    <?= $model->is_accommodation ? 'включено' : 'не включено';?>
+                </div>
+            </div>
             <div class="row small">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-muted">
                     Длительность:
@@ -59,14 +67,6 @@ $blockClass = isset($blockClass) ? $blockClass : 'col-xs-12 col-sm-12 col-md-6 c
                     <?php
                     echo implode(', ', ArrayHelper::getColumn($model->sports, 'label'));
                     ?>
-                </div>
-            </div>
-            <div class="row small">
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-muted">
-                    Проживание:
-                </div>
-                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-                    <?= $model->is_accommodation ? 'включено' : 'не включено';?>
                 </div>
             </div>
         </div>

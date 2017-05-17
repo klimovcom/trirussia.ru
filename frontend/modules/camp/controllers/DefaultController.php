@@ -83,10 +83,10 @@ class DefaultController extends Controller
 
     public function actionSearch() {
         $query = Camp::find()->where(['>=', 'date_start', date('Y-m-d', time())]);
-        $organizer_id = Yii::$app->request->get('organizer');
-        $organizer = Organizer::find()->where(['id' => $organizer_id])->one();
+        $organizer_label = Yii::$app->request->get('organizer');
+        $organizer = Organizer::find()->where(['label' => $organizer_label])->one();
         if ($organizer) {
-            $query->andWhere(['organizer_id' => $organizer_id]);
+            $query->andWhere(['organizer_id' => $organizer->id]);
         }
         $models = $query->published()->limit(30)->all();
 
