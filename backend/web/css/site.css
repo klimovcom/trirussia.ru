@@ -91,3 +91,7 @@ th a.desc:after{
 	overflow: hidden;
 	width: 100%;
 }
+.datetimepicker .table tr > td:nth-of-type(1),
+.datetimepicker tr > th:nth-of-type(1) {
+	width: 20px;
+}
