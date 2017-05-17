@@ -61,7 +61,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'format' => 'raw',
                                 'value' => $model->image_id
                                     ? Html::img(
-                                        \metalguardian\fileProcessor\helpers\FPM::originalSrc($model->image_id)
+                                        \metalguardian\fileProcessor\helpers\FPM::originalSrc($model->image_id),
+                                        ['class' => 'img-responsive']
                                     )
                                     : null,
                             ],
