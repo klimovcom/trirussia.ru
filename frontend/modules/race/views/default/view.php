@@ -9,6 +9,7 @@
 use \willGo\models\WillGo;
 use yii\helpers\Html;
 use race\models\Race;
+use yii\helpers\Url;
 
 $this->registerCssFile('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
 $this->registerJsFile("https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places");
@@ -60,7 +61,7 @@ $price = $race->getPriceRepresentation() ? $race->getPriceRepresentation() : Htm
                     <?php } ?>
                     <?php if ($race->organizer) { ?>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <p class="m-b-0"><strong><?= $race->organizer->label; ?></strong></p>
+                            <p class="m-b-0"><strong><a href="<?= Url::to(['/site/search-races', 'organizer' => $race->organizer->label]);?>" class="underline"><?= $race->organizer->label; ?></a></strong></p>
                             <p class="small m-b-0">Организатор</p>
                         </div>
                     <?php } ?>
