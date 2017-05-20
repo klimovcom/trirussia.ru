@@ -45,8 +45,7 @@ class Organizer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created', 'label', 'country', 'site', /*'image_id',*/
-                'promo'], 'required'],
+            [['created', 'label'], 'required'],
             [['created'], 'safe'],
             [['image_id',], 'safe'],
             [[/*'image_id', */
@@ -91,7 +90,7 @@ class Organizer extends \yii\db\ActiveRecord
                         'extensions' => 'png, jpg, svg, tiff',
                     ],
                     'image' => true,
-                    'required' => true,
+                    'required' => false,
                 ],
             ]
         );
