@@ -58,6 +58,7 @@ class DefaultController extends Controller
         $organizers = Organizer::find()
             ->select(['organizer.*', 'race_count'])
             ->leftJoin(['race_count' => $subquery], 'race_count.organizer_id = id')
+            ->where(['not', ['id' => 77]]) // "другой" организатор
             ->orderBy(['race_count' => SORT_DESC])
             ->published()
             ->limit(self::PAGINATION_LIMIT)
