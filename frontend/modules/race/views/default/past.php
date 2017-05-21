@@ -19,7 +19,7 @@ if (Yii::$app->user->isGuest) {
 }else {
     $ratingInputClass = 'rating-input rating-input-active';
 }
-$winners = $race->tristatsRace->tristatsWinners;
+$winners = ArrayHelper::getValue($race->tristatsRace, 'tristatsWinners');
 ?>
 
 <div class="container">

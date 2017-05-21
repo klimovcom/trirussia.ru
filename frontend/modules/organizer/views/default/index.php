@@ -1,25 +1,38 @@
 <?php
 use yii\helpers\Html;
-?>
 
+
+$this->registerJs("$(function() {
+        $('.card').matchHeight();
+    });");
+?>
 <div class="container">
     <h1 class="m-t-3 m-b-3">Организаторы соревнований по триатлону, бегу, плаванию и велоспорту</h1>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-            <div class="card-columns">
+            <div class="row organizers-block">
                 <?php
-                foreach ($organizers as $org) {
-                    echo Html::beginTag('div', ['class' => 'card card-block']);
-                    echo Html::tag('h4',
-                        Html::a($org->label, ['/site/search-races', 'organizer' => $org->label], ['class' => 'underline']),
-                        ['class' => 'card-title']);
-                    echo Html::tag('div', $org->promo, ['class' => 'm-b-1']);
-                    Yii::info($org->image_id);
-                    echo Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($org->image_id), ['class' => 'card-organizer-logo']);
-                    echo Html::endTag('div');
+                foreach ($organizers as $model) {
+                    echo $this->render('includes/card', [
+                        'model' => $model,
+                    ]);
                 }
                 ?>
             </div>
+            <?php if ($showMore):?>
+                <div class="block block-more-races block-more-races-sport ">
+                    <button type="submit" class="btn btn-primary more-races"
+                            data-lock="0"
+                            data-url="/organizer/default/get-more-organizers"
+                            data-target=".organizers-block"
+                            data-render-type="search"
+                            data-sort=""
+                            data-limit="<?= $paginationLimit?>"
+                        >
+                        Загрузить еще организаторов
+                    </button>
+                </div>
+            <?php endif;?>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
             <div class="ad-sidebar text-xs-center">

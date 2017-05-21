@@ -3,6 +3,7 @@
 namespace organizer\models;
 
 use Yii;
+use race\models\Race;
 
 /**
  * This is the model class for table "organizer".
@@ -32,6 +33,9 @@ class OrganizerQuery extends \yii\db\ActiveQuery {
 
 class Organizer extends \yii\db\ActiveRecord
 {
+
+    public $race_count;
+
     /**
      * @inheritdoc
      */
@@ -84,5 +88,18 @@ class Organizer extends \yii\db\ActiveRecord
     public function getRaces()
     {
         return $this->hasMany(Race::className(), ['organizer_id' => 'id']);
+    }
+
+    public function getPublishedRaces()
+    {
+        return $this->hasMany(Race::className(), ['organizer_id' => 'id'])->where(['race.published' => 1]);
+    }
+
+    public function getNearlyRaces() {
+        return $this->hasMany(Race::className(), ['organizer_id' => 'id'])->where(['>=','race.start_date', date('Y-m-d', time())])->andWhere(['race.published' => 1])->orderBy(['race.start_date' => SORT_ASC])->limit(3);
+    }
+
+    public function getNearlyPastRaces() {
+        return $this->hasMany(Race::className(), ['organizer_id' => 'id'])->where(['<','race.start_date', date('Y-m-d', time())])->andWhere(['race.published' => 1])->orderBy(['race.start_date' => SORT_DESC])->limit(3);
     }
 }

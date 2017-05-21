@@ -210,6 +210,7 @@ return [
                 'magazine/<url>' => 'post/default/view',
 
                 'organizer' => 'organizer/default/index',
+                'organizer/default/get-more-organizers' => 'organizer/default/get-more-organizers',
 
                 'user-info' => 'user/default/about',
 
