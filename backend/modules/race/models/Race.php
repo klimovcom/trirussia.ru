@@ -14,6 +14,7 @@ use metalguardian\fileProcessor\behaviors\UploadBehavior;
 use metalguardian\fileProcessor\helpers\FPM;
 use omgdef\multilingual\MultilingualBehavior;
 use omgdef\multilingual\MultilingualQuery;
+use organizer\models\Organizer;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
@@ -84,6 +85,8 @@ class Race extends \yii\db\ActiveRecord
 
     public $regulations = [];
     public $traces = [];
+
+    public $organizer_label;
 
     public static function find() {
         return new RaceQuery(get_called_class());
@@ -162,6 +165,7 @@ class Race extends \yii\db\ActiveRecord
                 ], 'safe',
             ],
             [['country', 'region'], 'string', 'max' => 100],
+            [['organizer_label'], 'string', 'max' => 255],
             [['place', 'label', 'url', 'currency', 'site', 'facebook_event_id', 'contact_phone', 'contact_email'], 'string', 'max' => 255],
             [['contact_email'], 'email', 'when' => function($model) {
                 return $model->with_registration == 1;
@@ -290,6 +294,7 @@ class Race extends \yii\db\ActiveRecord
         parent::beforeSave($insert);
         $this->addClassToImg('content');
         $this->addClassToImg('content_en');
+        $this->saveOrganizer();
 
         $this->uploadImage();
         return true;
@@ -385,6 +390,10 @@ class Race extends \yii\db\ActiveRecord
     public function getRaceTraces()
     {
         return $this->hasMany(RaceFpmFile::className(), ['race_id' => 'id'])->andWhere(['type' => RaceFpmFile::TYPE_TRACE]);
+    }
+
+    public function getOrganizer() {
+        return $this->hasOne(Organizer::className(), ['id' => 'organizer_id']);
     }
 
     public function getRating() {
@@ -527,5 +536,17 @@ class Race extends \yii\db\ActiveRecord
         self::getDb()->createCommand()->batchInsert(RaceDistanceCategoryRef::tableName(), ['race_id', 'distance_category_id'], $values)->execute();
 
         return true;
+    }
+
+    public function saveOrganizer() {
+        $label = $this->organizer_label;
+        $organizer = Organizer::find()->where(['label' => $label])->one();
+        if (!$organizer) {
+            $organizer = new Organizer();
+            $organizer->label = $label;
+            $organizer->created = date('Y-m-d H:i', time());
+            $organizer->save();
+        }
+        $this->organizer_id = $organizer->id;
     }
 }

@@ -101,8 +101,6 @@ class Organizer extends \yii\db\ActiveRecord
      */
     public function beforeDelete()
     {
-
-
         parent::beforeDelete();
 
         $alienModel = Organizer::find()->where(['label' => 'Другой'])->one();

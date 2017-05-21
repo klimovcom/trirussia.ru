@@ -49,6 +49,7 @@ class Camp extends \yii\db\ActiveRecord
     const MAIN_IMG_HEIGHT = 450;
 
     public $sportArray;
+    public $organizer_label;
 
     /**
      * @inheritdoc
@@ -64,12 +65,12 @@ class Camp extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['label', 'url', 'country', 'region', 'place', 'promo', 'description', 'published', 'organizer_id'], 'required'],
+            [['label', 'url', 'country', 'region', 'place', 'promo', 'description', 'published'], 'required'],
             [['coord_lon', 'coord_lat'], 'number'],
             [['date_start', 'date_end', 'sportArray'], 'safe'],
             [['max_user_count', 'price', 'currency', 'published', 'organizer_id', 'is_accommodation'], 'integer'],
             [['promo', 'description'], 'string'],
-            [['label', 'url', 'country', 'region', 'place'], 'string', 'max' => 255],
+            [['label', 'url', 'country', 'region', 'place', 'organizer_label'], 'string', 'max' => 255],
             [['image_id'], 'validateImageId', 'skipOnEmpty' => false, 'skipOnError' => false],
         ];
     }
@@ -98,6 +99,7 @@ class Camp extends \yii\db\ActiveRecord
             'price' => 'Цена',
             'currency' => 'Валюта',
             'is_accommodation' => 'Проживание',
+            'sportArray' => 'Виды спорта',
         ];
     }
 
@@ -125,6 +127,7 @@ class Camp extends \yii\db\ActiveRecord
     public function beforeSave($insert) {
         parent::beforeSave($insert);
 
+        $this->saveOrganizer();
         $this->uploadImage();
         return true;
     }
@@ -246,5 +249,17 @@ class Camp extends \yii\db\ActiveRecord
 
         self::getDb()->createCommand()->batchInsert(CampSport::tableName(), ['camp_id', 'sport_id'], $values)->execute();
         return true;
+    }
+
+    public function saveOrganizer() {
+        $label = $this->organizer_label;
+        $organizer = Organizer::find()->where(['label' => $label])->one();
+        if (!$organizer) {
+            $organizer = new Organizer();
+            $organizer->label = $label;
+            $organizer->created = date('Y-m-d H:i', time());
+            $organizer->save();
+        }
+        $this->organizer_id = $organizer->id;
     }
 }

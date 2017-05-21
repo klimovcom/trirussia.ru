@@ -4,6 +4,9 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 use camp\models\Camp;
+use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
+use organizer\models\Organizer;
 
 /* @var $this yii\web\View */
 /* @var $model camp\models\Camp */
@@ -263,10 +266,23 @@ google.maps.event.addDomListener(window, 'load', initialize);
         <?php endif ?>
         <?= $form->field($model, 'image_id')->fileInput() ?>
 
-        <?= $form->field($model,'organizer_id')->dropDownList(
-            \yii\helpers\ArrayHelper::map(\organizer\models\Organizer::find()->orderBy(['label' => SORT_ASC])->all(), 'id', 'label'),
-            ['prompt' => '-- Выберите организатора --',]
-        );?>
+        <div class="form-group">
+            <?php
+            echo '<label class="control-label">Организатор</label>';
+            echo Select2::widget([
+                'name' => $model->formName() . '[organizer_label]',
+                'value' => $model->organizer ? $model->organizer->label : '',
+                'data' => ArrayHelper::map(Organizer::find()->orderBy(['label' => SORT_ASC])->all(), 'label', 'label'),
+                'theme' => Select2::THEME_KRAJEE,
+                'options' => ['placeholder' => '-- Выберите организатора --'],
+                'pluginOptions' => [
+                    'tags' => true,
+                    'tokenSeparators' => [',', ' '],
+                    'maximumInputLength' => 255
+                ],
+            ]);
+            ?>
+        </div>
 
         <div class="row">
             <div class="col-md-6">
