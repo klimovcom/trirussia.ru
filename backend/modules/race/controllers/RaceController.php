@@ -11,6 +11,7 @@ use Faker\Factory;
 use race\models\RaceDistanceRef;
 use race\models\RaceFpmFile;
 use race\models\RaceRegistration;
+use race\models\RaceRelay;
 use Yii;
 use race\models\Race;
 use race\models\RaceSearch;
@@ -179,5 +180,28 @@ class RaceController extends BackController
             'model' => $model,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionGetRelayWrap() {
+        $distance_counter = Yii::$app->request->post('distance_counter');
+        return $this->renderPartial('includes/distance_relay_wrap', [
+            'distance_counter' => $distance_counter,
+            'models' => [],
+            'relay_counter' => 0,
+        ]);
+    }
+
+    public function actionGetRelay() {
+        $model = new RaceRelay();
+        $distance_counter = Yii::$app->request->post('distance_counter');
+        $relay_counter = Yii::$app->request->post('relay_counter');
+
+
+        return $this->renderPartial('includes/distance_relay_stage', [
+           'model' => $model,
+            'relay_counter' => $relay_counter,
+            'distance_counter' => $distance_counter
+        ]);
+
     }
 }

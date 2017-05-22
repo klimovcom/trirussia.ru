@@ -298,6 +298,48 @@ $(document).ready(function(){
             $(this).data('value', $(this).val());
         }
     });
+
+    $(document).on('change', '.race-distance-type', function() {
+        var index = $(this).data('block');
+        // type = relay
+        if ($(this).val() == 1) {
+            var $block = $('#race-distance-list-item-' + index);
+            $.post(
+                '/race/race/get-relay-wrap',
+                {
+                    distance_counter : index
+                },
+                function(response) {
+                    $block.append(response);
+                }
+            )
+        }else {
+            $('#race-distance-relay-wrap-' + index).remove();
+        }
+    });
+
+    $(document).on('click', '.btn-race-distance-relay-add', function() {
+        var distance_counter = $(this).data('distance_counter');
+        var relay_counter = $(this).data('relay_counter');
+        var $block = $('#race-distance-relay-block-' + distance_counter);
+        var $this = $(this);
+        $.post(
+            '/race/race/get-relay',
+            {
+                distance_counter : distance_counter,
+                relay_counter : relay_counter
+            },
+            function(response) {
+                $block.append(response);
+                $this.data('relay_counter', relay_counter + 1);
+            }
+        );
+    });
+
+    $(document).on('click', '.btn-race-distance-relay-delete', function() {
+        var index = $(this).data('relay');
+        $('#race-distance-relay-block-item-' + index).remove();
+    });
 });
 
 $(document).ready(function() {

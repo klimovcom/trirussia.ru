@@ -314,6 +314,7 @@ class Race extends \yii\db\ActiveRecord
 
         RaceDistanceRef::deleteAll(['race_id' => $this->id]);
         RaceDistanceCategoryRef::deleteAll(['race_id' => $this->id]);
+        RaceRelay::deleteAll(['race_id' => $this->id]);
 
         foreach ($this->raceRegulations as $file) {
             $file->delete();
@@ -500,6 +501,7 @@ class Race extends \yii\db\ActiveRecord
     public function saveDistances() {
         RaceDistanceRef::deleteAll(['race_id' => $this->id]);
         RaceDistanceCategoryRef::deleteAll(['race_id' => $this->id]);
+        RaceRelay::deleteAll(['race_id' => $this->id]);
         $raceDistancePostName = (new RaceDistanceRef)->formName();
         $raceDistanceArray = Yii::$app->request->post($raceDistancePostName);
 
@@ -513,6 +515,7 @@ class Race extends \yii\db\ActiveRecord
         $checkArray = [];
 
         $values = [];
+        $relay_values = [];
         foreach ($raceDistanceArray as $raceDistance) {
             $inCheckArray = ArrayHelper::getValue($checkArray, $raceDistance['distance_id'] . '-' . (int) $raceDistance['type']);
             if (in_array($raceDistance['distance_id'], $distanceArray) && $inCheckArray === null) {
@@ -524,9 +527,26 @@ class Race extends \yii\db\ActiveRecord
                 ];
 
                 $checkArray[$raceDistance['distance_id'] . '-' . (int) $raceDistance['type']] = 1;
+
+                $relays = ArrayHelper::getValue($raceDistance, 'relay');
+                if (is_array($relays)) {
+                    $i = 1;
+                    foreach ($relays as $relay) {
+                        $relay_values[] = [
+                            $this->id,
+                            $raceDistance['distance_id'],
+                            (int) $relay['distance'],
+                            (int) $relay['sport'],
+                            $i,
+                        ];
+                        $i++;
+                    }
+                }
             }
         }
         self::getDb()->createCommand()->batchInsert(RaceDistanceRef::tableName(), ['race_id', 'distance_id', 'type', 'price'], $values)->execute();
+
+        self::getDb()->createCommand()->batchInsert(RaceRelay::tableName(), ['race_id', 'distance_id', 'distance', 'sport', 'position'], $relay_values)->execute();
 
         $distanceCategoryIds = ArrayHelper::getColumn(DistanceDistanceCategoryRef::find()->where(['distance_id' => $distanceArray])->all(), 'distance_category_id');
         $values = [];

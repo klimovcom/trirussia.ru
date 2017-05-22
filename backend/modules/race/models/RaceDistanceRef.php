@@ -59,4 +59,12 @@ class RaceDistanceRef extends \yii\db\ActiveRecord
             self::TYPE_RELAY => 'эстафета',
         ];
     }
+
+    public function getRelay() {
+        if ($this->type == self::TYPE_RELAY) {
+            return $this->hasMany(RaceRelay::className(), ['race_id' => 'race_id', 'distance_id' => 'distance_id'])->orderBy(['position' => SORT_ASC]);
+        }else {
+            return null;
+        }
+    }
 }
