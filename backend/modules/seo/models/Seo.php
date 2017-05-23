@@ -2,6 +2,7 @@
 
 namespace seo\models;
 
+use metalguardian\fileProcessor\behaviors\UploadBehavior;
 use Yii;
 use yii\helpers\Html;
 
@@ -14,6 +15,7 @@ use yii\helpers\Html;
  * @property string $title
  * @property string $keywords
  * @property string $description
+ * @property integer $og_image_id
  */
 class Seo extends \yii\db\ActiveRecord
 {
@@ -51,6 +53,19 @@ class Seo extends \yii\db\ActiveRecord
 			'title' => 'Заголовок',
 			'keywords' => 'Ключевые слова',
 			'description' => 'Описание',
+			'og_image_id' => 'Og image',
+		];
+	}
+
+	public function behaviors()
+	{
+		return [
+			'image_id' => [
+				'class' => UploadBehavior::className(),
+				'attribute' => 'og_image_id',
+				'image' => true,
+				'required' => false,
+			],
 		];
 	}
 

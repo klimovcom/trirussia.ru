@@ -65,6 +65,9 @@ class Sport extends \yii\db\ActiveRecord
                     'image' => true,
                     'required' => true,
                 ],
+                'seo' => [
+                    'class' => 'seo\components\SeoModelBehavior'
+                ],
             ]
         );
     }

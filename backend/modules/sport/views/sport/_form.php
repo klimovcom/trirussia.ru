@@ -15,6 +15,8 @@ use yii\widgets\ActiveForm;
             'options' => ['enctype' => 'multipart/form-data'],
         ]); ?>
 
+        <?= \seo\widgets\SeoWidget::widget(['model' => $model, 'tab' => true]) ?>
+
         <?= $form->field($model, 'label')->textInput(['maxlength' => true]) ?>
         
         <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>

@@ -39,6 +39,16 @@ use yii\widgets\ActiveForm;
                         <?= Html::textarea('Seo[description]', '', ['id' => 'seo-description', 'class' => 'form-control']) ?>
                     </div>
                 </div>
+                <div class="form-group">
+                    <?= Html::label(
+                        $seo->getAttributeLabel('og_image_id') . ':',
+                        'seo-og_image_id',
+                        ['class' => 'col-sm-2 control-label']
+                    ) ?>
+                    <div class="col-sm-10">
+                        <?= Html::fileInput('Seo[og_image_id]', '', ['id' => 'seo-og_image_id']) ?>
+                    </div>
+                </div>
             <?php else : ?>
                 <div class="form-group">
                     <?= Html::label($seo->getAttributeLabel('title') . ':', 'seo-title', ['class' => 'col-sm-2 control-label']) ?>
@@ -73,6 +83,26 @@ use yii\widgets\ActiveForm;
                             $seo->description,
                             ['id' => 'seo-description', 'class' => 'form-control']
                         ) ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <?= Html::label(
+                        $seo->getAttributeLabel('og_image_id') . ':',
+                        'seo-og_image_id',
+                        ['class' => 'col-sm-2 control-label']
+                    ) ?>
+                    <div class="col-sm-10">
+                        <?php
+                        $image = $seo->og_image_id ? Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($seo->og_image_id), ['class' => 'img-responsive']) : false;
+                        if ($image) : ?>
+                            <div class="form-group">
+                                <label class="control-label">Превью</label>
+                                <div class="">
+                                    <?= $image ?>
+                                </div>
+                            </div>
+                        <?php endif ?>
+                        <?= Html::fileInput('Seo[og_image_id]', '', ['id' => 'seo-og_image_id']) ?>
                     </div>
                 </div>
             <?php endif ?>

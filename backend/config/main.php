@@ -214,6 +214,7 @@ return [
     ],
     'as AccessBehavior' => [
         'class' => developeruz\db_rbac\behaviors\AccessBehavior::className(),
+        'login_url' => '/site/login',
         'rules' =>
             [
                 'site' =>

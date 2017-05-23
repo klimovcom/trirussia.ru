@@ -151,6 +151,28 @@ class Seo extends \yii\db\ActiveRecord
 
     public static function getMeta($key)
     {
+        if (self::$_model) {
+            $seo = Seo::find()->where(['model_name' => self::getModelClass(self::$_model), 'model_id' => self::$_model->id])->one();
+            if ($seo) {
+                $result_string = '';
+                if ($key == 'title') {
+                    $result_string = $seo->title;
+                }
+                if ($key == 'keywords') {
+                    $result_string = $seo->keywords;
+                }
+                if ($key == 'description') {
+                    $result_string = $seo->description;
+                }
+                if ($key == 'og_image') {
+                    $result_string = $seo->og_image_id ? Url::to(\metalguardian\fileProcessor\helpers\FPM::originalSrc($seo->og_image_id), true) : '';
+                }
+                if ($result_string) {
+                    return $result_string;
+                }
+            }
+        }
+
         //static pages
         if (self::isRoute("site", "about") && $config = Configuration::get("seo_about_page_$key"))
             return self::applyReplaces($config);
@@ -289,5 +311,9 @@ class Seo extends \yii\db\ActiveRecord
             return self::applyReplaces($script);
         }
         return '';
+    }
+
+    private static function getModelClass($model) {
+        return (new \ReflectionClass($model))->getShortName();
     }
 }

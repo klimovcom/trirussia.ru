@@ -20,6 +20,8 @@ use yii\widgets\ActiveForm;
 
 		<?= $form->field($seo, 'description')->textarea(['rows' => 6]) ?>
 
+		<?= $form->field($seo, 'og_image_id')->fileInput() ?>
+
 		<div class="form-group">
 			<?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
 		</div>
@@ -39,6 +41,10 @@ use yii\widgets\ActiveForm;
 			<?= Html::label($seo->getAttributeLabel('description'), 'seo-description', ['class' => 'control-label']) ?>
 			<?= Html::textarea('Seo[description]', '', ['id' => 'seo-description', 'class' => 'form-control']) ?>
 		</div>
+		<div class="form-group">
+			<?= Html::label($seo->getAttributeLabel('description'), 'seo-og_image_id', ['class' => 'control-label']) ?>
+			<?= Html::fileInput('Seo[og_image_id]', null, ['id' => 'seo-og_image_id', 'class' => 'form-control']) ?>
+		</div>
 	<?php else : ?>
 		<div class="form-group">
 			<?= Html::label($seo->getAttributeLabel('title'), 'seo-title', ['class' => 'control-label']) ?>
@@ -51,6 +57,10 @@ use yii\widgets\ActiveForm;
 		<div class="form-group">
 			<?= Html::label($seo->getAttributeLabel('description'), 'seo-description', ['class' => 'control-label']) ?>
 			<?= Html::textarea('Seo[description]', $seo->description, ['id' => 'seo-description', 'class' => 'form-control']) ?>
+		</div>
+		<div class="form-group">
+			<?= Html::label($seo->getAttributeLabel('description'), 'seo-og_image_id', ['class' => 'control-label']) ?>
+			<?= Html::fileInput('Seo[og_image_id]', null, ['id' => 'seo-og_image_id', 'class' => 'form-control']) ?>
 		</div>
 	<?php endif ?>
 
