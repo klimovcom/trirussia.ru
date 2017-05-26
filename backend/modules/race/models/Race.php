@@ -127,6 +127,7 @@ class Race extends \yii\db\ActiveRecord
                     'label',
                     'url',
                     'content',
+                    'organizer_label',
                     'sport_id',
                     'start_date',
                 ],
@@ -219,6 +220,7 @@ class Race extends \yii\db\ActiveRecord
             'show_racers_list' => 'Показывать список участников',
             'regulations' => 'Положения о соревновании',
             'traces' => 'Схемы трасс',
+            'organizer_label' => 'Организатор',
         ];
     }
 
