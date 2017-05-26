@@ -336,7 +336,10 @@ $raceDistanceCount = count($raceDistanceArray);
                         'value' => $model->organizer ? $model->organizer->label : '',
                         'data' => ArrayHelper::map(Organizer::find()->orderBy(['label' => SORT_ASC])->all(), 'label', 'label'),
                         'theme' => Select2::THEME_KRAJEE,
-                        'options' => ['placeholder' => '-- Выберите организатора --'],
+                        'options' => [
+                            'placeholder' => '-- Выберите организатора --',
+                            'class' => 'form-control'
+                        ],
                         'pluginOptions' => [
                             'tags' => true,
                             'tokenSeparators' => [','],
