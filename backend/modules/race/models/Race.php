@@ -127,7 +127,6 @@ class Race extends \yii\db\ActiveRecord
                     'label',
                     'url',
                     'content',
-                    'organizer_id',
                     'sport_id',
                     'start_date',
                 ],
