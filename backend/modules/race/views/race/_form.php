@@ -339,7 +339,7 @@ $raceDistanceCount = count($raceDistanceArray);
                         'options' => ['placeholder' => '-- Выберите организатора --'],
                         'pluginOptions' => [
                             'tags' => true,
-                            'tokenSeparators' => [',', ' '],
+                            'tokenSeparators' => [','],
                             'maximumInputLength' => 255
                         ],
                     ]);
