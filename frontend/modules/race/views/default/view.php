@@ -235,7 +235,6 @@ $price = $race->getPriceRepresentation() ? $race->getPriceRepresentation() : Htm
                             <p>Спасибо! Мы учтём ваш ответ в нашей работе.</p>
                             <a href="<?= $race->site; ?>" type="button" class="btn btn-secondary" target="_blank">Перейти на сайт</a>
                         </div>
-                        <hr class="m-y-2">
                     <?php endif;?>
 <!--
 					<p><i class="fa fa-exclamation-circle fa-lg" style="margin-right: 8px;" aria-hidden="true"></i><strong>Страховка для соревнований обязательна</strong></p>
