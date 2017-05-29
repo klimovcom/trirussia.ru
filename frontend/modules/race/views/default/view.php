@@ -237,6 +237,7 @@ $price = $race->getPriceRepresentation() ? $race->getPriceRepresentation() : Htm
                         </div>
                         <hr class="m-y-2">
                     <?php endif;?>
+<!--
 					<p><i class="fa fa-exclamation-circle fa-lg" style="margin-right: 8px;" aria-hidden="true"></i><strong>Страховка для соревнований обязательна</strong></p>
 					<p>Для участия в соревнованиях на территории России необходимо иметь страховку от несчастного случая. Для международных стартов — международную медицинскую страховку. Все страховки электронные, принимаются организаторами и визовыми центрами.</p>
 					<div class="row">
@@ -250,6 +251,7 @@ $price = $race->getPriceRepresentation() ? $race->getPriceRepresentation() : Htm
 						</div>
 					</div>
 					<p class="m-t-2 m-b-0"><img src="https://prosto.insure/img/brand.svg" style="height: 13px; margin-top: -3px;"> — спортивные страховки в онлайне.</p>
+-->
                 </div>
             </div>
         </div>
