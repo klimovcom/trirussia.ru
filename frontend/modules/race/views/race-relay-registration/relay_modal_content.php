@@ -19,7 +19,7 @@ use yii\helpers\ArrayHelper;
         foreach ($raceRelays as $relay) {
             echo Html::beginTag('th', ['class' => 'text-xs-center']);
             echo Html::tag('h6', RaceRelay::getSportArray()[$relay->sport], ['class' => 'sport-caption m-a-0']);
-            echo Html::tag('p', 'Дистанция: ' . $relay->distance, ['class' => 'small m-b-0']);
+            echo Html::tag('p', 'Дистанция: ' . $relay->distance . ' км.', ['class' => 'small m-b-0']);
             echo Html::endTag('th');
         }
         ?>

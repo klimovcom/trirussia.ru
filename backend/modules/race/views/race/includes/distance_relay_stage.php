@@ -10,7 +10,7 @@ $distance_formname = 'RaceDistanceRef[' . $distance_counter .'][relay][' . $rela
         <?= Html::dropDownList($distance_formname . '[sport]', $model->sport, RaceRelay::getSportArray(), ['class' => 'form-control']);?>
     </div>
     <div class="form-group">
-        <div class="control-label">Дистанция (метры)</div>
+        <div class="control-label">Дистанция (км)</div>
         <?= Html::input('text', $distance_formname . '[distance]', $model->distance, ['class' => 'form-control']);?>
     </div>
     <div class="form-group">
