@@ -101,7 +101,7 @@ class RaceRelayRegistrationController extends Controller
                     'race_url' => Url::to(['/race/default/view', 'url' => $first_user->race->url], true),
                 ])
                     ->setFrom('no-reply@trirussia.ru')
-                    ->setTo($first_user->email)
+                    ->setTo($first_user->user->email)
                     ->setSubject('Пользователь оставил заявку на участие в эстафете в вашей команде на соревновании ' . $first_user->race->label)
                     ->send();
             }
