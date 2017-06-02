@@ -139,7 +139,7 @@ class RaceRelayRegistrationController extends Controller
         if ($user_id == $first_registration->user_id) {
 
             if ($raceRegistration->is_first = 1) {
-                $registrationToDelete = RaceRelayRegistration::find()->where(['race_id' => $race_id, 'distance_id' => $distance_id, 'group' => $group])->andWhere(['not' => ['id' => $raceRegistration->user_id]])->all();
+                $registrationToDelete = RaceRelayRegistration::find()->where(['race_id' => $race_id, 'distance_id' => $distance_id, 'group' => $group])->andWhere(['not', ['id' => $raceRegistration->user_id]])->all();
                 foreach ($registrationToDelete as $reg) {
 
                     $raceRelay = RaceRelay::find()->where(['race_id' => $race_id, 'distance_id' => $distance_id, 'position' => $reg->position])->one();
