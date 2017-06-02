@@ -92,7 +92,7 @@ class RaceRelayRegistrationController extends Controller
         if ($registration->save()) {
             if ($sendMessage) {
                 Yii::$app->mailer->compose(['html' => 'race-relay-join'], [
-                    'first_user_name' => $first_user->first_name,
+                    'first_user_name' => $first_user->user->first_name,
                     'user_name' => Yii::$app->user->identity->last_name . ' ' . Yii::$app->user->identity->first_name,
                     'user_email' => Yii::$app->user->identity->email,
                     'race_label' => $first_user->race->label,
