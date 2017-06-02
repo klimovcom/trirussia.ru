@@ -93,8 +93,8 @@ class RaceRelayRegistrationController extends Controller
             if ($sendMessage) {
                 Yii::$app->mailer->compose(['html' => 'race-relay-join'], [
                     'first_user_name' => $first_user->first_name,
-                    'user_name' => Yii::$app->user->last_name . ' ' . Yii::$app->user->first_name,
-                    'user_email' => Yii::$app->user->email,
+                    'user_name' => Yii::$app->user->identity->last_name . ' ' . Yii::$app->user->identity->first_name,
+                    'user_email' => Yii::$app->user->identity->email,
                     'race_label' => $first_user->race->label,
                     'time' => $time,
                     'sport' => RaceRelay::getSportArray()[$raceRelay->sport],
@@ -145,14 +145,14 @@ class RaceRelayRegistrationController extends Controller
                     $raceRelay = RaceRelay::find()->where(['race_id' => $race_id, 'distance_id' => $distance_id, 'position' => $reg->position])->one();
 
                     Yii::$app->mailer->compose(['html' => 'race-relay-join'], [
-                        'first_user_name' => Yii::$app->user->last_name . ' ' . Yii::$app->user->first_name,
+                        'first_user_name' => Yii::$app->user->identity->last_name . ' ' . Yii::$app->user->identity->first_name,
                         'user_name' => $reg->user->first_name,
                         'race_label' => $first_registration->race->label,
                         'sport' => RaceRelay::getSportArray()[$raceRelay->sport],
                         'race_url' => Url::to(['/race/default/view', 'url' => $first_registration->race->url], true),
                     ])
                         ->setFrom('no-reply@trirussia.ru')
-                        ->setTo(Yii::$app->user->email)
+                        ->setTo(Yii::$app->user->identity->email)
                         ->setSubject('Капитан удалил вас с этапа эстафеты ' . $first_registration->race->label)
                         ->send();
                 }
@@ -161,14 +161,14 @@ class RaceRelayRegistrationController extends Controller
                 $raceRelay = RaceRelay::find()->where(['race_id' => $race_id, 'distance_id' => $distance_id, 'position' => $raceRegistration->position])->one();
 
                 Yii::$app->mailer->compose(['html' => 'race-relay-join'], [
-                    'first_user_name' => Yii::$app->user->last_name . ' ' . Yii::$app->user->first_name,
+                    'first_user_name' => Yii::$app->user->identity->last_name . ' ' . Yii::$app->user->identity->first_name,
                     'user_name' => $raceRegistration->user->first_name,
                     'race_label' => $first_registration->race->label,
                     'sport' => RaceRelay::getSportArray()[$raceRelay->sport],
                     'race_url' => Url::to(['/race/default/view', 'url' => $first_registration->race->url], true),
                 ])
                     ->setFrom('no-reply@trirussia.ru')
-                    ->setTo(Yii::$app->user->email)
+                    ->setTo(Yii::$app->user->identity->email)
                     ->setSubject('Капитан удалил вас с этапа эстафеты ' . $first_registration->race->label)
                     ->send();
 
