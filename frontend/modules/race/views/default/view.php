@@ -175,7 +175,7 @@ $price = $race->getPriceRepresentation() ? $race->getPriceRepresentation() : Htm
 
                             echo Html::endTag('div');
 
-                            if ($i == 3) {
+                            if ($i == 1) {
                                 echo Html::endTag('div');
                                 echo Html::tag('hr');
                                 $i = 0;
