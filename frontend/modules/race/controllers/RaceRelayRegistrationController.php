@@ -144,7 +144,7 @@ class RaceRelayRegistrationController extends Controller
 
                     $raceRelay = RaceRelay::find()->where(['race_id' => $race_id, 'distance_id' => $distance_id, 'position' => $reg->position])->one();
 
-                    Yii::$app->mailer->compose(['html' => 'race-relay-join'], [
+                    Yii::$app->mailer->compose(['html' => 'race-relay-deleted'], [
                         'first_user_name' => Yii::$app->user->identity->last_name . ' ' . Yii::$app->user->identity->first_name,
                         'user_name' => $reg->user->first_name,
                         'race_label' => $first_registration->race->label,
@@ -160,7 +160,7 @@ class RaceRelayRegistrationController extends Controller
             }else {
                 $raceRelay = RaceRelay::find()->where(['race_id' => $race_id, 'distance_id' => $distance_id, 'position' => $raceRegistration->position])->one();
 
-                Yii::$app->mailer->compose(['html' => 'race-relay-join'], [
+                Yii::$app->mailer->compose(['html' => 'race-relay-deleted'], [
                     'first_user_name' => Yii::$app->user->identity->last_name . ' ' . Yii::$app->user->identity->first_name,
                     'user_name' => $raceRegistration->user->first_name,
                     'race_label' => $first_registration->race->label,
