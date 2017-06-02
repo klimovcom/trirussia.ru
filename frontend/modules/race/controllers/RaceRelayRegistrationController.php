@@ -152,7 +152,7 @@ class RaceRelayRegistrationController extends Controller
                         'race_url' => Url::to(['/race/default/view', 'url' => $first_registration->race->url], true),
                     ])
                         ->setFrom('no-reply@trirussia.ru')
-                        ->setTo(Yii::$app->user->identity->email)
+                        ->setTo($reg->user->email)
                         ->setSubject('Капитан удалил вас с этапа эстафеты ' . $first_registration->race->label)
                         ->send();
                 }
@@ -169,7 +169,7 @@ class RaceRelayRegistrationController extends Controller
                         'race_url' => Url::to(['/race/default/view', 'url' => $first_registration->race->url], true),
                     ])
                         ->setFrom('no-reply@trirussia.ru')
-                        ->setTo(Yii::$app->user->identity->email)
+                        ->setTo($raceRegistration->user->email)
                         ->setSubject('Капитан удалил вас с этапа эстафеты ' . $first_registration->race->label)
                         ->send();
                 }
