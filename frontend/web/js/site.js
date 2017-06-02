@@ -424,7 +424,7 @@ $(document).ready(function(){
 
     $(document).on('click', '.race-register', function(e) {
         var race_id = $(this).attr('data-race-id');
-        var distance_id = $(this).attr('data-distance_id');
+        var distance_id = $(this).attr('data-distance-id');
         var type = $(this).attr('data-type');
         var $this = $(this);
         $.ajax({
@@ -451,7 +451,93 @@ $(document).ready(function(){
                 alert('Ошибка сервера, повторите позднее');
             }
         });
-    })
+    });
+
+    $(document).on('click', '.btn-race-relay-register', function() {
+        var race_id = $(this).data('race-id');
+        var distance_id = $(this).data('distance-id');
+        var $block = $('#race-relay-register-modal-content');
+        $.post(
+            '/race/race-relay-registration/get-relay-modal',
+            {
+                race_id : race_id,
+                distance_id : distance_id
+            },
+            function(response) {
+                $block.html(response);
+                $('#race-relay-register-modal').modal();
+            }
+        );
+    });
+
+    $(document).on('click', '.btn-race-relay-modal-show-time', function() {
+        var group = $(this).data('group');
+        var position = $(this).data('position');
+
+        $(this).hide();
+        $('.race-relay-modal-form-' + group + '-' + position).show();
+    });
+
+    $(document).on('click', '.btn-race-relay-modal-register', function() {
+        var race_id = $(this).data('race-id');
+        var distance_id = $(this).data('distance-id');
+        var position = $(this).data('position');
+        var group = $(this).data('group');
+        var time = $('#race-relay-modal-time-' + group + '-' + position).val();
+
+        var $block = $('#race-relay-register-modal-content');
+
+        $.post(
+            '/race/race-relay-registration/create',
+            {
+                race_id : race_id,
+                distance_id : distance_id,
+                position : position,
+                group : group,
+                time : time
+            },
+            function(response) {
+                response = JSON.parse(response);
+                if (response['status'] == 'error') {
+                    $('.race-relay-modal-form').hide();
+                    $('.btn-race-relay-modal-show-time').show();
+
+                    showRaceRelayModalAlert(response['message']);
+                }else {
+                    $block.html(response['message']);
+                }
+            }
+        );
+    });
+
+    $(document).on('click', '.btn-race-relay-modal-unregister', function() {
+        var race_id = $(this).data('race-id');
+        var distance_id = $(this).data('distance-id');
+        var position = $(this).data('position');
+        var group = $(this).data('group');
+        var $block = $('#race-relay-register-modal-content');
+        $.post(
+            '/race/race-relay-registration/delete',
+            {
+                race_id : race_id,
+                distance_id : distance_id,
+                position : position,
+                group : group
+            },
+            function(response) {
+                response = JSON.parse(response);
+                if (response['status'] == 'error') {
+                    showRaceRelayModalAlert(response['message']);
+                }else {
+                    $block.html(response['message']);
+                }
+            }
+        );
+    });
+
+    $(document).on('click', '#race-relay-modal-alert-close', function() {
+        $('#race-relay-modal-alert').hide();
+    });
 });
 
 jQuery(document).ready(function($){
@@ -626,4 +712,9 @@ function initFancybox() {
         $.fancybox.open(srcArray, {
         }, index);
     });
+}
+
+function showRaceRelayModalAlert(message) {
+    $('#race-relay-modal-alert-content').html(message);
+    $('#race-relay-modal-alert').show();
 }

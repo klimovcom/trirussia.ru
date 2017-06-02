@@ -227,6 +227,10 @@ return [
                 'race/api/index' => 'race/api/index',
                 'race/api/view/<id>' => 'race/api/view',
 
+                'race/race-relay-registration/get-relay-modal' => 'race/race-relay-registration/get-relay-modal',
+                'race/race-relay-registration/create' => 'race/race-relay-registration/create',
+                'race/race-relay-registration/delete' => 'race/race-relay-registration/delete',
+
                 '/search-races' => '/site/search-races',
 
                 'shop' => 'product/default/index',

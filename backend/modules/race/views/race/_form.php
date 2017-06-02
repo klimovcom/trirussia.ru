@@ -175,6 +175,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 $raceDistanceArray = $model->raceDistanceRefs;
 $raceDistanceCount = count($raceDistanceArray);
+$model->organizer_label = $model->organizer ? $model->organizer->label : '';
 ?>
 
 <div class="race-form">
@@ -329,7 +330,6 @@ $raceDistanceCount = count($raceDistanceArray);
             </div>
             <div class="col-md-6">
                 <?= $form->field($model, 'organizer_label')->widget(Select2::className(), [
-                    'value' => $model->organizer ? $model->organizer->label : '',
                     'data' => ArrayHelper::map(Organizer::find()->orderBy(['label' => SORT_ASC])->all(), 'label', 'label'),
                     'theme' => Select2::THEME_KRAJEE,
                     'options' => ['placeholder' => '-- Выберите организатора --'],
