@@ -148,44 +148,45 @@ $price = $race->getPriceRepresentation() ? $race->getPriceRepresentation() : Htm
                     }
 
                     $i = 0;
-                    foreach ($raceDistancesRelay as $raceDistance) {
-                        if ($i == 0) {
-                            echo Html::beginTag('div', ['class' => 'row']);
+                    if (is_array($raceDistancesRelay)) {
+                        foreach ($raceDistancesRelay as $raceDistance) {
+                            if ($i == 0) {
+                                echo Html::beginTag('div', ['class' => 'row']);
+                            }
+
+                            echo Html::beginTag('div', ['class' => 'col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6']);
+                            echo Html::tag('p', Html::tag('strong', $raceDistance->distance->label), ['class' => 'm-b-0']);
+                            echo Html::tag('p', $raceDistance->price ? $raceDistance->price  . ' ' . $race->getCurrencyRepresentation() : $price, ['class' => 'small m-b-0']);
+                            echo Html::beginTag('p', ['class' => 'small m-b-0']);
+                            echo 'Эстафета';
+                            echo Html::endTag('p');
+
+                            echo Html::beginTag('p', ['class' => 'small m-t-1 m-b-0']);
+
+                            if (Yii::$app->user->id) {
+                                echo 'У меня нет команды: ' . Html::a('Хочу в эстафету', 'javascript:;', ['class' => 'dotted btn-race-relay-register', 'data-distance-id' => $raceDistance->distance->id, 'data-race-id' => $race->id]);
+                            }else {
+                                echo 'У меня нет команды: ' . Html::a('Хочу в эстафету', 'javascript:;', ['class' => 'dotted', 'data-toggle' => 'modal', 'data-target' => '#openUser']);
+                            }
+
+                            echo Html::endTag('p');
+
+                            echo Html::endTag('div');
+
+                            if ($i == 3) {
+                                echo Html::endTag('div');
+                                echo Html::tag('hr');
+                                $i = 0;
+                            }else {
+                                $i++;
+                            }
                         }
 
-                        echo Html::beginTag('div', ['class' => 'col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6']);
-                        echo Html::tag('p', Html::tag('strong', $raceDistance->distance->label), ['class' => 'm-b-0']);
-                        echo Html::tag('p', $raceDistance->price ? $raceDistance->price  . ' ' . $race->getCurrencyRepresentation() : $price, ['class' => 'small m-b-0']);
-                        echo Html::beginTag('p', ['class' => 'small m-b-0']);
-                        echo 'Эстафета';
-                        echo Html::endTag('p');
-
-                        echo Html::beginTag('p', ['class' => 'small m-t-1 m-b-0']);
-
-                        if (Yii::$app->user->id) {
-                            echo 'У меня нет команды: ' . Html::a('Хочу в эстафету', 'javascript:;', ['class' => 'dotted btn-race-relay-register', 'data-distance-id' => $raceDistance->distance->id, 'data-race-id' => $race->id]);
-                        }else {
-                            echo 'У меня нет команды: ' . Html::a('Хочу в эстафету', 'javascript:;', ['class' => 'dotted', 'data-toggle' => 'modal', 'data-target' => '#openUser']);
-                        }
-
-                        echo Html::endTag('p');
-
-                        echo Html::endTag('div');
-
-                        if ($i == 3) {
+                        if ($i != 0) {
                             echo Html::endTag('div');
                             echo Html::tag('hr');
-                            $i = 0;
-                        }else {
-                            $i++;
                         }
                     }
-
-                    if ($i != 0) {
-                        echo Html::endTag('div');
-                        echo Html::tag('hr');
-                    }
-
                     ?>
                     <div class="pull-left hidden-sm-down">
                         <div class="likely">
