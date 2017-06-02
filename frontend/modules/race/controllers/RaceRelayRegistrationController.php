@@ -74,7 +74,7 @@ class RaceRelayRegistrationController extends Controller
             }
 
             $first_user = RaceRelayRegistration::find()->where(['race_id' => $race_id, 'distance_id' => $distance_id, 'is_first' => 1, 'group' => $group])->one();
-            if ($first_user->id !== $user_id) {
+            if ($first_user->user->id !== $user_id) {
                 $sendMessage = true;
             }
 
