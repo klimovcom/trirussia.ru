@@ -17,7 +17,6 @@ class RaceRelayRegistrationController extends Controller
 
     public function actionCreate() {
         $user_id = Yii::$app->user->id;
-        $user_id = 1;
 
         $sendMessage = false;
 
