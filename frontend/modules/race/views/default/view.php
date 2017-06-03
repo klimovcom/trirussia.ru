@@ -155,7 +155,7 @@ $price = $race->getPriceRepresentation() ? $race->getPriceRepresentation() : Htm
 
                             echo Html::beginTag('p', ['class' => 'small m-t-1 m-b-0']);
 
-                            if (/*Yii::$app->user->id*/1) {
+                            if (Yii::$app->user->id) {
                                 echo 'У меня нет команды: ' . Html::a('Хочу в эстафету', 'javascript:;', ['class' => 'dotted btn-race-relay-register', 'data-distance-id' => $raceDistance->distance->id, 'data-race-id' => $race->id]);
                             }else {
                                 echo 'У меня нет команды: ' . Html::a('Хочу в эстафету', 'javascript:;', ['class' => 'dotted', 'data-toggle' => 'modal', 'data-target' => '#openUser']);
