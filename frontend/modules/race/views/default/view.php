@@ -149,9 +149,6 @@ $price = $race->getPriceRepresentation() ? $race->getPriceRepresentation() : Htm
                             echo Html::beginTag('div', ['class' => $raceDistanceRelayItemClass]);
                             echo Html::tag('p', Html::tag('strong', $raceDistance->distance->label), ['class' => 'm-b-0']);
                             echo Html::tag('p', $raceDistance->price ? $raceDistance->price  . ' ' . $race->getCurrencyRepresentation() : $price, ['class' => 'small m-b-0']);
-                            echo Html::beginTag('p', ['class' => 'small m-b-0']);
-                            echo 'Эстафета';
-                            echo Html::endTag('p');
 
                             echo Html::beginTag('p', ['class' => 'small m-t-1 m-b-0']);
 
