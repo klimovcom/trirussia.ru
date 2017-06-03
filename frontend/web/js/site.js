@@ -422,6 +422,16 @@ $(document).ready(function(){
         perspective: 1000
     });
 
+    $('.race-relay-modal-time').mask('Z0:Z0', {
+        placeholder: "__:__",
+        translation: {
+            'Z': {
+                pattern: /[0-5]/,
+                optional: false
+            }
+        }
+    });
+
     $(document).on('click', '.race-register', function(e) {
         var race_id = $(this).attr('data-race-id');
         var distance_id = $(this).attr('data-distance-id');

@@ -14,7 +14,7 @@ echo Html::beginTag('fieldset', ['class' => 'form-group m-b-0']);
 echo Html::label('Ваше время', 'race-relay-modal-time' . $classSuffix, ['class' => 'small']);
 echo Html::textInput('', null, [
     'id' => 'race-relay-modal-time' . $classSuffix,
-    'class' => 'form-control',
+    'class' => 'form-control race-relay-modal-time',
 ]);
 echo Html::endTag('fieldset');
 

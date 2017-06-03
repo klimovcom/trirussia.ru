@@ -69,94 +69,84 @@ $price = $race->getPriceRepresentation() ? $race->getPriceRepresentation() : Htm
                     $raceDistances = $race->raceDistanceRefs;
                     $raceDistancesRaces = ArrayHelper::getValue(ArrayHelper::index($raceDistances, null, 'type'), \race\models\RaceDistanceRef::TYPE_RACE);
                     $raceDistancesRelay = ArrayHelper::getValue(ArrayHelper::index($raceDistances, null, 'type'), \race\models\RaceDistanceRef::TYPE_RELAY);
-
-                    $i = 0;
-                    if (is_array($raceDistancesRaces)) {
-                        foreach ($raceDistancesRaces as $raceDistance) {
-                            if ($i == 0) {
-                                echo Html::beginTag('div', ['class' => 'row']);
-                            }
-
-                            echo Html::beginTag('div', ['class' => 'col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3']);
-                            echo Html::tag('p', Html::tag('strong', $raceDistance->distance->label), ['class' => 'm-b-0']);
-                            echo Html::tag('p', $raceDistance->price ? $raceDistance->price  . ' ' . $race->getCurrencyRepresentation() : $price, ['class' => 'small m-b-0']);
-                            echo Html::beginTag('p', ['class' => 'small m-b-0']);
-
-                            if ($race->with_registration) {
-                                $is_registered = $race->isUserRegister($raceDistance->distance_id, $raceDistance->type);
-                                switch ($race->register_status) {
-                                    case Race::REGISTER_STATUS_OPEN :
-                                        if ($is_registered) {
-                                            echo Html::tag('span', 'Вы уже зарегистрированы');
-                                        }else {
-                                            if (Yii::$app->user->isGuest) {
-                                                echo Html::a('Зарегистрироваться', 'javascript:;', ['class' => 'underline', 'data-toggle' => 'modal', 'data-target' => '#openUser']);
-                                            }else {
-                                                echo Html::a('Зарегистрироваться', 'javascript:;',['class' => 'underline race-register', 'data-race-id' => $race->id, 'data-distance-id' => $raceDistance->distance_id, 'data-type' => $raceDistance->type]);
-                                            }
-                                        }
-                                        break;
-                                    case Race::REGISTER_STATUS_CANCELED :
-                                        echo Html::tag('span', 'Регистрация отменена');
-                                        break;
-                                    case Race::REGISTER_STATUS_CLOSED :
-                                        echo $is_registered ? Html::tag('span', 'Вы уже зарегистрированны') : Html::tag('span', 'Регистрация окончена');
-                                        break;
-                                    case Race::REGISTER_STATUS_PAUSED :
-                                        echo $is_registered ? Html::tag('span', 'Вы уже зарегистрированны') : Html::tag('span', 'Регистрация временно приостановлена');
-                                        break;
-
-                                }
-                            }
-                            echo Html::endTag('p');
-
-                            echo Html::endTag('div');
-
-                            if ($i == 3) {
-                                echo Html::endTag('div');
-                                echo Html::tag('hr');
-                                $i = 0;
-                            }else {
-                                $i++;
-                            }
-                        }
-                    }
-
                     $specialDistanceArray = $race->special_distance ? explode(',', $race->special_distance) : [];
-                    if (count($specialDistanceArray)) {
-                        foreach ($specialDistanceArray as $distance) {
-                            if ($i == 0) {
-                                echo Html::beginTag('div', ['class' => 'row']);
-                            }
 
-                            echo Html::beginTag('div', ['class' => 'col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3']);
-                            echo Html::tag('p', Html::tag('strong', $distance), ['class' => 'm-b-0']);
-                            echo Html::tag('p', $price, ['class' => 'small m-b-0']);
-                            echo Html::endTag('div');
+                    if ((count($raceDistancesRaces) || count($specialDistanceArray)) && count($raceDistancesRelay)) {
+                        $raceDistanceClass = 'col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6';
+                        $raceDistanceItemClass = 'col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 m-b-1';
+                        $raceDistanceRelayItemClass = 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 m-b-1';
+                    }else {
+                        $raceDistanceClass = 'col-xs-12';
+                        $raceDistanceItemClass = 'col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 m-b-1';
+                        $raceDistanceRelayItemClass = 'col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 m-b-1';
+                    }
 
-                            if ($i == 3) {
+                    echo Html::beginTag('div', ['class' => 'row']);
+
+                    if (count($raceDistancesRaces) || count($specialDistanceArray)) {
+
+                        echo Html::beginTag('div', ['class' => $raceDistanceClass]);
+                        echo Html::tag('p', Html::tag('i', 'Индвивидуальные гонки'),['class' => 'PTSerif']);
+                        echo Html::beginTag('div', ['class' => 'row']);
+
+                        if (is_array($raceDistancesRaces)) {
+                            foreach ($raceDistancesRaces as $raceDistance) {
+
+                                echo Html::beginTag('div', ['class' => $raceDistanceItemClass]);
+                                echo Html::tag('p', Html::tag('strong', $raceDistance->distance->label), ['class' => 'm-b-0']);
+                                echo Html::tag('p', $raceDistance->price ? $raceDistance->price  . ' ' . $race->getCurrencyRepresentation() : $price, ['class' => 'small m-b-0']);
+                                echo Html::beginTag('p', ['class' => 'small m-b-0']);
+
+                                if ($race->with_registration) {
+                                    $is_registered = $race->isUserRegister($raceDistance->distance_id, $raceDistance->type);
+                                    switch ($race->register_status) {
+                                        case Race::REGISTER_STATUS_OPEN :
+                                            if ($is_registered) {
+                                                echo Html::tag('span', 'Вы уже зарегистрированы');
+                                            }else {
+                                                if (Yii::$app->user->isGuest) {
+                                                    echo Html::a('Зарегистрироваться', 'javascript:;', ['class' => 'underline', 'data-toggle' => 'modal', 'data-target' => '#openUser']);
+                                                }else {
+                                                    echo Html::a('Зарегистрироваться', 'javascript:;',['class' => 'underline race-register', 'data-race-id' => $race->id, 'data-distance-id' => $raceDistance->distance_id, 'data-type' => $raceDistance->type]);
+                                                }
+                                            }
+                                            break;
+                                        case Race::REGISTER_STATUS_CANCELED :
+                                            echo Html::tag('span', 'Регистрация отменена');
+                                            break;
+                                        case Race::REGISTER_STATUS_CLOSED :
+                                            echo $is_registered ? Html::tag('span', 'Вы уже зарегистрированны') : Html::tag('span', 'Регистрация окончена');
+                                            break;
+                                        case Race::REGISTER_STATUS_PAUSED :
+                                            echo $is_registered ? Html::tag('span', 'Вы уже зарегистрированны') : Html::tag('span', 'Регистрация временно приостановлена');
+                                            break;
+
+                                    }
+                                }
+                                echo Html::endTag('p');
                                 echo Html::endTag('div');
-                                echo Html::tag('hr');
-                                $i = 0;
-                            }else {
-                                $i++;
                             }
                         }
-                    }
 
-                    if ($i != 0) {
-                        echo Html::endTag('div');
-                        echo Html::tag('hr');
-                    }
-
-                    $i = 0;
-                    if (is_array($raceDistancesRelay)) {
-                        foreach ($raceDistancesRelay as $raceDistance) {
-                            if ($i == 0) {
-                                echo Html::beginTag('div', ['class' => 'row']);
+                        if (count($specialDistanceArray)) {
+                            foreach ($specialDistanceArray as $distance) {
+                                echo Html::beginTag('div', ['class' => $raceDistanceItemClass]);
+                                echo Html::tag('p', Html::tag('strong', $distance), ['class' => 'm-b-0']);
+                                echo Html::tag('p', $price, ['class' => 'small m-b-0']);
+                                echo Html::endTag('div');
                             }
+                        }
+                        echo Html::endTag('div');
+                        echo Html::endTag('div');
+                    }
 
-                            echo Html::beginTag('div', ['class' => 'col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6']);
+                    if (is_array($raceDistancesRelay)) {
+                        echo Html::beginTag('div', ['class' => $raceDistanceClass]);
+                        echo Html::tag('p', Html::tag('i', 'Эстафеты'),['class' => 'PTSerif']);
+                        echo Html::beginTag('div', ['class' => 'row']);
+
+                        foreach ($raceDistancesRelay as $raceDistance) {
+                            echo Html::beginTag('div', ['class' => $raceDistanceRelayItemClass]);
                             echo Html::tag('p', Html::tag('strong', $raceDistance->distance->label), ['class' => 'm-b-0']);
                             echo Html::tag('p', $raceDistance->price ? $raceDistance->price  . ' ' . $race->getCurrencyRepresentation() : $price, ['class' => 'small m-b-0']);
                             echo Html::beginTag('p', ['class' => 'small m-b-0']);
@@ -170,24 +160,18 @@ $price = $race->getPriceRepresentation() ? $race->getPriceRepresentation() : Htm
                             }else {
                                 echo 'У меня нет команды: ' . Html::a('Хочу в эстафету', 'javascript:;', ['class' => 'dotted', 'data-toggle' => 'modal', 'data-target' => '#openUser']);
                             }
-
                             echo Html::endTag('p');
 
                             echo Html::endTag('div');
-
-                            if ($i == 1) {
-                                echo Html::endTag('div');
-                                echo Html::tag('hr');
-                                $i = 0;
-                            }else {
-                                $i++;
-                            }
                         }
 
-                        if ($i != 0) {
-                            echo Html::endTag('div');
-                            echo Html::tag('hr');
-                        }
+                        echo Html::endTag('div');
+                        echo Html::endTag('div');
+                    }
+                    echo Html::endTag('div');
+
+                    if (count($raceDistancesRaces) || count($specialDistanceArray) || count($raceDistancesRelay)) {
+                        echo Html::tag('hr');
                     }
                     ?>
                     <div class="pull-left hidden-sm-down">

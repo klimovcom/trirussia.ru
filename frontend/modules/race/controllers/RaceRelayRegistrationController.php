@@ -36,8 +36,8 @@ class RaceRelayRegistrationController extends Controller
         $time = Yii::$app->request->post('time');
         $is_first = 0;
 
-        if (!$time) {
-            $result['message'] = 'Введите время за которое вы пройдете этап';
+        if (preg_match('/^([0-5]\d):([0-5]\d)$/', $time) == 0) {
+            $result['message'] = 'Введите корректное время';
             return Json::encode($result);
         }
 

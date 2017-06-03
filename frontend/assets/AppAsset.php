@@ -29,6 +29,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         '/js/jquery-match-height.js',
+        '/js/jquery.mask.js',
         '/js/modernizr.js',
         '/js/tilt.jquery.js',
         '/js/jquery.lazyload.min.js',
