@@ -51,6 +51,9 @@ class DefaultController extends Controller
         if (count($relatedModels) != 4) {
             $relatedModels = Camp::find()->where(['>=', 'date_start', date('Y-m-d', time())])->andWhere(['not', ['id' => $model->id]])->published()->limit(4)->all();
         }
+
+        Seo::registerModel($model);
+
         return $this->render('view', [
             'model' => $model,
             'relatedModels' => $relatedModels,
