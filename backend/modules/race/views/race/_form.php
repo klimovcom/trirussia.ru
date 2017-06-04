@@ -347,11 +347,6 @@ $model->organizer_label = $model->organizer ? $model->organizer->label : '';
         <div class="row">
             <div class="col-xs-12">
                 <h4>Дистанции</h4>
-                <div class="row">
-                    <div class="col-md-5">Дистанция</div>
-                    <div class="col-md-3">Тип</div>
-                    <div class="col-md-3">Цена (0 или пустое поле - используем цену гонки)</div>
-                </div>
             </div>
             <div id="race-distance-list" class="col-xs-12" data-count="<?= $raceDistanceCount;?>">
                 <?php
