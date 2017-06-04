@@ -20,11 +20,12 @@ if (Yii::$app->user->isGuest) {
  * @var $race \race\models\Race
  */
 $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"' : '';
+$itemClass = isset($itemClass) ? $itemClass : 'grid-item col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4';
 ?>
 <?php if ($showSizer):?>
     <div class="grid-sizer col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
 <?php endif;?>
-<div class="grid-item col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+<div class="<?= $itemClass;?>">
     <div class="card">
         <div class="card-header white bg-gr-<?=$race->getSportClass();?>">
             <div class="pull-left">
