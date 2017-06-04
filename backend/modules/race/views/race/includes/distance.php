@@ -44,5 +44,5 @@ use race\models\RaceDistanceRef;
             'distance_counter' => $counter,
         ]);
     }?>
+    <hr>
 </div>
-<hr>
