@@ -24,6 +24,7 @@ die();*/
                     'model' => $model,
                     'data' => \yii\helpers\ArrayHelper::map(\distance\models\DistanceCategory::find()->all(), 'id', 'label'),
                     'value' => $model->getCategoriesArrayValues(),
+                    'theme' => 'default',
                     'options' => [ 'placeholder' => 'Выберите категории', 'multiple' => true, ],
                     'pluginOptions' => [
                         'tags' => true,

@@ -19,9 +19,11 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-
-       '/plugins/tag-it/css/jquery.tagit.css',
-       '/plugins/tag-it/css/tagit.ui-zendesk.css',
+        '/plugins/select2/select2.min.css',
+        '/plugins/tag-it/css/jquery.tagit.css',
+        '/plugins/tag-it/css/tagit.ui-zendesk.css',
+        '/css/AdminLTE.min.css',
+        '/css/skins/skin-blue.min.css',
     ];
     public $js = [
         /*'/plugins/jQuery/jQuery-2.1.4.min.js',*/

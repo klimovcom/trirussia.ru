@@ -19,8 +19,6 @@ $this->registerCssFile('https://code.ionicframework.com/ionicons/2.0.1/css/ionic
 $this->registerCssFile('/plugins/select2/select2.min.css');
 $this->registerCssFile('/plugins/timepicker/bootstrap-timepicker.min.css');
 $this->registerCssFile('/plugins/datatables/dataTables.bootstrap.css');
-$this->registerCssFile('/css/AdminLTE.min.css');
-$this->registerCssFile('/css/skins/skin-blue.min.css');
 $this->registerCssFile('/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css');
 $this->registerCssFile('/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css');
 $this->registerCssFile('/css/site.css');

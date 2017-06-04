@@ -212,6 +212,7 @@ $model->organizer_label = $model->organizer ? $model->organizer->label : '';
                 echo $form->field($model, 'author_id')->widget(\kartik\select2\Select2::classname(), [
                     'data' => $authorData,
                     'language' => 'ru',
+                    'theme' => 'default',
                     'options' => ['placeholder' => 'Выберите пользователя'],
                     'pluginOptions' => [
                         'allowClear' => true
@@ -331,7 +332,7 @@ $model->organizer_label = $model->organizer ? $model->organizer->label : '';
             <div class="col-md-6">
                 <?= $form->field($model, 'organizer_label')->widget(Select2::className(), [
                     'data' => ArrayHelper::map(Organizer::find()->orderBy(['label' => SORT_ASC])->all(), 'label', 'label'),
-                    'theme' => Select2::THEME_KRAJEE,
+                    'theme' => 'default',
                     'options' => ['placeholder' => '-- Выберите организатора --'],
                     'pluginOptions' => [
                         'tags' => true,
@@ -438,6 +439,7 @@ $model->organizer_label = $model->organizer ? $model->organizer->label : '';
                 'name'
             ),
             'value' => $model->tristats_race_id,
+            'theme' => 'default',
             'options' => [
                 'placeholder' => 'Выберите гонку',
                 'multiple' => false,

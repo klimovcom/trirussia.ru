@@ -37,6 +37,7 @@ use yii\widgets\ActiveForm;
                 echo $form->field($model, 'author_id')->widget(\kartik\select2\Select2::classname(), [
                     'data' => $authorData,
                     'language' => 'ru',
+                    'theme' => 'default',
                     'options' => ['placeholder' => 'Выберите пользователя'],
                     'pluginOptions' => [
                         'allowClear' => true
@@ -111,6 +112,7 @@ use yii\widgets\ActiveForm;
                     'model' => $model,
                     'data' =>  \yii\helpers\ArrayHelper::map(\sport\models\Sport::find()->all(), 'id', 'label'),
                     'value' => $model->getSpecializationArrayValues(),
+                    'theme' => 'default',
                     'options' => [ 'placeholder' => 'Выберите специализации', 'multiple' => true, ],
                     'pluginOptions' => [
                         'tags' => true,

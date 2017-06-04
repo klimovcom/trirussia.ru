@@ -230,6 +230,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
             'model' => $model,
             'data' => \yii\helpers\ArrayHelper::map(\sport\models\Sport::find()->all(), 'id', 'label'),
             'value' => \yii\helpers\ArrayHelper::getColumn($model->sports, 'id'),
+            'theme' => 'default',
             'options' => [ 'placeholder' => 'Выберите виды спорта', 'multiple' => true, ],
             'pluginOptions' => [
                 'tags' => true,
@@ -273,7 +274,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
                 'name' => $model->formName() . '[organizer_label]',
                 'value' => $model->organizer ? $model->organizer->label : '',
                 'data' => ArrayHelper::map(Organizer::find()->orderBy(['label' => SORT_ASC])->all(), 'label', 'label'),
-                'theme' => Select2::THEME_KRAJEE,
+                'theme' => 'default',
                 'options' => ['placeholder' => '-- Выберите организатора --'],
                 'pluginOptions' => [
                     'tags' => true,

@@ -34,6 +34,7 @@ use yii\helpers\Url;
                 <?= $form->field($model, 'author_id')->widget(\kartik\select2\Select2::classname(), [
                     'data' => \user\models\User::getAuthorData(),
                     'language' => 'ru',
+                    'theme' => 'default',
                     'options' => ['placeholder' => 'Выберите пользователя'],
                     'pluginOptions' => [
                         'allowClear' => true
