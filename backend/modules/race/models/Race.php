@@ -17,6 +17,7 @@ use omgdef\multilingual\MultilingualQuery;
 use organizer\models\Organizer;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\helpers\VarDumper;
 use omgdef\multilingual\MultilingualTrait;
 use yii\validators\FileValidator;
@@ -52,6 +53,7 @@ use yii\web\UploadedFile;
  * @property string $special_distance
  * @property integer $display_type
  * @property integer $popularity
+ * @property integer $is_sended_email_to_author
  */
 
 class RaceQuery extends \yii\db\ActiveQuery {
@@ -143,6 +145,7 @@ class Race extends \yii\db\ActiveRecord
                     'popularity',
                     'tristats_race_id',
                     'with_registration', 'register_status', 'racers_limit', 'show_racers_list',
+                    'is_sended_email_to_author',
                 ],
                 'integer'
             ],
@@ -298,6 +301,8 @@ class Race extends \yii\db\ActiveRecord
         $this->saveOrganizer();
 
         $this->uploadImage();
+        $this->sendEmailToAuthor();
+
         return true;
     }
 
@@ -569,5 +574,20 @@ class Race extends \yii\db\ActiveRecord
             $organizer->save();
         }
         $this->organizer_id = $organizer->id;
+    }
+
+    public function sendEmailToAuthor() {
+        if ($this->published && !$this->is_sended_email_to_author) {
+            Yii::$app->mailer->compose(['html' => 'organizer_race_published'], [
+                'label' => $this->label,
+                'url' => 'http://www.trirussia.ru/race/' . $this->url,
+            ])
+                ->setFrom('no-reply@trirussia.ru')
+                ->setTo($this->author->email)
+                ->setSubject('Ваше соревнование ' . $this->label . ' успешно опубликовано в календаре на сайте TriRussia.ru')
+                ->send();
+
+            $this->is_sended_email_to_author = 1;
+        }
     }
 }
