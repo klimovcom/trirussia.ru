@@ -19,16 +19,14 @@ $this->registerJs("$(function() {
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
             <div class="row">
-                <div class="grid">
-                    <?php foreach ($races as $race){
-                        print $this->render('//site/_card', [
-                            'race' => $race,
-                            'showImage' => false,
-                            'showAdditionalBlocks' => false,
-                            'showSizer' => false,
-                        ]);
-                    }?>
-                </div>
+                <?php foreach ($races as $race){
+                    print $this->render('//site/_card', [
+                        'race' => $race,
+                        'showImage' => false,
+                        'showAdditionalBlocks' => false,
+                        'showSizer' => false,
+                    ]);
+                }?>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 sidebar">
