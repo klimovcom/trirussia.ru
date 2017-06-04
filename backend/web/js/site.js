@@ -303,14 +303,14 @@ $(document).ready(function(){
         var index = $(this).data('block');
         // type = relay
         if ($(this).val() == 1) {
-            var $block = $('#race-distance-list-item-' + index);
+            var $block = $('#race-distance-list-item-row-' + index);
             $.post(
                 '/race/race/get-relay-wrap',
                 {
                     distance_counter : index
                 },
                 function(response) {
-                    $block.append(response);
+                    response.insertAfter($block);
                 }
             )
         }else {

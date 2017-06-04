@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use race\models\RaceDistanceRef;
 ?>
 <div class="form-group" id="race-distance-list-item-<?=$counter;?>">
-    <div class="row">
+    <div id="race-distance-list-item-row-<?=$counter;?>" class="row">
         <div class="col-md-3">
             <div class="form-group">
                 <label class="control-label" for="race-distance-list-item-distance-<?=$counter;?>">Дистанция</label>
