@@ -8,59 +8,27 @@ use yii\helpers\ArrayHelper;
  * User: alfred
  * Date: 5/30/16
  * Time: 9:03 PM
- * @var array $joinedRacesArray
- * @var array $notJoinedRacesArray
+ * @var array $races
  */
-
+$this->registerJs("$(function() {
+        $('.card').matchHeight();
+    });");
 ?>
 <div class="container">
     <h1 class="m-t-3 m-b-3">Мои соревнования</h1>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-            <div class="card card-block">
-                <p>Мы собрали все ваши соревнования и составили календарь. Вы всегда можете добавить соревнование, и оно
-                    отобразится здесь. Таким простым и наглядным образом вы увидите «пустые» места в своём календаре и
-                    сможете скорректировать план на сезон.</p>
-                <hr>
-                <ul class="list-unstyled">
-                    <?php
-                    for($i = time(); $i < strtotime('+1 year 1 day'); $i+= 60*60*24){
-
-                        $isJoinedToday = false;
-                        if ($joinedRacesToday = ArrayHelper::getValue($joinedRacesArray, date('Y-m-d', $i))) {
-                            $isJoinedToday = true;
-                            foreach ($joinedRacesToday as $race) {
-                                echo Html::beginTag('li', ['class' => 'border-r-' . $race->getSportClass()]);
-                                echo Html::beginTag('h4', ['class' => 'm-l-1']);
-                                echo Html::tag('span', Yii::$app->formatter->asDate($i, 'd MMMM yyyy') . ' г., ' . Yii::$app->formatter->asDate($i, 'EEE') . '&nbsp;&nbsp;', ['class' => 'small']);
-                                echo Html::a($race->label, $race->getViewUrl(), ['class' => 'underline-black']);
-                                echo Html::endTag('h4');
-                                echo Html::tag('p', $race->getDistancesRepresentation(), ['class' => 'm-l-1 small']);
-                                echo Html::endTag('li');
-                            }
-                        }
-
-
-                        $notJoinedToday = '';
-                        if ($notJoinedRacesToday = ArrayHelper::getValue($notJoinedRacesArray, date('Y-m-d', $i))) {
-                            $notJoinedToday = implode(', ', ArrayHelper::getColumn($notJoinedRacesToday, function($el) {
-                                return Html::a($el->label, $el->getViewUrl(), ['class' => 'underline']);
-                            }));
-                        }
-
-                        echo Html::beginTag('li', ['class' => 'border small text-muted']);
-                        if ($isJoinedToday) {
-                            echo $notJoinedToday ? Html::tag('p', 'Еще в этот день: ' . $notJoinedToday, ['class' => 'm-l-1 m-t-0']) : '';
-                        }else {
-                            echo Html::tag('span', Yii::$app->formatter->asDate($i, 'd MMMM yyyy') . ' г. ', ['class' => 'm-l-1 m-r-1']);
-                            echo $notJoinedToday;
-                        }
-                        echo Html::endTag('li');
-
-
-                    }
-                    ?>
-                </ul>
+            <div class="row">
+                <div class="grid">
+                    <?php foreach ($races as $race){
+                        print $this->render('//site/_card', [
+                            'race' => $race,
+                            'showImage' => false,
+                            'showAdditionalBlocks' => false,
+                            'showSizer' => false,
+                        ]);
+                    }?>
+                </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 sidebar">
