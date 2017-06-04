@@ -42,7 +42,7 @@ $quest = Yii::$app->user->isGuest ? 'data-toggle="modal" data-target="#openUser"
         <?php if ($showImage && $race->display_type == Race::DISPLAY_TYPE_BOTH_SIDES):?>
             <a href="<?= $race->getViewUrl(); ?>">
                 <div class="embed-responsive embed-responsive-16by9">
-                    <img alt="<?= $race->label; ?>" class="card-img-top embed-responsive-item lazy" data-original="<?= FPM::originalSrc($race->main_image_id); ?>">
+                    <img alt="<?= $race->label; ?>" class="embed-responsive-item lazy" data-original="<?= FPM::originalSrc($race->main_image_id); ?>">
                 </div>
             </a>
         <?php endif;?>
