@@ -310,7 +310,7 @@ $(document).ready(function(){
                     distance_counter : index
                 },
                 function(response) {
-                    response.insertAfter($block);
+                    $block.after(response);
                 }
             )
         }else {
