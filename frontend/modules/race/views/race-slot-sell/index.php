@@ -5,6 +5,7 @@ use yii\helpers\ArrayHelper;
 ?>
 
 <div class="container">
+    <h1 class="m-y-3">Купить или продать слот на соревнование: забеги и триатлоны</h1>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
             <div class="card card-block">
