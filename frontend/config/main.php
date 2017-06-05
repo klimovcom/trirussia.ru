@@ -209,6 +209,8 @@ return [
                 '/magazine/search' => '/post/default/search',
                 'magazine/<url>' => 'post/default/view',
 
+                'market' => 'race/race-slot-sell/index',
+
                 'organizer' => 'organizer/default/index',
                 'organizer/default/get-more-organizers' => 'organizer/default/get-more-organizers',
 
@@ -230,6 +232,13 @@ return [
                 'race/race-relay-registration/get-relay-modal' => 'race/race-relay-registration/get-relay-modal',
                 'race/race-relay-registration/create' => 'race/race-relay-registration/create',
                 'race/race-relay-registration/delete' => 'race/race-relay-registration/delete',
+
+                'race/race-slot-sell/create' => 'race/race-slot-sell/create',
+                'race/race-slot-sell/delete' => 'race/race-slot-sell/delete',
+                'race/race-slot-sell/find-race' => 'race/race-slot-sell/find-race',
+                'race/race-slot-sell/find-distance' => 'race/race-slot-sell/find-distance',
+                'race/race-slot-sell/get-modal' => 'race/race-slot-sell/get-modal',
+                'race/race-slot-sell/get-user-modal' => 'race/race-slot-sell/get-user-modal',
 
                 '/search-races' => '/site/search-races',
 

@@ -548,6 +548,99 @@ $(document).ready(function(){
     $(document).on('click', '#race-relay-modal-alert-close', function() {
         $('#race-relay-modal-alert').hide();
     });
+
+    $(document).on('click', '.btn-race-slot-sell-add', function() {
+        var type = $(this).data('type');
+        $.post(
+            '/race/race-slot-sell/get-modal',
+            {
+                type : type
+            },
+            function(response) {
+                response = JSON.parse(response);
+                $('#race-slot-sell-label').html(response['header']);
+                $('#race-slot-sell-content').html(response['content']);
+                $('#race-slot-sell-modal').modal();
+            }
+        );
+    });
+
+    $(document).on('click', '.btn-race-slot-sell-modal-create', function() {
+        var race_id = $('#race-slot-sell-modal-race_id').val();
+        var distance_id = $('#race-slot-sell-modal-distance_id').val();
+        var price = $('#race-slot-sell-modal-price').val();
+        var type = $(this).data('type');
+        $.post(
+            '/race/race-slot-sell/create',
+            {
+                race_id : race_id,
+                distance_id : distance_id,
+                price : price,
+                type : type
+            },
+            function(response) {
+                response = JSON.parse(response);
+                $('#race-slot-sell-content').html(response['message']);
+                if (response['status'] == 'success') {
+                    var $listItem = $('#race-slot-sell-sell-block-' + race_id + '-' + distance_id + '-' + type);
+                    if ($listItem.length) {
+                        $listItem.replaceWith(response['content']);
+                    }else {
+                        $('#race-slot-sell-list-' + type).append(response['content']);
+                    }
+
+                }
+            }
+        );
+    });
+
+    $(document).on('click', '.btn-race-slot-sell-delete', function() {
+        var race_id = $(this).data('race_id');
+        var distance_id = $(this).data('distance_id');
+        var user_id = $(this).data('user_id');
+        var type = $(this).data('type');
+
+        $.post(
+            '/race/race-slot-sell/delete',
+            {
+                race_id : race_id,
+                distance_id : distance_id,
+                user_id : user_id,
+                type : type
+            },
+            function(response) {
+                response = JSON.parse(response);
+                if (response['status'] == 'success') {
+                    $('#race-slot-sell-sell-block-' + race_id + '-' + distance_id + '-' + type).replaceWith(response['message']);
+                }else {
+                    alert(response['message']);
+                }
+            }
+        );
+    });
+
+    $(document).on('click', '.btn-race-slot-sell-view', function() {
+        var race_id = $(this).data('race_id');
+        var distance_id = $(this).data('distance_id');
+        var user_id = $(this).data('user_id');
+        var type = $(this).data('type');
+
+        $.post(
+            '/race/race-slot-sell/get-user-modal',
+            {
+                race_id : race_id,
+                distance_id : distance_id,
+                user_id : user_id,
+                type : type
+            },
+            function(response) {
+                response = JSON.parse(response);
+                $('#race-slot-sell-label').html(response['header']);
+                $('#race-slot-sell-content').html(response['message']);
+                $('#race-slot-sell-modal').modal();
+            }
+        );
+    });
 });
 
 jQuery(document).ready(function($){

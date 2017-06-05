@@ -228,6 +228,9 @@ class Seo extends \yii\db\ActiveRecord
         if (self::isRoute("default", "view", "camp") && $config = Configuration::get("seo_camp_view_$key"))
             return self::applyReplaces($config);
 
+        //продажа слотов
+        if (self::isRoute("race-slot-sell", "index", "race") && $config = Configuration::get("seo_race_sell_slot_$key"))
+            return self::applyReplaces($config);
 
         return Configuration::get("seo_standard_$key");
     }
