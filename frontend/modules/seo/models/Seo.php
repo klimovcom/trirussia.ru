@@ -61,6 +61,7 @@ class Seo extends \yii\db\ActiveRecord
 
         '{tag}' => 'tags',
         '{label}' => 'label',
+        '{imageUrl}' => 'imageUrl',
     ];
 
     /**

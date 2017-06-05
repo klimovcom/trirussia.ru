@@ -6,6 +6,7 @@ use Yii;
 use sport\models\Sport;
 use metalguardian\fileProcessor\helpers\FPM;
 use organizer\models\Organizer;
+use yii\helpers\Url;
 
 class CampQuery extends \yii\db\ActiveQuery {
 
@@ -162,5 +163,9 @@ class Camp extends \yii\db\ActiveRecord
         }
 
         return $diff .' дней';
+    }
+
+    public function getImageUrl() {
+        return Url::to(FPM::originalSrc($this->main_image_id), true);
     }
 }
