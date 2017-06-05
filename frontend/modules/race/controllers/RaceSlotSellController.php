@@ -92,7 +92,7 @@ class RaceSlotSellController extends Controller
 
         $result['status'] = 'error';
 
-        if (Yii::$app->user->id !== $user_id) {
+        if (Yii::$app->user->id != $user_id) {
             $result['message'] = 'Вы не можете удалить данную запись';
             return Json::encode($result);
         }
