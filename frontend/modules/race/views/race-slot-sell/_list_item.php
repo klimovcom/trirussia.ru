@@ -3,7 +3,7 @@ use yii\helpers\Html;
 
 if (count($slots)) {
     echo Html::beginTag('li', ['id' => 'race-slot-sell-sell-block-' . $race->id . '-' . $distance->id . '-' . $type, 'class' => 'm-b-1']);
-    echo Html::tag('span', Yii::$app->formatter->asDate($race->start_date, 'd.MM.yyyy') . ' ', ['class' => 'small']);
+    echo Html::tag('span', Yii::$app->formatter->asDate($race->start_date, 'd.MM.yyyy') . '  ', ['class' => 'small']);
     echo Html::a($race->label, ['/race/default/view', 'url' => $race->url], ['class' => 'underline']);
     echo ', ' . $distance->label;
     echo ' &mdash; <nobr>слотов: ' . count($slots) . '</nobr>';
