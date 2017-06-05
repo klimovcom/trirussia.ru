@@ -14,6 +14,7 @@ use kartik\depdrop\DepDrop;
         <?php
         echo Select2::widget([
             'id' => 'race-slot-sell-modal-race_id',
+            'language' => 'ru',
             'name' => 'race_id',
             'initValueText' => '',
             'options' => ['placeholder' => 'выбор гонки'],
