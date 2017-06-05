@@ -14,7 +14,6 @@ use kartik\depdrop\DepDrop;
         <?php
         echo Select2::widget([
             'id' => 'race-slot-sell-modal-race_id',
-            'language' => 'ru',
             'name' => 'race_id',
             'initValueText' => '',
             'options' => ['placeholder' => 'выбор гонки'],
@@ -29,6 +28,11 @@ use kartik\depdrop\DepDrop;
                 'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
                 'templateResult' => new JsExpression('function(race) { return race.label; }'),
                 'templateSelection' => new JsExpression('function (race) { return race.label; }'),
+                'language' => [
+                    'noResults' => new JsExpression('function() {return "Совпадений не найдено"}'),
+                    'inputTooShort' => new JsExpression('function(t){return "Пожалуйста, введите хотя бы 3 символа"}'),
+                    'errorLoading' => new JsExpression('function(t){return "Невозможно загрузить результаты"}'),
+                ]
             ],
         ]);
         ?>
@@ -42,7 +46,10 @@ use kartik\depdrop\DepDrop;
             'type' => DepDrop::TYPE_SELECT2,
             'select2Options' => [
                 'pluginOptions' => [
-                    'allowClear'=>true
+                    'allowClear'=>true,
+                    'language' => [
+                        'noResults' => new JsExpression('function() {return "Совпадений не найдено"}'),
+                    ]
                 ],
             ],
             'pluginOptions'=>[
