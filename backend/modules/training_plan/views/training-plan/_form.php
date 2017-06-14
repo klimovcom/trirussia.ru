@@ -28,9 +28,6 @@ use training_plan\models\TrainingPlan;
 
         <div class="row">
             <div class="col-md-6">
-                <?= $form->field($model, 'author_name')->textInput(['maxlength' => true]) ?>
-            </div>
-            <div class="col-md-6">
                 <?= $form->field($model, 'author_id')->widget(\kartik\select2\Select2::classname(), [
                     'data' => \user\models\User::getAuthorData(),
                     'theme' => 'default',
@@ -40,6 +37,18 @@ use training_plan\models\TrainingPlan;
                     ],
                 ]);
                 ?>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <?= $form->field($model, 'author_name')->textInput(['maxlength' => true]) ?>
+            </div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'author_site')->textInput(['maxlength' => true]) ?>
             </div>
         </div>
 
