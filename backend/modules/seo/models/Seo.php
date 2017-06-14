@@ -60,7 +60,7 @@ class Seo extends \yii\db\ActiveRecord
 	public function behaviors()
 	{
 		return [
-			'image_id' => [
+			'og_image_id' => [
 				'class' => UploadBehavior::className(),
 				'attribute' => 'og_image_id',
 				'image' => true,
