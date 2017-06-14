@@ -59,7 +59,7 @@ use training_plan\models\TrainingPlan;
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
                             <p class="m-b-0">
-                                <strong><?= Html::a($model->author_name, $model->author_site, ['class' => 'underline', 'target' => '_blank'])?></strong>
+                                <strong><?= $model->author_name;?></strong>
                             </p>
                             <p class="small m-b-0">Автор</p>
                         </div>
@@ -76,8 +76,6 @@ use training_plan\models\TrainingPlan;
                         <?php
                         if ($model->price) {
                             echo Html::a('Купить за ' . $model->price .' ₽', $model->author_site, ['class' => 'btn btn-danger btn-sm', 'target' => '_blank']);
-                        }else {
-                            echo Html::a('Бесплатно', $model->author_site, ['class' => 'btn btn-danger btn-sm', 'target' => '_blank']);
                         }
                         ?>
                     </div>
