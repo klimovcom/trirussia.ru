@@ -6,6 +6,7 @@ use yii\base\Behavior;
 use yii\db\ActiveRecord;
 use seo\models\Seo;
 use Yii;
+use yii\web\UploadedFile;
 
 /**
  * Class SeoModelBehavior
@@ -29,8 +30,10 @@ class SeoModelBehavior extends Behavior
 		$model->model_name = Seo::getModelName($this->owner);
 		$model->model_id = $this->owner->id;
 
+		$image = UploadedFile::getInstance($model, 'og_image_id');
+
 		if ($model->load(Yii::$app->request->post())) {
-			if (strlen($model->title) || strlen($model->keywords) || strlen($model->description)) {
+			if (strlen($model->title) || strlen($model->keywords) || strlen($model->description) || $image) {
 				$model->save();
 			}
 		}
@@ -45,8 +48,10 @@ class SeoModelBehavior extends Behavior
 			$model->model_id = $this->owner->id;
 		}
 
+		$image = UploadedFile::getInstance($model, 'og_image_id');
+
 		if ($model->load(Yii::$app->request->post())) {
-			if (strlen($model->title) || strlen($model->keywords) || strlen($model->description)) {
+			if (strlen($model->title) || strlen($model->keywords) || strlen($model->description) || $image || $model->og_image_id) {
 				$model->save();
 			}
 		}

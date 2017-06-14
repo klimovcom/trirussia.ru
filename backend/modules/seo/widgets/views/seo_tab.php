@@ -96,9 +96,11 @@ use yii\widgets\ActiveForm;
                         $image = $seo->og_image_id ? Html::img(\metalguardian\fileProcessor\helpers\FPM::originalSrc($seo->og_image_id), ['class' => 'img-responsive']) : false;
                         if ($image) : ?>
                             <div class="form-group">
-                                <label class="control-label">Превью</label>
-                                <div class="">
-                                    <?= $image ?>
+                                <div class="col-xs-12">
+                                    <label class="control-label">Превью</label>
+                                    <div class="">
+                                        <?= $image ?>
+                                    </div>
                                 </div>
                             </div>
                         <?php endif ?>
