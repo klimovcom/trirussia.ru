@@ -12,7 +12,7 @@ use training_plan\models\TrainingPlan;
                         <?= Html::tag('h6', $model->sport->label, ['class' => 'sport-caption ' . $model->sportClass]);?>
                     </div>
                     <div class="clearfix"></div>
-                    <?= Html::tag('p', Html::tag('i', $model->promo), ['class' => 'card-text PTSerif lead']);?>
+                    <?= Html::tag('div', Html::tag('i', $model->promo), ['class' => 'card-text PTSerif lead']);?>
                     <hr>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
@@ -73,7 +73,13 @@ use training_plan\models\TrainingPlan;
                         </div>
                     </div>
                     <div class="pull-right hidden-sm-down i-will-go">
-                        <?= Html::a('Купить за ' . $model->price .' ₽', $model->author_site, ['class' => 'btn btn-danger btn-sm', 'target' => '_blank']);?>
+                        <?php
+                        if ($model->price) {
+                            echo Html::a('Купить за ' . $model->price .' ₽', $model->author_site, ['class' => 'btn btn-danger btn-sm', 'target' => '_blank']);
+                        }else {
+                            echo Html::a('Бесплатно', $model->author_site, ['class' => 'btn btn-danger btn-sm', 'target' => '_blank']);
+                        }
+                        ?>
                     </div>
                     <div class="clearfix"></div>
                 </div>

@@ -68,7 +68,13 @@ use yii\helpers\Html;
                     <?= TrainingPlan::getFormatArray()[$model->format];?>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 text-xs-right">
-                    <?= Html::a($model->price . ' ₽', ['/training_plan/default/view', 'url' => $model->url], ['class' => 'btn btn-primary-outline']);?>
+                    <?php
+                    if ($model->price) {
+                        echo Html::a($model->price . ' ₽', ['/training_plan/default/view', 'url' => $model->url], ['class' => 'btn btn-primary-outline']);
+                    }else {
+                        echo Html::a('Бесплатно', ['/training_plan/default/view', 'url' => $model->url], ['class' => 'btn btn-primary-outline']);
+                    }
+                    ?>
                 </div>
             </div>
         </div>
