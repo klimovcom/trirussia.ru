@@ -138,4 +138,17 @@ class TrainingPlan extends \yii\db\ActiveRecord
             self::FORMAT_TRAINING_PEAKS => 'Training Peaks',
         ];
     }
+
+    public function beforeSave($insert) {
+        parent::beforeSave($insert);
+        $this->addClassToLinks('content');
+        return true;
+    }
+
+    public function addClassToLinks($field) {
+        $content = \phpQuery::newDocument($this->$field);
+        $imgs = $content->find('a');
+        $imgs->addClass('underline');
+        $this->$field = $content->html();
+    }
 }
