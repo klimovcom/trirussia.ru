@@ -87,6 +87,11 @@ return [
             DIRECTORY_SEPARATOR . 'modules' .
             DIRECTORY_SEPARATOR . 'camp'
         ),
+        'training_plan' => realpath(
+            __DIR__ . DIRECTORY_SEPARATOR . '..' .
+            DIRECTORY_SEPARATOR . 'modules' .
+            DIRECTORY_SEPARATOR . 'training_plan'
+        ),
     ],
     'modules' => [
         'race' => [
@@ -142,6 +147,9 @@ return [
         ],
         'promocode' => [
             'class' => 'promocode\PromocodeModule',
+        ],
+        'training_plan' => [
+            'class' => 'training_plan\TrainingPlanModule',
         ],
         'permit' => [
             'class' => 'developeruz\db_rbac\Yii2DbRbac',

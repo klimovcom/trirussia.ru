@@ -104,6 +104,10 @@ $(document).ready(function(){
         $('#camp-url').val(cyr2lat($(this).val()));
     });
 
+    $(document).on('input', '#trainingplan-label', function() {
+        $('#trainingplan-url').val(cyr2lat($(this).val()));
+    });
+
     $('#news-header').on('change', function(){
         if (!($('#news-url').val().length > 0)){
             var value = cyr2lat($('#news-header').val());

@@ -87,6 +87,11 @@ return [
             DIRECTORY_SEPARATOR . 'modules' .
             DIRECTORY_SEPARATOR . 'camp'
         ),
+        'training_plan' => realpath(
+            __DIR__ . DIRECTORY_SEPARATOR . '..' .
+            DIRECTORY_SEPARATOR . 'modules' .
+            DIRECTORY_SEPARATOR . 'training_plan'
+        ),
     ],
     'modules' => [
         'race' => [
@@ -142,6 +147,9 @@ return [
         ],
         'camp' => [
             'class' => 'camp\CampModule',
+        ],
+        'training_plan' => [
+            'class' => 'training_plan\TrainingPlanModule',
         ],
 
     ],
@@ -239,6 +247,9 @@ return [
                 'race/race-slot-sell/find-distance' => 'race/race-slot-sell/find-distance',
                 'race/race-slot-sell/get-modal' => 'race/race-slot-sell/get-modal',
                 'race/race-slot-sell/get-user-modal' => 'race/race-slot-sell/get-user-modal',
+
+                'plans/<url>' => 'training_plan/default/view',
+                'plans' => 'training_plan/default/index',
 
                 '/search-races' => '/site/search-races',
 
