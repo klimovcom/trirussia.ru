@@ -127,7 +127,6 @@ use training\models\Training;
                 ]); ?>
 
                 <?= $form->field($model, 'published')->hiddenInput()->label(false);?>
-                <?= $form->errorSummary($model);?>
 
                 <div class="text-xs-right">
                     <?= Html::submitButton('Добавить тренировку', ['class' => 'btn btn-primary btn-lg']) ?>
