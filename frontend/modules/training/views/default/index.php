@@ -44,6 +44,8 @@ $sportArray = array_merge(['all' => 'Все виды спорта'], ArrayHelper
             ]);
         }
         echo Html::endTag('div');
+    }else {
+        echo Html::tag('h4', 'К сожалению, ничего не найдено. Попробуйте изменить параметры поиска');
     }
     ?>
 </div>
