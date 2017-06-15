@@ -92,6 +92,11 @@ return [
             DIRECTORY_SEPARATOR . 'modules' .
             DIRECTORY_SEPARATOR . 'training_plan'
         ),
+        'training' => realpath(
+            __DIR__ . DIRECTORY_SEPARATOR . '..' .
+            DIRECTORY_SEPARATOR . 'modules' .
+            DIRECTORY_SEPARATOR . 'training'
+        ),
     ],
     'modules' => [
         'race' => [
@@ -150,6 +155,9 @@ return [
         ],
         'training_plan' => [
             'class' => 'training_plan\TrainingPlanModule',
+        ],
+        'training' => [
+            'class' => 'training\TrainingModule',
         ],
 
     ],
@@ -223,6 +231,7 @@ return [
                 'organizer/default/get-more-organizers' => 'organizer/default/get-more-organizers',
 
                 'user-info' => 'user/default/about',
+                'user/default/toggle-training-message' => 'user/default/toggle-training-message',
 
                 'race/add' => 'race/default/create',
                 'race/advanced' => 'race/default/advanced',
@@ -250,6 +259,9 @@ return [
 
                 'plans/<url>' => 'training_plan/default/view',
                 'plans' => 'training_plan/default/index',
+
+                'go/add' => 'training/default/create',
+                'go' => 'training/default/index',
 
                 '/search-races' => '/site/search-races',
 

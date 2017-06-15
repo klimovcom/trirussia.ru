@@ -432,6 +432,20 @@ $(document).ready(function(){
         }
     });
 
+    $('#form-training-add-time').mask('XZ:XX', {
+        placeholder: "__:__",
+        translation: {
+            'Z': {
+                pattern: /[0-2]/,
+                optional: false
+            },
+            'X': {
+                pattern: /[0-6]/,
+                optional: false
+            }
+        }
+    });
+
     $(document).on('click', '.race-register', function(e) {
         var race_id = $(this).attr('data-race-id');
         var distance_id = $(this).attr('data-distance-id');
@@ -640,6 +654,23 @@ $(document).ready(function(){
                 $('#race-slot-sell-modal').modal();
             }
         );
+    });
+
+    $(document).on('click', '.btn-training-send-message', function(e) {
+        var $this = $(this);
+        $.ajax({
+            type: "POST",
+            url: '/user/default/toggle-training-message',
+            cache: false,
+            success: function (data)
+            {
+                $this.html(data);
+            },
+            error: function (data)
+            {
+                alert('Ошибка сервера, повторите позднее');
+            }
+        });
     });
 });
 

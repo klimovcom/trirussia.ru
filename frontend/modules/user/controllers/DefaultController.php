@@ -4,6 +4,7 @@ namespace user\controllers;
 
 use common\models\UserInfo;
 use race\models\Race;
+use user\models\User;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -26,6 +27,7 @@ class DefaultController extends Controller
                     [
                         'actions' => [
                             'about',
+                            'toggle-training-message',
                         ],
                         'allow'   => true,
                         'roles'   => [ '@' ],
@@ -79,5 +81,18 @@ class DefaultController extends Controller
         return $this->render('about', [
             'model' => $model,
         ]);
+    }
+
+    public function actionToggleTrainingMessage() {
+        $user = User::find()->where(['id' => Yii::$app->user->id])->one();
+        if ($user->send_training_message) {
+            $user->send_training_message = 0;
+            $message = 'Узнавать о тренировках';
+        }else {
+            $user->send_training_message = 1;
+            $message = 'Убрать оповещения о тренировках';
+        }
+        $user->save();
+        return $message;
     }
 }

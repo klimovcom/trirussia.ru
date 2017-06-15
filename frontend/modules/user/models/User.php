@@ -26,6 +26,7 @@ use Yii;
  * @property string $age
  * @property string $birthday
  * @property string $place
+ * @property integer $send_training_message
  *
  * @property Post[] $posts
  */

@@ -125,6 +125,15 @@ $this->registerCssFile('/css/site.css');
                 <?= Yii::$app->user->can('promocode') ? Html::tag('li', Html::a('Промокоды', ['/promocode/promocode/index']))  : '';?>
                 <?= Yii::$app->user->can('camp') ? Html::tag('li', Html::a('Кэмпы', ['/camp/camp/index']))  : '';?>
                 <?= Yii::$app->user->can('training_plan') ? Html::tag('li', Html::a('Тренировчные планы', ['/training_plan/training-plan/index']))  : '';?>
+                <?php if (Yii::$app->user->can('training')):?>
+                    <li class="treeview <?= $this->context->module->id == 'training' ? 'active' : '';?>">
+                        <a href="#"><span>Тренировки</span> <i class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="<?= Url::to('/training/training/index'); ?>"><span>Тренировки</span></a></li>
+                            <li><a href="<?= Url::to('/training/training-place/index'); ?>"><span>Места</span></a></li>
+                        </ul>
+                    </li>
+                <?php endif;?>
 
             </ul>
         </section>
