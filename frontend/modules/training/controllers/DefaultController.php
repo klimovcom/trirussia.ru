@@ -8,6 +8,7 @@ use sport\models\Sport;
 use training\models\Training;
 use yii\db\Query;
 use yii\filters\AccessControl;
+use yii\helpers\Html;
 use yii\web\Controller;
 
 /**
@@ -126,7 +127,7 @@ class DefaultController extends Controller
         $model->author_id = Yii::$app->user->id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('trainer-create-success', 'Данные успешно сохраненны');
+            Yii::$app->session->setFlash('trainer-create-success', 'Данные успешно сохраненны, ' . Html::a('Предстоящие тренировки', ['/training/default/index']));
             $model = new $model;
 
         }
