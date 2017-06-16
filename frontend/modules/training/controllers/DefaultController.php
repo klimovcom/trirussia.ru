@@ -127,7 +127,7 @@ class DefaultController extends Controller
         $model->author_id = Yii::$app->user->id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('trainer-create-success', 'Данные успешно сохраненны, ' . Html::a('Предстоящие тренировки', ['/training/default/index']));
+            Yii::$app->session->setFlash('trainer-create-success', 'Данные успешно сохраненны, ' . Html::a('Предстоящие тренировки', ['/training/default/index'], ['class' => 'underline']));
             $model = new $model;
 
         }
