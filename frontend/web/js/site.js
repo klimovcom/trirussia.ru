@@ -440,7 +440,7 @@ $(document).ready(function(){
                 optional: false
             },
             'X': {
-                pattern: /[0-6]/,
+                pattern: /[0-5]/,
                 optional: false
             }
         }
