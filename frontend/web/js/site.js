@@ -432,7 +432,7 @@ $(document).ready(function(){
         }
     });
 
-    $('#form-training-add-time').mask('XZ:XX', {
+    $('#form-training-add-time').mask('Z0:X0', {
         placeholder: "__:__",
         translation: {
             'Z': {
@@ -442,7 +442,7 @@ $(document).ready(function(){
             'X': {
                 pattern: /[0-6]/,
                 optional: false
-            }
+            },
         }
     });
 
