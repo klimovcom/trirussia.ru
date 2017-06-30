@@ -442,7 +442,7 @@ $(document).ready(function(){
             'X': {
                 pattern: /[0-6]/,
                 optional: false
-            },
+            }
         }
     });
 
