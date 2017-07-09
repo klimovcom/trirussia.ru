@@ -582,7 +582,7 @@ $(document).ready(function(){
     $(document).on('change', '#race-slot-sell-modal-race_id', function() {
         var race_id = $(this).val();
         $.post(
-            '/race/race-slot-sell/find-race',
+            '/race/race-slot-sell/find-distance',
             {
                 race_id : race_id
             },
