@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use race\models\RaceSlotSell;
 
 if (count($slots)) {
     echo Html::beginTag('li', ['id' => 'race-slot-sell-sell-block-' . $race->id . '-' . $distance->id . '-' . $type, 'class' => 'm-b-1']);
@@ -8,7 +9,11 @@ if (count($slots)) {
     echo ', ' . $distance->label;
     echo ' &mdash; <nobr>слотов: ' . count($slots) . '</nobr>';
     echo Html::beginTag('span', ['class' => 'text-muted small m-l-1']);
-    echo 'Продают: ';
+    if (type == RaceSlotSell::TYPE_SELL) {
+        echo 'Продают: ';
+    }else {
+        echo 'Покупают: ';
+    }
     $slotArray = [];
     foreach ($slots as $slot) {
         if (Yii::$app->user->id) {
