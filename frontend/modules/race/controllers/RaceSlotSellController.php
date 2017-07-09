@@ -142,7 +142,7 @@ class RaceSlotSellController extends Controller
                 foreach ($raceDistances as $raceDistance) {
                     $raceDistancesArray[$raceDistance->distance_id] = $raceDistance->distance->label;
                 }
-                return Json::encode(['status'=> 'success', 'content' => Html::dropDownList('distance_id', $raceDistancesArray, [], ['id' => 'race-slot-sell-modal-distance_id', 'class' => 'c-select'])]);
+                return Json::encode(['status'=> 'success', 'content' => Html::dropDownList('distance_id', null, $raceDistancesArray, ['id' => 'race-slot-sell-modal-distance_id', 'class' => 'c-select'])]);
             }
         }
         return Json::encode(['status'=> 'error', 'content' => '']);
