@@ -2,6 +2,7 @@
 
 namespace training\controllers;
 
+use common\components\Strava;
 use training\models\TrainingPlace;
 use Yii;
 use sport\models\Sport;
@@ -9,6 +10,7 @@ use training\models\Training;
 use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\helpers\Html;
+use yii\helpers\Json;
 use yii\web\Controller;
 
 /**
@@ -36,6 +38,7 @@ class DefaultController extends Controller
                     [
                         'actions' => [
                             'index',
+                            'segments'
                         ],
                         'allow'   => true,
                     ],
@@ -135,5 +138,16 @@ class DefaultController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+
+    public function actionSegments() {
+        $result = false;
+        $bounds = Yii::$app->request->post('bounds');
+        if ($bounds) {
+            $bounds = Json::decode($bounds);
+            $strava = new Strava();
+            $result = $strava->getSegmentExplorer($bounds['south'], $bounds['west'], $bounds['north'], $bounds['east']);
+        }
+        return Json::encode($result);
     }
 }

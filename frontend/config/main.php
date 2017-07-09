@@ -262,6 +262,7 @@ return [
 
                 'go/add' => 'training/default/create',
                 'go' => 'training/default/index',
+                'training/default/segments' => 'training/default/segments',
 
                 '/search-races' => '/site/search-races',
 
