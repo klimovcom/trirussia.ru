@@ -152,7 +152,7 @@ $sportArray = array_merge(['all' => 'Все виды спорта'], ArrayHelper
                         }
                     }
                 </script>
-                <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDI6eH0pmn3Rkl09SI-6ka4FH1MAssuEfk&callback=initMap"> </script>
+                <script async defer src="https://maps.googleapis.com/maps/api/js?key=<?= Yii::$app->params['googleSecret'];?>&callback=initMap"> </script>
             </div>
         </div>
     </div>
