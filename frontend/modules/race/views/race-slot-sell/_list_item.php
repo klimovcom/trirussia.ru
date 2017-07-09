@@ -9,7 +9,7 @@ if (count($slots)) {
     echo ', ' . $distance->label;
     echo ' &mdash; <nobr>слотов: ' . count($slots) . '</nobr>';
     echo Html::beginTag('span', ['class' => 'text-muted small m-l-1']);
-    if (type == RaceSlotSell::TYPE_SELL) {
+    if ($type == RaceSlotSell::TYPE_SELL) {
         echo 'Продают: ';
     }else {
         echo 'Покупают: ';
