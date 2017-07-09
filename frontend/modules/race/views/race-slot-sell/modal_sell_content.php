@@ -9,7 +9,7 @@ use race\models\Race;
     <p>Если у вас есть слот на соревнование, но вы не можете участвовать, то предложите его тем, кто его ищет.</p>
     <fieldset class="form-group">
         <label>Выберите старт</label>
-        <?= Html::dropDownList('race_id', null, ArrayHelper::map(Race::find()->published()->all(), 'id', 'label'), ['id' => 'race-slot-sell-modal-race_id', 'class' => 'c-select', 'prompt' => 'Выберите дистанцию']);?>
+        <?= Html::dropDownList('race_id', null, ArrayHelper::map(Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->published()->all(), 'id', 'label'), ['id' => 'race-slot-sell-modal-race_id', 'class' => 'c-select', 'prompt' => 'Выберите дистанцию']);?>
     </fieldset>
     <fieldset class="form-group">
         <label>Выберите дистанцию</label>
