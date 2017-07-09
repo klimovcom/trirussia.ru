@@ -579,6 +579,24 @@ $(document).ready(function(){
         );
     });
 
+    $(document).on('change', '#race-slot-sell-modal-race_id', function() {
+        var race_id = $(this).val();
+        $.post(
+            '/race/race-slot-sell/find-race',
+            {
+                race_id : race_id
+            },
+            function(response) {
+                response = JSON.parse(response);
+                if (response['status'] == 'error') {
+                    alert('Ошибка сервера, повторите позднее');
+                }else {
+                    $('#race-slot-sell-modal-distance_id').replaceWith(response['content']);
+                }
+            }
+        )
+    });
+
     $(document).on('click', '.btn-race-slot-sell-modal-create', function() {
         var race_id = $('#race-slot-sell-modal-race_id').val();
         var distance_id = $('#race-slot-sell-modal-distance_id').val();

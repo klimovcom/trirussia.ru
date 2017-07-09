@@ -9,6 +9,7 @@ use race\models\RaceSlotSell;
 use Yii;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\Response;
@@ -130,24 +131,21 @@ class RaceSlotSellController extends Controller
     }
 
     public function actionFindDistance() {
-        $race_id = end(Yii::$app->request->post('depdrop_parents'));
+        $race_id = Yii::$app->request->post('race_id');
         if ($race_id !== false) {
             $race = Race::find()->where(['id' => $race_id])->one();
 
             if ($race) {
                 $raceDistances = RaceDistanceRef::find()->where(['race_id' => $race_id, 'type' => RaceDistanceRef::TYPE_RACE])->all();
 
-                $result = [];
+                $raceDistancesArray = [];
                 foreach ($raceDistances as $raceDistance) {
-                    $result[] = [
-                        'id' => $raceDistance->distance_id,
-                        'name' => $raceDistance->distance->label,
-                    ];
+                    $raceDistancesArray[$raceDistance->distance_id] = $raceDistance->distance->label;
                 }
-                return Json::encode(['output'=> $result, 'selected' => 0]);
+                return Json::encode(['status'=> 'success', 'content' => Html::dropDownList('distance_id', $raceDistancesArray, [], ['id' => 'race-slot-sell-modal-distance_id', 'class' => 'c-select'])]);
             }
         }
-        return Json::encode(['output'=> [], 'selected' => 0]);
+        return Json::encode(['status'=> 'error', 'content' => '']);
     }
 
     public function actionGetModal() {
