@@ -118,6 +118,11 @@ $sportArray = array_merge(['all' => 'Все виды спорта'], ArrayHelper
                             setMarkers();
                         });
 
+                        var infowindow = new google.maps.InfoWindow({
+                            content: ''
+                        });
+
+
                         function setMarkers() {
                             $.post(
                                 '<?= \yii\helpers\Url::to(['/training/default/segments']);?>',
@@ -140,7 +145,15 @@ $sportArray = array_merge(['all' => 'Все виды спорта'], ArrayHelper
                                 map: map,
                                 title: name
                             });
+
+                            marker.addListener('click', function() {
+                                infowindow.setContent(name);
+                                infowindow.open(map, marker);
+                            });
+
                             markers.push(marker);
+
+                            $('#training-segment-list').append('<li>' + name + '</li>')
                         }
 
                         function deleteMarkers() {
@@ -149,10 +162,17 @@ $sportArray = array_merge(['all' => 'Все виды спорта'], ArrayHelper
                             }
 
                             markers = [];
+
+                            $('#training-segment-list').html('');
                         }
                     }
                 </script>
                 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<?= Yii::$app->params['googleSecret'];?>&callback=initMap"> </script>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <div class="card card-block">
+                <ol id="training-segment-list"></ol>
             </div>
         </div>
     </div>
