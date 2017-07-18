@@ -2,16 +2,18 @@
 
 namespace race\controllers;
 
+use common\models\User;
 use common\models\UserInfo;
 use organizer\models\Organizer;
 use race\models\Race;
 use race\models\RaceDistanceRef;
 use race\models\RaceRegistration;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\HttpException;
-use yii\web\NotFoundHttpException;
 use yii\web\Response;
+use yii\web\UnauthorizedHttpException;
 
 class ApiController extends Controller {
 
@@ -102,16 +104,70 @@ class ApiController extends Controller {
         return $result;
     }
 
+    public function actionList() {
+        $result = [
+            'status' => 'error',
+        ];
+
+        $user = $this->user_auth();
+
+        if (!$user) {
+            $result['message'] = 'Неверный ключ авторизации';
+
+            Yii::$app->response->statusCode = 401;
+
+            return $result;
+        }
+
+        $races = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->all();
+
+        $data = ArrayHelper::toArray($races, [
+            'race\models\Race' => [
+                'id',
+                'label',
+                'start_date',
+                'organizer' => function($race) {
+                    return $race->organizer->label;
+                },
+                'sport'  => function($race) {
+                    return $race->sport->label;
+                },
+                'country',
+                'region',
+                'place',
+                'popularity',
+            ],
+        ]);
+
+        $result['status'] = 'success';
+        $result['data'] = $data;
+
+        return $result;
+    }
+
+    //organizer auth
     public function auth() {
         $api_key = Yii::$app->request->headers->get('Authorization');
 
         $organizer = Organizer::find()->where(['api_key' => $api_key])->one();
 
         if (!$organizer || empty($api_key)) {
-            throw new HttpException(404,'The requested page does not exist.');
+            throw new UnauthorizedHttpException();
         }
 
         return $organizer;
+    }
+
+    public function user_auth() {
+        $api_key = Yii::$app->request->headers->get('Authorization');
+
+        $user = User::find()->where(['api_key' => $api_key])->one();
+
+        if (!$user || empty($api_key)) {
+            return false;
+        }
+
+        return $user;
     }
 
     public function findModel($id, $organizer_id) {

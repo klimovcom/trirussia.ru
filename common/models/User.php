@@ -21,6 +21,7 @@ use yii\helpers\ArrayHelper;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
+ * @property string $api_key
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -68,6 +69,7 @@ class User extends ActiveRecord implements IdentityInterface
                     'age',
                     'birthday',
                     'place',
+                    'api_key',
                 ],
                 'string',
                 'max' => 255
@@ -227,5 +229,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function getUserInfo()
     {
         return $this->hasOne(UserInfo::className(), ['user_id' => 'id']);
+    }
+
+    public function generateApiKey() {
+        $this->updateAttributes([
+            'api_key' => Yii::$app->security->generateRandomString(32)
+        ]);
     }
 }

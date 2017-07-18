@@ -243,8 +243,10 @@ return [
                 'race/default/update-url' => 'race/default/update-url',
                 'race/default/get-more-races' => 'race/default/get-more-races',
                 'race/default/register' => 'race/default/register',
+
                 'race/api/index' => 'race/api/index',
                 'race/api/view/<id>' => 'race/api/view',
+                'race/api/list' => 'race/api/list',
 
                 'race/race-relay-registration/get-relay-modal' => 'race/race-relay-registration/get-relay-modal',
                 'race/race-relay-registration/create' => 'race/race-relay-registration/create',

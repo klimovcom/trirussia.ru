@@ -110,6 +110,12 @@ class UserController extends BackController
         }
     }
 
+    public function actionGenerateApiKey($id) {
+        $model = $this->findModel($id);
+        $model->generateApiKey();
+        return $this->redirect(['view', 'id' => $model->id]);
+    }
+
     /**
      * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

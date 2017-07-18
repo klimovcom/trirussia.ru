@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Сгенерировать новый ключ', ['generate-api-key', 'id' => $model->id], ['class' => 'btn btn-danger']);?>
     </p>
     <div class="row">
         <div class="col-xs-9">
@@ -63,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'password_hash',
                             'password_reset_token',*/
                             /*'status',*/
-
+                            'api_key',
                         ],
                     ]) ?>
                 </div>
