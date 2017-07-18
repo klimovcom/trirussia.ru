@@ -119,7 +119,7 @@ class ApiController extends Controller {
             return $result;
         }
 
-        $races = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->all();
+        $races = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->published()->all();
 
         $data = ArrayHelper::toArray($races, [
             'race\models\Race' => [
