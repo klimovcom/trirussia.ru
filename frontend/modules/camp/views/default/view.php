@@ -40,7 +40,7 @@ $this->registerJs("$(function() {
                     <hr>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                            <p class="m-b-0"><strong><?= Html::a($model->organizer->label, ['/camp/default/search', 'organizer' => $model->organizer->label], ['class' => 'underline']); ?></strong></p>
+                            <p class="m-b-0"><strong><?= Html::a($model->organizer->label, ['/camp/default/index', 'organizer' => $model->organizer->label], ['class' => 'underline']); ?></strong></p>
                             <p class="small m-b-0">Организатор</p>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">

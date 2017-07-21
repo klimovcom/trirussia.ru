@@ -30,7 +30,7 @@ $blockClass = isset($blockClass) ? $blockClass : 'col-xs-12 col-sm-12 col-md-6 c
                     Организатор:
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-                    <?= Html::a($model->organizer->label, ['/camp/search', 'organizer' => $model->organizer->label], ['class' => 'underline']);?>
+                    <?= Html::a($model->organizer->label, ['/camp/default/index', 'organizer' => $model->organizer->label], ['class' => 'underline']);?>
                 </div>
             </div>
             <?php if ($model->price):?>

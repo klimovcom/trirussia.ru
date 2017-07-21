@@ -286,7 +286,6 @@ return [
 
 
                 'camp/default/get-more-camps' => 'camp/default/get-more-camps',
-                'camp/search' => 'camp/default/search',
                 'camp' => 'camp/default/index',
                 'camp/<url>' => 'camp/default/view',
 
