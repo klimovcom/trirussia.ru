@@ -44,33 +44,34 @@ class TristatsController extends Controller
                             $finded[] = ['tr_race_id' => $trRace->id, 'tr_race' => $trRace->name, 'race_id' => $findedRace->id, 'race' => $findedRace->label];
                         }
 
-                        $divisions = $tristats->getRace($trRace->race_url);
-                        $divisionsUrls = ArrayHelper::getColumn(ArrayHelper::getValue($divisions, 'Divisions'), 'DivisionUrl');
+                        $divisions = ArrayHelper::getValue($tristats->getRace($trRace->race_url), 'Divisions');
 
-                        foreach($divisionsUrls as $url) {
-                            $division = $tristats->getDivision($url);
-                            if ($division) {
-                                $racers = ArrayHelper::index(ArrayHelper::getValue($division, 'Results'), null, 'FinishDivisionRank');
+                        if ($divisions) {
+                            $divisionsUrls = ArrayHelper::getColumn($divisions, 'DivisionUrl');
 
-                                for ($i=1; $i<4; $i++) {
-                                    $racer = new TristatsWinners();
-                                    $racer->name = ArrayHelper::getValue($racers, $i.'.0.Racer');
-                                    $racer->country = ArrayHelper::getValue($racers, $i.'.0.Country');
-                                    $racer->division = ArrayHelper::getValue($racers, $i.'.0.Division');
-                                    $racer->division_rank = ArrayHelper::getValue($racers, $i.'.0.FinishDivisionRank');
-                                    $racer->swim = ArrayHelper::getValue($racers, $i.'.0.Swim');
-                                    $racer->run = ArrayHelper::getValue($racers, $i.'.0.Run');
-                                    $racer->bike = ArrayHelper::getValue($racers, $i.'.0.Bike');
-                                    $racer->finish = ArrayHelper::getValue($racers, $i.'.0.Finish');
-                                    $racer->tristats_race_id = $trRace->id;
-                                    $racer->save();
+                            foreach($divisionsUrls as $url) {
+                                $division = $tristats->getDivision($url);
+                                if ($division) {
+                                    $racers = ArrayHelper::index(ArrayHelper::getValue($division, 'Results'), null, 'FinishDivisionRank');
+
+                                    for ($i=1; $i<4; $i++) {
+                                        $racer = new TristatsWinners();
+                                        $racer->name = ArrayHelper::getValue($racers, $i.'.0.Racer');
+                                        $racer->country = ArrayHelper::getValue($racers, $i.'.0.Country');
+                                        $racer->division = ArrayHelper::getValue($racers, $i.'.0.Division');
+                                        $racer->division_rank = ArrayHelper::getValue($racers, $i.'.0.FinishDivisionRank');
+                                        $racer->swim = ArrayHelper::getValue($racers, $i.'.0.Swim');
+                                        $racer->run = ArrayHelper::getValue($racers, $i.'.0.Run');
+                                        $racer->bike = ArrayHelper::getValue($racers, $i.'.0.Bike');
+                                        $racer->finish = ArrayHelper::getValue($racers, $i.'.0.Finish');
+                                        $racer->tristats_race_id = $trRace->id;
+                                        $racer->save();
+                                    }
                                 }
-                            }
 
+                            }
                         }
                     }
-
-
                 }
             }
         }
