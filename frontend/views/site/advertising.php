@@ -39,7 +39,7 @@
                 </ul>
                 <p>По поводу размещения рекламы пишите на электронную почту <a href="mailto:artem@klimov.com" class="underline">artem@klimov.com</a>. Более подробная информация, в том числе по соцдему и стоимости можно найти в <a href="https://docs.google.com/document/d/1TXE_z0j1M2pnOXcbU82mQhbTRxn4UoG8GB6SKKPvb90/edit?usp=sharing" class="underline" target="_blank">прайслисте</a>.</p>
             </div>
-            <script id="widget-prosto-script" type="text/javascript" async="" src="https://prosto.insure/api/get-widget-osago?key=Hd7h5vnDRB1quffI " data-options="{partnerId:5721,widgetId:2304}" data-styles={"width":"800px","widthFull":true,"fon":"#fff","labelColor":"#373a3c","logo":"#000000","targetBlank":true} data-default='{"power":"151 л.с. и более","region":"Москва","expClear":"6 лет","age":"22 года и больше","exp":"3 года и больше","cartype":"Автомобиль","term":"12 месяца"}'></script>
+            <script id="widget-prosto-script" type="text/javascript" async="" src="https://prosto.insure/api/get-widget-osago?key=Hd7h5vnDRB1quffI " data-options="{partnerId:5721,widgetId:2304}" data-styles={"width":"800px","widthFull":true,"fon":"#000000","labelColor":"#FFFFFF","logo":"#FFFFFF","targetBlank":true} data-default='{"power":"151 л.с. и более","region":"Москва","expClear":"6 лет","age":"22 года и больше","exp":"3 года и больше","cartype":"Автомобиль","term":"12 месяца"}'></script>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
             <div class="ad-sidebar text-xs-center">
