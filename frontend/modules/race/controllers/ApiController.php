@@ -20,6 +20,8 @@ class ApiController extends Controller {
     public function beforeAction($event) {
         Yii::$app->response->format = Response::FORMAT_JSON;
 
+        $this->setHeaders();
+
         return parent::beforeAction($event);
     }
 
@@ -105,19 +107,11 @@ class ApiController extends Controller {
     }
 
     public function actionList() {
+        $this->user_auth();
+        
         $result = [
             'status' => 'error',
         ];
-
-        $user = $this->user_auth();
-
-        if (!$user) {
-            $result['message'] = 'Неверный ключ авторизации';
-
-            Yii::$app->response->statusCode = 401;
-
-            return $result;
-        }
 
         $races = Race::find()->where(['>=', 'start_date', date('Y-m-d', time())])->published()->all();
 
@@ -164,10 +158,18 @@ class ApiController extends Controller {
         $user = User::find()->where(['api_key' => $api_key])->one();
 
         if (!$user || empty($api_key)) {
+            $data = [
+                'status' => 'error',
+                'message' => 'Неверный ключ авторизации',
+            ];
+            Yii::$app->response->statusCode = 401;
+            Yii::$app->response->data = $data;
+            Yii::$app->end();
+
             return false;
         }
 
-        return $user;
+        return true;
     }
 
     public function findModel($id, $organizer_id) {
@@ -177,5 +179,24 @@ class ApiController extends Controller {
         } else {
             throw new HttpException(404, 'The requested page does not exist.');
         }
+    }
+
+    public function setHeaders() {
+        Yii::$app->response->headers->set('Access-Control-Allow-Origin', '*');
+        Yii::$app->response->headers->set('Access-Control-Allow-Headers', 'Authorization');
+
+        $this->checkOptions();
+    }
+
+    public function checkOptions() {
+        $methods = [
+            'GET',
+            'OPTIONS',
+        ];
+        if (Yii::$app->request->method == 'OPTIONS') {
+            Yii::$app->response->headers->set('Allow', implode(', ', $methods));
+            Yii::$app->end();
+        }
+
     }
 }
