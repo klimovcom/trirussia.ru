@@ -19,7 +19,7 @@ $this->registerJs("$(function() {
 <div class="container">
     <div class="pull-left">
         <?php if ($sport == 'run'):  ?>
-        <h1 class="white m-b-3" style="margin-top: 200px;">Календарь соревнований по <?= \sport\models\Sport::getCurrentSportLabel('дательный');?>
+        <h1 class="m-b-3">Календарь соревнований по <?= \sport\models\Sport::getCurrentSportLabel('дательный');?>
             <?= \sport\models\Sport::getCondition()?>
         </h1>
         <?php else :?>
