@@ -258,7 +258,7 @@ $price = $race->getPriceRepresentation() ? $race->getPriceRepresentation() : Htm
                                 <a href="<?= $race->site; ?>" type="button" class="btn btn-secondary" target="_blank">Перейти на сайт</a>
                             </div>
                         <?php endif;?>
-                        <p m-t-2><i class="fa fa-exclamation-circle fa-lg" style="margin-right: 8px;" aria-hidden="true"></i><strong>Страховка для соревнований обязательна</strong></p>
+                        <p class="m-t-2"><i class="fa fa-exclamation-circle fa-lg" style="margin-right: 8px;" aria-hidden="true"></i><strong>Страховка для соревнований обязательна</strong></p>
                         <p>Для участия в соревнованиях на территории России необходимо иметь страховку от несчастного случая. Для международных стартов — международную медицинскую страховку. Все страховки электронные, принимаются организаторами.</p>
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
