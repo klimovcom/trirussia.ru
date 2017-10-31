@@ -267,7 +267,7 @@ $price = $race->getPriceRepresentation() ? $race->getPriceRepresentation() : Htm
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                                 <p class="small">Для соревнований за границей:</p>
-                                <a href="https://prosto.insure/turisticheskaja-strakhovka/?utm_source=trirussia&utm_medium=teaser&utm_campaign=race_insurance" class="btn btn-primary-outline" target="_blank">Купить в онлайне от 100 ₽</a>
+                                <a href="https://travel.prosto.insure/?utm_source=trirussia&utm_medium=teaser&utm_campaign=race_insurance" class="btn btn-primary-outline" target="_blank">Купить в онлайне от 100 ₽</a>
                             </div>
                         </div>
                         <p class="m-t-2 m-b-0"><img src="https://prosto.insure/img/brand.svg" style="height: 13px; margin-top: -3px;"> — спортивные страховки в онлайне.</p>
