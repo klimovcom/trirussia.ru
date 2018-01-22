@@ -32,6 +32,11 @@ return [
             DIRECTORY_SEPARATOR . 'modules' .
             DIRECTORY_SEPARATOR . 'user'
         ),
+        'titan' => realpath(
+            __DIR__ . DIRECTORY_SEPARATOR . '..' .
+            DIRECTORY_SEPARATOR . 'modules' .
+            DIRECTORY_SEPARATOR . 'titan'
+        ),
     ],
     'modules' => [
         'organizer' => [
@@ -45,6 +50,9 @@ return [
         ],
         'user' => [
             'class' => 'api\modules\user\UserModule',
+        ],
+        'titan' => [
+            'class' => 'api\modules\titan\TitanModule',
         ],
     ],
     'components' => [
@@ -78,6 +86,7 @@ return [
             'enableStrictParsing' => true,
             'rules' => array(
                 'race/index' => 'race/race/index',
+                'POST,OPTIONS titan/create' => 'titan/titan/create',
             ),
         ],
     ],

@@ -4,7 +4,6 @@ namespace api\modules\race\controllers;
 
 use Yii;
 use api\modules\user\models\User;
-use yii\helpers\ArrayHelper;
 use yii\rest\Controller;
 
 class RaceController extends Controller
