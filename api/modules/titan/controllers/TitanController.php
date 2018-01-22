@@ -28,7 +28,10 @@ class TitanController extends Controller
             return $result;
         }
 
-        $result['status'] = 'success';
+        if ($titanRegistration->save()) {
+            $result['status'] = 'success';
+        }
+        
         return $result;
     }
 
