@@ -66,7 +66,7 @@ $this->registerJs("$(function() {
                     </div>
                     <?php if ($model->organizer->site):?>
                         <div class="pull-right hidden-sm-down i-will-go">
-                            <a class="btn btn-danger btn-sm" href="<?= $model->organizer->site;?>">Купить за <?= $model->getPriceRepresentation(); ?></a>
+                            <a class="btn btn-danger btn-sm" href="<?= $model->organizer->site;?>">Узнать подробности</a>
                         </div>
                     <?php endif;?>
                     <div class="clearfix"></div>
@@ -78,6 +78,8 @@ $this->registerJs("$(function() {
                     <div class="fancybox_container">
                         <?= $model->description; ?>
                     </div>
+                    <hr class="m-y-2">
+                    <a class="btn btn-danger btn-lg" href="<?= $model->organizer->site;?>">Зарегистрироваться</a>
                 </div>
             </div>
         </div>
