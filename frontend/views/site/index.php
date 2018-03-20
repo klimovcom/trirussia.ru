@@ -146,6 +146,9 @@ $this->title = 'TriRussia.ru — Главный сайт о триатлоне';
             </div>
         </div>
     </div>
+    <!-- Prosto.Insure widget -->
+    <div id="prosto-insure-widget-accident"></div>
+    <script type="text/javascript" async="" src="https://partner.prosto.insure/api/widgets/download/32"></script>
     <?php if ($showMore) { ?>
         <div class="block block-more-races">
             <button
