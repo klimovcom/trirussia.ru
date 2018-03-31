@@ -204,11 +204,12 @@ $model->organizer_label = $model->organizer ? $model->organizer->label : '';
             </div>
             <div class="col-md-6">
                 <?php
-                if (!Yii::$app->user->isGuest && Yii::$app->user->identity->getRole() == 'user_role') {
+                /*if (!Yii::$app->user->isGuest && Yii::$app->user->identity->getRole() == 'user_role') {
                     $authorData = [Yii::$app->user->identity->id => Yii::$app->user->identity->email];
                 }else {
                     $authorData = \user\models\User::getAuthorData();
-                }
+                }*/
+                $authorData = [];
                 echo $form->field($model, 'author_id')->widget(\kartik\select2\Select2::classname(), [
                     'data' => $authorData,
                     'language' => 'ru',
