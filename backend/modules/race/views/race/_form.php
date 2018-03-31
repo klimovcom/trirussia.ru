@@ -13,7 +13,164 @@ use organizer\models\Organizer;
 /* @var $model race\models\Race */
 /* @var $form yii\widgets\ActiveForm */
 
+$zoom = 4;
+//Moscow coordinates
+$lat = 55.755826;
+$lon = 37.6173;
+$ind = 'false';
+if ($model->coord_lat && $model->coord_lon) {
+    $ind = 'true';
+    $zoom = 13;
+    $lat = $model->coord_lat;
+    $lon = $model->coord_lon;
+}
 
+$yandexTranslateSecret = Yii::$app->params['yandexTranslateSecret'];
+
+$this->registerCssFile('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+$this->registerJsFile("https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places");
+$this->registerJs("
+var placeSearch, autocomplete;
+
+window.componentForm = {
+    street_number: 'short_name',
+    route: 'long_name',
+    locality: 'long_name',
+    administrative_area_level_1: 'short_name',
+    country: 'long_name',
+    postal_code: 'short_name'
+};
+
+function translate(content, selector){
+    $.post(
+            \"https://translate.yandex.net/api/v1.5/tr.json/translate?key=" . $yandexTranslateSecret . "&text=\" +
+            content
+            + \"&lang=en\",
+            {},
+             function(response){
+                if (response.text)
+                    $(selector).val(response.text);
+             }
+        );
+}
+
+function codeAddress(address)
+{
+  geocoder.geocode( {address:address}, function(results, status)
+  {
+    if (status == google.maps.GeocoderStatus.OK)
+    {
+        console.log('results');
+        console.log(results);
+      map.setCenter(results[0].geometry.location);//center the map over the result
+      //place a marker at the location
+      var marker = new google.maps.Marker(
+      {
+          map: map,
+          position: results[0].geometry.location
+      });
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+}
+
+function initialize() {
+    var mapProp = {
+        center:new google.maps.LatLng($lat,$lon),
+        zoom:$zoom,
+        mapTypeId:google.maps.MapTypeId.ROADMAP
+    };
+    window.map=new google.maps.Map(document.getElementById(\"googleMap\"),mapProp);
+
+    window.marker = null;
+    if ($ind){
+        marker = new google.maps.Marker({
+            position: {'lat':$lat, 'lng':$lon},
+            map: map
+        });
+    }
+    google.maps.event.addListener(map, 'click', function(event) {
+        var latitude = event.latLng.lat();
+        $(\"#race-coord_lat\").val(latitude);
+
+        var longitude = event.latLng.lng();
+        $(\"#race-coord_lon\").val(longitude);
+
+        if (marker){
+            marker.setMap(null);
+        }
+        marker = new google.maps.Marker({
+            position: event.latLng,
+            map: map
+        });
+    });
+    // Create the autocomplete object, restricting the search
+    // to geographical location types.
+    autocomplete = new google.maps.places.Autocomplete(
+        /** @type {HTMLInputElement} */(document.getElementById('autocomplete')),
+        { types: ['geocode'] });
+    // When the user selects an address from the dropdown,
+    // populate the address fields in the form.
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+        fillInAddress();
+    });
+}
+
+function fillInAddress() {
+    // Get the place details from the autocomplete object.
+    var place = autocomplete.getPlace();
+    if (marker){
+        marker.setMap(null);
+    }
+    marker = new google.maps.Marker({
+        position: place.geometry.location,
+        map: map
+    });
+    map.setCenter(place.geometry.location);
+    map.setZoom(12);
+    $('#race-coord_lat').val(place.geometry.location.lat());
+    $('#race-coord_lon').val(place.geometry.location.lng());
+    for(var i = 0; i < place.address_components.length; i++){
+        console.log(place.address_components[i].types);
+        if (place.address_components[i].types.indexOf('political') != -1){
+            if (place.address_components[i].types.indexOf('country') != -1){
+                console.log('here we are 1');
+                $('#race-country').val(place.address_components[i].long_name);
+                translate(place.address_components[i].long_name, '#race-country_en');
+            }
+            if (place.address_components[i].types.indexOf('locality') != -1){
+                console.log('here we are 2');
+                $('#race-region').val(place.address_components[i].short_name);
+                translate(place.address_components[i].long_name, '#race-region_en');
+            }
+        }
+        if (place.address_components[i].types.indexOf('point_of_interest') != -1
+            && place.address_components[i].types.indexOf('establishment') != -1){
+                console.log('here we are 3');
+                $('#race-place').val(place.address_components[i].short_name);
+                translate(place.address_components[i].long_name, '#race-place_en');
+        }
+    }
+}
+
+window.geolocate = function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = new google.maps.LatLng(
+                position.coords.latitude, position.coords.longitude);
+            var circle = new google.maps.Circle({
+                center: geolocation,
+                radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+        });
+    }
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+");
 
 
 $raceDistanceArray = $model->raceDistanceRefs;
@@ -47,12 +204,11 @@ $model->organizer_label = $model->organizer ? $model->organizer->label : '';
             </div>
             <div class="col-md-6">
                 <?php
-                /*if (!Yii::$app->user->isGuest && Yii::$app->user->identity->getRole() == 'user_role') {
+                if (!Yii::$app->user->isGuest && Yii::$app->user->identity->getRole() == 'user_role') {
                     $authorData = [Yii::$app->user->identity->id => Yii::$app->user->identity->email];
                 }else {
                     $authorData = \user\models\User::getAuthorData();
-                }*/
-                $authorData = [];
+                }
                 echo $form->field($model, 'author_id')->widget(\kartik\select2\Select2::classname(), [
                     'data' => $authorData,
                     'language' => 'ru',
@@ -116,7 +272,26 @@ $model->organizer_label = $model->organizer ? $model->organizer->label : '';
             </div>
         </div>
 
-        
+        <input id="autocomplete" class="form-control google-input" onFocus="geolocate()" type="text" placeholder="Начните вводить адрес..">
+        <div id="googleMap" style="height:455px;"></div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <?= $form->field($model, 'country')->textInput(['maxlength' => true]) ?>
+            </div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'region')->textInput(['maxlength' => true]) ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <?= $form->field($model, 'place')->textInput(['maxlength' => true]) ?>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-md-6">
